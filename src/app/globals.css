@@ -3,15 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+    --color-primary-100: #fe9738;
+    --color-primary-200: #e77c2f;
+    --color-primary-300: #c1571115;
+    --color-primary-400: #c1571188;
+    --color-primary-500: #c15711cc;
+    --color-primary-600: #c15711;
+    --color-gray-100: #495057;
+    --color-gray-200: rgba(201, 201, 201, 1);
+    --color-gray-300: rgba(157, 157, 157, 1);
+    --color-gray-400: rgba(163, 163, 163, 1);
 }
