@@ -26,18 +26,28 @@
     }
   },
   "dependencies": {
+    "@formatjs/intl-localematcher": "^0.4.2",
     "@typescript-eslint/parser": "^6.9.1",
+    "accept-language": "^3.0.18",
+    "accept-language-parser": "^1.5.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-unused-imports": "^3.0.0",
+    "i18next": "^23.6.0",
+    "i18next-resources-to-backend": "^1.1.4",
+    "negotiator": "^0.6.3",
     "next": "14.0.0",
+    "next-i18next": "^15.0.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-i18next": "^13.3.1",
     "react-icons": "^4.11.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.2.0",
     "@commitlint/config-conventional": "^18.1.0",
+    "@types/accept-language-parser": "^1.5.6",
+    "@types/negotiator": "^0.6.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
