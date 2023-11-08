@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import Link from 'next/link'
 
 import { AiOutlineLogin, AiOutlineUserAdd } from 'react-icons/ai'
@@ -6,17 +6,22 @@ import Image from 'next/image'
 
 export const navLinks = [
     {
-        path: '/sign-in',
+        path: '/auth/sign-in',
         name: 'Sign In',
         Icon: AiOutlineLogin
     },
     {
-        path: '/sign-up',
+        path: '/auth/sign-up',
         name: 'Sign Up',
         Icon: AiOutlineUserAdd
     }
 ]
-export const Header = () => {
+
+interface HeaderProps {
+    // lang: Locale
+}
+
+export const Header: FC<HeaderProps> = async () => {
     return (
         <nav className="flex items-center justify-between py-4 px-8 sm:px-16">
             <Link href="/">
