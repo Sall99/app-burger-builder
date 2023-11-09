@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import { AiOutlineLogin, AiOutlineUserAdd } from 'react-icons/ai'
 import Image from 'next/image'
+import { LocaleSwitcher } from '../ui'
 
 export const navLinks = [
     {
@@ -39,6 +40,7 @@ export const Header: FC<HeaderProps> = async () => {
                         </Link>
                     </li>
                 ))}
+                <LocaleSwitcher />
             </ul>
         </nav>
     )
