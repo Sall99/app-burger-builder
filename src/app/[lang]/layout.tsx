@@ -3,6 +3,7 @@ import { Roboto } from 'next/font/google'
 import './globals.css'
 import React from 'react'
 import { Header } from '@/components'
+import { locales } from '@/i18n'
 
 const roboto = Roboto({
     weight: ['400', '500', '700', '900'],
@@ -14,9 +15,16 @@ export const metadata: Metadata = {
     description: 'Burger Builder, the best burger in town!'
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+type Props = {
+    children: React.ReactNode
+    params: {
+        lang: locales
+    }
+}
+
+export default function RootLayout({ children, params: { lang } }: Props) {
     return (
-        <html lang="en">
+        <html lang={lang}>
             <body className={roboto.className}>
                 <Header />
                 {children}

@@ -14,3 +14,7 @@
     --color-gray-300: rgba(157, 157, 157, 1);
     --color-gray-400: rgba(163, 163, 163, 1);
 }
+
+select:focus {
+    outline: none;
+}
