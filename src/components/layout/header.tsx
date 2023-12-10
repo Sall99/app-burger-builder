@@ -3,7 +3,8 @@ import Link from 'next/link'
 
 import { AiOutlineLogin, AiOutlineUserAdd } from 'react-icons/ai'
 import Image from 'next/image'
-import { LocaleSwitcher } from '../ui'
+// import { LocaleSwitcher } from '../ui'
+import { getDictionary, locales } from '@/i18n'
 
 export const navLinks = [
     {
@@ -19,10 +20,11 @@ export const navLinks = [
 ]
 
 interface HeaderProps {
-    // lang: Locale
+    lang: locales
 }
 
-export const Header: FC<HeaderProps> = async () => {
+export const Header: FC<HeaderProps> = async ({ lang }) => {
+    const dictionary = await getDictionary(lang)
     return (
         <nav className="flex items-center justify-between py-4 px-8 sm:px-16">
             <Link href="/">
@@ -36,11 +38,11 @@ export const Header: FC<HeaderProps> = async () => {
                         className="flex items-center justify-center gap-2 hover:cursor-pointer">
                         <Icon size={20} />
                         <Link href={path} className="text-sm tracking-wide hover:underline">
-                            {name}
+                            {dictionary[name]}
                         </Link>
                     </li>
                 ))}
-                <LocaleSwitcher />
+                {/* <LocaleSwitcher /> */}
             </ul>
         </nav>
     )

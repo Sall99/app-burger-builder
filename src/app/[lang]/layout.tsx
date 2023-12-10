@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
+import { cookies } from 'next/headers'
+
 import './globals.css'
-import React from 'react'
 import { Header } from '@/components'
 import { locales } from '@/i18n'
 
@@ -23,10 +24,17 @@ type Props = {
 }
 
 export default function RootLayout({ children, params: { lang } }: Props) {
+    const nextCookes = cookies()
+    let userPrefferedLang = nextCookes.get('NEXT_LOCALE')?.value ?? lang
+
+    if (!userPrefferedLang) {
+        userPrefferedLang = lang
+    }
+
     return (
-        <html lang={lang}>
+        <html lang={userPrefferedLang}>
             <body className={roboto.className}>
-                <Header />
+                <Header lang={lang} />
                 {children}
             </body>
         </html>

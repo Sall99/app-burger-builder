@@ -1,33 +1,50 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { match } from '@formatjs/intl-localematcher'
-import Negotiator from 'negotiator'
+import { NextRequest, NextResponse } from 'next/server';
+import { match } from '@formatjs/intl-localematcher';
+import Negotiator from 'negotiator';
 
-let defaultLocale = 'en'
-let locales = ['en', 'fr']
+let defaultLocale = 'en';
+let locales = ['en', 'fr'];
 
 // Get the preferred locale, similar to above or using a library
-function getLocale(request: NextRequest) {
-  const acceptedLanguage = request.headers.get('accept-language') ?? undefined
-  let headers = { 'accept-language': acceptedLanguage }
-  let languages = new Negotiator({ headers }).languages()
+export function getLocale(request: NextRequest) {
+  const storedLocale = request.cookies.get('NEXT_LOCALE')?.value ?? undefined;
 
-  return match(languages, locales, defaultLocale)
+  if (storedLocale && locales.includes(storedLocale)) {
+    return storedLocale;
+  }
+
+  const acceptedLanguage = request.headers.get('accept-language') ?? undefined;
+  let headers = { 'accept-language': acceptedLanguage };
+  let languages = new Negotiator({ headers }).languages();
+
+  const preferredLocale = match(languages, locales, defaultLocale);
+  console.log('Preferred Locale:', preferredLocale);
+
+  return preferredLocale;
 }
 
 export function middleware(request: NextRequest) {
-  // Check if there is any supported locale in the pathname
-  const pathname = request.nextUrl.pathname
+  // // Check if there is any supported locale in the pathname
+  const pathname = request.nextUrl.pathname;
+
+  console.log('Pathname:', pathname);
   const pathnameIsMissingLocale = locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
-  )
+  );
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
-    const locale = getLocale(request)
+    const storedLocale = request.cookies.get('NEXT_LOCALE')?.value ?? undefined;
 
-    // e.g. incoming request is /products
-    // The new URL is now /en-US/products
-    return NextResponse.redirect(new URL(`/${locale}/${pathname}`, request.url))
+    // If the stored locale is valid, update the URL with the chosen language
+    if (storedLocale && locales.includes(storedLocale)) {
+      const updatedUrl = new URL(`/${storedLocale}${pathname}`, request.url);
+
+      // Log the updated URL for debugging
+      console.log('Updated URL:', updatedUrl.href);
+
+      return NextResponse.redirect(updatedUrl);
+    }
   }
 }
 
@@ -38,4 +55,4 @@ export const config = {
     // Optional: only run on root (/) URL
     // '/'
   ],
-}
+};
