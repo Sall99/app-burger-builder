@@ -30,3 +30,58 @@ select:focus {
     border-radius: 20px;
     border: transparent;
 }
+
+/* Auth buttons */
+.log-with-btn {
+    width: 188px;
+    height: 45px;
+    border: 1px solid var(--color-gray-200);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 17px;
+    font-size: 13px;
+    color: var(--color-gray-100);
+}
+
+/* Input */
+.inputField {
+    position: relative;
+}
+
+.inputField input {
+    padding: 8px 0px;
+    padding-top: 18px;
+}
+
+.inputField span {
+    pointer-events: none;
+    opacity: 0.5;
+    position: absolute;
+    padding-left: 0;
+    left: 0;
+    top: 45%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    cursor: text;
+}
+
+.inputField input:focus + span,
+.inputField input:not(:placeholder-shown) + span {
+    top: 5px;
+    -webkit-transform: scale(0.7) translateY(-10%) translateX(-8.5px);
+    transform: scale(0.7) translateY(-10%) translateX(-13.5px);
+}
+
+.inputField input,
+.inputField span {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+    -webkit-transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
