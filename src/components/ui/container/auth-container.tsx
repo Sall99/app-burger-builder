@@ -1,0 +1,77 @@
+import { FC } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import Image from 'next/image'
+
+interface AuthContainerProps {
+    h1: string
+    children: React.ReactNode
+}
+
+const publicRoutes = {
+    signIn: {
+        path: '/sign-in'
+    },
+    signUp: {
+        path: '/sign-up'
+    }
+}
+
+export const AuthContainer: FC<AuthContainerProps> = ({ children, h1 }) => {
+    const pathName = usePathname()
+
+    return (
+        <div className="mt-14 w-full md:w-auto">
+            <div>
+                <h1 className="text-xl mb-6 tracking-wide text-primary-100 font-semibold">{h1}</h1>
+                <div className="flex flex-col items-center">
+                    <div className="flex flex-col md:flex-row items-center gap-4 md:gap-9">
+                        <button className="log-with-btn">
+                            <Image
+                                src="/svg/googleIcon.svg"
+                                priority
+                                width={20}
+                                height={20}
+                                alt=""
+                            />
+                            <span>Login with Google</span>
+                        </button>
+                        <button className="log-with-btn">
+                            <Image
+                                src="/svg/facebookIcon.svg"
+                                priority
+                                width={20}
+                                height={20}
+                                alt=""
+                            />
+                            <span>Login with Facebook</span>
+                        </button>
+                    </div>
+                    <h1 className="mt-9 text-gray-400">- OR -</h1>
+                </div>
+            </div>
+            <div>{children}</div>
+            <h2 className="mt-5 text-xs text-gray-300 tracking-wider">
+                {pathName === '/sign-up' ? (
+                    <span>
+                        Already have an account ?{' '}
+                        <Link
+                            href={publicRoutes.signIn.path}
+                            className="text-primary-100 hover:underline">
+                            Sign in
+                        </Link>
+                    </span>
+                ) : (
+                    <span>
+                        Do not have an account ?{' '}
+                        <Link
+                            href={publicRoutes.signUp.path}
+                            className="text-primary-100 hover:underline">
+                            Sign up
+                        </Link>
+                    </span>
+                )}
+            </h2>
+        </div>
+    )
+}
