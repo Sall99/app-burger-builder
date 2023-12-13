@@ -10,10 +10,10 @@ interface AuthContainerProps {
 
 const publicRoutes = {
     signIn: {
-        path: '/sign-in'
+        path: '/auth/sign-in'
     },
     signUp: {
-        path: '/sign-up'
+        path: '/auth/sign-up'
     }
 }
 
