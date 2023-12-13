@@ -32,8 +32,6 @@ export const Input: FC<InputProps> = ({
     register,
     errors
 }) => {
-    console.log(errors[type])
-
     return (
         <div className="mb-4">
             <div className="inputField">
