@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import { cookies } from 'next/headers'
 
+import Providers from '@/redux/provider'
+
 import './globals.css'
 import { Header } from '@/components'
 import { locales } from '@/i18n'
@@ -32,11 +34,13 @@ export default function RootLayout({ children, params: { lang } }: Props) {
     }
 
     return (
-        <html lang={userPrefferedLang}>
-            <body className={roboto.className}>
-                <Header lang={lang} />
-                {children}
-            </body>
-        </html>
+        <Providers>
+            <html lang={userPrefferedLang}>
+                <body className={roboto.className}>
+                    <Header lang={lang} />
+                    {children}
+                </body>
+            </html>
+        </Providers>
     )
 }
