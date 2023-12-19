@@ -85,3 +85,29 @@ select:focus {
     -webkit-transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
     transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
+
+/* TOTAL */
+.total-order {
+    width: 25%;
+    height: 25%;
+    margin-top: 2rem;
+}
+.total-order table {
+    text-align: justify;
+    color: var(--color-primary-200);
+    margin: 0 auto;
+    width: 100%;
+}
+.total-order table th {
+    padding-bottom: 1rem;
+}
+.total-order table .price {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+thead tr th {
+    font-size: 0.9rem;
+}
+tbody tr td {
+    font-size: 0.9rem;
+}
