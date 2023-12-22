@@ -111,3 +111,232 @@ thead tr th {
 tbody tr td {
     font-size: 0.9rem;
 }
+
+/* BUILDER */
+.burger-builder {
+    width: 50%;
+    text-align: center;
+    height: 22rem;
+    overflow-x: scroll;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #d3732eaf transparent;
+}
+.burger-builder::-webkit-scrollbar {
+    width: 5px;
+}
+.burger-builder::-webkit-scrollbar-track {
+    background: transparent;
+}
+.burger-builder::-webkit-scrollbar-thumb {
+    background-color: #d3732eaf;
+    border-radius: 20px;
+    border: transparent;
+}
+
+.BreadBottom {
+    height: 16%;
+    width: 40%;
+    background: linear-gradient(#f08e4a, #e27b36);
+    border-radius: 0 0 30px 30px;
+    box-shadow: inset -15px 0 #c15711;
+    margin: 1.5% auto;
+}
+
+.BreadTop {
+    height: 20%;
+    width: 40%;
+    background: linear-gradient(#bc581e, #e27b36);
+    border-radius: 50% 50% 0 0;
+    box-shadow: inset -15px 0 #c15711;
+    margin: 1.5% auto;
+    position: relative;
+}
+
+.Seeds1 {
+    width: 10%;
+    height: 15%;
+    position: absolute;
+    background-color: white;
+    left: 30%;
+    top: 50%;
+    border-radius: 40%;
+    transform: rotate(-20deg);
+    box-shadow: inset -2px -3px #c9c9c9;
+}
+
+.Seeds1:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: white;
+    left: -170%;
+    top: -260%;
+    border-radius: 40%;
+    transform: rotate(60deg);
+    box-shadow: inset -1px 2px #c9c9c9;
+}
+
+.Seeds1:before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: white;
+    left: 180%;
+    top: -50%;
+    border-radius: 40%;
+    transform: rotate(60deg);
+    box-shadow: inset -1px -3px #c9c9c9;
+}
+
+.Seeds2 {
+    width: 10%;
+    height: 15%;
+    position: absolute;
+    background-color: white;
+    left: 64%;
+    top: 50%;
+    border-radius: 40%;
+    transform: rotate(10deg);
+    box-shadow: inset -3px 0 #c9c9c9;
+}
+
+.Seeds2:before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: white;
+    left: 150%;
+    top: -130%;
+    border-radius: 40%;
+    transform: rotate(90deg);
+    box-shadow: inset 1px 3px #c9c9c9;
+}
+
+.Meat {
+    width: 40%;
+    height: 2.5%;
+    background: linear-gradient(#7f3608, #702e05);
+    margin: 1.5% auto;
+    border-radius: 15px;
+}
+
+.Cheese {
+    width: 44%;
+    height: 1.5%;
+    margin: 1.5% auto;
+    background: linear-gradient(#f4d004, #d6bb22);
+    border-radius: 20px;
+}
+
+.Salad {
+    width: 40%;
+    height: 2%;
+    margin: 1.5% auto;
+    background: linear-gradient(#228c1d, #91ce50);
+    border-radius: 20px;
+}
+
+.Bacon {
+    width: 40%;
+    height: 2.5%;
+    background: linear-gradient(#bf3813, #c45e38);
+    margin: 1.5% auto;
+}
+
+/* CONTROLS */
+
+.controls {
+    background-color: var(--color-primary-300);
+    max-width: 50rem;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 0.5rem;
+}
+.controls div {
+    display: flex;
+    justify-content: space-between;
+}
+.controls div p {
+    font-size: 0.9rem;
+    color: var(--color-primary-200);
+    pointer-events: none;
+}
+.controls .ctrl {
+    display: flex;
+}
+.controls .ctrl div {
+    width: 2rem;
+    height: 1.5rem;
+    border: none;
+    border: 0.1rem solid #d3732eaf;
+    border-radius: 0.3rem;
+    transition: all ease 0.2s;
+    color: #c15711;
+    font-size: 1rem;
+    background-color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 1rem 0.5rem 1rem;
+}
+.controls .ctrl div:hover {
+    background-color: #d3732eaf;
+    color: white;
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+/* Media queries */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .BreadBottom {
+        width: 60%;
+    }
+    .BreadTop {
+        width: 60%;
+    }
+    .Meat {
+        width: 60%;
+    }
+    .Salad {
+        width: 60%;
+    }
+    .Bacon {
+        width: 60%;
+    }
+    .Cheese {
+        width: 65%;
+    }
+}
+
+@media (max-width: 500px) {
+    .BreadBottom {
+        width: 75%;
+        margin-top: 7px;
+    }
+    .BreadTop {
+        width: 75%;
+        margin-bottom: 7px;
+    }
+    .Meat {
+        width: 75%;
+        margin-bottom: 4px;
+    }
+    .Salad {
+        width: 75%;
+        margin-bottom: 4px;
+    }
+    .Bacon {
+        width: 75%;
+        margin-bottom: 4px;
+    }
+    .Cheese {
+        width: 80%;
+        margin-bottom: 4px;
+    }
+}

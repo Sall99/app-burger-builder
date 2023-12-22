@@ -34,13 +34,14 @@ export default function RootLayout({ children, params: { lang } }: Props) {
     }
 
     return (
-        <Providers>
-            <html lang={userPrefferedLang}>
-                <body className={roboto.className}>
+        <html lang={userPrefferedLang}>
+            <body className={roboto.className}>
+                <Providers>
+                    {' '}
                     <Header lang={lang} />
                     {children}
-                </body>
-            </html>
-        </Providers>
+                </Providers>
+            </body>
+        </html>
     )
 }
