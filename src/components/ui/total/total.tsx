@@ -3,19 +3,12 @@ import clsx from 'clsx'
 import { BiDollar } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 import { Button } from '..'
-import { RootState } from '@/redux/store'
 import { selectIngredients } from '@/redux/selectors/ingredients'
+import { totalFormatter } from '@/utils/utils'
 
 export const Total = () => {
     const { ingredients, totalPrice } = useSelector(selectIngredients)
     const { meat, salad, bacon, cheese } = ingredients
-
-    console.log('totalPrice', totalPrice)
-
-    const totalFormatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD'
-    })
 
     return (
         <div className="total-order absolute left-16 top-0 hidden md:block">
