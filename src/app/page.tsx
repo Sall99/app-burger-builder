@@ -2,17 +2,10 @@
 import { Builder } from '@/components/ui/builder'
 import { Controls } from '@/components/ui/control'
 import { Total } from '@/components/ui/total/total'
-import { getDictionary, locales } from '@/i18n'
 import { selectIngredients } from '@/redux/selectors/ingredients'
 import { useSelector } from 'react-redux'
 
-type Props = {
-    params: {
-        lang: locales
-    }
-}
-
-export default function Home({ params: { lang } }: Props) {
+export default function Home() {
     const { ingredients, totalPrice } = useSelector(selectIngredients)
     return (
         <main className="flex min-h-screen flex-col items-center pt-8">

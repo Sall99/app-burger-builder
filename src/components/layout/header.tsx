@@ -5,8 +5,6 @@ import { User } from 'lucide-react'
 
 import { AiOutlineLogin, AiOutlineUserAdd } from 'react-icons/ai'
 import Image from 'next/image'
-// import { LocaleSwitcher } from '../ui'
-import { getDictionary, locales } from '@/i18n'
 
 export const navLinks = [
     {
@@ -21,13 +19,8 @@ export const navLinks = [
     }
 ]
 
-interface HeaderProps {
-    lang: locales
-}
-
-export const Header: FC<HeaderProps> = async ({ lang }) => {
+export const Header = async () => {
     const [isOpened, setIsOpened] = React.useState(false)
-    const dictionary = await getDictionary(lang)
 
     const isAuth = false
 
@@ -59,7 +52,7 @@ export const Header: FC<HeaderProps> = async ({ lang }) => {
                                 className="flex items-center justify-center gap-2 hover:cursor-pointer">
                                 <Icon size={20} />
                                 <Link href={path} className="text-sm tracking-wide hover:underline">
-                                    {dictionary[name]}
+                                    {name}
                                 </Link>
                             </li>
                         ))}

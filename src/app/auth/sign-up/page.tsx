@@ -1,14 +1,37 @@
 'use client'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import toast from 'react-hot-toast'
+import axios from 'axios'
+
 import { signUpFormSchema } from '@/utils'
 import { AuthContainer, Button, Input } from '@/components/ui'
+import { useRouter } from 'next/navigation'
 
 type SignInFormValues = {
-    fullName: string
+    name: string
     email: string
     password: string
     confirmPassword: string
+}
+
+const useSignUp = () => {
+    const router = useRouter()
+    const signUp = async (data: SignInFormValues) => {
+        try {
+            const response = await axios.post('/api/sign-up', data)
+            toast.success('Registered!')
+            router.push('/')
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data.error || 'An error occurred')
+            } else {
+                toast.error('An error occurred')
+            }
+        }
+    }
+
+    return { signUp }
 }
 
 const Signup = () => {
@@ -19,15 +42,21 @@ const Signup = () => {
     } = useForm<SignInFormValues>({
         resolver: yupResolver(signUpFormSchema)
     })
-    const onSubmit = (data: SignInFormValues) => console.log(data)
+
+    const { signUp } = useSignUp()
+
+    const onSubmit = async (data: SignInFormValues) => {
+        await signUp(data)
+    }
+
     return (
         <div className="flex justify-center px-8 sm:px-16">
             <AuthContainer h1="Create Account">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Input
-                        name="fullName"
+                        name="name"
                         type="text"
-                        placeholder="Full Name"
+                        placeholder="Name"
                         register={register}
                         errors={errors}
                     />
