@@ -1,11 +1,11 @@
 import * as yup from 'yup'
 
 export const signUpFormSchema = yup.object().shape({
-    fullName: yup
+    name: yup
         .string()
-        .min(3, 'Full name must be at least 3 characters long')
-        .max(20, 'Full name must be at most 20 characters long')
-        .required('Full name is required'),
+        .min(3, 'Name must be at least 3 characters long')
+        .max(60, 'Name must be at most 20 characters long')
+        .required('Name is required'),
     email: yup.string().email().required('Email is required'),
     password: yup
         .string()

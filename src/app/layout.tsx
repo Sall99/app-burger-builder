@@ -1,12 +1,11 @@
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
-import { cookies } from 'next/headers'
 
 import Providers from '@/redux/provider'
 
 import './globals.css'
 import { Header } from '@/components'
-import { locales } from '@/i18n'
+import { ToasterProvider } from '@/providers'
 
 const roboto = Roboto({
     weight: ['400', '500', '700', '900'],
@@ -20,25 +19,15 @@ export const metadata: Metadata = {
 
 type Props = {
     children: React.ReactNode
-    params: {
-        lang: locales
-    }
 }
 
-export default function RootLayout({ children, params: { lang } }: Props) {
-    const nextCookes = cookies()
-    let userPrefferedLang = nextCookes.get('NEXT_LOCALE')?.value ?? lang
-
-    if (!userPrefferedLang) {
-        userPrefferedLang = lang
-    }
-
+export default function RootLayout({ children }: Props) {
     return (
-        <html lang={userPrefferedLang}>
+        <html lang="en">
             <body className={roboto.className}>
                 <Providers>
-                    {' '}
-                    <Header lang={lang} />
+                    <ToasterProvider />
+                    <Header />
                     {children}
                 </Providers>
             </body>
