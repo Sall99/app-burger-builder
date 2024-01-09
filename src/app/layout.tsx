@@ -6,6 +6,7 @@ import Providers from '@/redux/provider'
 import './globals.css'
 import { Header } from '@/components'
 import { ToasterProvider } from '@/providers'
+import getCurrentUser from './actions/current-user'
 
 const roboto = Roboto({
     weight: ['400', '500', '700', '900'],
@@ -21,7 +22,9 @@ type Props = {
     children: React.ReactNode
 }
 
-export default function RootLayout({ children }: Props) {
+export default async function RootLayout({ children }: Props) {
+    const currentUser = await getCurrentUser()
+
     return (
         <html lang="en">
             <body className={roboto.className}>
