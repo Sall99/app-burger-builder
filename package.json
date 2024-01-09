@@ -4,11 +4,12 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
-        "build": "next build",
         "start": "next start",
         "lint": "next lint",
         "prepare": "husky install",
-        "commit": "git-cz"
+        "commit": "git-cz",
+        "postinstall": "prisma generate",
+        "build": "prisma generate && next build"
     },
     "lint-staged": {
         "*.{js,ts,jsx,tsx}": [
