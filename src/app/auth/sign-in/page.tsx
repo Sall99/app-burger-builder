@@ -1,10 +1,13 @@
 'use client'
 import React from 'react'
-
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
+
 import { AuthContainer, Button, Input } from '@/components/ui'
 import { signInFormSchema } from '@/utils'
+import toast from 'react-hot-toast'
 
 type SignInFormValues = {
     email: string
@@ -19,8 +22,20 @@ const SignIn = () => {
     } = useForm<SignInFormValues>({
         resolver: yupResolver(signInFormSchema)
     })
+
+    const router = useRouter()
+
     const onSubmit: SubmitHandler<SignInFormValues> = (data) => {
-        console.log(data)
+        signIn('credentials', { ...data, redirect: false }).then((callback) => {
+            if (callback?.ok) {
+                toast.success('Logged in')
+                router.push('/')
+            }
+
+            if (callback?.error) {
+                toast.error(callback.error)
+            }
+        })
     }
 
     return (

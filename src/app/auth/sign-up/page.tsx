@@ -17,6 +17,7 @@ type SignInFormValues = {
 
 const useSignUp = () => {
     const router = useRouter()
+
     const signUp = async (data: SignInFormValues) => {
         try {
             const response = await axios.post('/api/sign-up', data)
