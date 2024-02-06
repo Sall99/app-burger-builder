@@ -25,12 +25,14 @@ type Props = {
 export default async function RootLayout({ children }: Props) {
     const currentUser = await getCurrentUser()
 
+    console.log(currentUser)
+
     return (
         <html lang="en">
             <body className={roboto.className}>
                 <Providers>
                     <ToasterProvider />
-                    <Header />
+                    <Header currentUser={currentUser} />
                     {children}
                 </Providers>
             </body>
