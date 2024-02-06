@@ -1,10 +1,12 @@
 'use client'
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import Link from 'next/link'
-import { User } from 'lucide-react'
+import { User as UserICON } from 'lucide-react'
+import { User } from '@prisma/client'
 
 import { AiOutlineLogin, AiOutlineUserAdd } from 'react-icons/ai'
 import Image from 'next/image'
+import { SafeUser } from '@/types'
 
 export const navLinks = [
     {
@@ -19,10 +21,26 @@ export const navLinks = [
     }
 ]
 
-export const Header = async () => {
-    const [isOpened, setIsOpened] = React.useState(false)
+interface HeaderProps {
+    currentUser?: SafeUser | null | undefined
+}
 
-    const isAuth = false
+export const Header: FC<HeaderProps> = ({ currentUser }) => {
+    const [isAuth, setIsAuth] = useState<boolean | null>(null)
+
+    console.log(isAuth, 'isAuth')
+
+    useEffect(() => {
+        if (currentUser) {
+            setIsAuth(true)
+        } else {
+            setIsAuth(false)
+        }
+    }, [currentUser])
+
+    if (isAuth === null) {
+        return <div className="flex justify-center items-center h-screen bg-white">Loading...</div>
+    }
 
     return (
         <nav className="flex items-center justify-between py-4 px-8 sm:px-16">
@@ -34,7 +52,7 @@ export const Header = async () => {
                 {isAuth ? (
                     <div>
                         <div className="flex gap-2">
-                            <User className="text-primary-200 hover:cursor-pointer" />
+                            <UserICON className="text-primary-200 hover:cursor-pointer" />
                             <p>
                                 <Link
                                     className="text-sm tracking-wide hover:underline text-primary-200"
