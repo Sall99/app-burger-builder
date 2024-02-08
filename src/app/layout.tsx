@@ -7,6 +7,7 @@ import './globals.css'
 import { Header } from '@/components'
 import { ToasterProvider } from '@/providers'
 import getCurrentUser from './actions/current-user'
+import { SidebarProvider } from '../../context/sidebar'
 
 const roboto = Roboto({
     weight: ['400', '500', '700', '900'],
@@ -25,15 +26,15 @@ type Props = {
 export default async function RootLayout({ children }: Props) {
     const currentUser = await getCurrentUser()
 
-    console.log(currentUser)
-
     return (
         <html lang="en">
             <body className={roboto.className}>
                 <Providers>
-                    <ToasterProvider />
-                    <Header currentUser={currentUser} />
-                    {children}
+                    <SidebarProvider>
+                        <ToasterProvider />
+                        <Header currentUser={currentUser} />
+                        {children}
+                    </SidebarProvider>
                 </Providers>
             </body>
         </html>

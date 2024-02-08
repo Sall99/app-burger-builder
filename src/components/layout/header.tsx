@@ -2,7 +2,6 @@
 import React, { FC, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { User as UserICON } from 'lucide-react'
-import { User } from '@prisma/client'
 
 import { AiOutlineLogin, AiOutlineUserAdd } from 'react-icons/ai'
 import Image from 'next/image'
@@ -39,7 +38,13 @@ export const Header: FC<HeaderProps> = ({ currentUser }) => {
     }, [currentUser])
 
     if (isAuth === null) {
-        return <div className="flex justify-center items-center h-screen bg-white">Loading...</div>
+        return (
+            <div className="flex justify-center items-center h-screen bg-white">
+                <div className="animate-bounce">
+                    <Image src="/images/Logo.png" width={34} height={34} alt="logo" priority />
+                </div>
+            </div>
+        )
     }
 
     return (
@@ -51,15 +56,13 @@ export const Header: FC<HeaderProps> = ({ currentUser }) => {
             <div>
                 {isAuth ? (
                     <div>
-                        <div className="flex gap-2">
-                            <UserICON className="text-primary-200 hover:cursor-pointer" />
-                            <p>
-                                <Link
-                                    className="text-sm tracking-wide hover:underline text-primary-200"
-                                    href="/profile">
-                                    Profile
-                                </Link>
-                            </p>
+                        <div>
+                            <Link
+                                className="text-sm tracking-wide hover:underline text-primary-200 flex gap-2 items-center"
+                                href="/profile">
+                                <UserICON className="text-primary-200 hover:cursor-pointer" />
+                                <span> Profile</span>
+                            </Link>
                         </div>
                     </div>
                 ) : (
@@ -68,8 +71,8 @@ export const Header: FC<HeaderProps> = ({ currentUser }) => {
                             <li
                                 key={path}
                                 className="flex items-center justify-center gap-2 hover:cursor-pointer">
-                                <Icon size={20} />
                                 <Link href={path} className="text-sm tracking-wide hover:underline">
+                                    <Icon size={20} />
                                     {name}
                                 </Link>
                             </li>
