@@ -4,6 +4,7 @@ import { HelpCircleIcon, History, Pencil } from 'lucide-react'
 import { useSidebar } from '../../../../context'
 import Link from 'next/link'
 import Image from 'next/image'
+import clsx from 'clsx'
 
 interface Link {
     Icon: JSX.Element
@@ -25,7 +26,7 @@ const links: Link[] = [
     }
 ]
 
-export const SideBar: FC = () => {
+export const ProfileSideBar: FC = () => {
     const { setClickedLink, clickedLink } = useSidebar()
 
     return (
@@ -33,11 +34,14 @@ export const SideBar: FC = () => {
             <Link href="/">
                 <Image src="/images/Logo.png" width={34} height={34} alt="logo" priority />
             </Link>
-            <div className="mt-8">
+            <div className="mt-9">
                 <ul className="flex gap-9 flex-col">
                     {links.map(({ name, Icon }, key) => (
                         <p
-                            className="flex gap-4 items-center hover:cursor-pointer text-sm text-primary-200 hover:underline"
+                            className={clsx(
+                                'flex gap-4 items-center hover:cursor-pointer text-sm text-primary-200 hover:underline',
+                                clickedLink === name ? 'underline' : ''
+                            )}
                             key={key}
                             onClick={() => setClickedLink(name)}>
                             <span>{Icon}</span>
