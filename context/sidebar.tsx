@@ -20,8 +20,6 @@ export const useSidebar = () => useContext(SidebarContext)
 export const SidebarProvider: FC<SidebarProviderProps> = ({ children }) => {
     const [clickedLink, setClickedLink] = useState<string | null>(null)
 
-    console.log(clickedLink)
-
     return (
         <SidebarContext.Provider value={{ setClickedLink, clickedLink }}>
             {children}
