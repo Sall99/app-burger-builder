@@ -34,6 +34,9 @@ const config: Config = {
                 lg: '0.8rem',
                 xl: '1rem',
                 '2xl': '1.2rem'
+            },
+            spacing: {
+                _450: '450px'
             }
         }
     },

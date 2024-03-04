@@ -26,3 +26,14 @@ export const signInFormSchema = yup.object().shape({
         .max(32, 'Password must be at most 32 characters long')
         .required('Password is required')
 })
+
+export const updateProfileFormSchema = yup.object().shape({
+    name: yup.string().min(3, 'Name must be at least 3 characters long').nullable(),
+
+    password: yup
+        .string()
+        .transform((value, originalValue) => (originalValue.trim() === '' ? undefined : value))
+        .min(8, 'Password must be at least 8 characters long')
+        .max(32, 'Password must be at most 32 characters long')
+        .nullable()
+})
