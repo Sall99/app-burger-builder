@@ -12,7 +12,6 @@ export default function Home() {
             <section className="flex flex-col items-center px-8 sm:px-16 justify-center relative w-full">
                 <Total />
                 <Builder ingredients={ingredients} />
-                {/* <TotalMobile /> */}
             </section>
             <section className="px-8 sm:px-16 w-full">
                 <Controls />

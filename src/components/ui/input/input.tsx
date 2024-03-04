@@ -8,6 +8,7 @@ export interface InputProps {
     type: 'text' | 'password' | 'email' | 'number' | 'date'
     placeholder: string
     value?: string
+    defaultValue?: string
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
     disabled?: boolean
     register?: any
@@ -31,20 +32,26 @@ export const Input: FC<InputProps> = ({
     required,
     name,
     register,
-    errors
+    errors,
+    autoComplete,
+    value,
+    defaultValue
 }) => {
     return (
         <div className="mb-4">
             <div className="inputField">
                 <input
                     type={type}
-                    {...(register ? register(name, { required }) : { name, required })}
+                    {...(register && register(name))}
                     className={clsx(
                         'border-b border-gray-200 w-full outline-none focus:outline-none mb-4 text-gray-100',
                         [classname],
                         errors && errors[type] ? 'border-red-400 border-opacity-90' : ''
                     )}
                     placeholder=" "
+                    autoComplete={autoComplete}
+                    value={value}
+                    defaultValue={defaultValue}
                 />
                 <span className="text-sm">{placeholder}</span>
             </div>{' '}
