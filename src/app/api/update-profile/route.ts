@@ -22,9 +22,8 @@ async function getUserData(email: string) {
 async function comparePassword(password: string, newPassword: string) {
     console.log(password, newPassword)
     if (password !== undefined) {
-        const hashedNewPassword = await bcrypt.hash(newPassword, HASH_SALT_ROUNDS)
-
-        return hashedNewPassword === password
+        const isPassword = bcrypt.compareSync(newPassword, password)
+        return isPassword
     }
 }
 
@@ -55,18 +54,20 @@ export async function POST(req: Request, res: NextResponse) {
     if (password) {
         const isPassword = await comparePassword(existingPassword, password)
         if (isPassword) {
-            return NextResponse.json({ message: 'New password should be different', status: 400 })
+            return NextResponse.json({ error: 'The new password should be different', status: 400 })
         }
 
-        updatedData.password = password
+        const hashedPassword = await bcrypt.hash(password, HASH_SALT_ROUNDS)
+        updatedData.password = hashedPassword
     }
 
+    const passwordUpdated = 'password' in updatedData
     try {
         await prisma.user.update({
             where: { email: userEmail },
             data: updatedData
         })
-        return NextResponse.json({ message: 'User data updated successfully' })
+        return NextResponse.json({ message: 'User data updated successfully', passwordUpdated })
     } catch (error) {
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
     }

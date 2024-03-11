@@ -3,7 +3,7 @@ import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useRouter } from 'next/navigation'
-import { signIn } from 'next-auth/react'
+import { getSession, signIn, useSession } from 'next-auth/react'
 
 import { AuthContainer, Button, Input } from '@/components/ui'
 import { signInFormSchema } from '@/utils'
@@ -26,9 +26,10 @@ const SignIn = () => {
     const router = useRouter()
 
     const onSubmit: SubmitHandler<SignInFormValues> = (data) => {
-        signIn('credentials', { ...data, redirect: false }).then((callback) => {
+        signIn('credentials', { ...data, redirect: false }).then(async (callback) => {
             if (callback?.ok) {
                 toast.success('Logged in')
+                router.refresh()
                 router.push('/')
             }
 

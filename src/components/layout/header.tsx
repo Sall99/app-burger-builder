@@ -8,6 +8,7 @@ import Image from 'next/image'
 import { SafeUser } from '@/types'
 import { useDispatch } from 'react-redux'
 import { setCurrentUser } from '@/redux/slices/currentUser'
+import { getSession } from 'next-auth/react'
 
 export const navLinks = [
     {
