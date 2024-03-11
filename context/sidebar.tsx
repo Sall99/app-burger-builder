@@ -18,7 +18,7 @@ const SidebarContext = createContext<SidebarContextType>({
 export const useSidebar = () => useContext(SidebarContext)
 
 export const SidebarProvider: FC<SidebarProviderProps> = ({ children }) => {
-    const [clickedLink, setClickedLink] = useState<string | null>(null)
+    const [clickedLink, setClickedLink] = useState<string | null>('Profile')
 
     return (
         <SidebarContext.Provider value={{ setClickedLink, clickedLink }}>

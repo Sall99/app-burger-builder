@@ -63,7 +63,13 @@ export const UpdateProfileForm = () => {
 
     return (
         <div className="w-full">
-            {' '}
+            <h2 className="text-xl font-semibold mb-16 text-zinc-600">
+                <p className="flex gap-1 items-center font-normal">
+                    <span>Hi</span>
+                    <span className="font-bold underline">{currentUser?.name}</span>
+                    <span>, please take a moment to update your profile.</span>
+                </p>
+            </h2>
             <form onSubmit={handleSubmit(onSubmit)} className="w-_450 m-auto" autoComplete="false">
                 <Input
                     name="name"
