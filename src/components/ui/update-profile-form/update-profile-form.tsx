@@ -4,6 +4,8 @@ import toast from 'react-hot-toast'
 import { useSelector } from 'react-redux'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
+import { signOut } from 'next-auth/react'
+import { useRouter } from 'next/compat/router'
 
 import { Button, Input } from '@/components/ui'
 import { selectCurrentUser } from '@/redux/selectors/current-user'
@@ -17,7 +19,15 @@ const useUpdateProfile = () => {
     const updateProfile = async (data: UpdateProfileInFormValues) => {
         try {
             const response = await axios.post('/api/update-profile', data)
-            toast.success(response.data.message)
+            if (response.data.error && response.data.status === 400) {
+                toast.error(response.data.error)
+            }
+            if (response.data.message) {
+                toast.success(response.data.message)
+            }
+            if (response.data.passwordUpdated) {
+                signOut({ callbackUrl: '/auth/sign-in' })
+            }
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data.error || 'An error occurred')
@@ -50,6 +60,7 @@ export const UpdateProfileForm = () => {
     const onSubmit = async (data: UpdateProfileInFormValues) => {
         updateProfile(data)
     }
+
     return (
         <div className="w-full">
             {' '}

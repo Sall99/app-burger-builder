@@ -36,6 +36,7 @@ const config: Config = {
                 '2xl': '1.2rem'
             },
             spacing: {
+                _52: '52px',
                 _450: '450px'
             }
         }
