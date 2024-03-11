@@ -37,7 +37,8 @@ const config: Config = {
             },
             spacing: {
                 _52: '52px',
-                _450: '450px'
+                _450: '450px',
+                _776: '776px'
             }
         }
     },

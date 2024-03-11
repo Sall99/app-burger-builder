@@ -1,26 +1,29 @@
 'use client'
-import { ProfileSideBar, UpdateProfileForm } from '@/components/ui'
-import { selectCurrentUser } from '@/redux/selectors/current-user'
-import { useSelector } from 'react-redux'
+
+import { Help, ProfileSideBar, UpdateProfileForm } from '@/components/ui'
+import { useSidebar } from '../../../context'
+
+interface ComponentsType {
+    [key: string]: JSX.Element
+}
+
+const Components: ComponentsType = {
+    Profile: <UpdateProfileForm />,
+    Help: <Help />
+}
 
 export default function Profile() {
-    const currentUser = useSelector(selectCurrentUser) as any
+    const { clickedLink } = useSidebar()
+
+    const activeComponent = clickedLink ? Components[clickedLink] : null
+
     return (
         <div className="flex">
             <div>
                 {' '}
                 <ProfileSideBar />
             </div>
-            <div className="pl-96 mt-9">
-                <h1 className="text-xl font-semibold mb-16 text-zinc-600">
-                    <p className="flex gap-1 items-center font-normal">
-                        <span>Hi</span>
-                        <span className="font-bold underline">{currentUser?.name}</span>
-                        <span>, please take a moment to update your profile.</span>
-                    </p>
-                </h1>
-                <UpdateProfileForm />
-            </div>
+            <div className="pl-96 mt-9">{activeComponent}</div>
         </div>
     )
 }
