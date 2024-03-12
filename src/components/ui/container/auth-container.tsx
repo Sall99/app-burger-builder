@@ -1,7 +1,10 @@
 'use client'
 import { FC } from 'react'
 import Link from 'next/link'
+import { signIn } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
+import { FaGithub } from 'react-icons/fa'
+
 import Image from 'next/image'
 
 interface AuthContainerProps {
@@ -27,7 +30,9 @@ export const AuthContainer: FC<AuthContainerProps> = ({ children, h1 }) => {
                 <h1 className="text-xl mb-6 tracking-wide text-primary-100 font-semibold">{h1}</h1>
                 <div className="flex flex-col items-center">
                     <div className="flex flex-col md:flex-row items-center gap-4 md:gap-9">
-                        <button className="log-with-btn">
+                        <button
+                            className="log-with-btn"
+                            onClick={() => signIn('google', { callbackUrl: '/' })}>
                             <Image
                                 src="/svg/googleIcon.svg"
                                 priority
@@ -37,15 +42,11 @@ export const AuthContainer: FC<AuthContainerProps> = ({ children, h1 }) => {
                             />
                             <span>Login with Google</span>
                         </button>
-                        <button className="log-with-btn">
-                            <Image
-                                src="/svg/facebookIcon.svg"
-                                priority
-                                width={20}
-                                height={20}
-                                alt=""
-                            />
-                            <span>Login with Facebook</span>
+                        <button
+                            className="log-with-btn"
+                            onClick={() => signIn('github', { callbackUrl: '/' })}>
+                            <FaGithub className="text-xl" />
+                            <span>Login with Github</span>
                         </button>
                     </div>
                     <h1 className="mt-9 text-gray-400">- OR -</h1>
