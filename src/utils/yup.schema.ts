@@ -37,3 +37,27 @@ export const updateProfileFormSchema = yup.object().shape({
         .max(32, 'Password must be at most 32 characters long')
         .nullable()
 })
+
+export const shippingAddressFormSchema = yup.object().shape({
+    firstName: yup
+        .string()
+        .min(3, 'First name must be at least 3 characters long')
+        .max(60, 'First name must be at most 20 characters long')
+        .required('First name is required'),
+    lastName: yup
+        .string()
+        .min(3, 'Last name must be at least 3 characters long')
+        .max(60, 'Last name must be at most 20 characters long')
+        .required('Last name is required'),
+
+    streetAddress: yup
+        .string()
+        .min(3, 'Street address must be at least 3 characters long')
+        .max(60, 'Street address must be at most 20 characters long')
+        .required('Street address is required'),
+    town: yup
+        .string()
+        .min(3, 'Town must be at least 3 characters long')
+        .max(60, 'Town must be at most 20 characters long')
+        .required('Town is required')
+})

@@ -1,10 +1,9 @@
-// middleware.js
-
+import { NextApiRequest } from 'next'
 import { NextResponse } from 'next/server'
 
-export default function middleware(req) {
-    let loggedin = req.cookies.token // Access cookies directly without get() method
-    const { pathname } = new URL(req.url, 'http://localhost') // Parse URL using URL class
+export default function middleware(req: NextApiRequest) {
+    let loggedin = req.cookies.token
+    const { pathname } = new URL(req.url ?? 'http://localhost')
 
     if (loggedin && pathname === '/signin') {
         return NextResponse.redirect('/')
@@ -16,6 +15,5 @@ export default function middleware(req) {
 }
 
 export const config = {
-    // Use a regular expression matcher to apply the middleware to all routes except api, static, files with extensions, and _next
     matcher: '/((?!api|static|.*\\..*|_next).*)'
 }
