@@ -29,7 +29,7 @@ export const Builder: FC<BuilderProps> = ({ ingredients }) => {
                             sizes="(max-width: 640px) 100vw, 640px"
                         />
                     </div>
-                    <h1 className=" text-primary-200 mt-1">Add some ingredients !</h1>
+                    <h2 className=" text-primary-200 mt-1">Add some ingredients !</h2>
                 </div>
             )}
             {arrayIngredients.length > 0 && arrayIngredients}

@@ -1,14 +1,23 @@
 'use client'
+import { useState } from 'react'
 import clsx from 'clsx'
-import { BiDollar } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
+import { BiDollar } from 'react-icons/bi'
+
 import { Button } from '..'
 import { selectIngredients } from '@/redux/selectors/ingredients'
 import { totalFormatter } from '@/utils/utils'
+import { Modal } from '../modal/modal'
+import { ShippingAddress } from '../shipping-address'
 
 export const Total = () => {
     const { ingredients, totalPrice } = useSelector(selectIngredients)
     const { meat, salad, bacon, cheese } = ingredients
+    let [isOpen, setIsOpen] = useState(false)
+
+    const handleOrder = () => {
+        setIsOpen(true)
+    }
 
     return (
         <div className="total-order absolute left-16 top-0 hidden md:block">
@@ -45,11 +54,18 @@ export const Total = () => {
                                     totalPrice <= 4 && 'bg-primary-300  hover:bg-primary-300'
                                 )}
                                 disabled={totalPrice <= 4}
+                                onClick={handleOrder}
                             />
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <Modal
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                title="Add your shipping address"
+                content={<ShippingAddress />}
+            />
         </div>
     )
 }
