@@ -9,7 +9,8 @@
         "prepare": "husky install",
         "commit": "git-cz",
         "postinstall": "prisma generate",
-        "build": "prisma generate && next build"
+        "build": "prisma generate && next build",
+        "postbuild": "next-sitemap"
     },
     "lint-staged": {
         "*.{js,ts,jsx,tsx}": [
@@ -54,6 +55,7 @@
         "next": "14.0.0",
         "next-auth": "^4.24.5",
         "next-i18next": "^15.0.0",
+        "next-sitemap": "^4.2.3",
         "prisma": "^5.7.1",
         "react": "^18",
         "react-dom": "^18",
