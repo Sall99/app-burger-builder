@@ -18,8 +18,10 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
+    robots: { index: false, follow: false },
     title: 'Burger Builder, the best burger in town!',
-    description: 'Burger Builder, the best burger in town!'
+    description: 'Burger Builder, the best burger in town!',
+    verification: { google: 'wl3JxJ5o6Fls3aR5fEDCg3Y4TMnvnzW_BcFid2DWSL0' }
 }
 
 type Props = {
