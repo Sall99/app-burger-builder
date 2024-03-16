@@ -11,15 +11,12 @@ import { selectIngredients } from '@/redux/selectors/ingredients'
 import { totalFormatter } from '@/utils/utils'
 import { Modal } from '../modal/modal'
 import { ShippingAddress } from '../shipping-address'
-import { useAppSelector } from '@/redux/hook'
-import { selectShippingAddress } from '@/redux/selectors/shipping-address'
 
-const stripePromise = loadStripe(`${process.env.NEXT_STRIPE_PUBLIC_KEY}`)
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!)
 
 export const Total = () => {
     const { ingredients, totalPrice } = useSelector(selectIngredients)
     let [isPaymentOpen, setIsPaymeOpen] = useState(false)
-    const { shippingAddress } = useAppSelector(selectShippingAddress)
     const { meat, salad, bacon, cheese } = ingredients
     let [isOpen, setIsOpen] = useState(false)
 

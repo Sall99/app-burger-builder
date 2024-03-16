@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useDispatch } from 'react-redux'
@@ -23,6 +23,7 @@ interface ShippingAddressProps {
 export function ShippingAddress({ handlePayment }: ShippingAddressProps) {
     const dispatch = useDispatch()
     const { shippingAddress } = useAppSelector(selectShippingAddress)
+
     const isShippingAddressPresent = Object.values(shippingAddress).every((value) => value !== '')
     const {
         handleSubmit,
