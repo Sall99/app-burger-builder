@@ -20,6 +20,7 @@ model User {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
   accounts       Account[]
+  Order          Order[]
 }
 
 model Account {
@@ -39,4 +40,36 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+}
+
+model Order {
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String      @db.ObjectId
+  totalPrice      Float
+  status          OrderStatus
+  payment_status  Boolean
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  shippingAdresse Address?    @relation(fields: [shippingAdresseId], references: [id])
+
+  user              User    @relation(fields: [userId], references: [id])
+  shippingAdresseId String? @db.ObjectId
+}
+
+model Address {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String @db.ObjectId
+  firstName     String
+  lastName      String
+  streetAddress String
+  town          String
+
+  Order Order[]
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  CANCELLED
 }
