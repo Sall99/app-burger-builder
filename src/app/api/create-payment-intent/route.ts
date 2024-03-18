@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
             cancel_url: `http://localhost:3000/cancel`
         })
 
-        await stripe.charges.create({
+        const charge = await stripe.charges.create({
             amount: amount * 100,
             currency: 'eur',
             description: 'Commande',
@@ -98,7 +98,7 @@ export async function POST(req: NextRequest) {
 
         const createdOrder = await createOrder(userId, amount, shippingAddress, payment_status)
 
-        return new NextResponse(paymentIntent.client_secret, { status: 200 })
+        return new NextResponse(charge.status, { status: 200 })
     } catch (error) {
         console.error(error)
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
