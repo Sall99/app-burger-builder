@@ -1,4 +1,5 @@
 'use client'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import toast from 'react-hot-toast'
@@ -17,12 +18,14 @@ type SignInFormValues = {
 
 const useSignUp = () => {
     const router = useRouter()
+    const [loading, setLoading] = useState(false)
 
     const signUp = async (data: SignInFormValues) => {
+        setLoading(true)
         try {
-            const response = await axios.post('/api/sign-up', data)
+            await axios.post('/api/sign-up', data)
             toast.success('Registered!')
-            router.push('/')
+            router.push('/auth/sign-in')
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data.error || 'An error occurred')
@@ -30,9 +33,10 @@ const useSignUp = () => {
                 toast.error('An error occurred')
             }
         }
+        setLoading(false)
     }
 
-    return { signUp }
+    return { signUp, loading }
 }
 
 const Signup = () => {
@@ -44,7 +48,7 @@ const Signup = () => {
         resolver: yupResolver(signUpFormSchema)
     })
 
-    const { signUp } = useSignUp()
+    const { signUp, loading } = useSignUp()
 
     const onSubmit = async (data: SignInFormValues) => {
         await signUp(data)
@@ -82,7 +86,12 @@ const Signup = () => {
                         register={register}
                         errors={errors}
                     />
-                    <Button type="submit" label="Create Account" className="w-full h-10" />
+                    <Button
+                        type="submit"
+                        label="Create Account"
+                        className="w-full h-10"
+                        loading={loading}
+                    />
                 </form>
             </AuthContainer>
         </div>

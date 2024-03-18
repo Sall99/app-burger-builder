@@ -19,11 +19,12 @@ export function PaymentForm({ setIsPaymeOpen }: PaymentFormProps) {
     const { shippingAddress } = useAppSelector(selectShippingAddress)
     const { totalPrice } = useAppSelector(selectIngredients)
     const [paymentError, setPaymentError] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const cardElement = elements?.getElement('card')
-
+        setLoading(true)
         try {
             if (!stripe || !cardElement) return null
             const { data } = await axios.post('/api/create-payment-intent', {
@@ -34,6 +35,7 @@ export function PaymentForm({ setIsPaymeOpen }: PaymentFormProps) {
                 toast.success('Payment was successful!')
                 setIsPaymeOpen(false)
             }
+            setLoading(false)
         } catch (error) {
             console.log(error)
         }
@@ -47,7 +49,7 @@ export function PaymentForm({ setIsPaymeOpen }: PaymentFormProps) {
                 </p>
                 <CardElement className="card-element" options={{ hidePostalCode: true }} />
                 {paymentError && <div className="error-message">{paymentError}</div>}
-                <Button label="Pay Now" className="px-5 py-4 mt-5" />
+                <Button label="Pay Now" className="px-5 py-4 mt-5" loading={loading} />
             </form>
         </div>
     )

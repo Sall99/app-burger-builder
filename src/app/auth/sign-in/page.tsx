@@ -1,9 +1,9 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useRouter } from 'next/navigation'
-import { getSession, signIn, useSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 
 import { AuthContainer, Button, Input } from '@/components/ui'
 import { signInFormSchema } from '@/utils'
@@ -15,6 +15,7 @@ type SignInFormValues = {
 }
 
 const SignIn = () => {
+    const [loading, setLoading] = useState(false)
     const {
         handleSubmit,
         register,
@@ -26,6 +27,7 @@ const SignIn = () => {
     const router = useRouter()
 
     const onSubmit: SubmitHandler<SignInFormValues> = (data) => {
+        setLoading(true)
         signIn('credentials', { ...data, redirect: false }).then(async (callback) => {
             if (callback?.ok) {
                 toast.success('Logged in')
@@ -36,6 +38,8 @@ const SignIn = () => {
             if (callback?.error) {
                 toast.error(callback.error)
             }
+
+            setLoading(false)
         })
     }
 
@@ -57,7 +61,12 @@ const SignIn = () => {
                         register={register}
                         errors={errors}
                     />
-                    <Button type="submit" label="Sign In" className="w-full h-10" />
+                    <Button
+                        type="submit"
+                        label="Sign In"
+                        className="w-full h-10"
+                        loading={loading}
+                    />
                 </form>
             </AuthContainer>
         </div>
