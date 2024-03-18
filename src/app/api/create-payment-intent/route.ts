@@ -89,14 +89,14 @@ export async function POST(req: NextRequest) {
         })
 
         if (!currentUser) {
-            return null
+            return NextResponse.json({ error: 'User not found' }, { status: 404 })
         }
 
         const userId = currentUser?.id
 
         const payment_status = true
 
-        const createdOrder = await createOrder(userId, amount, shippingAddress, payment_status)
+        await createOrder(userId, amount, shippingAddress, payment_status)
 
         return new NextResponse(charge.status, { status: 200 })
     } catch (error) {
