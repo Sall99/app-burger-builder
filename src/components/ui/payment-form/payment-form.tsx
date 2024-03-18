@@ -3,12 +3,17 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { useElements, useStripe, CardElement } from '@stripe/react-stripe-js'
 import { useAppSelector } from '@/redux/hook'
+import toast from 'react-hot-toast'
 
 import { Button } from '..'
 import { selectShippingAddress } from '@/redux/selectors/shipping-address'
 import { selectIngredients } from '@/redux/selectors/ingredients'
 
-export function PaymentForm() {
+interface PaymentFormProps {
+    setIsPaymeOpen: (isOpen: boolean) => void
+}
+
+export function PaymentForm({ setIsPaymeOpen }: PaymentFormProps) {
     const stripe = useStripe()
     const elements = useElements()
     const { shippingAddress } = useAppSelector(selectShippingAddress)
@@ -25,7 +30,10 @@ export function PaymentForm() {
                 data: { amount: totalPrice, shippingAddress }
             })
 
-            console.log(data)
+            if (data === 'succeeded') {
+                toast.success('Payment was successful!')
+                setIsPaymeOpen(false)
+            }
         } catch (error) {
             console.log(error)
         }

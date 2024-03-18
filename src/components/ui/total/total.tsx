@@ -82,7 +82,7 @@ export const Total = () => {
                 title="Payment"
                 content={
                     <Elements stripe={stripePromise}>
-                        <PaymentForm />
+                        <PaymentForm setIsPaymeOpen={setIsPaymeOpen} />
                     </Elements>
                 }
             />
