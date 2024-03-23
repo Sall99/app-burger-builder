@@ -6,6 +6,11 @@ import { ProfileSideBar } from './profile-sidebar'
 import { Help } from './help'
 import { ShippingAddress } from './shipping-address'
 import { PaymentForm } from './payment-form'
+import { Spiner } from './spiner'
+import { Modal } from './modal'
+import { Controls } from './control'
+import { Builder } from './builder'
+export { Total } from './total'
 
 export {
     Input,
@@ -15,5 +20,9 @@ export {
     ProfileSideBar,
     Help,
     ShippingAddress,
-    PaymentForm
+    PaymentForm,
+    Spiner,
+    Modal,
+    Controls,
+    Builder
 }

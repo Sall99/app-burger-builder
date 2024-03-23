@@ -4,10 +4,10 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import toast from 'react-hot-toast'
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
 
 import { signUpFormSchema } from '@/utils'
 import { AuthContainer, Button, Input } from '@/components/ui'
-import { useRouter } from 'next/navigation'
 
 type SignInFormValues = {
     name: string
