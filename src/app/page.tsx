@@ -1,7 +1,5 @@
 'use client'
-import { Builder } from '@/components/ui/builder'
-import { Controls } from '@/components/ui/control'
-import { Total } from '@/components/ui/total/total'
+import { Total, Controls, Builder } from '@/components/ui'
 import { selectIngredients } from '@/redux/selectors/ingredients'
 import { useSelector } from 'react-redux'
 

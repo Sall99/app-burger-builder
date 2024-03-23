@@ -4,10 +4,10 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
+import toast from 'react-hot-toast'
 
 import { AuthContainer, Button, Input } from '@/components/ui'
 import { signInFormSchema } from '@/utils'
-import toast from 'react-hot-toast'
 
 type SignInFormValues = {
     email: string

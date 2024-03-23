@@ -33,7 +33,7 @@ select:focus {
 
 /* Auth buttons */
 .log-with-btn {
-    width: 188px;
+    width: 204px;
     height: 45px;
     border: 1px solid var(--color-gray-200);
     border-radius: 8px;

@@ -1,6 +1,7 @@
 'use client'
 import { FC } from 'react'
 import clsx from 'clsx'
+import { Spiner } from '@/components/ui'
 
 export interface ButtonProps {
     label: string
@@ -29,9 +30,7 @@ export const Button: FC<ButtonProps> = ({
             onClick={onClick}
             disabled={disabled}>
             <span>{label}</span>
-            {loading && (
-                <div className="border-white h-6 w-6 animate-spin rounded-full border-2 border-t-primary-100" />
-            )}
+            {loading && <Spiner />}
         </button>
     )
 }

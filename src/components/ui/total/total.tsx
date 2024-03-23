@@ -11,10 +11,12 @@ import { selectIngredients } from '@/redux/selectors/ingredients'
 import { totalFormatter } from '@/utils/utils'
 import { Modal } from '../modal/modal'
 import { ShippingAddress } from '../shipping-address'
+import { selectCurrentUser } from '@/redux/selectors/current-user'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!)
 
 export const Total = () => {
+    const currentUser = useSelector(selectCurrentUser)
     const { ingredients, totalPrice } = useSelector(selectIngredients)
     let [isPaymentOpen, setIsPaymeOpen] = useState(false)
     const { meat, salad, bacon, cheese } = ingredients
@@ -73,8 +75,8 @@ export const Total = () => {
             <Modal
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                title="Add your shipping address"
-                content={<ShippingAddress handlePayment={handlePayment} />}
+                title={currentUser ? 'Add your shipping address' : ''}
+                content={<ShippingAddress handlePayment={handlePayment} isOpen={isOpen} />}
             />
             <Modal
                 isOpen={isPaymentOpen}
