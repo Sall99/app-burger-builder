@@ -1,29 +1,12 @@
-import { getToken } from 'next-auth/jwt'
-import { withAuth } from 'next-auth/middleware'
-import { NextResponse } from 'next/server'
+import createMiddleware from 'next-intl/middleware'
 
-export default withAuth(
-    async function middleware(req) {
-        const token = await getToken({ req })
-        const isAuthenticated = !!token
+const middleware = createMiddleware({
+    locales: ['en', 'fr'],
+    defaultLocale: 'en'
+})
 
-        const authRoutes = ['/auth/sign-in', '/auth/sign-up']
-
-        if (authRoutes.includes(req.nextUrl.pathname) && isAuthenticated) {
-            return NextResponse.redirect(new URL('/', req.url))
-        }
-
-        if (!authRoutes.includes(req.nextUrl.pathname) && !isAuthenticated) {
-            return NextResponse.redirect(new URL('/auth/sign-in', req.url))
-        }
-    },
-    {
-        callbacks: {
-            authorized: () => true
-        }
-    }
-)
+export default middleware
 
 export const config = {
-    matcher: ['/auth/sign-in', '/auth/sign-up', '/profile']
+    matcher: ['/', '/(en|fr)/:page*']
 }

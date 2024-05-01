@@ -7,8 +7,4 @@ export interface BuilderProps {
     ingredients: IngredientTypes
 }
 
-export type SafeUser = Omit<User, 'createdAt' | 'updatedAt' | 'emailVerified'> & {
-    createdAt: string | null
-    updatedAt: string | null
-    emailVerified: string | null
-}
+export type SafeUser = Omit<User, 'emailVerified' | 'updatedAt'> & { createdAt: Date | string }

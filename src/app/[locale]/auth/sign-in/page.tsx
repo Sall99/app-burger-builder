@@ -3,7 +3,9 @@ import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { signIn } from 'next-auth/react'
+
 import toast from 'react-hot-toast'
 
 import { AuthContainer, Button, Input } from '@/components/ui'
@@ -16,6 +18,7 @@ type SignInFormValues = {
 
 const SignIn = () => {
     const [loading, setLoading] = useState(false)
+    const t = useTranslations('signIn')
     const {
         handleSubmit,
         register,
@@ -45,7 +48,7 @@ const SignIn = () => {
 
     return (
         <div className="flex justify-center px-8 sm:px-16">
-            <AuthContainer h1="Sign In">
+            <AuthContainer h1={t('signIn')}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Input
                         name="email"

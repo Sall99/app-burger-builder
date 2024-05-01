@@ -329,6 +329,15 @@ tbody tr td {
 
 /* Media queries */
 
+.burger-builder {
+    width: 100%;
+}
+
+@media (min-width: 769px) {
+    .burger-builder {
+        width: 50%;
+    }
+}
 @media (min-width: 769px) and (max-width: 1024px) {
     .BreadBottom {
         width: 60%;
