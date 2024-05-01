@@ -1,7 +1,7 @@
 'use client'
 
 import { Help, ProfileSideBar, UpdateProfileForm } from '@/components/ui'
-import { useSidebar } from '../../../context'
+import { useSidebar } from '../../../../context'
 
 interface ComponentsType {
     [key: string]: JSX.Element

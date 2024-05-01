@@ -1,12 +1,8 @@
-import { getServerSession } from 'next-auth'
-import { authOptions } from '../../../pages/api/auth/[...nextauth]'
+import { SafeUser } from '@/types'
 import prisma from '../../../libs/prisma.db'
+import { getSession } from 'next-auth/react'
 
-export async function getSession() {
-    return await getServerSession(authOptions)
-}
-
-export default async function getCurrentUser() {
+async function getCurrentUser(): Promise<SafeUser | null> {
     try {
         const session = await getSession()
 
@@ -24,14 +20,21 @@ export default async function getCurrentUser() {
             return null
         }
 
-        return {
-            ...currentUser,
-            createdAt: currentUser.createdAt?.toISOString() || null,
-            updatedAt: currentUser.updatedAt?.toISOString() || null,
-            emailVerified: currentUser.emailVerified?.toISOString() || null
+        const createdAtDate = new Date(currentUser.createdAt)
+
+        const safeUser: SafeUser = {
+            id: currentUser.id,
+            name: currentUser.name,
+            email: currentUser.email,
+            image: currentUser.image,
+            hashedPassword: currentUser.hashedPassword,
+            createdAt: createdAtDate
         }
+        return safeUser
     } catch (error) {
         console.error('Error in getCurrentUser:', error)
         throw error
     }
 }
+
+export default getCurrentUser
