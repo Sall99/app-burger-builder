@@ -1,19 +1,21 @@
-'use client'
-import { BuilderProps } from '@/types'
-import { FC } from 'react'
-import { BurgerIngredients } from '../ingredients'
-import Image from 'next/image'
+'use client';
+import { FC } from 'react';
+import Image from 'next/image';
+
+import { BuilderProps } from '@/types';
+
+import { BurgerIngredients } from '../ingredients';
 
 export const Builder: FC<BuilderProps> = ({ ingredients }) => {
     const arrayIngredients = Object.keys(ingredients)
         .map((igkey) => {
             return [...Array(ingredients[igkey])].map((a, i) => {
-                return <BurgerIngredients key={igkey + i} type={igkey} />
-            })
+                return <BurgerIngredients key={igkey + i} type={igkey} />;
+            });
         })
         .reduce((arr, currVal) => {
-            return arr.concat(currVal)
-        }, [])
+            return arr.concat(currVal);
+        }, []);
 
     return (
         <div className="burger-builder mt-16 sm:mt-1">
@@ -35,5 +37,5 @@ export const Builder: FC<BuilderProps> = ({ ingredients }) => {
             {arrayIngredients.length > 0 && arrayIngredients}
             <BurgerIngredients type="BreadBottom" />
         </div>
-    )
-}
+    );
+};

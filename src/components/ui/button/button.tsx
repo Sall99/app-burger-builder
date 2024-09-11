@@ -1,7 +1,8 @@
-'use client'
-import { FC } from 'react'
-import clsx from 'clsx'
-import { Spiner } from '@/components/ui'
+'use client';
+import { FC } from 'react';
+import clsx from 'clsx';
+
+import { Spiner } from '@/components/ui';
 
 export interface ButtonProps {
     label: string
@@ -32,5 +33,5 @@ export const Button: FC<ButtonProps> = ({
             <span>{label}</span>
             {loading && <Spiner />}
         </button>
-    )
-}
+    );
+};

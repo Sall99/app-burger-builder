@@ -1,10 +1,11 @@
-import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import NextAuth, { AuthOptions } from 'next-auth'
-import prisma from '../../../libs/prisma.db'
-import GitHubProvider from 'next-auth/providers/github'
-import GoogleProvider from 'next-auth/providers/google'
-import CredentialsProvider from 'next-auth/providers/credentials'
-import bcrypt from 'bcrypt'
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import bcrypt from 'bcrypt';
+import NextAuth, { AuthOptions } from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import GitHubProvider from 'next-auth/providers/github';
+import GoogleProvider from 'next-auth/providers/google';
+
+import prisma from './prisma.db';
 
 export const authOptions: AuthOptions = {
     adapter: PrismaAdapter(prisma),
@@ -25,18 +26,18 @@ export const authOptions: AuthOptions = {
             },
             async authorize(credentials) {
                 if (!credentials?.email || !credentials?.password)
-                    throw new Error('Missing credentials')
+                    throw new Error('Missing credentials');
 
                 const user = await prisma.user.findUnique({
                     where: { email: credentials.email }
-                })
+                });
 
-                if (!user || !user?.hashedPassword) throw new Error('Invalid credentials')
+                if (!user || !user?.hashedPassword) throw new Error('Invalid credentials');
 
-                const isCorrect = await bcrypt.compare(credentials.password, user.hashedPassword)
+                const isCorrect = await bcrypt.compare(credentials.password, user.hashedPassword);
 
-                if (!isCorrect) throw new Error('Invalid credentials')
-                return user
+                if (!isCorrect) throw new Error('Invalid credentials');
+                return user;
             }
         })
     ],
@@ -48,6 +49,6 @@ export const authOptions: AuthOptions = {
     },
     debug: process.env.NODE_ENV === 'development',
     secret: process.env.NEXTAUTH_SECRET
-}
+};
 
-export default NextAuth(authOptions)
+export default NextAuth(authOptions);

@@ -1,17 +1,18 @@
-'use client'
-import { useDispatch } from 'react-redux'
-import { MdAdd } from 'react-icons/md'
-import { AiOutlineMinus } from 'react-icons/ai'
-import { addIngredients, removeIngredients } from '@/redux/slices/ingredients'
+'use client';
+import { AiOutlineMinus } from 'react-icons/ai';
+import { MdAdd } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+
+import { addIngredients, removeIngredients } from '@/redux/slices/ingredients';
 
 export const Controls = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const controls = [
         { label: 'Meat', type: 'meat' },
         { label: 'Bacon', type: 'bacon' },
         { label: 'Cheese', type: 'cheese' },
         { label: 'Salad', type: 'salad' }
-    ]
+    ];
 
     return (
         <div className="build-controls">
@@ -29,9 +30,9 @@ export const Controls = () => {
                                 </div>
                             </div>
                         </div>
-                    )
+                    );
                 })}
             </div>
         </div>
-    )
-}
+    );
+};

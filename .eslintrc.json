@@ -1,74 +1,54 @@
 {
-  "extends": "next/core-web-vitals",
-  "plugins": ["unused-imports", "imports", "simple-import-sort"],
-  "rules": {
-    "unused-imports/no-unused-imports": "error",
-    "unused-imports/no-unused-vars": [
-      "warn",
-      {
-        "vars": "all",
-        "varsIgnorePattern": "^_",
-        "args": "after-used",
-        "argsIgnorePattern": "^_"
-      }
-    ],
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error",
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"],
-    "no-unused-vars": [
-      "error",
-      {
-        "args": "after-used",
-        "caughtErrors": "none",
-        "ignoreRestSiblings": true,
-        "vars": "all"
-      }
-    ],
-    "prefer-const": "error",
-    "react-hooks/exhaustive-deps": "error"
-  },
-
-  "settings": {
-    "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"]
+    "extends": "next/core-web-vitals",
+    "plugins": ["unused-imports", "import", "simple-import-sort"],
+    "rules": {
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error",
+        "quotes": ["error", "single"],
+        "prefer-const": "error",
+        "react-hooks/exhaustive-deps": "error"
     },
 
-    "import/resolver": {
-      "typescript": {
-        "alwaysTryTypes": true
-      },
-      "project": ["./tsconfig.json", "packages/*/tsconfig.json"],
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
-      }
-    }
-  },
+    "settings": {
+        "import/parsers": {
+            "@typescript-eslint/parser": [".ts", ".tsx"]
+        },
 
-  "overrides": [
-    {
-      "files": ["*.js", "*.jsx", "*.ts", "*.tsx"],
-      "rules": {
-        "simple-import-sort/imports": [
-          "error",
-          {
-            "groups": [
-              // Packages `react` related packages come first.
-              ["^react", "^@?\\w"],
-              // Internal packages.
-              ["^(@|components)(/.*|$)"],
-              // Side effect imports.
-              ["^\\u0000"],
-              // Parent imports. Put `..` last.
-              ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
-              // Other relative imports. Put same-folder imports and `.` last.
-              ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
-              // Style imports.
-              ["^.+\\.?(css)$"]
-            ]
-          }
-        ]
-      }
-    }
-  ]
+        "import/resolver": {
+            "typescript": {
+                "alwaysTryTypes": true
+            },
+            "project": ["./tsconfig.json", "packages/*/tsconfig.json"],
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
+        }
+    },
+
+    "overrides": [
+        {
+            "files": ["*.js", "*.jsx", "*.ts", "*.tsx"],
+            "rules": {
+                "simple-import-sort/imports": [
+                    "error",
+                    {
+                        "groups": [
+                            // Packages `react` related packages come first.
+                            ["^react", "^@?\\w"],
+                            // Internal packages.
+                            ["^(@|components)(/.*|$)"],
+                            // Side effect imports.
+                            ["^\\u0000"],
+                            // Parent imports. Put `..` last.
+                            ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+                            // Other relative imports. Put same-folder imports and `.` last.
+                            ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+                            // Style imports.
+                            ["^.+\\.?(css)$"]
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
 }

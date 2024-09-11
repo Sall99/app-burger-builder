@@ -1,6 +1,6 @@
-'use client'
-import { RootState } from '../store'
+'use client';
+import { RootState } from '../store';
 
-const selectCurrentUser = (state: RootState) => state.rootReducer.currentUser
+const selectCurrentUser = (state: RootState) => state.rootReducer.currentUser;
 
-export { selectCurrentUser }
+export { selectCurrentUser };

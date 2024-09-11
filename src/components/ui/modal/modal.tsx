@@ -1,5 +1,5 @@
-import React, { Fragment, ReactNode, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
+import React, { Fragment, ReactNode } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
 
 interface ModalProps {
     isOpen: boolean
@@ -10,7 +10,7 @@ interface ModalProps {
 
 export function Modal({ isOpen, setIsOpen, title, content }: ModalProps) {
     function closeModal() {
-        setIsOpen(false)
+        setIsOpen(false);
     }
 
     return (
@@ -52,5 +52,5 @@ export function Modal({ isOpen, setIsOpen, title, content }: ModalProps) {
                 </Dialog>
             </Transition>
         </>
-    )
+    );
 }

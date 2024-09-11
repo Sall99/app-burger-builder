@@ -1,11 +1,12 @@
-'use client'
-import React, { FC } from 'react'
-import { HelpCircleIcon, History, LogOut, Pencil } from 'lucide-react'
-import { useSidebar } from '../../../../context'
-import Link from 'next/link'
-import Image from 'next/image'
-import clsx from 'clsx'
-import { signOut } from 'next-auth/react'
+'use client';
+import React, { FC } from 'react';
+import clsx from 'clsx';
+import { HelpCircleIcon, History, LogOut, Pencil } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { signOut } from 'next-auth/react';
+
+import { useSidebar } from '../../../../context';
 
 interface Link {
     Icon: JSX.Element
@@ -25,14 +26,14 @@ const links: Link[] = [
         Icon: <HelpCircleIcon size={17} />,
         name: 'Help'
     }
-]
+];
 
 export const ProfileSideBar: FC = () => {
-    const { setClickedLink, clickedLink } = useSidebar()
+    const { setClickedLink, clickedLink } = useSidebar();
 
     const handleLogout = () => {
-        signOut({ callbackUrl: '/auth/sign-in' })
-    }
+        signOut({ callbackUrl: '/auth/sign-in' });
+    };
 
     return (
         <div className="w-52 h-screen fixed pl-16 bg-slate-200 pt-4 top-0">
@@ -61,5 +62,5 @@ export const ProfileSideBar: FC = () => {
                 </ul>
             </div>
         </div>
-    )
-}
+    );
+};
