@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     shippingAddress: {
@@ -7,20 +7,20 @@ const initialState = {
         streetAddress: '',
         town: ''
     }
-}
+};
 
 const shippingAddressSlice = createSlice({
     name: 'shippingAddress',
     initialState,
     reducers: {
         addShippingAddress(state, action) {
-            const { firstName, lastName, streetAddress, town } = action.payload
-            state.shippingAddress = { firstName, lastName, streetAddress, town }
+            const { firstName, lastName, streetAddress, town } = action.payload;
+            state.shippingAddress = { firstName, lastName, streetAddress, town };
 
-            state.shippingAddress = action.payload
+            state.shippingAddress = action.payload;
         }
     }
-})
+});
 
-export const { addShippingAddress } = shippingAddressSlice.actions
-export const shippingAddressReducer = shippingAddressSlice.reducer
+export const { addShippingAddress } = shippingAddressSlice.actions;
+export const shippingAddressReducer = shippingAddressSlice.reducer;

@@ -1,16 +1,17 @@
-'use client'
-import React from 'react'
-import Link from 'next/link'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { useDispatch, useSelector } from 'react-redux'
-import { useAppSelector } from '@/redux/hook'
-import { shippingAddressFormSchema } from '@/utils/yup.schema'
+'use client';
+import React from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { yupResolver } from '@hookform/resolvers/yup';
+import Link from 'next/link';
 
-import { Button, Input } from '..'
-import { addShippingAddress } from '@/redux/slices/shipping-address'
-import { selectShippingAddress } from '@/redux/selectors/shipping-address'
-import { selectCurrentUser } from '@/redux/selectors/current-user'
+import { useAppSelector } from '@/redux/hook';
+import { selectCurrentUser } from '@/redux/selectors/current-user';
+import { selectShippingAddress } from '@/redux/selectors/shipping-address';
+import { addShippingAddress } from '@/redux/slices/shipping-address';
+import { shippingAddressFormSchema } from '@/utils/yup.schema';
+
+import { Button, Input } from '..';
 
 type ShippingFormValues = {
     firstName: string
@@ -24,10 +25,10 @@ interface ShippingAddressProps {
 }
 
 export function ShippingAddress({ handlePayment, isOpen }: ShippingAddressProps) {
-    const dispatch = useDispatch()
-    const { shippingAddress } = useAppSelector(selectShippingAddress)
-    const currentUser = useSelector(selectCurrentUser)
-    const isShippingAddressPresent = Object.values(shippingAddress).every((value) => value !== '')
+    const dispatch = useDispatch();
+    const { shippingAddress } = useAppSelector(selectShippingAddress);
+    const currentUser = useSelector(selectCurrentUser);
+    const isShippingAddressPresent = Object.values(shippingAddress).every((value) => value !== '');
     const {
         handleSubmit,
         register,
@@ -35,11 +36,11 @@ export function ShippingAddress({ handlePayment, isOpen }: ShippingAddressProps)
     } = useForm<ShippingFormValues>({
         resolver: yupResolver(shippingAddressFormSchema),
         defaultValues: shippingAddress
-    })
+    });
 
     const onSubmit: SubmitHandler<ShippingFormValues> = (data) => {
-        dispatch(addShippingAddress(data))
-    }
+        dispatch(addShippingAddress(data));
+    };
 
     return (
         <div>
@@ -104,5 +105,5 @@ export function ShippingAddress({ handlePayment, isOpen }: ShippingAddressProps)
                 </div>
             )}
         </div>
-    )
+    );
 }

@@ -1,28 +1,27 @@
-import { Input } from './input'
-import { AuthContainer } from './container'
-import { Button } from './button'
-import { UpdateProfileForm } from './update-profile-form'
-import { ProfileSideBar } from './profile-sidebar'
-import { Help } from './help'
-import { ShippingAddress } from './shipping-address'
-import { PaymentForm } from './payment-form'
-import { Spiner } from './spiner'
-import { Modal } from './modal'
-import { Controls } from './control'
-import { Builder } from './builder'
-export { Total } from './total'
+import { Builder } from './builder';
+import { Button } from './button';
+import { AuthContainer } from './container';
+import { Controls } from './control';
+import { Help } from './help';
+import { Input } from './input';
+import { Modal } from './modal';
+import { PaymentForm } from './payment-form';
+import { ProfileSideBar } from './profile-sidebar';
+import { ShippingAddress } from './shipping-address';
+import { Spiner } from './spiner';
+import { UpdateProfileForm } from './update-profile-form';
+export { Total } from './total';
 
 export {
-    Input,
     AuthContainer,
+    Builder,
     Button,
-    UpdateProfileForm,
-    ProfileSideBar,
-    Help,
-    ShippingAddress,
-    PaymentForm,
-    Spiner,
-    Modal,
     Controls,
-    Builder
-}
+    Help,
+    Input,
+    Modal,
+    PaymentForm,
+    ProfileSideBar,
+    ShippingAddress,
+    Spiner,
+    UpdateProfileForm};

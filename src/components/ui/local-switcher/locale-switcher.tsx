@@ -1,7 +1,6 @@
-'use client'
+'use client';
 
-import React from 'react'
-import { useParams, usePathname, useRouter } from 'next/navigation'
+import React from 'react';
 
 const LocaleSwitcher = () => {
     // const router = useRouter()
@@ -38,7 +37,7 @@ const LocaleSwitcher = () => {
                 ))}
             </select> */}
         </div>
-    )
-}
+    );
+};
 
-export default LocaleSwitcher
+export default LocaleSwitcher;

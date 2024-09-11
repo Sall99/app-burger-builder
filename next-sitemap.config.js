@@ -2,4 +2,4 @@
 module.exports = {
     siteUrl: 'https://app-burger-builder.vercel.app/',
     generateRobotsTxt: true
-}
+};

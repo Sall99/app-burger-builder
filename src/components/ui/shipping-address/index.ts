@@ -1,1 +1,1 @@
-export * from './shipping-address'
+export * from './shipping-address';
