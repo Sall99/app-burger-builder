@@ -1,12 +1,12 @@
-'use client'
-import { FC, useState } from 'react'
-import Link from 'next/link'
-import { signIn } from 'next-auth/react'
-import { usePathname } from 'next/navigation'
-import { FaGithub } from 'react-icons/fa'
+'use client';
+import { FC, useState } from 'react';
+import { FaGithub } from 'react-icons/fa';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
-import Image from 'next/image'
-import { Spiner } from '..'
+import { Spiner } from '..';
 
 interface AuthContainerProps {
     h1: string
@@ -20,46 +20,46 @@ const publicRoutes = {
     signUp: {
         path: '/auth/sign-up'
     }
-}
+};
 
 export const AuthContainer: FC<AuthContainerProps> = ({ children, h1 }) => {
-    const pathName = usePathname()
+    const pathName = usePathname();
     const [loading, setLoading] = useState({
         google: false,
         github: false
-    })
+    });
 
     const handleSignInWithGoogle = async () => {
         setLoading({
             ...loading,
             google: true
-        })
+        });
         try {
-            await signIn('google', { callbackUrl: '/' })
+            await signIn('google', { callbackUrl: '/' });
         } catch (error) {
         } finally {
             setLoading({
                 ...loading,
                 google: false
-            })
+            });
         }
-    }
+    };
 
     const handleSignInWithGithub = async () => {
         setLoading({
             ...loading,
             github: true
-        })
+        });
         try {
-            await signIn('github', { callbackUrl: '/' })
+            await signIn('github', { callbackUrl: '/' });
         } catch (error) {
         } finally {
             setLoading({
                 ...loading,
                 github: false
-            })
+            });
         }
-    }
+    };
     return (
         <div className="mt-14 w-full md:w-auto">
             <div>
@@ -109,5 +109,5 @@ export const AuthContainer: FC<AuthContainerProps> = ({ children, h1 }) => {
                 )}
             </h2>
         </div>
-    )
-}
+    );
+};

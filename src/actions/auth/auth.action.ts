@@ -1,8 +1,8 @@
-import { instance } from '@/config'
-import { SignupFormValues } from '@/types'
+import { instance } from '@/config';
+import { SignupFormValues } from '@/types';
 
 export const signupAction = async (values: SignupFormValues) => {
-    const { data } = await instance.post(`/auth/sign-up`, values)
+    const { data } = await instance.post('/auth/sign-up', values);
 
-    return data
-}
+    return data;
+};

@@ -1,3 +1,3 @@
-import { signUpFormSchema, signInFormSchema } from './yup.schema'
+import { signInFormSchema,signUpFormSchema } from './yup.schema';
 
-export { signUpFormSchema, signInFormSchema }
+export { signInFormSchema,signUpFormSchema };

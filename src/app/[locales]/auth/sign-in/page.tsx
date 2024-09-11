@@ -1,15 +1,15 @@
-'use client'
-import React, { useCallback, useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { useRouter } from 'next/navigation'
-import { useTranslations } from 'next-intl'
-import { signIn } from 'next-auth/react'
-import toast from 'react-hot-toast'
+'use client';
+import React, { useCallback, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 
-import { AuthContainer, Button, Input } from '@/components/ui'
-import { signInFormSchema } from '@/utils'
-import { SignInFormValues } from '@/types'
+import { AuthContainer, Button, Input } from '@/components/ui';
+import { SignInFormValues } from '@/types';
+import { signInFormSchema } from '@/utils';
 
 type InputField = {
     name: keyof SignInFormValues
@@ -19,52 +19,52 @@ type InputField = {
 const inputFields: InputField[] = [
     { name: 'email', type: 'email', placeholder: 'Email Address' },
     { name: 'password', type: 'password', placeholder: 'Password' }
-]
+];
 
 const useSignin = () => {
-    const [loading, setLoading] = useState(false)
-    const t = useTranslations('signIn')
-    const router = useRouter()
+    const [loading, setLoading] = useState(false);
+    const t = useTranslations('signIn');
+    const router = useRouter();
 
     const onSignIn = async (data: SignInFormValues) => {
-        setLoading(true)
+        setLoading(true);
         signIn('credentials', { ...data, redirect: false }).then(async (callback) => {
             if (callback?.ok) {
-                toast.success('Logged in')
-                router.refresh()
-                router.push('/')
+                toast.success('Logged in');
+                router.refresh();
+                router.push('/');
             }
 
             if (callback?.error) {
-                toast.error(callback.error)
-                console.log(callback.error)
+                toast.error(callback.error);
+                console.log(callback.error);
             }
 
-            setLoading(false)
-        })
-    }
+            setLoading(false);
+        });
+    };
 
-    return { onSignIn, loading }
-}
+    return { onSignIn, loading };
+};
 
 const SignIn = () => {
-    const t = useTranslations('signIn')
+    const t = useTranslations('signIn');
     const {
         handleSubmit,
         register,
         formState: { errors }
     } = useForm<SignInFormValues>({
         resolver: yupResolver(signInFormSchema)
-    })
+    });
 
-    const { onSignIn, loading } = useSignin()
+    const { onSignIn, loading } = useSignin();
 
     const onSubmit = useCallback(
         async (data: SignInFormValues) => {
-            await onSignIn(data)
+            await onSignIn(data);
         },
         [onSignIn]
-    )
+    );
 
     return (
         <div className="flex justify-center px-8 sm:px-16">
@@ -90,7 +90,7 @@ const SignIn = () => {
                 </form>
             </AuthContainer>
         </div>
-    )
-}
+    );
+};
 
-export default SignIn
+export default SignIn;

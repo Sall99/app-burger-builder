@@ -1,6 +1,6 @@
-'use client'
-import { FC } from 'react'
-import clsx from 'clsx'
+'use client';
+import { FC } from 'react';
+import clsx from 'clsx';
 
 export interface InputProps {
     classname?: string
@@ -47,8 +47,8 @@ export const Input: FC<InputProps> = ({
     pattern,
     id
 }) => {
-    const hasError = errors && errors[name]
-    const errorMessage = hasError ? errors[name].message : ''
+    const hasError = errors && errors[name];
+    const errorMessage = hasError ? errors[name].message : '';
     const inputClass = clsx(
         'border-b border-gray-200 w-full outline-none focus:outline-none mb-4 text-gray-100',
         {
@@ -56,7 +56,7 @@ export const Input: FC<InputProps> = ({
             'bg-gray-100 cursor-not-allowed': disabled
         },
         classname
-    )
+    );
 
     return (
         <div className="mb-4">
@@ -94,5 +94,5 @@ export const Input: FC<InputProps> = ({
                 </span>
             )}
         </div>
-    )
-}
+    );
+};
