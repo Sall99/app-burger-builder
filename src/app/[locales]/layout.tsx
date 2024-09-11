@@ -26,6 +26,7 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
     robots: { index: true, follow: true },
+    metadataBase: new URL('http://localhost:3000'),
     title: 'Burger Builder - The Best Burger in Town!',
     description:
         'Build your perfect burger with our easy-to-use Burger Builder. Choose from a variety of fresh ingredients and create a masterpiece!',
