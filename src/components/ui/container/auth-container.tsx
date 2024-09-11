@@ -51,11 +51,13 @@ export const AuthContainer: FC<AuthContainerProps> = ({ children, title }) => {
         </button>
     )
 
-    const isSignUpPage = pathName === publicRoutes.signUp.path
+    const isSignUpPage = pathName.includes(publicRoutes.signUp.path)
     const alternateRoute = isSignUpPage ? publicRoutes.signIn : publicRoutes.signUp
     const alternateText = isSignUpPage
         ? 'Already have an account? Sign in'
         : 'Do not have an account? Sign up'
+
+    console.log(isSignUpPage, 'isSu', pathName)
 
     return (
         <div className="mt-14 w-full md:w-auto">
