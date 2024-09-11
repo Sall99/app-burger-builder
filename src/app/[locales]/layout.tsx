@@ -39,7 +39,7 @@ export const metadata: Metadata = {
             'Build your perfect burger with our easy-to-use Burger Builder. Choose from a variety of fresh ingredients and create a masterpiece!',
         images: [
             {
-                url: 'https://app-burger-builder.vercel.app//og-image.jpg',
+                url: 'https://app-burger-builder.vercel.app/og-image.jpg',
                 width: 800,
                 height: 600,
                 alt: 'Burger Builder'
