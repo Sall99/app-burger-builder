@@ -23,31 +23,21 @@ export const navLinks = [
 ]
 
 interface HeaderProps {
-    currentUser?: SafeUser | null | undefined
+    session: any
 }
 
-export const Header: FC<HeaderProps> = ({ currentUser }) => {
-    const [isAuth, setIsAuth] = useState<boolean | null>(null)
-    const dispatch = useDispatch()
+export const Header: FC<HeaderProps> = ({ session }) => {
+    console.log('session', session)
 
-    useEffect(() => {
-        if (currentUser) {
-            dispatch(setCurrentUser(currentUser))
-            setIsAuth(true)
-        } else {
-            setIsAuth(false)
-        }
-    }, [currentUser])
-
-    if (isAuth === null) {
-        return (
-            <div className="flex justify-center items-center h-screen bg-white z-50 absolute inset-y-0 w-screen">
-                <div className="animate-bounce">
-                    <Image src="/images/Logo.png" width={34} height={34} alt="logo" priority />
-                </div>
-            </div>
-        )
-    }
+    // if (session === null) {
+    //     return (
+    //         <div className="flex justify-center items-center h-screen bg-white z-50 absolute inset-y-0 w-screen">
+    //             <div className="animate-bounce">
+    //                 <Image src="/images/Logo.png" width={34} height={34} alt="logo" priority />
+    //             </div>
+    //         </div>
+    //     )
+    // }
 
     return (
         <nav className="flex items-center justify-between py-4 px-8 sm:px-16">
@@ -56,7 +46,7 @@ export const Header: FC<HeaderProps> = ({ currentUser }) => {
             </Link>
 
             <div>
-                {isAuth ? (
+                {session ? (
                     <div>
                         <div>
                             <Link

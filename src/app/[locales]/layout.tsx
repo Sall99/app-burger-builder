@@ -1,19 +1,21 @@
 export const dynamic = 'force-dynamic'
 
-import type { GetServerSideProps, Metadata } from 'next'
+import React from 'react'
+import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import Providers from '@/redux/provider'
-import { NextIntlClientProvider, useMessages } from 'next-intl'
+import { NextIntlClientProvider } from 'next-intl'
 import { ToasterProvider } from '@/providers'
 import { GoogleTagManager } from '@next/third-parties/google'
+import { getLocale, getMessages } from 'next-intl/server'
+import { getServerSession } from 'next-auth'
 
 import './globals.css'
 import { Header } from '@/components'
-import getCurrentUser from '../actions/current-user'
 import { SidebarProvider } from '../../../context/sidebar'
-import { SafeUser } from '@/types'
+import { authOptions } from '../../../libs'
 
 const roboto = Roboto({
     weight: ['400', '500', '700', '900'],
@@ -29,12 +31,12 @@ export const metadata: Metadata = {
 
 type Props = {
     children: React.ReactNode
-    params: { locale: string }
-    currentUser: SafeUser | null
 }
 
-export default function RootLayout({ children, params: { locale }, currentUser }: Props) {
-    const messages = useMessages()
+export default async function RootLayout({ children }: Props) {
+    const messages = await getMessages()
+    const locale = await getLocale()
+    const session = await getServerSession(authOptions)
     return (
         <html lang={locale}>
             <body className={roboto.className}>
@@ -43,8 +45,8 @@ export default function RootLayout({ children, params: { locale }, currentUser }
                         <ToasterProvider />
                         <GoogleTagManager gtmId={'G-ZM99W2R4EX'} />
                         <NextIntlClientProvider messages={messages}>
-                            <Header currentUser={currentUser} />
-                            {children}
+                            <Header session={session} />
+                            <main>{children}</main>
                         </NextIntlClientProvider>
                         <Analytics />
                         <SpeedInsights />
@@ -53,14 +55,4 @@ export default function RootLayout({ children, params: { locale }, currentUser }
             </body>
         </html>
     )
-}
-
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-    const currentUser = await getCurrentUser()
-    return {
-        props: {
-            currentUser,
-            params: { locale }
-        }
-    }
 }
