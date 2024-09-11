@@ -5,7 +5,6 @@
         "simple-import-sort/imports": "error",
         "simple-import-sort/exports": "error",
         "quotes": ["error", "single"],
-        "semi": ["error", "always"],
         "prefer-const": "error",
         "react-hooks/exhaustive-deps": "error"
     },
