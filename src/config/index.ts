@@ -1,7 +1,7 @@
-import axios from 'axios'
-import { Pathnames } from 'next-intl/navigation'
+import axios from 'axios';
+import { Pathnames } from 'next-intl/navigation';
 
-export const locales = ['en', 'fr'] as const
+export const locales = ['en', 'fr'] as const;
 
 const instance = axios.create({
     baseURL: '/api',
@@ -10,7 +10,7 @@ const instance = axios.create({
     headers: {
         'Content-Type': 'application/json'
     }
-})
+});
 
 const pathnames = {
     '/': '/',
@@ -18,12 +18,12 @@ const pathnames = {
         en: '/pathnames',
         fr: '/pfadnamen'
     }
-} satisfies Pathnames<typeof locales>
+} satisfies Pathnames<typeof locales>;
 
 // Use the default: `always`
-const localePrefix = undefined
+const localePrefix = undefined;
 
 type AppPathnames = keyof typeof pathnames
 
-export { instance, localePrefix, pathnames }
-export type { AppPathnames }
+export { instance, localePrefix, pathnames };
+export type { AppPathnames };

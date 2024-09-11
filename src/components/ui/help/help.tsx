@@ -1,6 +1,6 @@
-import React from 'react'
-import { Disclosure } from '@headlessui/react'
-import { ChevronUpIcon } from '@heroicons/react/20/solid'
+import React from 'react';
+import { Disclosure } from '@headlessui/react';
+import { ChevronUpIcon } from '@heroicons/react/20/solid';
 
 const helpData = [
     {
@@ -66,7 +66,7 @@ const helpData = [
     {
         title: 'Catering Services',
         description:
-            "Planning an event or party? Explore our catering services for large orders and special events. We'll take care of the food while you enjoy the celebration."
+            'Planning an event or party? Explore our catering services for large orders and special events. We\'ll take care of the food while you enjoy the celebration.'
     },
     {
         title: 'Membership Benefits',
@@ -81,7 +81,7 @@ const helpData = [
     {
         title: 'Burger of the Month',
         description:
-            "Discover our featured burger of the month, crafted with unique ingredients and flavors. Don't miss out on the opportunity to try our latest creation!"
+            'Discover our featured burger of the month, crafted with unique ingredients and flavors. Don\'t miss out on the opportunity to try our latest creation!'
     },
     {
         title: 'Social Media',
@@ -91,14 +91,14 @@ const helpData = [
     {
         title: 'Refund Policy',
         description:
-            "Review our refund policy for information on returns, exchanges, and refunds. We strive to provide excellent service, but if you're not satisfied, we'll make it right."
+            'Review our refund policy for information on returns, exchanges, and refunds. We strive to provide excellent service, but if you\'re not satisfied, we\'ll make it right.'
     },
     {
         title: 'FAQs',
         description:
-            "Browse our frequently asked questions section for answers to common queries. If you can't find what you're looking for, feel free to reach out to our support team."
+            'Browse our frequently asked questions section for answers to common queries. If you can\'t find what you\'re looking for, feel free to reach out to our support team.'
     }
-]
+];
 
 export default function Help() {
     return (
@@ -126,5 +126,5 @@ export default function Help() {
                 ))}
             </div>
         </div>
-    )
+    );
 }

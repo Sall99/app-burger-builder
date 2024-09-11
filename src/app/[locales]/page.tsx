@@ -1,11 +1,12 @@
-'use client'
-import { Total, Controls, Builder } from '@/components/ui'
-import { selectIngredients } from '@/redux/selectors/ingredients'
-import React from 'react'
-import { useSelector } from 'react-redux'
+'use client';
+import React from 'react';
+import { useSelector } from 'react-redux';
+
+import { Builder,Controls, Total } from '@/components/ui';
+import { selectIngredients } from '@/redux/selectors/ingredients';
 
 export default function Home() {
-    const { ingredients } = useSelector(selectIngredients)
+    const { ingredients } = useSelector(selectIngredients);
     return (
         <main className="flex min-h-screen flex-col items-center pt-8">
             <section className="flex flex-col items-center px-8 sm:px-16 justify-center relative w-full">
@@ -16,5 +17,5 @@ export default function Home() {
                 <Controls />
             </section>
         </main>
-    )
+    );
 }

@@ -1,13 +1,10 @@
-'use client'
-import React, { FC, useEffect, useState } from 'react'
-import Link from 'next/link'
-import { User as UserICON } from 'lucide-react'
+'use client';
+import React, { FC } from 'react';
+import { AiOutlineLogin, AiOutlineUserAdd } from 'react-icons/ai';
+import { User as UserICON } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { AiOutlineLogin, AiOutlineUserAdd } from 'react-icons/ai'
-import Image from 'next/image'
-import { SafeUser } from '@/types'
-import { useDispatch } from 'react-redux'
-import { setCurrentUser } from '@/redux/slices/currentUser'
 
 export const navLinks = [
     {
@@ -20,14 +17,14 @@ export const navLinks = [
         name: 'Sign Up',
         Icon: AiOutlineUserAdd
     }
-]
+];
 
 interface HeaderProps {
     session: any
 }
 
 export const Header: FC<HeaderProps> = ({ session }) => {
-    console.log('session', session)
+    console.log('session', session);
 
     // if (session === null) {
     //     return (
@@ -73,5 +70,5 @@ export const Header: FC<HeaderProps> = ({ session }) => {
                 )}
             </div>
         </nav>
-    )
-}
+    );
+};

@@ -1,3 +1,3 @@
-import { ToasterProvider } from './toast.provider'
+import { ToasterProvider } from './toast.provider';
 
-export { ToasterProvider }
+export { ToasterProvider };

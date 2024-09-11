@@ -1,15 +1,14 @@
-'use client'
-import axios from 'axios'
-import toast from 'react-hot-toast'
-import { useSelector } from 'react-redux'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from 'react-hook-form'
-import { signOut } from 'next-auth/react'
-import { useRouter } from 'next/compat/router'
+'use client';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { useSelector } from 'react-redux';
+import { yupResolver } from '@hookform/resolvers/yup';
+import axios from 'axios';
+import { signOut } from 'next-auth/react';
 
-import { Button, Input } from '@/components/ui'
-import { selectCurrentUser } from '@/redux/selectors/current-user'
-import { updateProfileFormSchema } from '@/utils/yup.schema'
+import { Button, Input } from '@/components/ui';
+import { selectCurrentUser } from '@/redux/selectors/current-user';
+import { updateProfileFormSchema } from '@/utils/yup.schema';
 
 type UpdateProfileInFormValues = {
     name?: string | null | undefined
@@ -18,32 +17,32 @@ type UpdateProfileInFormValues = {
 const useUpdateProfile = () => {
     const updateProfile = async (data: UpdateProfileInFormValues) => {
         try {
-            const response = await axios.post('/api/update-profile', data)
+            const response = await axios.post('/api/update-profile', data);
             if (response.data.error && response.data.status === 400) {
-                toast.error(response.data.error)
+                toast.error(response.data.error);
             }
             if (response.data.message) {
-                toast.success(response.data.message)
+                toast.success(response.data.message);
             }
             if (response.data.passwordUpdated) {
-                signOut({ callbackUrl: '/auth/sign-in' })
+                signOut({ callbackUrl: '/auth/sign-in' });
             }
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                toast.error(error.response?.data.error || 'An error occurred')
+                toast.error(error.response?.data.error || 'An error occurred');
             } else {
-                toast.error('An error occurred')
+                toast.error('An error occurred');
             }
 
-            console.log(error, 'error')
+            console.log(error, 'error');
         }
-    }
+    };
 
-    return { updateProfile }
-}
+    return { updateProfile };
+};
 
 export const UpdateProfileForm = () => {
-    const currentUser = useSelector(selectCurrentUser) as any
+    const currentUser = useSelector(selectCurrentUser) as any;
     const {
         handleSubmit,
         register,
@@ -53,13 +52,13 @@ export const UpdateProfileForm = () => {
         defaultValues: {
             name: currentUser?.name || ''
         }
-    })
+    });
 
-    const { updateProfile } = useUpdateProfile()
+    const { updateProfile } = useUpdateProfile();
 
     const onSubmit = async (data: UpdateProfileInFormValues) => {
-        updateProfile(data)
-    }
+        updateProfile(data);
+    };
 
     return (
         <div className="w-full">
@@ -95,5 +94,5 @@ export const UpdateProfileForm = () => {
                 <Button type="submit" label="Update" className="w-full h-10" />
             </form>
         </div>
-    )
-}
+    );
+};
