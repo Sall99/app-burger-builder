@@ -1,10 +1,9 @@
-'use client';
-import React, { FC } from 'react';
-import { AiOutlineLogin, AiOutlineUserAdd } from 'react-icons/ai';
-import { User as UserICON } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-
+'use client'
+import React, { FC } from 'react'
+import { AiOutlineLogin, AiOutlineUserAdd } from 'react-icons/ai'
+import { User as UserICON } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export const navLinks = [
     {
@@ -17,25 +16,13 @@ export const navLinks = [
         name: 'Sign Up',
         Icon: AiOutlineUserAdd
     }
-];
+]
 
 interface HeaderProps {
     session: any
 }
 
 export const Header: FC<HeaderProps> = ({ session }) => {
-    console.log('session', session);
-
-    // if (session === null) {
-    //     return (
-    //         <div className="flex justify-center items-center h-screen bg-white z-50 absolute inset-y-0 w-screen">
-    //             <div className="animate-bounce">
-    //                 <Image src="/images/Logo.png" width={34} height={34} alt="logo" priority />
-    //             </div>
-    //         </div>
-    //     )
-    // }
-
     return (
         <nav className="flex items-center justify-between py-4 px-8 sm:px-16">
             <Link href="/">
@@ -70,5 +57,5 @@ export const Header: FC<HeaderProps> = ({ session }) => {
                 )}
             </div>
         </nav>
-    );
-};
+    )
+}
