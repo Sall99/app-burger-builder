@@ -1,35 +1,32 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { signIn } from 'next-auth/react'
-
 import toast from 'react-hot-toast'
 
 import { AuthContainer, Button, Input } from '@/components/ui'
 import { signInFormSchema } from '@/utils'
+import { SignInFormValues } from '@/types'
 
-type SignInFormValues = {
-    email: string
-    password: string
+type InputField = {
+    name: keyof SignInFormValues
+    type: 'email' | 'password'
+    placeholder: string
 }
+const inputFields: InputField[] = [
+    { name: 'email', type: 'email', placeholder: 'Email Address' },
+    { name: 'password', type: 'password', placeholder: 'Password' }
+]
 
-const SignIn = () => {
+const useSignin = () => {
     const [loading, setLoading] = useState(false)
     const t = useTranslations('signIn')
-    const {
-        handleSubmit,
-        register,
-        formState: { errors }
-    } = useForm<SignInFormValues>({
-        resolver: yupResolver(signInFormSchema)
-    })
-
     const router = useRouter()
 
-    const onSubmit: SubmitHandler<SignInFormValues> = (data) => {
+    const onSignIn = async (data: SignInFormValues) => {
         setLoading(true)
         signIn('credentials', { ...data, redirect: false }).then(async (callback) => {
             if (callback?.ok) {
@@ -40,30 +37,50 @@ const SignIn = () => {
 
             if (callback?.error) {
                 toast.error(callback.error)
+                console.log(callback.error)
             }
 
             setLoading(false)
         })
     }
 
+    return { onSignIn, loading }
+}
+
+const SignIn = () => {
+    const t = useTranslations('signIn')
+    const {
+        handleSubmit,
+        register,
+        formState: { errors }
+    } = useForm<SignInFormValues>({
+        resolver: yupResolver(signInFormSchema)
+    })
+
+    const { onSignIn, loading } = useSignin()
+
+    const onSubmit = useCallback(
+        async (data: SignInFormValues) => {
+            await onSignIn(data)
+        },
+        [onSignIn]
+    )
+
     return (
         <div className="flex justify-center px-8 sm:px-16">
             <AuthContainer h1={t('signIn')}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <Input
-                        name="email"
-                        type="email"
-                        placeholder="Email Address"
-                        register={register}
-                        errors={errors}
-                    />
-                    <Input
-                        name="password"
-                        type="password"
-                        placeholder="Password"
-                        register={register}
-                        errors={errors}
-                    />
+                    {inputFields.map(({ name, type, placeholder }) => (
+                        <Input
+                            key={name}
+                            name={name}
+                            type={type}
+                            placeholder={placeholder}
+                            register={register}
+                            errors={errors}
+                        />
+                    ))}
+
                     <Button
                         type="submit"
                         label="Sign In"
