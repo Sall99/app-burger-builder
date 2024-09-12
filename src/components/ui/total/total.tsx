@@ -1,36 +1,37 @@
-'use client';
-import { useState } from 'react';
-import { BiDollar } from 'react-icons/bi';
-import { useSelector } from 'react-redux';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-import clsx from 'clsx';
+'use client'
+import { useState } from 'react'
+import { BiDollar } from 'react-icons/bi'
+import { useSelector } from 'react-redux'
+import { Elements } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
+import clsx from 'clsx'
+import { useSession } from 'next-auth/react'
 
-import { selectCurrentUser } from '@/redux/selectors/current-user';
-import { selectIngredients } from '@/redux/selectors/ingredients';
-import { totalFormatter } from '@/utils/utils';
+import { selectIngredients } from '@/redux/selectors/ingredients'
+import { totalFormatter } from '@/utils/utils'
 
-import { Modal } from '../modal/modal';
-import { ShippingAddress } from '../shipping-address';
-import { Button, PaymentForm } from '..';
+import { Modal } from '../modal/modal'
+import { ShippingAddress } from '../shipping-address'
+import { Button, PaymentForm } from '..'
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!)
 
 export const Total = () => {
-    const currentUser = useSelector(selectCurrentUser);
-    const { ingredients, totalPrice } = useSelector(selectIngredients);
-    const [isPaymentOpen, setIsPaymeOpen] = useState(false);
-    const { meat, salad, bacon, cheese } = ingredients;
-    const [isOpen, setIsOpen] = useState(false);
+    const session = useSession()
+
+    const { ingredients, totalPrice } = useSelector(selectIngredients)
+    const [isPaymentOpen, setIsPaymeOpen] = useState(false)
+    const { meat, salad, bacon, cheese } = ingredients
+    const [isOpen, setIsOpen] = useState(false)
 
     const handleOrder = () => {
-        setIsOpen(true);
-    };
+        setIsOpen(true)
+    }
 
     const handlePayment = () => {
-        setIsOpen(false);
-        setIsPaymeOpen(true);
-    };
+        setIsOpen(false)
+        setIsPaymeOpen(true)
+    }
 
     return (
         <div className="total-order absolute left-16 top-0 hidden md:block">
@@ -76,7 +77,7 @@ export const Total = () => {
             <Modal
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                title={currentUser ? 'Add your shipping address' : ''}
+                title={session ? 'Add your shipping address' : ''}
                 content={<ShippingAddress handlePayment={handlePayment} isOpen={isOpen} />}
             />
             <Modal
@@ -90,5 +91,5 @@ export const Total = () => {
                 }
             />
         </div>
-    );
-};
+    )
+}
