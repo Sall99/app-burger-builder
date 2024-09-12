@@ -77,7 +77,7 @@ export const Total = () => {
             <Modal
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                title={session ? 'Add your shipping address' : ''}
+                title={session ? 'Shipping Address' : ''}
                 content={<ShippingAddress handlePayment={handlePayment} isOpen={isOpen} />}
             />
             <Modal
