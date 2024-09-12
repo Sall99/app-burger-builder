@@ -2,36 +2,36 @@ import {
     TypedUseSelectorHook,
     useDispatch as useAppDispatch,
     useSelector as useAppSelector
-} from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
-import { persistReducer,persistStore } from 'redux-persist';
-import createWebStorage from 'redux-persist/es/storage/createWebStorage';
+} from 'react-redux'
+import { configureStore } from '@reduxjs/toolkit'
+import { persistReducer, persistStore } from 'redux-persist'
+import createWebStorage from 'redux-persist/es/storage/createWebStorage'
 
-import rootReducer from './root-reducer';
+import rootReducer from './root-reducer'
 
 const createNoopStorage = () => {
     return {
         getItem(_key: any) {
-            return Promise.resolve(null);
+            return Promise.resolve(null)
         },
         setItem(_key: any, value: any) {
-            return Promise.resolve(value);
+            return Promise.resolve(value)
         },
         removeItem(_key: any) {
-            return Promise.resolve();
+            return Promise.resolve()
         }
-    };
-};
+    }
+}
 
-const storage = typeof window !== 'undefined' ? createWebStorage('local') : createNoopStorage();
+const storage = typeof window !== 'undefined' ? createWebStorage('local') : createNoopStorage()
 
 const persistConfig = {
     key: 'root',
     storage,
     whitelist: ['shippingAddress']
-};
+}
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const store = configureStore({
     reducer: {
@@ -39,15 +39,15 @@ const store = configureStore({
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
     devTools: process.env.NODE_ENV !== 'production'
-});
+})
 
-export const persistor = persistStore(store);
+export const persistor = persistStore(store)
 
 export type AppDispatch = typeof store.dispatch
 export type RootState = ReturnType<typeof store.getState>
 
-export const useSelector: TypedUseSelectorHook<RootState> = useAppSelector;
+export const useSelector: TypedUseSelectorHook<RootState> = useAppSelector
 
-export const useDispatch = () => useAppDispatch<AppDispatch>();
+export const useDispatch = () => useAppDispatch<AppDispatch>()
 
-export default store;
+export default store
