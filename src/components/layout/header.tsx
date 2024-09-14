@@ -5,6 +5,8 @@ import { User as UserICON } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import PopoverProfil from './popover'
+
 export const navLinks = [
     {
         path: '/auth/sign-in',
@@ -32,14 +34,15 @@ export const Header: FC<HeaderProps> = ({ session }) => {
             <div>
                 {session ? (
                     <div>
-                        <div>
+                        {/* <div>
                             <Link
                                 className="text-sm tracking-wide hover:underline text-primary-200 flex gap-2 items-center"
                                 href="/profile">
                                 <UserICON className="text-primary-200 hover:cursor-pointer" />
                                 <span> Profile</span>
                             </Link>
-                        </div>
+                        </div> */}
+                        <PopoverProfil />
                     </div>
                 ) : (
                     <ul className="flex items-center justify-center text-primary-200 text-base font-normal gap-8">
