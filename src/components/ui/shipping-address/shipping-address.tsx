@@ -60,7 +60,7 @@ export function ShippingAddress({ handlePayment, isOpen }: ShippingAddressProps)
     }
 
     return (
-        <div className="shipping-address">
+        <div className="form-card">
             <form onSubmit={handleSubmit(onSubmit)} aria-live="polite">
                 <div className="flex gap-8">
                     <Input

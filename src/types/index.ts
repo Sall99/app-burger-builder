@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { User } from '@prisma/client'
 
 export interface IngredientTypes {
     [key: string]: string | number
@@ -19,6 +19,13 @@ export type SignupFormValues = {
 export type SignInFormValues = {
     email: string
     password: string
+}
+
+export type UpdateProfileInFormValues = {
+    name?: string
+    currentPassword?: string
+    newPassword?: string
+    confirmNewPassword?: string
 }
 
 export type SafeUser = Omit<User, 'emailVerified' | 'updatedAt'> & { createdAt: Date | string }
