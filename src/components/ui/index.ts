@@ -6,7 +6,6 @@ import { Help } from './help'
 import { Input } from './input'
 import { Modal } from './modal'
 import { PaymentForm } from './payment-form'
-import { ProfileSideBar } from './profile-sidebar'
 import { ShippingAddress } from './shipping-address'
 import { Spiner } from './spiner'
 import { UpdateProfileForm } from './update-profile-form'
@@ -21,7 +20,6 @@ export {
     Input,
     Modal,
     PaymentForm,
-    ProfileSideBar,
     ShippingAddress,
     Spiner,
     UpdateProfileForm

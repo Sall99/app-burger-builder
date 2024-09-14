@@ -327,14 +327,14 @@ tbody tr td {
     margin-bottom: 10px;
 }
 
-.shipping-address {
+.form-card {
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
 }
 
-.shipping-address input {
+.form-card input {
     background-color: #f9f9f9;
 }
 

@@ -14,7 +14,6 @@ import { Header } from '@/components'
 import { ToasterProvider } from '@/providers'
 import Providers from '@/redux/provider'
 
-import { SidebarProvider } from '../../../context/sidebar'
 import { authOptions, SessionWrapper } from '../../../libs'
 
 import './globals.css'
@@ -88,16 +87,14 @@ export default async function RootLayout({ children }: Props) {
             <body className={roboto.className}>
                 <SessionWrapper>
                     <Providers>
-                        <SidebarProvider>
-                            <ToasterProvider />
-                            <GoogleTagManager gtmId={'G-ZM99W2R4EX'} />
-                            <NextIntlClientProvider messages={messages}>
-                                <Header session={session} />
-                                <main>{children}</main>
-                            </NextIntlClientProvider>
-                            <Analytics />
-                            <SpeedInsights />
-                        </SidebarProvider>
+                        <ToasterProvider />
+                        <GoogleTagManager gtmId={'G-ZM99W2R4EX'} />
+                        <NextIntlClientProvider messages={messages}>
+                            <Header session={session} />
+                            <main>{children}</main>
+                        </NextIntlClientProvider>
+                        <Analytics />
+                        <SpeedInsights />
                     </Providers>
                 </SessionWrapper>
             </body>
