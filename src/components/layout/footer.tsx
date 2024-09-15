@@ -35,9 +35,6 @@ export const Footer = () => {
                     </Link>
                 ))}
             </div>
-            <Link href="/contact-us" className="underline">
-                Contact us
-            </Link>
         </footer>
     )
 }
