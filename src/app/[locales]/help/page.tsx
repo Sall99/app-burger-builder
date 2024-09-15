@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const Helpage = () => {
     return (
-        <div className="mt-4">
+        <div className="mt-4 mb-24">
             <Content />
         </div>
     )
