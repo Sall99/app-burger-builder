@@ -25,6 +25,18 @@ export const Total = () => {
     const [isOpen, setIsOpen] = useState(false)
 
     const handleOrder = () => {
+        if (typeof window !== 'undefined' && window.dataLayer) {
+            window.dataLayer.push({
+                event: 'orderInitiated',
+                orderDetails: {
+                    meat,
+                    salad,
+                    bacon,
+                    cheese,
+                    totalPrice
+                }
+            })
+        }
         setIsOpen(true)
     }
 
