@@ -1,11 +1,11 @@
-'use client'
+import { Metadata } from 'next'
 
 import { UpdateProfileForm } from '@/components/ui'
 
-interface ComponentsType {
-    [key: string]: JSX.Element
+export const metadata: Metadata = {
+    title: 'Profile',
+    description: 'Manage your account'
 }
-
 export default function Profile() {
     return (
         <section className="px-16 mt-16">
