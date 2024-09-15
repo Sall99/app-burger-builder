@@ -1,7 +1,9 @@
 import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import { LogOut } from 'lucide-react'
 import Link from 'next/link'
+import { signOut } from 'next-auth/react'
 
 const solutions = [
     {
@@ -71,6 +73,19 @@ export default function PopoverProfil() {
                                                 </div>
                                             </Link>
                                         ))}
+                                        <p
+                                            className="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50"
+                                            onClick={() => signOut()}>
+                                            <div className="flex h-10 w-10 shrink-0 items-center justify-center  sm:h-12 sm:w-12">
+                                                <LogOut />
+                                            </div>
+                                            <div className="ml-4">
+                                                <p className="text-sm font-medium text-gray-900">
+                                                    Logout
+                                                </p>
+                                                <p className="text-sm text-gray-500"></p>
+                                            </div>
+                                        </p>
                                     </div>
                                     <div className="bg-gray-50 p-4">
                                         <Link
