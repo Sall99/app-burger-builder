@@ -11,6 +11,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
 
 import { Header } from '@/components'
+import { GoogleAnalytics } from '@/components/google'
 import { ToasterProvider } from '@/providers'
 import Providers from '@/redux/provider'
 
@@ -145,6 +146,7 @@ export default async function RootLayout({ children }: Props) {
                         <SpeedInsights />
                     </Providers>
                 </SessionWrapper>
+                <GoogleAnalytics />
             </body>
         </html>
     )
