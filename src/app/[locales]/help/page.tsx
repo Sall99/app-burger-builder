@@ -1,7 +1,7 @@
 import React from 'react'
 import { Metadata } from 'next'
 
-import { Help } from '@/components/ui'
+import { Content } from './content'
 
 export const metadata: Metadata = {
     title: 'Help',
@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 
 const Helpage = () => {
     return (
-        <div>
-            <Help />
+        <div className="mt-4">
+            <Content />
         </div>
     )
 }
