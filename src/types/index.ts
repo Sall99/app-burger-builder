@@ -28,4 +28,16 @@ export type UpdateProfileInFormValues = {
     confirmNewPassword?: string
 }
 
+export type shippingAddressFormValues = {
+    firstName: string
+    lastName: string
+    streetAddress: string
+    town: string
+}
+
+export interface PaymentActionValues {
+    amount: number
+    shippingAddress: shippingAddressFormValues
+}
+
 export type SafeUser = Omit<User, 'emailVerified' | 'updatedAt'> & { createdAt: Date | string }
