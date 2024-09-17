@@ -15,7 +15,7 @@ const solutions = [
     {
         name: 'History',
         description: 'View your activity and past interactions',
-        href: '/hisory',
+        href: '/history',
         icon: IconTwo
     },
     {

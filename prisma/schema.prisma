@@ -71,5 +71,6 @@ enum OrderStatus {
   PENDING
   PROCESSING
   COMPLETED
+  DELIVERED
   CANCELLED
 }
