@@ -4,5 +4,15 @@
     },
     "Footer": {
         "Copyright": "Burger-builder. All rights reverved"
+    },
+    "Total": {
+        "Meat": "Meat",
+        "Salad": "Salad",
+        "Bacon": "Bacon",
+        "Cheese": "Cheese",
+        "Total": "Total",
+        "Order": "Order",
+        "ShippingAddress": "Shipping Address",
+        "Payment": "Payment"
     }
 }

@@ -1,4 +1,5 @@
 'use client'
+
 import { useState } from 'react'
 import { BiDollar } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
@@ -6,6 +7,7 @@ import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import clsx from 'clsx'
 import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 
 import { selectIngredients } from '@/redux/selectors/ingredients'
 import { totalFormatter } from '@/utils/utils'
@@ -18,6 +20,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!)
 
 export const Total = () => {
     const session = useSession()
+    const t = useTranslations('Total')
 
     const { ingredients, totalPrice } = useSelector(selectIngredients)
     const [isPaymentOpen, setIsPaymeOpen] = useState(false)
@@ -50,23 +53,23 @@ export const Total = () => {
             <table>
                 <tbody>
                     <tr>
-                        <td>Meat</td>
+                        <td>{t('Meat')}</td>
                         <td>{meat}</td>
                     </tr>
                     <tr>
-                        <td>Salad</td>
+                        <td>{t('Salad')}</td>
                         <td>{salad}</td>
                     </tr>
                     <tr>
-                        <td>Bacon</td>
+                        <td>{t('Bacon')}</td>
                         <td>{bacon}</td>
                     </tr>
                     <tr>
-                        <td>Cheese</td>
+                        <td>{t('Cheese')}</td>
                         <td>{cheese}</td>
                     </tr>
                     <tr>
-                        <td className="price py-5">Total</td>
+                        <td className="price py-5">{t('Total')}</td>
                         <td className="price flex items-center gap-1 py-5">
                             <span>{totalFormatter.format(totalPrice)}</span> <BiDollar />
                         </td>
@@ -74,7 +77,7 @@ export const Total = () => {
                     <tr>
                         <td>
                             <Button
-                                label="Order"
+                                label={t('Order')}
                                 className={clsx(
                                     'w-20 h-8',
                                     totalPrice <= 4 && 'bg-primary-300  hover:bg-primary-300'
@@ -89,13 +92,13 @@ export const Total = () => {
             <Modal
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                title={session ? 'Shipping Address' : ''}
+                title={session ? t('ShippingAddress') : ''}
                 content={<ShippingAddress handlePayment={handlePayment} isOpen={isOpen} />}
             />
             <Modal
                 isOpen={isPaymentOpen}
                 setIsOpen={setIsPaymeOpen}
-                title="Payment"
+                title={t('Payment')}
                 content={
                     <Elements stripe={stripePromise}>
                         <PaymentForm setIsPaymeOpen={setIsPaymeOpen} />
