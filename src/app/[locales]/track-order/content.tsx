@@ -7,7 +7,6 @@ import useSWR from 'swr'
 
 import { getOrderById } from '@/actions/orders'
 
-// Define types for the order and related data
 interface ShippingAddress {
     street: string
     city: string
