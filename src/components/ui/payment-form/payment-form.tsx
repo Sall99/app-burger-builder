@@ -1,7 +1,9 @@
 'use client'
+
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
+import { useTranslations } from 'next-intl'
 
 import { paymentAction } from '@/actions/payments'
 import { useAppSelector } from '@/redux/hook'
@@ -22,6 +24,8 @@ export function PaymentForm({ setIsPaymeOpen }: PaymentFormProps) {
     const [paymentError, setPaymentError] = useState(null)
     const [loading, setLoading] = useState(false)
 
+    const t = useTranslations('PaymentForm')
+
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const cardElement = elements?.getElement('card')
@@ -35,7 +39,7 @@ export function PaymentForm({ setIsPaymeOpen }: PaymentFormProps) {
             })
 
             if (result) {
-                toast.success('Payment was successful!')
+                toast.success(t('PaymentSuccessful'))
                 setIsPaymeOpen(false)
             }
 
@@ -49,12 +53,10 @@ export function PaymentForm({ setIsPaymeOpen }: PaymentFormProps) {
     return (
         <div className="payment-form-container">
             <form onSubmit={onSubmit} className="payment-form">
-                <p className="text-xs mb-5">
-                    Enter your payment details below to complete your purchase:
-                </p>
+                <p className="text-xs mb-5">{t('EnterPaymentDetails')}</p>
                 <CardElement className="card-element" options={{ hidePostalCode: true }} />
                 {paymentError && <div className="error-message">{paymentError}</div>}
-                <Button label="Pay Now" className="px-5 py-4 mt-5" loading={loading} />
+                <Button label={t('PayNow')} className="px-5 py-4 mt-5" loading={loading} />
             </form>
         </div>
     )
