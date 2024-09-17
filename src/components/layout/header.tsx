@@ -5,6 +5,8 @@ import { User as UserICON } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import LocaleSwitcher from '../ui/local-switcher'
+
 import PopoverProfil from './popover'
 
 export const navLinks = [
@@ -31,33 +33,28 @@ export const Header: FC<HeaderProps> = ({ session }) => {
                 <Image src="/images/Logo.png" width={34} height={34} alt="logo" priority />
             </Link>
 
-            <div>
-                {session ? (
-                    <div>
-                        {/* <div>
-                            <Link
-                                className="text-sm tracking-wide hover:underline text-primary-200 flex gap-2 items-center"
-                                href="/profile">
-                                <UserICON className="text-primary-200 hover:cursor-pointer" />
-                                <span> Profile</span>
-                            </Link>
-                        </div> */}
-                        <PopoverProfil />
-                    </div>
-                ) : (
-                    <ul className="flex items-center justify-center text-primary-200 text-base font-normal gap-8">
-                        {navLinks.map(({ path, name, Icon }) => (
-                            <li key={path} className="hover:cursor-pointer">
-                                <Link
-                                    href={path}
-                                    className="flex items-center justify-center gap-2 text-sm tracking-wide hover:underline">
-                                    <Icon size={20} />
-                                    <span>{name}</span>
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                )}
+            <div className="flex gap-4 items-center">
+                <LocaleSwitcher />
+                <div>
+                    {session ? (
+                        <div>
+                            <PopoverProfil />
+                        </div>
+                    ) : (
+                        <ul className="flex items-center justify-center text-primary-200 text-base font-normal gap-8">
+                            {navLinks.map(({ path, name, Icon }) => (
+                                <li key={path} className="hover:cursor-pointer">
+                                    <Link
+                                        href={path}
+                                        className="flex items-center justify-center gap-2 text-sm tracking-wide hover:underline">
+                                        <Icon size={20} />
+                                        <span>{name}</span>
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
             </div>
         </nav>
     )
