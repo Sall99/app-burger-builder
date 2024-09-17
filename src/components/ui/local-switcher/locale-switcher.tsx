@@ -1,43 +1,40 @@
-'use client';
+'use client'
 
-import React from 'react';
+import React, { startTransition, useState, useTransition } from 'react'
+import { useParams, usePathname, useRouter } from 'next/navigation'
+import { useLocale } from 'next-intl'
+
+const locales = [{ name: 'en' }, { name: 'fr' }]
 
 const LocaleSwitcher = () => {
-    // const router = useRouter()
-    // const locales = Object.keys(dictionaries)
-    // const pathName = usePathname()
-    // const currentLocale = useParams()
+    const router = useRouter()
+    const [selected, setSelected] = useState(locales[0])
+    const pathName = usePathname()
+    const currentLocale = useParams()
+    const [isPending, startTransition] = useTransition()
 
-    // const handleLocaleChange = (e: { target: { value: any } }) => {
-    //     const selectedLocale = e.target.value
+    const localActive = useLocale()
 
-    //     document.cookie = `NEXT_LOCALE=${selectedLocale};path=/;max-age=31536000`
-
-    //     const redirectedPath = redirectedPathName(selectedLocale)
-    //     router.push(redirectedPath)
-    // }
-
-    // const redirectedPathName = (locale: string) => {
-    //     if (!pathName) return '/'
-    //     const segments = pathName.split('/')
-    //     segments[1] = locale
-    //     return segments.join('/')
-    // }
+    const handleLocaleChange = (e: { target: { value: any } }) => {
+        startTransition(() => {
+            router.replace(`/${e.target.value}`)
+        })
+    }
 
     return (
         <div>
-            {/* <select
+            <select
                 onChange={handleLocaleChange}
-                className="bg-slate-200 rounded-md p-2 text-sm"
+                className="bg-slate-200 rounded-md h-10 px-2 text-[#f08e4a] text-sm"
                 value={currentLocale.lang}>
                 {locales.map((locale) => (
-                    <option key={locale} value={locale}>
-                        {locale}
+                    <option key={locale.name} value={locale.name}>
+                        {locale.name}
                     </option>
                 ))}
-            </select> */}
+            </select>
         </div>
-    );
-};
+    )
+}
 
-export default LocaleSwitcher;
+export default LocaleSwitcher
