@@ -1,4 +1,4 @@
-import { User } from '@prisma/client'
+import { Address, Order, User } from '@prisma/client'
 
 export interface IngredientTypes {
     [key: string]: string | number
@@ -38,6 +38,10 @@ export type shippingAddressFormValues = {
 export interface PaymentActionValues {
     amount: number
     shippingAddress: shippingAddressFormValues
+}
+
+export interface OrderWithShippingAddress extends Order {
+    shippingAdresse?: Address
 }
 
 export type SafeUser = Omit<User, 'emailVerified' | 'updatedAt'> & { createdAt: Date | string }
