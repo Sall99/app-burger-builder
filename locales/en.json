@@ -24,5 +24,10 @@
         "Town": "Town/City",
         "ProceedToPayment": "Proceed to payment",
         "AddShippingAddress": "Add shipping address"
+    },
+    "PaymentForm": {
+        "PaymentSuccessful": "Payment was successful!",
+        "EnterPaymentDetails": "Enter your payment details below to complete your purchase:",
+        "PayNow": "Pay Now"
     }
 }

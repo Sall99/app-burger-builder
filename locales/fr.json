@@ -24,5 +24,10 @@
         "Town": "Ville",
         "ProceedToPayment": "Passer au paiement",
         "AddShippingAddress": "Ajouter une adresse de livraison"
+    },
+    "PaymentForm": {
+        "PaymentSuccessful": "Le paiement a réussi !",
+        "EnterPaymentDetails": "Entrez vos informations de paiement ci-dessous pour finaliser votre achat :",
+        "PayNow": "Payer maintenant"
     }
 }
