@@ -1,12 +1,16 @@
 'use client'
+
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { AxiosError } from 'axios'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
+import useSWR, { mutate } from 'swr'
 
 import { updateProfileAction } from '@/actions/auth'
+import { currentUserAction } from '@/actions/users'
 import { Button, Input } from '@/components/ui'
 import { UpdateProfileInFormValues } from '@/types'
 import { updateProfileFormSchema } from '@/utils/yup.schema'
@@ -30,17 +34,20 @@ const useUpdate = () => {
 
     const update = async (data: UpdateProfileInFormValues) => {
         setLoading(true)
-        updateProfileAction(data)
-            .then((result) => {
-                toast.success(t('profileUpdated'))
-                setLoading(true)
-            })
-            .catch((error) => {
-                toast.error(error?.response.data.error)
-            })
-            .finally(() => {
-                setLoading(false)
-            })
+        try {
+            await updateProfileAction(data)
+            toast.success(t('profileUpdated'))
+
+            mutate(['User'])
+        } catch (error) {
+            if (error instanceof AxiosError && error.response) {
+                toast.error(error.response.data?.error || 'An error occurred')
+            } else {
+                toast.error('An unknown error occurred')
+            }
+        } finally {
+            setLoading(false)
+        }
     }
 
     return { update, loading }
@@ -48,8 +55,13 @@ const useUpdate = () => {
 
 export const UpdateProfileForm = () => {
     const session = useSession()
-    const { data } = session
+
+    const { error, data, isLoading } = useSWR(['User'], currentUserAction, {
+        revalidateOnFocus: false
+    })
+
     console.log(session, 'session')
+
     const {
         handleSubmit,
         register,
@@ -60,13 +72,13 @@ export const UpdateProfileForm = () => {
 
     const { update, loading } = useUpdate()
 
-    const onSubmit = async (data: UpdateProfileInFormValues) => {
-        update(data)
+    const onSubmit = async (formData: UpdateProfileInFormValues) => {
+        update(formData)
     }
 
     return (
         <div className="w-full form-card !py-16">
-            <h2 className="text-lg font-semibold mb-16 text-zinc-600">
+            <h2 className="text-lg font-semibold mb-16 text-zinc-600 flex justify-center">
                 <p className="flex flex-col md:flex-row gap-1 items-center font-normal">
                     <span>Hi</span>
                     <span className="font-bold underline text-base">
@@ -90,7 +102,12 @@ export const UpdateProfileForm = () => {
                         errors={errors}
                     />
                 ))}
-                <Button type="submit" label="Update" className="w-full h-10" />
+                <Button
+                    type="submit"
+                    label={loading ? 'Updating...' : 'Update'}
+                    className="w-full h-10"
+                    disabled={loading}
+                />
             </form>
         </div>
     )
