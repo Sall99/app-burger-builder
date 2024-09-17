@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 
 import { useAppSelector } from '@/redux/hook'
 import { selectShippingAddress } from '@/redux/selectors/shipping-address'
@@ -30,7 +31,9 @@ export function ShippingAddress({ handlePayment, isOpen }: ShippingAddressProps)
     const dispatch = useDispatch()
     const { shippingAddress } = useAppSelector(selectShippingAddress)
     const { data: session } = useSession()
+    const t = useTranslations('ShippingAddress')
     const isShippingAddressPresent = Object.values(shippingAddress).every((value) => value !== '')
+
     const {
         handleSubmit,
         register,
@@ -48,11 +51,9 @@ export function ShippingAddress({ handlePayment, isOpen }: ShippingAddressProps)
         return (
             <div className="p-4 rounded-md">
                 <p className="flex flex-col gap-4">
-                    <span className="text-primary-200 text-sm">
-                        You should be logged in to make an order.
-                    </span>
+                    <span className="text-primary-200 text-sm">{t('YouShouldBeLoggedIn')}</span>
                     <Link href="/auth/sign-in" className="text-sm underline">
-                        Go to login page
+                        {t('GoToLoginPage')}
                     </Link>
                 </p>
             </div>
@@ -66,7 +67,7 @@ export function ShippingAddress({ handlePayment, isOpen }: ShippingAddressProps)
                     <Input
                         name="firstName"
                         type="text"
-                        placeholder="First name"
+                        placeholder={t('FirstName')}
                         register={register}
                         errors={errors}
                         aria-invalid={!!errors.firstName}
@@ -74,7 +75,7 @@ export function ShippingAddress({ handlePayment, isOpen }: ShippingAddressProps)
                     <Input
                         name="lastName"
                         type="text"
-                        placeholder="Last name"
+                        placeholder={t('LastName')}
                         register={register}
                         errors={errors}
                         aria-invalid={!!errors.lastName}
@@ -83,7 +84,7 @@ export function ShippingAddress({ handlePayment, isOpen }: ShippingAddressProps)
                 <Input
                     name="streetAddress"
                     type="text"
-                    placeholder="Street address"
+                    placeholder={t('StreetAddress')}
                     register={register}
                     errors={errors}
                     aria-invalid={!!errors.streetAddress}
@@ -91,7 +92,7 @@ export function ShippingAddress({ handlePayment, isOpen }: ShippingAddressProps)
                 <Input
                     name="town"
                     type="text"
-                    placeholder="Town/City"
+                    placeholder={t('Town')}
                     register={register}
                     errors={errors}
                     aria-invalid={!!errors.town}
@@ -99,7 +100,9 @@ export function ShippingAddress({ handlePayment, isOpen }: ShippingAddressProps)
 
                 <Button
                     type="submit"
-                    label={isShippingAddressPresent ? 'Proceed to payment' : 'Add shipping address'}
+                    label={
+                        isShippingAddressPresent ? t('ProceedToPayment') : t('AddShippingAddress')
+                    }
                     className="w-full h-10"
                     onClick={isShippingAddressPresent ? handlePayment : undefined}
                 />

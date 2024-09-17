@@ -14,5 +14,15 @@
         "Order": "Order",
         "ShippingAddress": "Shipping Address",
         "Payment": "Payment"
+    },
+    "ShippingAddress": {
+        "YouShouldBeLoggedIn": "You should be logged in to make an order.",
+        "GoToLoginPage": "Go to login page",
+        "FirstName": "First name",
+        "LastName": "Last name",
+        "StreetAddress": "Street address",
+        "Town": "Town/City",
+        "ProceedToPayment": "Proceed to payment",
+        "AddShippingAddress": "Add shipping address"
     }
 }

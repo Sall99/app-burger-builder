@@ -14,5 +14,15 @@
         "Order": "Commander",
         "ShippingAddress": "Adresse de livraison",
         "Payment": "Paiement"
+    },
+    "ShippingAddress": {
+        "YouShouldBeLoggedIn": "Vous devez être connecté pour passer une commande.",
+        "GoToLoginPage": "Aller à la page de connexion",
+        "FirstName": "Prénom",
+        "LastName": "Nom",
+        "StreetAddress": "Adresse",
+        "Town": "Ville",
+        "ProceedToPayment": "Passer au paiement",
+        "AddShippingAddress": "Ajouter une adresse de livraison"
     }
 }
