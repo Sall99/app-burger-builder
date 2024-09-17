@@ -5,7 +5,7 @@ import { UpdateProfileForm } from '@/components/ui'
 
 const Content = () => {
     return (
-        <section className="px-16 mt-16">
+        <section className="px-8 sm:px-16 mt-16">
             <UpdateProfileForm />
         </section>
     )

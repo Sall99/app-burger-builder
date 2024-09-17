@@ -67,7 +67,7 @@ export const UpdateProfileForm = () => {
     return (
         <div className="w-full form-card !py-16">
             <h2 className="text-lg font-semibold mb-16 text-zinc-600">
-                <p className="flex gap-1 items-center font-normal">
+                <p className="flex flex-col md:flex-row gap-1 items-center font-normal">
                     <span>Hi</span>
                     <span className="font-bold underline text-base">
                         {data?.user ? data?.user.name : '....'}
@@ -76,7 +76,10 @@ export const UpdateProfileForm = () => {
                 </p>
             </h2>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="w-_450 m-auto" autoComplete="false">
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="md:w-_450 m-auto"
+                autoComplete="false">
                 {inputFields.map(({ name, type, placeholder }) => (
                     <Input
                         key={name}
