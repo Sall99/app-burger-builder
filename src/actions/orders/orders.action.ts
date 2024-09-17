@@ -5,3 +5,9 @@ export const getOrders = async () => {
 
     return data
 }
+
+export const getOrderById = async (id: string) => {
+    const { data } = await instance.get(`/orders/get-orders/${id}`)
+
+    return data
+}

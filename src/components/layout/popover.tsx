@@ -21,7 +21,7 @@ const solutions = [
     {
         name: 'Track my order',
         description: 'Monitor the status and delivery of your recent purchases',
-        href: '/my-order',
+        href: '/track-order',
         icon: IconThree
     }
 ]

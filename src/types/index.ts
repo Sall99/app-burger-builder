@@ -44,4 +44,12 @@ export interface OrderWithShippingAddress extends Order {
     shippingAdresse?: Address
 }
 
+export enum OrderStatus {
+    PENDING,
+    PROCESSING,
+    COMPLETED,
+    DELIVERED,
+    CANCELLED
+}
+
 export type SafeUser = Omit<User, 'emailVerified' | 'updatedAt'> & { createdAt: Date | string }
