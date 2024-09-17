@@ -29,5 +29,14 @@
         "PaymentSuccessful": "Payment was successful!",
         "EnterPaymentDetails": "Enter your payment details below to complete your purchase:",
         "PayNow": "Pay Now"
+    },
+    "Builder": { "AddIngredients": "Add some ingredients !" },
+    "Ingredients": {
+        "BreadBottom": "Bread Bottom",
+        "BreadTop": "Bread Top",
+        "Meat": "Meat",
+        "Cheese": "Cheese",
+        "Salad": "Salad",
+        "Bacon": "Bacon"
     }
 }

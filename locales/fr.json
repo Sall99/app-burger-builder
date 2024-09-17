@@ -29,5 +29,14 @@
         "PaymentSuccessful": "Le paiement a réussi !",
         "EnterPaymentDetails": "Entrez vos informations de paiement ci-dessous pour finaliser votre achat :",
         "PayNow": "Payer maintenant"
+    },
+    "Builder": { "AddIngredients": "Ajoutez des ingrédients !" },
+    "Ingredients": {
+        "BreadBottom": "Bas du pain",
+        "BreadTop": "Haut du pain",
+        "Meat": "Viande",
+        "Cheese": "Fromage",
+        "Salad": "Salade",
+        "Bacon": "Bacon"
     }
 }
