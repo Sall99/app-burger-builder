@@ -31,7 +31,7 @@ const Content = () => {
     return (
         <div className="max-w-4xl mx-auto my-8 min-h-screen px-8 sm:px-16">
             <h1 className="text-3xl font-bold mb-6 text-[#f08e4a]">Order History</h1>
-            {data?.orders.length > 0 ? (
+            {data && data?.orders?.length > 0 ? (
                 <div className="space-y-4">
                     {data.orders.map(
                         ({
