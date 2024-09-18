@@ -1,10 +1,12 @@
 'use client'
+
 import { FC, useCallback, useState } from 'react'
 import { FaGithub } from 'react-icons/fa'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { signIn } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 
 import { Spiner } from '..'
 
@@ -19,6 +21,7 @@ const publicRoutes = {
 }
 
 export const AuthContainer: FC<AuthContainerProps> = ({ children, title }) => {
+    const t = useTranslations('AuthContainer')
     const pathName = usePathname()
     const [loading, setLoading] = useState<{ google: boolean; github: boolean }>({
         google: false,
@@ -53,11 +56,7 @@ export const AuthContainer: FC<AuthContainerProps> = ({ children, title }) => {
 
     const isSignUpPage = pathName.includes(publicRoutes.signUp.path)
     const alternateRoute = isSignUpPage ? publicRoutes.signIn : publicRoutes.signUp
-    const alternateText = isSignUpPage
-        ? 'Already have an account? Sign in'
-        : 'Do not have an account? Sign up'
-
-    console.log(isSignUpPage, 'isSu', pathName)
+    const alternateText = isSignUpPage ? t('alreadyHaveAccount') : t('dontHaveAccount')
 
     return (
         <div className="mt-14 w-full md:w-auto">
@@ -70,7 +69,7 @@ export const AuthContainer: FC<AuthContainerProps> = ({ children, title }) => {
                 <div className="flex flex-col md:flex-row items-center gap-4 md:gap-9">
                     {renderSignInButton(
                         'google',
-                        'Login with Google',
+                        t('loginWithGoogle'),
                         <Image
                             src="/svg/googleIcon.svg"
                             priority
@@ -81,11 +80,11 @@ export const AuthContainer: FC<AuthContainerProps> = ({ children, title }) => {
                     )}
                     {renderSignInButton(
                         'github',
-                        'Login with Github',
+                        t('loginWithGithub'),
                         <FaGithub className="text-xl" />
                     )}
                 </div>
-                <h1 className="mt-9 text-gray-400">- OR -</h1>
+                <h1 className="mt-9 text-gray-400">- {t('or')} -</h1>
             </section>
             <div>{children}</div>
             <div className="mt-5 text-xs text-gray-300 tracking-wider">

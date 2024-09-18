@@ -1,9 +1,10 @@
 'use client'
+
 import React, { FC } from 'react'
 import { AiOutlineLogin, AiOutlineUserAdd } from 'react-icons/ai'
-import { User as UserICON } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 import LocaleSwitcher from '../ui/local-switcher'
 
@@ -12,12 +13,12 @@ import PopoverProfil from './popover'
 export const navLinks = [
     {
         path: '/auth/sign-in',
-        name: 'Sign In',
+        name: 'signIn',
         Icon: AiOutlineLogin
     },
     {
         path: '/auth/sign-up',
-        name: 'Sign Up',
+        name: 'signUp',
         Icon: AiOutlineUserAdd
     }
 ]
@@ -27,6 +28,8 @@ interface HeaderProps {
 }
 
 export const Header: FC<HeaderProps> = ({ session }) => {
+    const t = useTranslations('Header')
+
     return (
         <nav className="flex items-center justify-between py-4 px-8 sm:px-16">
             <Link href="/">
@@ -48,7 +51,7 @@ export const Header: FC<HeaderProps> = ({ session }) => {
                                         href={path}
                                         className="flex items-center justify-center gap-2 text-sm tracking-wide hover:underline">
                                         <Icon size={20} />
-                                        <span>{name}</span>
+                                        <span>{t(name)}</span> {/* Use translation */}
                                     </Link>
                                 </li>
                             ))}
