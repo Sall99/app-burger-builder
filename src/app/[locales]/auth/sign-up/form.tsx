@@ -18,16 +18,16 @@ type InputField = {
 }
 
 const inputFields: InputField[] = [
-    { name: 'name', type: 'text', placeholder: 'Name' },
-    { name: 'email', type: 'email', placeholder: 'Email Address' },
-    { name: 'password', type: 'password', placeholder: 'Password' },
-    { name: 'confirmPassword', type: 'password', placeholder: 'Confirm Password' }
+    { name: 'name', type: 'text', placeholder: 'name' },
+    { name: 'email', type: 'email', placeholder: 'emailAddress' },
+    { name: 'password', type: 'password', placeholder: 'password' },
+    { name: 'confirmPassword', type: 'password', placeholder: 'confirmPassword' }
 ]
 
 const useSignUp = () => {
     const router = useRouter()
     const [loading, setLoading] = useState(false)
-    const t = useTranslations('Signup')
+    const t = useTranslations('Auth')
 
     const signUp = async (data: SignupFormValues) => {
         setLoading(true)
@@ -56,7 +56,7 @@ export const SignUpForm = () => {
     } = useForm<SignupFormValues>({
         resolver: yupResolver(signUpFormSchema)
     })
-
+    const t = useTranslations('Auth')
     const { signUp, loading } = useSignUp()
 
     const onSubmit = useCallback(
@@ -66,14 +66,14 @@ export const SignUpForm = () => {
         [signUp]
     )
     return (
-        <AuthContainer title="Create Account">
+        <AuthContainer title={t('createAccount')}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 {inputFields.map(({ name, type, placeholder }) => (
                     <Input
                         key={name}
                         name={name}
                         type={type}
-                        placeholder={placeholder}
+                        placeholder={t(placeholder)}
                         register={register}
                         errors={errors}
                     />

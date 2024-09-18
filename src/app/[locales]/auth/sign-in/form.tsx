@@ -19,8 +19,8 @@ type InputField = {
 }
 
 const inputFields: InputField[] = [
-    { name: 'email', type: 'email', placeholder: 'Email Address' },
-    { name: 'password', type: 'password', placeholder: 'Password' }
+    { name: 'email', type: 'email', placeholder: 'emailAddress' },
+    { name: 'password', type: 'password', placeholder: 'password' }
 ]
 
 const useSignin = () => {
@@ -49,7 +49,7 @@ const useSignin = () => {
 }
 
 export default function SignInForm() {
-    const t = useTranslations('signIn')
+    const t = useTranslations('Auth')
     const {
         handleSubmit,
         register,
@@ -75,13 +75,18 @@ export default function SignInForm() {
                         key={name}
                         name={name}
                         type={type}
-                        placeholder={placeholder}
+                        placeholder={t(placeholder)}
                         register={register}
                         errors={errors}
                     />
                 ))}
 
-                <Button type="submit" label="Sign In" className="w-full h-10" loading={loading} />
+                <Button
+                    type="submit"
+                    label={t('signInButton')}
+                    className="w-full h-10"
+                    loading={loading}
+                />
             </form>
         </AuthContainer>
     )
