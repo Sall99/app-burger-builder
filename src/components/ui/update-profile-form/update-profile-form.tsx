@@ -1,4 +1,5 @@
 'use client'
+
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -22,9 +23,9 @@ type InputField = {
 
 const inputFields: InputField[] = [
     { name: 'name', type: 'text', placeholder: 'Name' },
-    { name: 'currentPassword', type: 'password', placeholder: 'Current Password' },
-    { name: 'newPassword', type: 'password', placeholder: 'New Password' },
-    { name: 'confirmNewPassword', type: 'password', placeholder: 'Confirm New Password' }
+    { name: 'currentPassword', type: 'password', placeholder: 'CurrentPassword' },
+    { name: 'newPassword', type: 'password', placeholder: 'NewPassword' },
+    { name: 'confirmNewPassword', type: 'password', placeholder: 'ConfirmNewPassword' }
 ]
 
 const useUpdate = () => {
@@ -35,14 +36,14 @@ const useUpdate = () => {
         setLoading(true)
         try {
             await updateProfileAction(data)
-            toast.success(t('profileUpdated'))
+            toast.success(t('ProfileUpdated'))
 
             mutate(['User'])
         } catch (error) {
             if (error instanceof AxiosError && error.response) {
-                toast.error(error.response.data?.error || 'An error occurred')
+                toast.error(error.response.data?.error || t('Error'))
             } else {
-                toast.error('An unknown error occurred')
+                toast.error(t('UnknownError'))
             }
         } finally {
             setLoading(false)
@@ -53,13 +54,11 @@ const useUpdate = () => {
 }
 
 export const UpdateProfileForm = () => {
-    const session = useSession()
+    const t = useTranslations('UpdateProfile')
 
     const { error, data, isLoading } = useSWR(['User'], currentUserAction, {
         revalidateOnFocus: false
     })
-
-    console.log(session, 'session')
 
     const {
         handleSubmit,
@@ -79,11 +78,11 @@ export const UpdateProfileForm = () => {
         <div className="w-full form-card !py-16">
             <h2 className="text-lg font-semibold mb-16 text-zinc-600 flex justify-center">
                 <p className="flex flex-col md:flex-row gap-1 items-center font-normal">
-                    <span>Hi</span>
+                    <span>{t('Hi')}</span>
                     <span className="font-bold underline text-base">
                         {data?.user ? data?.user.name : '....'}
                     </span>
-                    <span>, please take a moment to update your profile.</span>
+                    <span>, {t('UpdateMessage')}</span>
                 </p>
             </h2>
 
@@ -96,14 +95,14 @@ export const UpdateProfileForm = () => {
                         key={name}
                         name={name}
                         type={type}
-                        placeholder={placeholder}
+                        placeholder={t(placeholder)}
                         register={register}
                         errors={errors}
                     />
                 ))}
                 <Button
                     type="submit"
-                    label={loading ? 'Updating...' : 'Update'}
+                    label={loading ? t('Updating') : t('Update')}
                     className="w-full h-10"
                     disabled={loading}
                 />

@@ -64,5 +64,18 @@
         "Status": "Statut :",
         "ShippingAddress": "Adresse de livraison :",
         "NoOrders": "Aucune commande trouvée."
+    },
+    "UpdateProfile": {
+        "Hi": "Bonjour",
+        "UpdateMessage": "veuillez prendre un moment pour mettre à jour votre profil.",
+        "Name": "Nom",
+        "CurrentPassword": "Mot de passe actuel",
+        "NewPassword": "Nouveau mot de passe",
+        "ConfirmNewPassword": "Confirmez le nouveau mot de passe",
+        "Updating": "Mise à jour...",
+        "Update": "Mettre à jour",
+        "ProfileUpdated": "Profil mis à jour avec succès",
+        "Error": "Une erreur s'est produite",
+        "UnknownError": "Une erreur inconnue s'est produite"
     }
 }

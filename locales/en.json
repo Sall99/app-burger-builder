@@ -64,5 +64,18 @@
         "Status": "Status:",
         "ShippingAddress": "Shipping Address:",
         "NoOrders": "No orders found."
+    },
+    "UpdateProfile": {
+        "Hi": "Hi",
+        "UpdateMessage": "please take a moment to update your profile.",
+        "Name": "Name",
+        "CurrentPassword": "Current Password",
+        "NewPassword": "New Password",
+        "ConfirmNewPassword": "Confirm New Password",
+        "Updating": "Updating...",
+        "Update": "Update",
+        "ProfileUpdated": "Profile updated successfully",
+        "Error": "An error occurred",
+        "UnknownError": "An unknown error occurred"
     }
 }
