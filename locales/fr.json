@@ -1,6 +1,12 @@
 {
-    "signIn": {
-        "signIn": "Se connecter"
+    "Auth": {
+        "signIn": "Se connecter",
+        "emailAddress": "Adresse e-mail",
+        "password": "Mot de passe",
+        "signInButton": "Se connecter",
+        "createAccount": "Creer un compte",
+        "confirmPassword": "Confirmer votre mot de passe",
+        "name": "nom"
     },
     "Footer": {
         "Copyright": "Burger-builder. Tous droits réservés"
