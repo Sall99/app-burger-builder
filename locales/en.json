@@ -8,6 +8,13 @@
         "confirmPassword": "Confirm Password",
         "name": "name"
     },
+    "AuthContainer": {
+        "loginWithGoogle": "Login with Google",
+        "loginWithGithub": "Login with Github",
+        "or": "OR",
+        "alreadyHaveAccount": "Already have an account? Sign in",
+        "dontHaveAccount": "Do not have an account? Sign up"
+    },
     "Footer": {
         "Copyright": "Burger-builder. All rights reverved"
     },
@@ -112,5 +119,9 @@
         "logout": "Logout",
         "help": "Help",
         "helpDescription": "Get assistance with your account, orders, or other inquiries"
+    },
+    "Header": {
+        "signIn": "Sign In",
+        "signUp": "Sign Up"
     }
 }
