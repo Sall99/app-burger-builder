@@ -2,12 +2,14 @@
 
 import React from 'react'
 import dayjs from 'dayjs'
+import { useTranslations } from 'next-intl'
 import useSWR from 'swr'
 
 import { getOrders } from '@/actions/orders'
 import { OrderWithShippingAddress } from '@/types'
 
 const Content = () => {
+    const t = useTranslations('Orders')
     const { error, data, isLoading } = useSWR(['Orders'], getOrders, {
         revalidateOnFocus: false
     })
@@ -15,7 +17,7 @@ const Content = () => {
     if (isLoading) {
         return (
             <div className="max-w-4xl mx-auto my-8 min-h-screen flex items-center justify-center">
-                <div className="text-[#f08e4a] text-lg font-semibold">Loading...</div>
+                <div className="text-[#f08e4a] text-lg font-semibold">{t('Loading')}</div>
             </div>
         )
     }
@@ -23,14 +25,14 @@ const Content = () => {
     if (error) {
         return (
             <div className="max-w-4xl mx-auto my-8 min-h-screen flex items-center justify-center">
-                <p className="text-red-500">Failed to load orders. Please try again.</p>
+                <p className="text-red-500">{t('LoadError')}</p>
             </div>
         )
     }
 
     return (
         <div className="max-w-4xl mx-auto my-8 min-h-screen px-8 sm:px-16">
-            <h1 className="text-3xl font-bold mb-6 text-[#f08e4a]">Order History</h1>
+            <h1 className="text-3xl font-bold mb-6 text-[#f08e4a]">{t('OrderHistory')}</h1>
             {data && data?.orders?.length > 0 ? (
                 <div className="space-y-4">
                     {data.orders.map(
@@ -47,26 +49,28 @@ const Content = () => {
                                 className="p-4 border border-gray-200 rounded-lg shadow-sm">
                                 <div className="flex justify-between items-center">
                                     <div>
-                                        <h2 className="text-lg font-semibold">Order #{id}</h2>
+                                        <h2 className="text-lg font-semibold">
+                                            {t('Order')} {id}
+                                        </h2>
                                         <p className="text-sm text-gray-500">
-                                            Placed on:{' '}
+                                            {t('PlacedOn')}{' '}
                                             {dayjs(createdAt).format('YYYY-MM-DD HH:mm:ss')}
                                         </p>
                                     </div>
                                     <div className="text-[#f08e4a] font-semibold">
-                                        {payment_status ? 'Paid' : 'Pending'}
+                                        {payment_status ? t('Paid') : t('Pending')}
                                     </div>
                                 </div>
                                 <div className="mt-4 text-gray-700">
                                     <p>
-                                        <strong>Total Price:</strong> ${totalPrice.toFixed(2)}
+                                        <strong>{t('TotalPrice')}</strong> ${totalPrice.toFixed(2)}
                                     </p>
                                     <p>
-                                        <strong>Status:</strong> {status}
+                                        <strong>{t('Status')}</strong> {status}
                                     </p>
                                     {shippingAdresse && (
                                         <p>
-                                            <strong>Shipping Address:</strong>{' '}
+                                            <strong>{t('ShippingAddress')}</strong>{' '}
                                             {shippingAdresse.streetAddress}
                                         </p>
                                     )}
@@ -76,7 +80,7 @@ const Content = () => {
                     )}
                 </div>
             ) : (
-                <p className="text-center text-gray-500">No orders found.</p>
+                <p className="text-center text-gray-500">{t('NoOrders')}</p>
             )}
         </div>
     )

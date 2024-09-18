@@ -51,5 +51,18 @@
         "ReviewingDescription": "Before placing your order, take a moment to review your burger creation. Ensure all selected ingredients are correct and make any necessary adjustments, such as changing quantities or removing items. Our review screen provides a clear summary of your choices to help you confirm your perfect burger before checkout.",
         "PlacingOrderDescription": "Once your burger is just right, proceed by clicking the 'Place Order' button. You will be guided through our simple and secure checkout process, where you can enter your delivery details, choose a payment method, and finalize your order. Your burger will be on its way in no time!",
         "SpecialOffersDescription": "Don’t miss out on our special offers! Visit the promotions section to discover current discounts and exclusive deals available for your order. Whether it's a limited-time discount or a combo deal, there's always an opportunity to save on your next burger."
+    },
+    "Orders": {
+        "Loading": "Loading...",
+        "LoadError": "Failed to load orders. Please try again.",
+        "OrderHistory": "Order History",
+        "Order": "Order #",
+        "PlacedOn": "Placed on",
+        "Paid": "Paid",
+        "Pending": "Pending",
+        "TotalPrice": "Total Price:",
+        "Status": "Status:",
+        "ShippingAddress": "Shipping Address:",
+        "NoOrders": "No orders found."
     }
 }
