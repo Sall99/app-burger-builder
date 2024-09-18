@@ -77,5 +77,23 @@
         "ProfileUpdated": "Profile updated successfully",
         "Error": "An error occurred",
         "UnknownError": "An unknown error occurred"
+    },
+    "Order": {
+        "trackMyOrder": "Track My Order",
+        "enterOrderId": "Enter your Order ID:",
+        "orderIdPlaceholder": "Enter Order ID",
+        "trackOrderButton": "Track Order",
+        "loading": "Loading...",
+        "failedToLoadOrder": "Failed to load the order. Please check the Order ID and try again.",
+        "order": "Order",
+        "placedOn": "Placed on",
+        "totalPrice": "Total Price",
+        "orderStatus": "Order Status",
+        "orderCancelled": "This order has been cancelled.",
+        "Pending": "Pending",
+        "Processing": "Processing",
+        "Completed": "Completed",
+        "Delivered": "Delivered",
+        "Cancelled": "Cancelled"
     }
 }

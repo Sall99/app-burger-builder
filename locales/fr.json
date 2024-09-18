@@ -77,5 +77,23 @@
         "ProfileUpdated": "Profil mis à jour avec succès",
         "Error": "Une erreur s'est produite",
         "UnknownError": "Une erreur inconnue s'est produite"
+    },
+    "Order": {
+        "trackMyOrder": "Suivre ma commande",
+        "enterOrderId": "Entrez votre ID de commande :",
+        "orderIdPlaceholder": "Entrez l'ID de commande",
+        "trackOrderButton": "Suivre la commande",
+        "loading": "Chargement...",
+        "failedToLoadOrder": "Échec du chargement de la commande. Veuillez vérifier l'ID de commande et réessayer.",
+        "order": "Commande",
+        "placedOn": "Passée le",
+        "totalPrice": "Prix total",
+        "orderStatus": "Statut de la commande",
+        "orderCancelled": "Cette commande a été annulée.",
+        "Pending": "En attente",
+        "Processing": "En cours de traitement",
+        "Completed": "Terminée",
+        "Delivered": "Livrée",
+        "Cancelled": "Annulée"
     }
 }
