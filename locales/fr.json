@@ -51,5 +51,18 @@
         "ReviewingDescription": "Avant de passer votre commande, prenez un moment pour vérifier la création de votre burger. Assurez-vous que tous les ingrédients sélectionnés sont corrects et effectuez les ajustements nécessaires, comme changer les quantités ou retirer des éléments. Notre écran de révision fournit un résumé clair de vos choix pour vous aider à confirmer votre burger parfait avant de valider.",
         "PlacingOrderDescription": "Une fois que votre burger est prêt, cliquez sur le bouton 'Passer la commande'. Vous serez guidé à travers notre processus de paiement simple et sécurisé, où vous pourrez entrer vos informations de livraison, choisir un mode de paiement et finaliser votre commande. Votre burger sera en route en un rien de temps!",
         "SpecialOffersDescription": "Ne manquez pas nos offres spéciales! Consultez la section des promotions pour découvrir les réductions en cours et les offres exclusives disponibles pour votre commande. Qu'il s'agisse d'une réduction à durée limitée ou d'une offre combinée, il y a toujours une opportunité d'économiser sur votre prochain burger."
+    },
+    "Orders": {
+        "Loading": "Chargement...",
+        "LoadError": "Échec du chargement des commandes. Veuillez réessayer.",
+        "OrderHistory": "Historique des commandes",
+        "Order": "Commande #",
+        "PlacedOn": "Passée le",
+        "Paid": "Payé",
+        "Pending": "En attente",
+        "TotalPrice": "Prix total :",
+        "Status": "Statut :",
+        "ShippingAddress": "Adresse de livraison :",
+        "NoOrders": "Aucune commande trouvée."
     }
 }
