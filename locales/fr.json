@@ -38,5 +38,18 @@
         "Cheese": "Fromage",
         "Salad": "Salade",
         "Bacon": "Bacon"
+    },
+    "Help": {
+        "HelpTitle": "Aide",
+        "HowToBuild": "Comment construire votre burger ?",
+        "Customizing": "Personnaliser votre burger",
+        "Reviewing": "Vérifier votre commande",
+        "PlacingOrder": "Passer votre commande",
+        "SpecialOffers": "Offres spéciales",
+        "HowToBuildDescription": "Pour créer votre burger, commencez par sélectionner les ingrédients souhaités dans la liste fournie. Choisissez parmi une variété d'options, y compris des légumes frais comme la laitue, les tomates et les oignons, ainsi que des fromages, des sauces et des garnitures premium comme l'avocat ou le bacon. Personnalisez votre burger à votre goût en ajoutant ou en supprimant des ingrédients à mesure que vous avancez.",
+        "CustomizingDescription": "Personnalisez davantage votre burger en sélectionnant le type de pain, des options classiques comme le pain au sésame ou brioche aux alternatives sans gluten. Ajustez le nombre de steaks et ajoutez d'autres garnitures ou sauces pour créer votre burger parfait. Que vous préfériez un, deux ou même trois steaks, le choix vous appartient!",
+        "ReviewingDescription": "Avant de passer votre commande, prenez un moment pour vérifier la création de votre burger. Assurez-vous que tous les ingrédients sélectionnés sont corrects et effectuez les ajustements nécessaires, comme changer les quantités ou retirer des éléments. Notre écran de révision fournit un résumé clair de vos choix pour vous aider à confirmer votre burger parfait avant de valider.",
+        "PlacingOrderDescription": "Une fois que votre burger est prêt, cliquez sur le bouton 'Passer la commande'. Vous serez guidé à travers notre processus de paiement simple et sécurisé, où vous pourrez entrer vos informations de livraison, choisir un mode de paiement et finaliser votre commande. Votre burger sera en route en un rien de temps!",
+        "SpecialOffersDescription": "Ne manquez pas nos offres spéciales! Consultez la section des promotions pour découvrir les réductions en cours et les offres exclusives disponibles pour votre commande. Qu'il s'agisse d'une réduction à durée limitée ou d'une offre combinée, il y a toujours une opportunité d'économiser sur votre prochain burger."
     }
 }
