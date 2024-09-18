@@ -4,42 +4,46 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { LogOut } from 'lucide-react'
 import Link from 'next/link'
 import { signOut } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 
-const solutions = [
+const solutions = (t: any) => [
     {
-        name: 'Profile',
-        description: 'Manage and update your personal information and preferences',
+        name: t('profile'),
+        description: t('profileDescription'),
         href: '/profile',
         icon: IconOne
     },
     {
-        name: 'History',
-        description: 'View your activity and past interactions',
+        name: t('history'),
+        description: t('historyDescription'),
         href: '/history',
         icon: IconTwo
     },
     {
-        name: 'Track my order',
-        description: 'Monitor the status and delivery of your recent purchases',
+        name: t('trackOrder'),
+        description: t('trackOrderDescription'),
         href: '/track-order',
         icon: IconThree
     }
 ]
 
 export default function PopoverProfil() {
+    const t = useTranslations('Popover') // Assuming your JSON namespace is 'Popover'
+
     return (
         <div className="w-full max-w-sm px-4">
             <Popover className="relative">
                 {({ open, close }) => (
                     <>
                         <Popover.Button
-                            className={`
-                ${open ? 'text-white' : 'text-white/90'}
-                group inline-flex items-center rounded-md bg-primary-200 px-3 py-2 text-base  hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75`}>
-                            <span>Profile</span>
+                            className={`${
+                                open ? 'text-white' : 'text-white/90'
+                            } group inline-flex items-center rounded-md bg-primary-200 px-3 py-2 text-base hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75`}>
+                            <span>{t('profile')}</span>
                             <ChevronDownIcon
-                                className={`${open ? 'text-orange-300' : 'text-orange-300/70'}
-                  ml-2 h-5 w-5 transition duration-150 ease-in-out group-hover:text-orange-300/80`}
+                                className={`${
+                                    open ? 'text-orange-300' : 'text-orange-300/70'
+                                } ml-2 h-5 w-5 transition duration-150 ease-in-out group-hover:text-orange-300/80`}
                                 aria-hidden="true"
                             />
                         </Popover.Button>
@@ -54,7 +58,7 @@ export default function PopoverProfil() {
                             <Popover.Panel className="absolute -left-[18%] z-10 mt-3 w-96 max-w-sm -translate-x-1/2 transform px-4 sm:px-0 lg:max-w-3xl">
                                 <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black/5">
                                     <div className="relative grid gap-8 bg-white p-7">
-                                        {solutions.map((item) => (
+                                        {solutions(t).map((item) => (
                                             <Link
                                                 key={item.name}
                                                 href={item.href}
@@ -81,9 +85,8 @@ export default function PopoverProfil() {
                                             </div>
                                             <div className="ml-4">
                                                 <p className="text-sm font-medium text-gray-900">
-                                                    Logout
+                                                    {t('logout')}
                                                 </p>
-                                                <p className="text-sm text-gray-500"></p>
                                             </div>
                                         </p>
                                     </div>
@@ -94,12 +97,11 @@ export default function PopoverProfil() {
                                             onClick={() => close()}>
                                             <span className="flex items-center">
                                                 <span className="text-sm font-medium text-gray-900">
-                                                    Help
+                                                    {t('help')}
                                                 </span>
                                             </span>
                                             <span className="block text-sm text-gray-500">
-                                                Get assistance with your account, orders, or other
-                                                inquiries
+                                                {t('helpDescription')}
                                             </span>
                                         </Link>
                                     </div>

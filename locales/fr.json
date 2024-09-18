@@ -95,5 +95,16 @@
         "Completed": "Terminée",
         "Delivered": "Livrée",
         "Cancelled": "Annulée"
+    },
+    "Popover": {
+        "profile": "Profil",
+        "profileDescription": "Gérez et mettez à jour vos informations personnelles et vos préférences",
+        "history": "Historique",
+        "historyDescription": "Consultez votre activité et vos interactions passées",
+        "trackOrder": "Suivre ma commande",
+        "trackOrderDescription": "Suivez le statut et la livraison de vos achats récents",
+        "logout": "Se déconnecter",
+        "help": "Aide",
+        "helpDescription": "Obtenez de l'aide pour votre compte, vos commandes ou d'autres demandes"
     }
 }
