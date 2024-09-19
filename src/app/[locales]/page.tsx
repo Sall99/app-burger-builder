@@ -4,6 +4,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import { Builder, Controls, Total } from '@/components/ui'
+import { TotalMobile } from '@/components/ui/total/total-mobile'
 import { selectIngredients } from '@/redux/selectors/ingredients'
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
         <section className="flex min-h-screen flex-col items-center pt-8">
             <section className="flex flex-col items-center px-8 sm:px-16 justify-center relative w-full">
                 <Total />
+                <TotalMobile />
                 <Builder ingredients={ingredients} />
             </section>
             <section className="px-8 sm:px-16 w-full">
