@@ -28,7 +28,7 @@ const solutions = (t: any) => [
 ]
 
 export default function PopoverProfil() {
-    const t = useTranslations('Popover') // Assuming your JSON namespace is 'Popover'
+    const t = useTranslations('Popover')
 
     return (
         <div className="w-full max-w-sm px-4">
@@ -38,7 +38,7 @@ export default function PopoverProfil() {
                         <Popover.Button
                             className={`${
                                 open ? 'text-white' : 'text-white/90'
-                            } group inline-flex items-center rounded-md bg-primary-200 px-3 py-2 text-base hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75`}>
+                            } group inline-flex items-center rounded-md bg-primary-200 px-3 py-2 text-sm hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75`}>
                             <span>{t('profile')}</span>
                             <ChevronDownIcon
                                 className={`${

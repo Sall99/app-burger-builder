@@ -32,7 +32,7 @@ const Content = () => {
 
     return (
         <div className="max-w-4xl mx-auto my-8 min-h-screen px-8 sm:px-16">
-            <h1 className="text-3xl font-bold mb-6 text-[#f08e4a]">{t('OrderHistory')}</h1>
+            <h1 className="text-xl font-bold mb-6 text-[#f08e4a]">{t('OrderHistory')}</h1>
             {data && data?.orders?.length > 0 ? (
                 <div className="space-y-4">
                     {data.orders.map(
@@ -49,7 +49,7 @@ const Content = () => {
                                 className="p-4 border border-gray-200 rounded-lg shadow-sm">
                                 <div className="flex justify-between items-center">
                                     <div>
-                                        <h2 className="text-lg font-semibold">
+                                        <h2 className="text-base font-semibold">
                                             {t('Order')} {id}
                                         </h2>
                                         <p className="text-sm text-gray-500">
