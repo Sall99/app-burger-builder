@@ -15,7 +15,7 @@ export const Footer = () => {
     const currentYear = dayjs().year()
     return (
         <footer className="flex gap-4 items-center justify-center mt-8 mb-4 opacity-90">
-            <p>
+            <p className="text-sm md:text-base">
                 <span className="underline">{currentYear}</span> &copy; {t('Copyright')}
             </p>
             <div className="flex gap-3">
