@@ -34,7 +34,7 @@ const statusSteps = [
 ]
 
 const Content: React.FC = () => {
-    const t = useTranslations('Order') // Use translations for 'Order' namespace
+    const t = useTranslations('Order')
     const [orderId, setOrderId] = useState<string>('')
     const [submittedId, setSubmittedId] = useState<string | null>(null)
 
@@ -50,10 +50,10 @@ const Content: React.FC = () => {
 
     return (
         <div className="max-w-4xl mx-auto my-8 min-h-screen px-8 sm:px-16">
-            <h1 className="text-3xl font-bold mb-6 text-[#f08e4a]">{t('trackMyOrder')}</h1>
+            <h1 className="text-xl font-bold mb-6 text-[#f08e4a]">{t('trackMyOrder')}</h1>
 
             <form onSubmit={handleSubmit} className="mb-8">
-                <label htmlFor="orderId" className="block text-lg font-medium text-gray-700 mb-2">
+                <label htmlFor="orderId" className="block text-base font-medium text-gray-700 mb-2">
                     {t('enterOrderId')}
                 </label>
                 <input
@@ -66,14 +66,14 @@ const Content: React.FC = () => {
                 />
                 <button
                     type="submit"
-                    className="mt-4 px-4 py-2 bg-[#f08e4a] text-white font-semibold rounded-lg shadow-md hover:bg-[#e07738]">
+                    className="mt-4 px-4 text-sm py-2 bg-[#f08e4a] text-white rounded-lg shadow-md hover:bg-[#e07738]">
                     {t('trackOrderButton')}
                 </button>
             </form>
 
             {isLoading && (
                 <div className="flex items-center justify-center">
-                    <div className="text-[#f08e4a] text-lg font-semibold">{t('loading')}</div>
+                    <div className="text-[#f08e4a] text-lg">{t('loading')}</div>
                 </div>
             )}
 
@@ -86,7 +86,7 @@ const Content: React.FC = () => {
             {data && data.order && (
                 <div>
                     <div className="mb-4">
-                        <h2 className="text-lg font-semibold">
+                        <h2 className="text-lg">
                             {t('order')} #{data.order.id}
                         </h2>
                         <p className="text-sm text-gray-500">
@@ -99,12 +99,12 @@ const Content: React.FC = () => {
                     </div>
 
                     <div className="border-t border-gray-200 pt-4 space-y-4">
-                        <h3 className="text-xl font-bold text-gray-700">{t('orderStatus')}</h3>
+                        <h3 className="text-xl text-gray-700">{t('orderStatus')}</h3>
                         <div className="flex flex-col space-y-2">
                             {statusSteps.map((step, index) => (
                                 <div key={index} className="flex items-center">
                                     <div
-                                        className={`w-8 h-8 rounded-full flex items-center justify-center font-semibold ${
+                                        className={`w-8 h-8 rounded-full flex items-center justify-center ${
                                             data.order.status === step.status
                                                 ? 'bg-[#f08e4a] text-white'
                                                 : 'bg-gray-200 text-gray-600'
@@ -124,7 +124,7 @@ const Content: React.FC = () => {
                         </div>
 
                         {data.order.status === OrderStatus.CANCELLED && (
-                            <p className="mt-4 text-red-500 font-bold">{t('orderCancelled')}</p>
+                            <p className="mt-4 text-red-500">{t('orderCancelled')}</p>
                         )}
                     </div>
                 </div>

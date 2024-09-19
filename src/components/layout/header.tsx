@@ -51,7 +51,7 @@ export const Header: FC<HeaderProps> = ({ session }) => {
                                         href={path}
                                         className="flex items-center justify-center gap-2 text-sm tracking-wide hover:underline">
                                         <Icon size={20} />
-                                        <span>{t(name)}</span> {/* Use translation */}
+                                        <span>{t(name)}</span>
                                     </Link>
                                 </li>
                             ))}
