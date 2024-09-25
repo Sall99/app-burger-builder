@@ -1,5 +1,3 @@
-export const dynamic = 'force-dynamic'
-
 import React from 'react'
 import { GoogleTagManager } from '@next/third-parties/google'
 import { Analytics } from '@vercel/analytics/react'
