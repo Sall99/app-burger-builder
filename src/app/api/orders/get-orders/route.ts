@@ -3,8 +3,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '../../../../../libs/prisma.db'
 import { getUserAndSession } from '../../../../../libs/session'
 
-export const dynamic = 'force-dynamic'
-
 export async function GET(req: NextRequest) {
     try {
         const { user } = await getUserAndSession()
