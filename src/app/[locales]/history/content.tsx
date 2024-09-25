@@ -15,10 +15,6 @@ const Content = () => {
         revalidateOnFocus: false
     })
 
-    const { data: j } = useSWR(['Users'], currentUserAction, {
-        revalidateOnFocus: false
-    })
-
     if (isLoading) {
         return (
             <div className="max-w-4xl mx-auto my-8 min-h-screen flex items-center justify-center">
