@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AxiosError } from 'axios'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import useSWR, { mutate } from 'swr'
 
