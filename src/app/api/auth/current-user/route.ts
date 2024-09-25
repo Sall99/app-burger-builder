@@ -7,12 +7,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
     try {
         const session = await getServerSession()
 
-        if (!session || !session.user || !session.user.email) {
-            throw new Error('Unauthorized')
-        }
-
         const userData = await prisma.user.findUnique({
-            where: { email: session?.user?.email },
+            where: { email: session?.user?.email || '' },
             select: {
                 id: true,
                 email: true,
