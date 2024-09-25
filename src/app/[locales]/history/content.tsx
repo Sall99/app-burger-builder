@@ -6,11 +6,16 @@ import { useTranslations } from 'next-intl'
 import useSWR from 'swr'
 
 import { getOrders } from '@/actions/orders'
+import { currentUserAction } from '@/actions/users'
 import { OrderWithShippingAddress } from '@/types'
 
 const Content = () => {
     const t = useTranslations('Orders')
     const { error, data, isLoading } = useSWR(['Orders'], getOrders, {
+        revalidateOnFocus: false
+    })
+
+    const { data: j } = useSWR(['Users'], currentUserAction, {
         revalidateOnFocus: false
     })
 
