@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
 
 import prisma from '../../../../../libs/prisma.db'
+import { getUserAndSession } from '../../../../../libs/session'
 
 export async function GET(req: NextRequest, res: NextResponse) {
     try {
-        const session = await getServerSession()
+        const { user } = await getUserAndSession()
 
         const userData = await prisma.user.findUnique({
-            where: { email: session?.user?.email || '' },
+            where: { email: user.email || '' },
             select: {
                 id: true,
                 email: true,
