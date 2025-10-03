@@ -57,7 +57,7 @@ async function userExists(email: string) {
 export async function POST(request: NextRequest) {
     // Apply rate limiting: 5 sign-up attempts per minute
     const rateLimitResult = await withRateLimit(request, 'auth', 5)
-    if (rateLimitResult !== true && 'status' in rateLimitResult) {
+    if (rateLimitResult && 'status' in rateLimitResult) {
         return rateLimitResult
     }
 
