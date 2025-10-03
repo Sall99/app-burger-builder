@@ -1,33 +1,29 @@
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test.describe('Authentication Flow', () => {
     test('should navigate to sign in page', async ({ page }) => {
         await page.goto('/en')
 
-        // Click on Sign In link
-        await page.click('text=Sign In')
+        // Click on Sign In link and wait for navigation
+        await page.getByRole('link', { name: /sign in/i }).click()
+        await page.waitForURL(/.*sign-in/)
 
-        // Should navigate to sign-in page
-        await expect(page).toHaveURL(/.*sign-in/)
-
-        // Check for sign in form elements
-        await expect(page.getByPlaceholder(/email/i)).toBeVisible()
-        await expect(page.getByPlaceholder(/password/i)).toBeVisible()
+        // Check for sign in form elements using labels
+        await expect(page.getByLabel(/email/i)).toBeVisible()
+        await expect(page.getByLabel(/password/i)).toBeVisible()
         await expect(page.getByRole('button', { name: /sign in/i })).toBeVisible()
     })
 
     test('should navigate to sign up page', async ({ page }) => {
         await page.goto('/en')
 
-        // Click on Sign Up link
-        await page.click('text=Sign Up')
+        // Click on Sign Up link and wait for navigation
+        await page.getByRole('link', { name: /sign up/i }).click()
+        await page.waitForURL(/.*sign-up/)
 
-        // Should navigate to sign-up page
-        await expect(page).toHaveURL(/.*sign-up/)
-
-        // Check for sign up form elements
-        await expect(page.getByPlaceholder(/email/i)).toBeVisible()
-        await expect(page.getByPlaceholder(/password/i)).toBeVisible()
+        // Check for sign up form elements using labels
+        await expect(page.getByLabel(/email/i)).toBeVisible()
+        await expect(page.getByLabel(/password/i)).toBeVisible()
     })
 
     test('should show validation errors on empty sign in form submission', async ({ page }) => {
@@ -36,9 +32,11 @@ test.describe('Authentication Flow', () => {
         // Click sign in without filling form
         await page.getByRole('button', { name: /sign in/i }).click()
 
-        // Should show validation errors (if implemented)
-        // Note: Adjust based on your actual error display
+        // Wait a moment for potential validation
         await page.waitForTimeout(500)
+
+        // Form should still be on the same page
+        await expect(page).toHaveURL(/.*sign-in/)
     })
 
     test('should display social login options', async ({ page }) => {
@@ -66,13 +64,15 @@ test.describe('Authentication Flow', () => {
     test('should validate email format', async ({ page }) => {
         await page.goto('/en/auth/sign-in')
 
-        // Enter invalid email
-        await page.getByPlaceholder(/email/i).fill('invalidemail')
-        await page.getByPlaceholder(/password/i).fill('password123')
+        // Enter invalid email using labels
+        await page.getByLabel(/email/i).fill('invalidemail')
+        await page.getByLabel(/password/i).fill('password123')
         await page.getByRole('button', { name: /sign in/i }).click()
 
-        // Should show validation error
+        // Wait for validation
         await page.waitForTimeout(500)
+
+        // Should still be on sign-in page
+        await expect(page).toHaveURL(/.*sign-in/)
     })
 })
-
