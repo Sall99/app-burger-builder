@@ -6,11 +6,12 @@ import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import { getServerSession } from 'next-auth'
 import { NextIntlClientProvider } from 'next-intl'
-import { getLocale, getMessages } from 'next-intl/server'
+import { getLocale, getMessages, getTranslations } from 'next-intl/server'
 
 import { WebVitals } from '@/app/web-vitals'
 import { Footer, Header } from '@/components'
 import { GoogleAnalytics } from '@/components/google'
+import { SkipLink } from '@/components/ui'
 import { ToasterProvider } from '@/providers'
 import Providers from '@/redux/provider'
 
@@ -110,6 +111,7 @@ export default async function RootLayout({ children }: Props) {
     const messages = await getMessages()
     const locale = await getLocale()
     const session = await getServerSession(authOptions)
+    const t = await getTranslations('Accessibility')
 
     const schemaOrgData = {
         '@context': 'http://schema.org',
@@ -135,12 +137,15 @@ export default async function RootLayout({ children }: Props) {
             <body className={roboto.className}>
                 <SessionWrapper>
                     <Providers>
+                        <SkipLink text={t('skipToMain')} />
                         <WebVitals />
                         <ToasterProvider />
                         <GoogleTagManager gtmId={'G-ZM99W2R4EX'} />
                         <NextIntlClientProvider messages={messages}>
                             <Header session={session} />
-                            <main>{children}</main>
+                            <main id="main-content" tabIndex={-1}>
+                                {children}
+                            </main>
                             <Footer />
                         </NextIntlClientProvider>
                         <Analytics />

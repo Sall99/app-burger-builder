@@ -123,5 +123,12 @@
     "Header": {
         "signIn": "Sign In",
         "signUp": "Sign Up"
+    },
+    "Accessibility": {
+        "skipToMain": "Aller au contenu principal",
+        "loading": "Chargement",
+        "closeDialog": "Fermer la boîte de dialogue",
+        "openMenu": "Ouvrir le menu",
+        "closeMenu": "Fermer le menu"
     }
 }
