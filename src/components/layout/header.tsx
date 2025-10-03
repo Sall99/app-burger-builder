@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl'
 
 import LocaleSwitcher from '../ui/local-switcher'
 
-import PopoverProfil from './popover'
+import PopoverProfilLazy from './popover-lazy'
 
 export const navLinks = [
     {
@@ -41,7 +41,7 @@ export const Header: FC<HeaderProps> = ({ session }) => {
                 <div>
                     {session ? (
                         <div>
-                            <PopoverProfil />
+                            <PopoverProfilLazy />
                         </div>
                     ) : (
                         <ul className="flex items-center justify-center text-primary-200 text-base font-normal gap-8">

@@ -8,6 +8,7 @@ import { getServerSession } from 'next-auth'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
 
+import { WebVitals } from '@/app/web-vitals'
 import { Footer, Header } from '@/components'
 import { GoogleAnalytics } from '@/components/google'
 import { ToasterProvider } from '@/providers'
@@ -134,6 +135,7 @@ export default async function RootLayout({ children }: Props) {
             <body className={roboto.className}>
                 <SessionWrapper>
                     <Providers>
+                        <WebVitals />
                         <ToasterProvider />
                         <GoogleTagManager gtmId={'G-ZM99W2R4EX'} />
                         <NextIntlClientProvider messages={messages}>
