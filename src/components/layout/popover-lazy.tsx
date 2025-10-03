@@ -1,11 +1,11 @@
 import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 
-import { Spinner } from '../ui/spiner/spiner'
+import { Spiner } from '../ui/spiner/spiner'
 
 // Lazy load the Popover component
 const DynamicPopover = dynamic(() => import('./popover'), {
-    loading: () => <Spinner />,
+    loading: () => <Spiner />,
     ssr: false // Popover doesn't need SSR
 })
 
@@ -15,7 +15,7 @@ const DynamicPopover = dynamic(() => import('./popover'), {
  */
 export default function PopoverLazy() {
     return (
-        <Suspense fallback={<Spinner />}>
+        <Suspense fallback={<Spiner />}>
             <DynamicPopover />
         </Suspense>
     )

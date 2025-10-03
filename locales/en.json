@@ -123,5 +123,12 @@
     "Header": {
         "signIn": "Sign In",
         "signUp": "Sign Up"
+    },
+    "Accessibility": {
+        "skipToMain": "Skip to main content",
+        "loading": "Loading",
+        "closeDialog": "Close dialog",
+        "openMenu": "Open menu",
+        "closeMenu": "Close menu"
     }
 }

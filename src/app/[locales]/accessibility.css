@@ -1,0 +1,119 @@
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.skip-link {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translateY(-100%);
+    z-index: 9999;
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+.user-is-tabbing *:focus {
+    outline: 2px solid #fb923c !important;
+    outline-offset: 2px;
+}
+
+*:focus-visible {
+    outline: 2px solid #fb923c;
+    outline-offset: 2px;
+}
+
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.control-button {
+    all: unset;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s;
+}
+
+.control-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.control-button:active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.control-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+@media (prefers-contrast: high) {
+    .control-button:focus {
+        outline-width: 3px;
+    }
+
+    button:focus,
+    a:focus,
+    input:focus {
+        outline-width: 3px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+button:focus-visible,
+a:focus-visible,
+[role='button']:focus-visible {
+    outline: 2px solid #fb923c;
+    outline-offset: 2px;
+}
+
+.text-gray-400 {
+    /* Fallback for insufficient contrast */
+    color: #6b7280;
+}
+
+[aria-busy='true'] {
+    cursor: wait;
+}
+
+[aria-disabled='true'],
+:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+[role='dialog'] {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+    button,
+    a,
+    [role='button'] {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}

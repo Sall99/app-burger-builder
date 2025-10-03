@@ -7,6 +7,7 @@ import { Input } from './input'
 import { Modal } from './modal'
 import { PaymentForm } from './payment-form'
 import { ShippingAddress } from './shipping-address'
+import { SkipLink } from './skip-link'
 import { Spiner } from './spiner'
 import { UpdateProfileForm } from './update-profile-form'
 export { Total } from './total'
@@ -21,6 +22,8 @@ export {
     Modal,
     PaymentForm,
     ShippingAddress,
+    SkipLink,
     Spiner,
     UpdateProfileForm
 }
+export { BurgerIngredients } from './ingredients'

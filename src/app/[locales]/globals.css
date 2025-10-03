@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './accessibility.css';
+
 :root {
     --color-primary-100: #fe9738;
     --color-primary-200: #e77c2f;
