@@ -1,13 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 test.describe('Authentication Flow', () => {
-    test('should navigate to sign in page', async ({ page }) => {
-        await page.goto('/en')
-
-        // Wait for page to load
-        await page.waitForLoadState('networkidle')
-
-        // Navigate directly to sign-in page instead of clicking
+    test('should display sign in page', async ({ page }) => {
         await page.goto('/en/auth/sign-in')
 
         // Check for sign in form elements using labels
@@ -16,8 +10,7 @@ test.describe('Authentication Flow', () => {
         await expect(page.getByRole('button', { name: /sign in/i })).toBeVisible()
     })
 
-    test('should navigate to sign up page', async ({ page }) => {
-        // Navigate directly to sign-up page
+    test('should display sign up page', async ({ page }) => {
         await page.goto('/en/auth/sign-up')
 
         // Check for sign up form elements using labels
