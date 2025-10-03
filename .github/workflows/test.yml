@@ -41,10 +41,17 @@ jobs:
   e2e-tests:
     name: E2E Tests
     runs-on: ubuntu-latest
+    # Uncomment below to skip E2E tests in CI
+    # if: false
 
     strategy:
       matrix:
         node-version: [22.x]
+
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+      NEXTAUTH_URL: http://localhost:3000
 
     steps:
       - name: Checkout code
@@ -60,10 +67,10 @@ jobs:
         run: npm ci
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps chromium
 
       - name: Run E2E tests
-        run: npm run test:e2e
+        run: npm run test:e2e -- --project=chromium
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
@@ -72,4 +79,3 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-

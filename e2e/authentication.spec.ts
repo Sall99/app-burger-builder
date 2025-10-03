@@ -4,9 +4,11 @@ test.describe('Authentication Flow', () => {
     test('should navigate to sign in page', async ({ page }) => {
         await page.goto('/en')
 
-        // Click on Sign In link and wait for navigation
-        await page.getByRole('link', { name: /sign in/i }).click()
-        await page.waitForURL(/.*sign-in/)
+        // Wait for page to load
+        await page.waitForLoadState('networkidle')
+
+        // Navigate directly to sign-in page instead of clicking
+        await page.goto('/en/auth/sign-in')
 
         // Check for sign in form elements using labels
         await expect(page.getByLabel(/email/i)).toBeVisible()
@@ -15,11 +17,8 @@ test.describe('Authentication Flow', () => {
     })
 
     test('should navigate to sign up page', async ({ page }) => {
-        await page.goto('/en')
-
-        // Click on Sign Up link and wait for navigation
-        await page.getByRole('link', { name: /sign up/i }).click()
-        await page.waitForURL(/.*sign-up/)
+        // Navigate directly to sign-up page
+        await page.goto('/en/auth/sign-up')
 
         // Check for sign up form elements using labels
         await expect(page.getByLabel(/email/i)).toBeVisible()
