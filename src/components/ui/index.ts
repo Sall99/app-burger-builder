@@ -12,6 +12,13 @@ import { Spiner } from './spiner'
 import { UpdateProfileForm } from './update-profile-form'
 export { Total } from './total'
 
+// Export new UX components
+export { BuilderAnimated } from './builder/builder-animated'
+export { BuilderWrapper } from './builder/builder-wrapper'
+export { UndoRedoControls } from './builder/undo-redo-controls'
+export { SavedTemplates } from './builder/saved-templates'
+export { ShareBurger } from './builder/share-burger'
+
 export {
     AuthContainer,
     Builder,

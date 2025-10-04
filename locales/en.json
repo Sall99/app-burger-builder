@@ -43,7 +43,30 @@
         "EnterPaymentDetails": "Enter your payment details below to complete your purchase:",
         "PayNow": "Pay Now"
     },
-    "Builder": { "AddIngredients": "Add some ingredients !" },
+    "Builder": {
+        "AddIngredients": "Add some ingredients !",
+        "undo": "Undo",
+        "redo": "Redo",
+        "clear": "Clear",
+        "confirmClear": "Are you sure you want to clear your burger?",
+        "savedTemplates": "My Burgers",
+        "saveCurrentBurger": "Save Current Burger",
+        "burgerName": "Burger name...",
+        "save": "Save",
+        "cancel": "Cancel",
+        "noSavedBurgers": "No saved burgers yet",
+        "createAndSave": "Create a burger and save it here!",
+        "savedBurgers": "Saved Burgers",
+        "load": "Load",
+        "delete": "Delete",
+        "shareBurger": "Share My Burger",
+        "shareOn": "Share on",
+        "copied": "Copied!",
+        "copyLink": "Copy Link",
+        "shareMore": "More Options",
+        "preview": "Preview",
+        "dragToReorder": "Drag to reorder ingredients"
+    },
     "Ingredients": {
         "BreadBottom": "Bread Bottom",
         "BreadTop": "Bread Top",
@@ -130,5 +153,57 @@
         "closeDialog": "Close dialog",
         "openMenu": "Open menu",
         "closeMenu": "Close menu"
+    },
+    "Pages": {
+        "Help": {
+            "title": "Help",
+            "description": "Get assistance with your account, orders, or other inquiries"
+        },
+        "NotFound": {
+            "title": "404 - Page Not Found",
+            "heading": "404",
+            "subheading": "Page Not Found",
+            "description": "Sorry, we couldn't find the page you're looking for. The page might have been moved or deleted.",
+            "goHome": "Go Home",
+            "goBack": "Go Back",
+            "lookingFor": "Looking for something?",
+            "buildBurger": "Build a Burger",
+            "orderHistory": "Order History",
+            "yourProfile": "Your Profile",
+            "helpSupport": "Help & Support"
+        },
+        "Error": {
+            "title": "Error - Something went wrong",
+            "heading": "Something went wrong!",
+            "description": "We encountered an unexpected error. Please try again or contact support if the problem persists.",
+            "errorDetails": "Error Details (Development Only)",
+            "tryAgain": "Try Again",
+            "goHome": "Go Home",
+            "errorReference": "Error Reference:"
+        },
+        "Layout": {
+            "title": "Burger Builder",
+            "description": "Build your perfect burger with our easy-to-use Burger Builder."
+        },
+        "Auth": {
+            "SignIn": {
+                "title": "Sign In",
+                "description": "Sign in to your account"
+            },
+            "SignUp": {
+                "title": "Sign Up",
+                "description": "Sign up to create orders"
+            }
+        },
+        "Profile": {
+            "title": "Profile",
+            "description": "Manage your account"
+        },
+        "History": {
+            "title": "Order History"
+        },
+        "TrackOrder": {
+            "title": "Track Order"
+        }
     }
 }

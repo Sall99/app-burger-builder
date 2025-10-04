@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 
 import { logError } from '@/lib/error-logger'
 
@@ -15,6 +16,8 @@ export default function Error({
     error: Error & { digest?: string }
     reset: () => void
 }) {
+    const t = useTranslations('Pages.Error')
+
     useEffect(() => {
         // Log error when component mounts
         logError(error, {
@@ -42,17 +45,14 @@ export default function Error({
                     </svg>
                 </div>
 
-                <h1 className="text-3xl font-bold text-gray-900 mb-4">Something went wrong!</h1>
+                <h1 className="text-3xl font-bold text-gray-900 mb-4">{t('heading')}</h1>
 
-                <p className="text-gray-600 mb-8">
-                    We encountered an unexpected error. Please try again or contact support if the
-                    problem persists.
-                </p>
+                <p className="text-gray-600 mb-8">{t('description')}</p>
 
                 {process.env.NODE_ENV === 'development' && error.message && (
                     <details className="mb-8 text-left bg-gray-100 p-4 rounded-lg">
                         <summary className="cursor-pointer font-semibold text-gray-700 mb-2">
-                            Error Details (Development Only)
+                            {t('errorDetails')}
                         </summary>
                         <pre className="text-xs text-red-600 overflow-auto whitespace-pre-wrap">
                             {error.message}
@@ -68,18 +68,18 @@ export default function Error({
                     <button
                         onClick={() => reset()}
                         className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
-                        Try Again
+                        {t('tryAgain')}
                     </button>
                     <a
                         href="/"
                         className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
-                        Go Home
+                        {t('goHome')}
                     </a>
                 </div>
 
                 {error.digest && (
                     <p className="mt-6 text-sm text-gray-500">
-                        Error Reference:{' '}
+                        {t('errorReference')}{' '}
                         <code className="bg-gray-200 px-2 py-1 rounded">{error.digest}</code>
                     </p>
                 )}

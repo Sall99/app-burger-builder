@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { useTranslations } from 'next-intl'
 
 import { announce } from '@/lib/accessibility'
-import { addIngredients, removeIngredients } from '@/redux/slices/ingredients'
+import { addIngredients, removeIngredients } from '@/redux/slices/ingredients-enhanced'
 
 export const Controls = () => {
     const dispatch = useDispatch()
