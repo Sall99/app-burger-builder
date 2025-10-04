@@ -43,7 +43,30 @@
         "EnterPaymentDetails": "Entrez vos informations de paiement ci-dessous pour finaliser votre achat :",
         "PayNow": "Payer maintenant"
     },
-    "Builder": { "AddIngredients": "Ajoutez des ingrédients !" },
+    "Builder": {
+        "AddIngredients": "Ajoutez des ingrédients !",
+        "undo": "Annuler",
+        "redo": "Refaire",
+        "clear": "Effacer",
+        "confirmClear": "Êtes-vous sûr de vouloir effacer votre burger ?",
+        "savedTemplates": "Mes Burgers",
+        "saveCurrentBurger": "Sauvegarder le Burger Actuel",
+        "burgerName": "Nom du burger...",
+        "save": "Sauvegarder",
+        "cancel": "Annuler",
+        "noSavedBurgers": "Aucun burger sauvegardé",
+        "createAndSave": "Créez un burger et sauvegardez-le ici !",
+        "savedBurgers": "Burgers Sauvegardés",
+        "load": "Charger",
+        "delete": "Supprimer",
+        "shareBurger": "Partager Mon Burger",
+        "shareOn": "Partager sur",
+        "copied": "Copié !",
+        "copyLink": "Copier le Lien",
+        "shareMore": "Plus d'Options",
+        "preview": "Aperçu",
+        "dragToReorder": "Glissez pour réorganiser les ingrédients"
+    },
     "Ingredients": {
         "BreadBottom": "Bas du pain",
         "BreadTop": "Haut du pain",
@@ -130,5 +153,57 @@
         "closeDialog": "Fermer la boîte de dialogue",
         "openMenu": "Ouvrir le menu",
         "closeMenu": "Fermer le menu"
+    },
+    "Pages": {
+        "Help": {
+            "title": "Aide",
+            "description": "Obtenez de l'aide pour votre compte, vos commandes ou d'autres demandes"
+        },
+        "NotFound": {
+            "title": "404 - Page non trouvée",
+            "heading": "404",
+            "subheading": "Page non trouvée",
+            "description": "Désolé, nous n'avons pas pu trouver la page que vous recherchez. La page a peut-être été déplacée ou supprimée.",
+            "goHome": "Aller à l'accueil",
+            "goBack": "Retour",
+            "lookingFor": "Vous cherchez quelque chose ?",
+            "buildBurger": "Construire un Burger",
+            "orderHistory": "Historique des commandes",
+            "yourProfile": "Votre Profil",
+            "helpSupport": "Aide et Support"
+        },
+        "Error": {
+            "title": "Erreur - Quelque chose s'est mal passé",
+            "heading": "Quelque chose s'est mal passé !",
+            "description": "Nous avons rencontré une erreur inattendue. Veuillez réessayer ou contacter le support si le problème persiste.",
+            "errorDetails": "Détails de l'erreur (Développement uniquement)",
+            "tryAgain": "Réessayer",
+            "goHome": "Aller à l'accueil",
+            "errorReference": "Référence d'erreur :"
+        },
+        "Layout": {
+            "title": "Constructeur de Burger",
+            "description": "Construisez votre burger parfait avec notre Constructeur de Burger facile à utiliser."
+        },
+        "Auth": {
+            "SignIn": {
+                "title": "Se connecter",
+                "description": "Connectez-vous à votre compte"
+            },
+            "SignUp": {
+                "title": "S'inscrire",
+                "description": "Inscrivez-vous pour passer des commandes"
+            }
+        },
+        "Profile": {
+            "title": "Profil",
+            "description": "Gérez votre compte"
+        },
+        "History": {
+            "title": "Historique des commandes"
+        },
+        "TrackOrder": {
+            "title": "Suivre la commande"
+        }
     }
 }

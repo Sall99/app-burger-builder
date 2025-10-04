@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 
-import { ingredientsReducer } from './slices/ingredients'
+import { ingredientsReducer } from './slices/ingredients-enhanced'
 import { shippingAddressReducer } from './slices/shipping-address'
 
 const rootReducer = combineReducers({
