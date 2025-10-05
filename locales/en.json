@@ -154,6 +154,16 @@
         "openMenu": "Open menu",
         "closeMenu": "Close menu"
     },
+    "Coupon": {
+        "enterCode": "Enter promo code",
+        "apply": "Apply",
+        "validating": "Checking...",
+        "saved": "You saved",
+        "remove": "Remove",
+        "invalidCode": "Invalid or expired coupon",
+        "minOrderNotMet": "Minimum order value not met",
+        "title": "Have a promo code?"
+    },
     "Pages": {
         "Help": {
             "title": "Help",

@@ -21,6 +21,8 @@ model User {
   updatedAt      DateTime  @updatedAt
   accounts       Account[]
   Order          Order[]
+
+  CouponUsage CouponUsage[]
 }
 
 model Account {

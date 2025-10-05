@@ -10,8 +10,10 @@ import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { selectIngredients } from '@/redux/selectors/ingredients'
+import { RootState } from '@/redux/store'
 import { totalFormatter } from '@/utils/utils'
 
+import { CouponInput } from '../coupon'
 import { Modal } from '../modal/modal'
 import { ShippingAddress } from '../shipping-address'
 import { Button, PaymentForm } from '..'
@@ -23,9 +25,12 @@ export const Total = () => {
     const t = useTranslations('Total')
 
     const { ingredients, totalPrice } = useSelector(selectIngredients)
+    const coupon = useSelector((state: RootState) => state.rootReducer.coupon)
     const [isPaymentOpen, setIsPaymeOpen] = useState(false)
     const { meat, salad, bacon, cheese } = ingredients
     const [isOpen, setIsOpen] = useState(false)
+
+    const finalPrice = totalPrice - (coupon.appliedDiscount || 0)
 
     const handleOrder = () => {
         if (typeof window !== 'undefined' && window.dataLayer) {
@@ -74,15 +79,39 @@ export const Total = () => {
                             <span>{totalFormatter.format(totalPrice)}</span> <BiDollar />
                         </td>
                     </tr>
+                    {coupon.isValid && coupon.appliedDiscount > 0 && (
+                        <>
+                            <tr>
+                                <td className="text-green-600">Discount</td>
+                                <td className="text-green-600 flex items-center gap-1">
+                                    <span>-{totalFormatter.format(coupon.appliedDiscount)}</span>{' '}
+                                    <BiDollar />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="price py-2 font-bold">Final Total</td>
+                                <td className="price flex items-center gap-1 py-2 font-bold">
+                                    <span>{totalFormatter.format(finalPrice)}</span> <BiDollar />
+                                </td>
+                            </tr>
+                        </>
+                    )}
+                </tbody>
+            </table>
+
+            <CouponInput orderTotal={totalPrice} />
+
+            <table>
+                <tbody>
                     <tr>
                         <td>
                             <Button
                                 label={t('Order')}
                                 className={clsx(
-                                    'w-20 h-8',
-                                    totalPrice <= 4 && 'bg-primary-300  hover:bg-primary-300'
+                                    'w-20 h-8 mt-4',
+                                    finalPrice <= 4 && 'bg-primary-300  hover:bg-primary-300'
                                 )}
-                                disabled={totalPrice <= 4}
+                                disabled={finalPrice <= 4}
                                 onClick={handleOrder}
                             />
                         </td>
