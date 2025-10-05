@@ -734,6 +734,253 @@ tbody tr td {
     }
 }
 
+/* SUBSTITUTIONS */
+.substitutions-container {
+    background-color: var(--color-primary-300);
+    max-width: 50rem;
+    margin: 2rem auto;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.substitutions-empty {
+    padding: 2rem;
+    text-align: center;
+    color: var(--color-primary-200);
+    font-size: 0.9rem;
+}
+
+.substitutions-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    background-color: var(--color-primary-300);
+}
+
+.substitutions-icon {
+    font-size: 1.5rem;
+    color: var(--color-primary-200);
+}
+
+.substitutions-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-primary-600);
+    margin: 0;
+}
+
+.substitutions-subtitle {
+    font-size: 0.875rem;
+    color: var(--color-primary-200);
+    margin: 0.25rem 0 0 0;
+}
+
+.substitutions-list {
+    border-top: 1px solid rgba(193, 87, 17, 0.2);
+}
+
+.substitution-item {
+    border-bottom: 1px solid rgba(193, 87, 17, 0.1);
+}
+
+.substitution-item:last-child {
+    border-bottom: none;
+}
+
+.substitution-ingredient-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.substitution-ingredient-header:hover {
+    background-color: rgba(254, 151, 56, 0.1);
+}
+
+.substitution-ingredient-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+}
+
+.substitution-ingredient-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-primary-600);
+}
+
+.substitution-ingredient-count {
+    font-size: 0.875rem;
+    color: var(--color-primary-200);
+    padding: 0.125rem 0.5rem;
+    background-color: rgba(193, 87, 17, 0.1);
+    border-radius: 0.25rem;
+}
+
+.substitution-active-badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.75rem;
+    background-color: #d4edda;
+    color: #155724;
+    border-radius: 1rem;
+}
+
+.substitution-chevron {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--color-primary-200);
+    transition: transform 0.2s ease;
+}
+
+.substitution-chevron-open {
+    transform: rotate(180deg);
+}
+
+.substitution-options {
+    padding: 0 2rem 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.substitution-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    background-color: white;
+    border: 2px solid rgba(193, 87, 17, 0.2);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.substitution-option:hover:not(:disabled) {
+    border-color: var(--color-primary-400);
+    background-color: rgba(254, 151, 56, 0.05);
+}
+
+.substitution-option-active {
+    border-color: var(--color-primary-600);
+    background-color: rgba(254, 151, 56, 0.1);
+}
+
+.substitution-option-reset {
+    border-color: var(--color-gray-300);
+}
+
+.substitution-option-reset:hover {
+    border-color: var(--color-primary-400);
+}
+
+.substitution-option:disabled {
+    cursor: default;
+    opacity: 0.7;
+}
+
+.substitution-option-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.substitution-option-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.substitution-option-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-primary-600);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.substitution-dietary-badge {
+    font-size: 0.75rem;
+    font-weight: 400;
+    padding: 0.125rem 0.5rem;
+    background-color: #d4edda;
+    color: #155724;
+    border-radius: 0.25rem;
+}
+
+.substitution-option-desc {
+    font-size: 0.75rem;
+    color: var(--color-gray-300);
+}
+
+.substitution-option-price {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-primary-600);
+    flex-shrink: 0;
+}
+
+.substitution-price-positive {
+    color: #d97706;
+}
+
+.substitution-price-negative {
+    color: #059669;
+}
+
+.substitutions-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: rgba(254, 151, 56, 0.1);
+    border-top: 1px solid rgba(193, 87, 17, 0.2);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-primary-600);
+}
+
+.substitutions-total-amount {
+    font-size: 1rem;
+}
+
+.substitutions-total-positive {
+    color: #d97706;
+}
+
+.substitutions-total-negative {
+    color: #059669;
+}
+
+@media (max-width: 640px) {
+    .substitution-ingredient-header {
+        padding: 0.875rem 1rem;
+    }
+
+    .substitution-options {
+        padding: 0 1rem 1rem 1rem;
+    }
+
+    .substitution-option {
+        padding: 0.75rem;
+    }
+
+    .substitution-option-icon {
+        font-size: 1.25rem;
+    }
+}
+
 .payment-form {
     padding: 20px;
     border: 1px solid #ccc;

@@ -36,3 +36,4 @@ export {
 export { BurgerIngredients } from './ingredients'
 export { DietaryInfo } from './dietary-info'
 export { DeliveryTime } from './delivery-time'
+export { IngredientSubstitutions } from './substitutions'
