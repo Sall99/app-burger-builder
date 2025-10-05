@@ -7,6 +7,7 @@ import {
     BuilderAnimated,
     BuilderWrapper,
     Controls,
+    DietaryInfo,
     SavedTemplates,
     ShareBurger,
     UndoRedoControls
@@ -34,6 +35,9 @@ export default function Home() {
                 <section className="px-8 sm:px-16 w-full">
                     {/* Ingredient Controls */}
                     <Controls />
+
+                    {/* Dietary Information */}
+                    <DietaryInfo />
 
                     {/* Saved Templates */}
                     <SavedTemplates />

@@ -1,3 +1,4 @@
-import { signInFormSchema,signUpFormSchema } from './yup.schema';
+import { signInFormSchema, signUpFormSchema } from './yup.schema'
 
-export { signInFormSchema,signUpFormSchema };
+export { signInFormSchema, signUpFormSchema }
+export * from './dietary-calculator'

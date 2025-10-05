@@ -164,6 +164,33 @@
         "minOrderNotMet": "Minimum order value not met",
         "title": "Have a promo code?"
     },
+    "Dietary": {
+        "title": "Nutritional Information",
+        "calories": "Calories",
+        "protein": "Protein",
+        "carbs": "Carbs",
+        "fat": "Fat",
+        "fiber": "Fiber",
+        "sodium": "Sodium",
+        "allergens": "Allergens",
+        "nutritionalInfo": "Nutrition Facts",
+        "allergenWarning": "Allergen Warning",
+        "dietaryTags": "Dietary Information",
+        "disclaimer": "Nutritional information is approximate and may vary. Always check with staff about specific dietary needs.",
+        "tags": {
+            "vegan": "Vegan",
+            "vegetarian": "Vegetarian",
+            "gluten-free": "Gluten-Free"
+        },
+        "allergenList": {
+            "gluten": "Gluten",
+            "dairy": "Dairy",
+            "eggs": "Eggs",
+            "soy": "Soy",
+            "nuts": "Nuts",
+            "shellfish": "Shellfish"
+        }
+    },
     "Pages": {
         "Help": {
             "title": "Help",
