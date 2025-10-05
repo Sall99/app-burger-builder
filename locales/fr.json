@@ -164,6 +164,33 @@
         "minOrderNotMet": "Montant minimum de commande non atteint",
         "title": "Avez-vous un code promo ?"
     },
+    "Dietary": {
+        "title": "Informations Nutritionnelles",
+        "calories": "Calories",
+        "protein": "Protéines",
+        "carbs": "Glucides",
+        "fat": "Lipides",
+        "fiber": "Fibres",
+        "sodium": "Sodium",
+        "allergens": "Allergènes",
+        "nutritionalInfo": "Valeurs Nutritionnelles",
+        "allergenWarning": "Avertissement Allergènes",
+        "dietaryTags": "Informations Diététiques",
+        "disclaimer": "Les informations nutritionnelles sont approximatives et peuvent varier. Consultez toujours le personnel pour des besoins alimentaires spécifiques.",
+        "tags": {
+            "vegan": "Végétalien",
+            "vegetarian": "Végétarien",
+            "gluten-free": "Sans Gluten"
+        },
+        "allergenList": {
+            "gluten": "Gluten",
+            "dairy": "Produits Laitiers",
+            "eggs": "Œufs",
+            "soy": "Soja",
+            "nuts": "Noix",
+            "shellfish": "Fruits de Mer"
+        }
+    },
     "Pages": {
         "Help": {
             "title": "Aide",

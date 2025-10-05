@@ -34,3 +34,4 @@ export {
     UpdateProfileForm
 }
 export { BurgerIngredients } from './ingredients'
+export { DietaryInfo } from './dietary-info'
