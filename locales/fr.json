@@ -207,6 +207,27 @@
         "closeChat": "Fermer le chat",
         "chatWithUs": "Discutez avec nous"
     },
+    "Substitutions": {
+        "title": "Personnalisez Vos Ingrédients",
+        "subtitle": "Échangez des ingrédients selon vos préférences",
+        "addIngredientsFirst": "Ajoutez des ingrédients pour voir les options de substitution",
+        "substituted": "Substitué",
+        "resetToOriginal": "Rétablir l'Original",
+        "totalAdjustment": "Total des Substitutions",
+        "free": "GRATUIT",
+        "ingredients": {
+            "meat": "Steak Haché",
+            "cheese": "Fromage Cheddar",
+            "bacon": "Bacon",
+            "salad": "Laitue"
+        },
+        "dietary": {
+            "vegan": "Végétalien",
+            "vegetarian": "Végétarien",
+            "gluten-free": "Sans Gluten",
+            "dairy-free": "Sans Produits Laitiers"
+        }
+    },
     "Pages": {
         "Help": {
             "title": "Aide",

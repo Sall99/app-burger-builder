@@ -207,6 +207,27 @@
         "closeChat": "Close chat",
         "chatWithUs": "Chat with us"
     },
+    "Substitutions": {
+        "title": "Customize Your Ingredients",
+        "subtitle": "Swap ingredients to match your preferences",
+        "addIngredientsFirst": "Add ingredients to see substitution options",
+        "substituted": "Substituted",
+        "resetToOriginal": "Reset to Original",
+        "totalAdjustment": "Substitutions Total",
+        "free": "FREE",
+        "ingredients": {
+            "meat": "Beef Patty",
+            "cheese": "Cheddar Cheese",
+            "bacon": "Bacon",
+            "salad": "Lettuce"
+        },
+        "dietary": {
+            "vegan": "Vegan",
+            "vegetarian": "Vegetarian",
+            "gluten-free": "Gluten-Free",
+            "dairy-free": "Dairy-Free"
+        }
+    },
     "Pages": {
         "Help": {
             "title": "Help",

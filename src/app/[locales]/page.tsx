@@ -9,6 +9,7 @@ import {
     Controls,
     DeliveryTime,
     DietaryInfo,
+    IngredientSubstitutions,
     SavedTemplates,
     ShareBurger,
     UndoRedoControls
@@ -36,6 +37,9 @@ export default function Home() {
                 <section className="px-8 sm:px-16 w-full">
                     {/* Ingredient Controls */}
                     <Controls />
+
+                    {/* Ingredient Substitutions */}
+                    <IngredientSubstitutions />
 
                     {/* Delivery Time Estimation */}
                     <DeliveryTime />
