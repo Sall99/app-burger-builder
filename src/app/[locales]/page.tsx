@@ -10,6 +10,7 @@ import {
     DeliveryTime,
     DietaryInfo,
     IngredientSubstitutions,
+    MealDeals,
     SavedTemplates,
     ShareBurger,
     UndoRedoControls
@@ -35,6 +36,9 @@ export default function Home() {
                     <BuilderAnimated ingredients={ingredients} />
                 </section>
                 <section className="px-8 sm:px-16 w-full">
+                    {/* Meal Deals */}
+                    <MealDeals />
+
                     {/* Ingredient Controls */}
                     <Controls />
 

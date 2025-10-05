@@ -228,6 +228,30 @@
             "dairy-free": "Dairy-Free"
         }
     },
+    "Combos": {
+        "title": "Meal Deals & Combos",
+        "subtitle": "Pre-made favorites at special prices",
+        "suggestionText": "Your burger matches our {name} combo!",
+        "save": "Save",
+        "saving": "Saving",
+        "off": "off",
+        "applyNow": "Apply Now",
+        "clearCombo": "Clear Combo",
+        "dealOfTheDay": "Deal of the Day",
+        "popular": "Popular",
+        "regular": "Regular",
+        "comboPrice": "Combo",
+        "selectCombo": "Select Combo",
+        "applied": "✓ Applied",
+        "showMore": "Show All Combos",
+        "showLess": "Show Less",
+        "ingredients": {
+            "meat": "Beef",
+            "cheese": "Cheese",
+            "bacon": "Bacon",
+            "salad": "Lettuce"
+        }
+    },
     "Pages": {
         "Help": {
             "title": "Help",

@@ -219,6 +219,59 @@ const ingredientSlice = createSlice({
         },
         clearLastAction(state) {
             state.lastAction = null
+        },
+        setIngredients(state, action: PayloadAction<{ [key: string]: number }>) {
+            // Save to history
+            state.history.push({
+                ingredients: { ...state.ingredients },
+                ingredientOrder: [...state.ingredientOrder],
+                totalPrice: state.totalPrice
+            })
+            state.historyIndex++
+
+            // Set ingredients
+            state.ingredients = { ...action.payload }
+
+            // Rebuild ingredient order array
+            state.ingredientOrder = []
+            Object.entries(action.payload).forEach(([type, count]) => {
+                for (let i = 0; i < count; i++) {
+                    state.ingredientOrder.push({
+                        id: `${type}-${Date.now()}-${Math.random()}`,
+                        type
+                    })
+                }
+            })
+
+            // Recalculate total price
+            state.totalPrice = Object.entries(action.payload).reduce(
+                (total, [type, count]) => total + state.prices[type] * count,
+                4 // Base price
+            )
+            state.lastAction = null
+        },
+        clearIngredients(state) {
+            // Save to history
+            if (state.ingredientOrder.length > 0) {
+                state.history.push({
+                    ingredients: { ...state.ingredients },
+                    ingredientOrder: [...state.ingredientOrder],
+                    totalPrice: state.totalPrice
+                })
+                state.historyIndex++
+            }
+
+            // Clear all ingredients
+            state.ingredients = ingredientNames.reduce(
+                (acc, ingredient) => {
+                    acc[ingredient] = 0
+                    return acc
+                },
+                {} as { [key: string]: number }
+            )
+            state.ingredientOrder = []
+            state.totalPrice = 4
+            state.lastAction = null
         }
     }
 })
@@ -234,7 +287,9 @@ export const {
     saveTemplate,
     loadTemplate,
     deleteTemplate,
-    clearLastAction
+    clearLastAction,
+    setIngredients,
+    clearIngredients
 } = ingredientSlice.actions
 
 export type { BurgerTemplate, IngredientsState }

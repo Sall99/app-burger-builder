@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 
+import { comboReducer } from './slices/combo'
 import { couponReducer } from './slices/coupon'
 import { ingredientsReducer } from './slices/ingredients-enhanced'
 import { shippingAddressReducer } from './slices/shipping-address'
@@ -9,7 +10,8 @@ const rootReducer = combineReducers({
     ingredients: ingredientsReducer,
     shippingAddress: shippingAddressReducer,
     coupon: couponReducer,
-    substitutions: substitutionsReducer
+    substitutions: substitutionsReducer,
+    combo: comboReducer
 })
 
 export default rootReducer

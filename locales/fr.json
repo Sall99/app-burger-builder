@@ -228,6 +228,30 @@
             "dairy-free": "Sans Produits Laitiers"
         }
     },
+    "Combos": {
+        "title": "Offres Repas & Combos",
+        "subtitle": "Favoris pré-faits à prix spéciaux",
+        "suggestionText": "Votre burger correspond à notre combo {name} !",
+        "save": "Économisez",
+        "saving": "Économie",
+        "off": "de réduction",
+        "applyNow": "Appliquer Maintenant",
+        "clearCombo": "Effacer le Combo",
+        "dealOfTheDay": "Offre du Jour",
+        "popular": "Populaire",
+        "regular": "Régulier",
+        "comboPrice": "Combo",
+        "selectCombo": "Sélectionner",
+        "applied": "✓ Appliqué",
+        "showMore": "Voir Tous les Combos",
+        "showLess": "Voir Moins",
+        "ingredients": {
+            "meat": "Boeuf",
+            "cheese": "Fromage",
+            "bacon": "Bacon",
+            "salad": "Laitue"
+        }
+    },
     "Pages": {
         "Help": {
             "title": "Aide",
