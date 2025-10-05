@@ -7,6 +7,7 @@ import {
     BuilderAnimated,
     BuilderWrapper,
     Controls,
+    DeliveryTime,
     DietaryInfo,
     SavedTemplates,
     ShareBurger,
@@ -35,6 +36,9 @@ export default function Home() {
                 <section className="px-8 sm:px-16 w-full">
                     {/* Ingredient Controls */}
                     <Controls />
+
+                    {/* Delivery Time Estimation */}
+                    <DeliveryTime />
 
                     {/* Dietary Information */}
                     <DietaryInfo />

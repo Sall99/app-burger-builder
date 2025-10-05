@@ -191,6 +191,16 @@
             "shellfish": "Fruits de Mer"
         }
     },
+    "DeliveryTime": {
+        "title": "Temps de Livraison Estimé",
+        "minutes": "min",
+        "by": "vers",
+        "preparation": "Préparation",
+        "delivery": "Livraison",
+        "peakHours": "Heures de Pointe",
+        "peakHoursMessage": "La livraison peut prendre plus de temps pendant les heures de pointe",
+        "note": "Les délais sont des estimations et peuvent varier selon le trafic et le volume de commandes."
+    },
     "Pages": {
         "Help": {
             "title": "Aide",

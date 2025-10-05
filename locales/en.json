@@ -191,6 +191,16 @@
             "shellfish": "Shellfish"
         }
     },
+    "DeliveryTime": {
+        "title": "Estimated Delivery Time",
+        "minutes": "min",
+        "by": "by",
+        "preparation": "Preparation",
+        "delivery": "Delivery",
+        "peakHours": "Peak Hours",
+        "peakHoursMessage": "Delivery may take longer during busy times",
+        "note": "Times are estimates and may vary based on traffic and order volume."
+    },
     "Pages": {
         "Help": {
             "title": "Help",
