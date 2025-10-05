@@ -201,6 +201,12 @@
         "peakHoursMessage": "La livraison peut prendre plus de temps pendant les heures de pointe",
         "note": "Les délais sont des estimations et peuvent varier selon le trafic et le volume de commandes."
     },
+    "Chat": {
+        "needHelp": "Besoin d'aide ?",
+        "openChat": "Ouvrir le chat d'assistance",
+        "closeChat": "Fermer le chat",
+        "chatWithUs": "Discutez avec nous"
+    },
     "Pages": {
         "Help": {
             "title": "Aide",

@@ -649,6 +649,91 @@ tbody tr td {
     text-align: center;
 }
 
+/* CHAT SUPPORT */
+.chat-trigger-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--color-primary-600);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all ease 0.2s;
+}
+
+.chat-trigger-button:hover {
+    background-color: var(--color-primary-200);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(193, 87, 17, 0.3);
+}
+
+.chat-trigger-button:focus {
+    outline: none;
+    ring: 2px solid var(--color-primary-400);
+    ring-offset: 2px;
+}
+
+.chat-trigger-icon {
+    font-size: 1.25rem;
+}
+
+.chat-trigger-text {
+    font-weight: 500;
+}
+
+/* Floating Chat Button */
+.floating-chat-button {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    background-color: var(--color-primary-600);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(193, 87, 17, 0.4);
+    transition: all ease 0.3s;
+    z-index: 999;
+}
+
+.floating-chat-button:hover {
+    background-color: var(--color-primary-200);
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(193, 87, 17, 0.5);
+}
+
+.floating-chat-button:focus {
+    outline: none;
+    ring: 3px solid var(--color-primary-400);
+}
+
+.floating-chat-icon {
+    font-size: 1.75rem;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+    .floating-chat-button {
+        bottom: 1rem;
+        right: 1rem;
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .floating-chat-icon {
+        font-size: 1.5rem;
+    }
+}
+
 .payment-form {
     padding: 20px;
     border: 1px solid #ccc;

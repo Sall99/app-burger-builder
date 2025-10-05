@@ -201,6 +201,12 @@
         "peakHoursMessage": "Delivery may take longer during busy times",
         "note": "Times are estimates and may vary based on traffic and order volume."
     },
+    "Chat": {
+        "needHelp": "Need Help?",
+        "openChat": "Open chat support",
+        "closeChat": "Close chat",
+        "chatWithUs": "Chat with us"
+    },
     "Pages": {
         "Help": {
             "title": "Help",

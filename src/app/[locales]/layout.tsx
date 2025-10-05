@@ -10,6 +10,7 @@ import { getLocale, getMessages, getTranslations } from 'next-intl/server'
 
 import { WebVitals } from '@/app/web-vitals'
 import { Footer, Header } from '@/components'
+import { CrispChatWithUser } from '@/components/chat'
 import { GoogleAnalytics } from '@/components/google'
 import { SkipLink } from '@/components/ui'
 import { ToasterProvider } from '@/providers'
@@ -156,6 +157,14 @@ export default async function RootLayout({ children }: Props) {
                     </Providers>
                 </SessionWrapper>
                 <GoogleAnalytics />
+                {/* Live Chat Support */}
+                {process.env.NEXT_PUBLIC_CRISP_WEBSITE_ID && (
+                    <CrispChatWithUser
+                        websiteId={process.env.NEXT_PUBLIC_CRISP_WEBSITE_ID}
+                        userEmail={session?.user?.email || undefined}
+                        userName={session?.user?.name || undefined}
+                    />
+                )}
             </body>
         </html>
     )
