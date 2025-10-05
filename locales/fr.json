@@ -252,6 +252,46 @@
             "salad": "Laitue"
         }
     },
+    "Loyalty": {
+        "title": "Programme de Fidélité",
+        "subtitle": "Gagnez des points et débloquez des récompenses",
+        "earnMultiplier": "Gagnez {multiplier}x points par dollar",
+        "totalPoints": "Points Totaux",
+        "available": "Disponibles",
+        "progressTo": "Progrès vers {tier}",
+        "points": "points",
+        "maxTierAchieved": "Niveau maximum atteint !",
+        "lifetimeSpend": "Dépenses Totales",
+        "orders": "Commandes Totales",
+        "yourBenefits": "Vos Avantages",
+        "allTiers": "Tous les Niveaux",
+        "pts": "pts",
+        "current": "Actuel"
+    },
+    "Rewards": {
+        "title": "Catalogue de Récompenses",
+        "availablePoints": "Points Disponibles",
+        "pts": "pts",
+        "allRewards": "Toutes les Récompenses",
+        "availableNow": "Disponibles Maintenant",
+        "popular": "Populaire",
+        "tierRequired": "{tier} requis",
+        "type": {
+            "discount": "Réduction",
+            "free-item": "Article Gratuit",
+            "upgrade": "Amélioration",
+            "special": "Offre Spéciale"
+        },
+        "value": "valeur",
+        "worth": "Valeur",
+        "expires": "Valable {days} jours",
+        "redeem": "Échanger",
+        "redeeming": "Échange en cours...",
+        "needPoints": "Besoin de {points} de plus",
+        "locked": "Verrouillé",
+        "noRewardsAvailable": "Aucune récompense ne correspond à vos filtres",
+        "earnMorePoints": "Complétez des commandes pour gagner plus de points !"
+    },
     "Pages": {
         "Help": {
             "title": "Aide",

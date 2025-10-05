@@ -1350,6 +1350,606 @@ tbody tr td {
     }
 }
 
+/* LOYALTY PROGRAM */
+.loyalty-dashboard {
+    background-color: var(--color-primary-300);
+    max-width: 70rem;
+    margin: 2rem auto;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.loyalty-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    background-color: var(--color-primary-300);
+}
+
+.loyalty-icon {
+    font-size: 1.5rem;
+    color: var(--color-primary-200);
+}
+
+.loyalty-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-primary-600);
+    margin: 0;
+}
+
+.loyalty-subtitle {
+    font-size: 0.875rem;
+    color: var(--color-primary-200);
+    margin: 0.25rem 0 0 0;
+}
+
+/* Tier Card */
+.loyalty-tier-card {
+    margin: 2rem;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.loyalty-tier-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.loyalty-tier-icon {
+    font-size: 3rem;
+}
+
+.loyalty-tier-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin: 0;
+}
+
+.loyalty-tier-multiplier {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0.25rem 0 0 0;
+}
+
+/* Points Display */
+.loyalty-points-display {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.loyalty-points-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loyalty-points-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+}
+
+.loyalty-points-label {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+    margin-top: 0.25rem;
+}
+
+.loyalty-points-divider {
+    width: 1px;
+    height: 3rem;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Progress Section */
+.loyalty-progress-section {
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 0.5rem;
+}
+
+.loyalty-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.loyalty-progress-text,
+.loyalty-progress-points {
+    font-size: 0.875rem;
+    color: white;
+    font-weight: 500;
+}
+
+.loyalty-progress-bar {
+    width: 100%;
+    height: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.loyalty-progress-fill {
+    height: 100%;
+    border-radius: 1rem;
+    transition: width 0.5s ease;
+}
+
+/* Max Tier */
+.loyalty-max-tier {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 0.5rem;
+}
+
+.loyalty-max-tier-icon {
+    font-size: 1.5rem;
+}
+
+.loyalty-max-tier-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: white;
+}
+
+/* Stats Grid */
+.loyalty-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 2rem 2rem 2rem;
+}
+
+.loyalty-stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 0.75rem;
+    border: 2px solid rgba(193, 87, 17, 0.2);
+}
+
+.loyalty-stat-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.loyalty-stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary-600);
+}
+
+.loyalty-stat-label {
+    font-size: 0.75rem;
+    color: var(--color-gray-300);
+    text-align: center;
+    margin-top: 0.25rem;
+}
+
+/* Benefits */
+.loyalty-benefits {
+    padding: 2rem;
+    border-top: 1px solid rgba(193, 87, 17, 0.2);
+}
+
+.loyalty-benefits-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-primary-600);
+    margin: 0 0 1rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.loyalty-benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.loyalty-benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background-color: rgba(254, 151, 56, 0.05);
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--color-primary-600);
+}
+
+.loyalty-benefit-check {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #d4edda;
+    color: #155724;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+/* Tiers Preview */
+.loyalty-tiers-preview {
+    padding: 2rem;
+    border-top: 1px solid rgba(193, 87, 17, 0.2);
+}
+
+.loyalty-tiers-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-primary-600);
+    margin: 0 0 1rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.loyalty-tiers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.loyalty-tier-mini {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background-color: white;
+    border: 2px solid;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.loyalty-tier-mini:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.loyalty-tier-mini-active {
+    background-color: rgba(254, 151, 56, 0.1);
+    border-width: 3px;
+}
+
+.loyalty-tier-mini-locked {
+    opacity: 0.5;
+}
+
+.loyalty-tier-mini-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.loyalty-tier-mini-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-primary-600);
+    text-align: center;
+    margin-bottom: 0.25rem;
+}
+
+.loyalty-tier-mini-points {
+    font-size: 0.625rem;
+    color: var(--color-gray-300);
+}
+
+.loyalty-tier-mini-badge {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--color-primary-600);
+    color: white;
+    font-size: 0.625rem;
+    font-weight: 700;
+    border-radius: 1rem;
+}
+
+/* REWARDS CATALOG */
+.rewards-catalog {
+    background-color: var(--color-primary-300);
+    max-width: 70rem;
+    margin: 2rem auto;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.rewards-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    background-color: var(--color-primary-300);
+}
+
+.rewards-icon {
+    font-size: 1.5rem;
+    color: var(--color-primary-200);
+}
+
+.rewards-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-primary-600);
+    margin: 0;
+}
+
+.rewards-subtitle {
+    font-size: 0.875rem;
+    color: var(--color-primary-200);
+    margin: 0.25rem 0 0 0;
+}
+
+/* Filters */
+.rewards-filters {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    border-top: 1px solid rgba(193, 87, 17, 0.2);
+    border-bottom: 1px solid rgba(193, 87, 17, 0.2);
+    background-color: rgba(254, 151, 56, 0.05);
+}
+
+.rewards-filter-button {
+    padding: 0.5rem 1rem;
+    background-color: white;
+    color: var(--color-primary-600);
+    border: 2px solid rgba(193, 87, 17, 0.2);
+    border-radius: 0.5rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.rewards-filter-button:hover {
+    border-color: var(--color-primary-400);
+    background-color: rgba(254, 151, 56, 0.05);
+}
+
+.rewards-filter-active {
+    background-color: var(--color-primary-600);
+    color: white;
+    border-color: var(--color-primary-600);
+}
+
+/* Rewards Grid */
+.rewards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.reward-card {
+    position: relative;
+    background-color: white;
+    border: 2px solid rgba(193, 87, 17, 0.2);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.reward-card:hover:not(.reward-card-locked) {
+    border-color: var(--color-primary-400);
+    box-shadow: 0 8px 16px rgba(193, 87, 17, 0.15);
+    transform: translateY(-4px);
+}
+
+.reward-card-locked {
+    opacity: 0.6;
+}
+
+/* Reward Badge */
+.reward-badge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.reward-badge-popular {
+    background-color: #f59e0b;
+    color: white;
+}
+
+.reward-badge-tier {
+    background-color: #8b5cf6;
+    color: white;
+    text-transform: capitalize;
+}
+
+/* Reward Icon */
+.reward-icon-large {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* Reward Name */
+.reward-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-primary-600);
+    margin: 0 0 0.5rem 0;
+    text-align: center;
+}
+
+/* Reward Description */
+.reward-description {
+    font-size: 0.875rem;
+    color: var(--color-gray-300);
+    text-align: center;
+    margin: 0 0 1rem 0;
+    flex-grow: 1;
+}
+
+/* Type Badge */
+.reward-type-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background-color: rgba(139, 92, 246, 0.1);
+    color: #8b5cf6;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 0.25rem;
+    margin-bottom: 0.75rem;
+    text-align: center;
+}
+
+/* Reward Value */
+.reward-value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #059669;
+    margin-bottom: 0.5rem;
+}
+
+.reward-value-icon {
+    font-size: 1rem;
+}
+
+/* Expiry */
+.reward-expiry {
+    font-size: 0.75rem;
+    color: var(--color-gray-300);
+    text-align: center;
+    margin: 0 0 1rem 0;
+}
+
+/* Points Cost */
+.reward-cost {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background-color: rgba(254, 151, 56, 0.1);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.reward-cost-icon {
+    font-size: 1.25rem;
+}
+
+.reward-cost-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-primary-600);
+}
+
+/* Redeem Button */
+.reward-redeem-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--color-primary-600);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.reward-redeem-button:hover:not(:disabled) {
+    background-color: var(--color-primary-200);
+}
+
+.reward-redeem-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.reward-redeem-button-locked {
+    background-color: var(--color-gray-300);
+}
+
+/* Empty State */
+.rewards-empty {
+    padding: 3rem 2rem;
+    text-align: center;
+    color: var(--color-gray-300);
+}
+
+.rewards-empty-hint {
+    font-size: 0.875rem;
+    color: var(--color-primary-400);
+    margin-top: 0.5rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .loyalty-tiers-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .loyalty-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .rewards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+
+    .rewards-filters {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 640px) {
+    .loyalty-tier-card {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+
+    .loyalty-tiers-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .rewards-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 .payment-form {
     padding: 20px;
     border: 1px solid #ccc;

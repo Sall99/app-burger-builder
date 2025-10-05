@@ -252,6 +252,46 @@
             "salad": "Lettuce"
         }
     },
+    "Loyalty": {
+        "title": "Loyalty Program",
+        "subtitle": "Earn points and unlock rewards",
+        "earnMultiplier": "Earn {multiplier}x points per dollar",
+        "totalPoints": "Total Points",
+        "available": "Available",
+        "progressTo": "Progress to {tier}",
+        "points": "points",
+        "maxTierAchieved": "Maximum tier achieved!",
+        "lifetimeSpend": "Lifetime Spend",
+        "orders": "Total Orders",
+        "yourBenefits": "Your Benefits",
+        "allTiers": "All Loyalty Tiers",
+        "pts": "pts",
+        "current": "Current"
+    },
+    "Rewards": {
+        "title": "Rewards Catalog",
+        "availablePoints": "Available Points",
+        "pts": "pts",
+        "allRewards": "All Rewards",
+        "availableNow": "Available Now",
+        "popular": "Popular",
+        "tierRequired": "{tier} required",
+        "type": {
+            "discount": "Discount",
+            "free-item": "Free Item",
+            "upgrade": "Upgrade",
+            "special": "Special Offer"
+        },
+        "value": "value",
+        "worth": "Worth",
+        "expires": "Valid for {days} days",
+        "redeem": "Redeem",
+        "redeeming": "Redeeming...",
+        "needPoints": "Need {points} more",
+        "locked": "Locked",
+        "noRewardsAvailable": "No rewards match your filters",
+        "earnMorePoints": "Complete orders to earn more points!"
+    },
     "Pages": {
         "Help": {
             "title": "Help",
