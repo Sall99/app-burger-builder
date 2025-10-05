@@ -19,12 +19,16 @@
         "Copyright": "Burger-builder. Tous droits réservés"
     },
     "Total": {
+        "OrderSummary": "Résumé de Commande",
         "Meat": "Viande",
         "Salad": "Salade",
         "Bacon": "Bacon",
         "Cheese": "Fromage",
+        "Subtotal": "Sous-total",
+        "Substitutions": "Substitutions",
+        "Discount": "Réduction",
         "Total": "Total",
-        "Order": "Commander",
+        "Order": "Commander Maintenant",
         "ShippingAddress": "Adresse de livraison",
         "Payment": "Paiement"
     },

@@ -25,22 +25,24 @@ export default function Home() {
     return (
         <BuilderWrapper>
             <section className="flex min-h-screen flex-col items-center pt-8">
+                {/* Undo/Redo Controls - Top Position */}
+                <UndoRedoControls />
+
                 <section className="flex flex-col items-center px-8 sm:px-16 justify-center relative w-full">
                     <Total />
                     <TotalMobile />
 
-                    {/* Undo/Redo Controls */}
-                    <UndoRedoControls />
-
                     {/* Animated Builder with Drag & Drop */}
                     <BuilderAnimated ingredients={ingredients} />
+
+                    {/* Ingredient Controls - Below Builder */}
+                    <div className="w-full max-w-4xl mt-8">
+                        <Controls />
+                    </div>
                 </section>
                 <section className="px-8 sm:px-16 w-full">
                     {/* Meal Deals */}
                     <MealDeals />
-
-                    {/* Ingredient Controls */}
-                    <Controls />
 
                     {/* Ingredient Substitutions */}
                     <IngredientSubstitutions />
