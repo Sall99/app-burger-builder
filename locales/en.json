@@ -49,17 +49,19 @@
         "redo": "Redo",
         "clear": "Clear",
         "confirmClear": "Are you sure you want to clear your burger?",
-        "savedTemplates": "My Burgers",
+        "savedTemplates": "My Saved Burgers",
+        "savedSubtitle": "burgers saved",
         "saveCurrentBurger": "Save Current Burger",
         "burgerName": "Burger name...",
         "save": "Save",
         "cancel": "Cancel",
         "noSavedBurgers": "No saved burgers yet",
         "createAndSave": "Create a burger and save it here!",
-        "savedBurgers": "Saved Burgers",
+        "savedBurgers": "Your Saved Burgers",
         "load": "Load",
         "delete": "Delete",
         "shareBurger": "Share My Burger",
+        "shareSubtitle": "Share your creation with friends",
         "shareOn": "Share on",
         "copied": "Copied!",
         "copyLink": "Copy Link",
@@ -145,7 +147,10 @@
     },
     "Header": {
         "signIn": "Sign In",
-        "signUp": "Sign Up"
+        "signUp": "Sign Up",
+        "loyalty": "Rewards",
+        "locations": "Locations",
+        "notifications": "Notifications"
     },
     "Accessibility": {
         "skipToMain": "Skip to main content",
@@ -327,6 +332,38 @@
             "orderDelivered": "Delivery confirmation",
             "specialOffers": "Special offers and promotions",
             "loyaltyUpdates": "Loyalty points and rewards updates"
+        }
+    },
+    "Locations": {
+        "title": "Find a Location",
+        "subtitle": "Visit us at one of our restaurant locations",
+        "findNearest": "Find Nearest Location",
+        "finding": "Finding...",
+        "geolocationNotSupported": "Geolocation is not supported by your browser",
+        "locationPermissionDenied": "Location permission denied. Please enable location services.",
+        "nearestLocations": "Nearest Locations",
+        "allLocations": "All Locations",
+        "miles": "mi",
+        "reviews": "reviews",
+        "viewDetails": "View Details",
+        "selectLocation": "Select a location to view details",
+        "contactInfo": "Contact Information",
+        "address": "Address",
+        "phone": "Phone",
+        "email": "Email",
+        "hours": "Hours",
+        "features": "Features",
+        "getDirections": "Get Directions",
+        "mapPlaceholder": "Interactive map coming soon!",
+        "mapHint": "Click 'Get Directions' to open in Google Maps",
+        "days": {
+            "monday": "Monday",
+            "tuesday": "Tuesday",
+            "wednesday": "Wednesday",
+            "thursday": "Thursday",
+            "friday": "Friday",
+            "saturday": "Saturday",
+            "sunday": "Sunday"
         }
     },
     "Pages": {

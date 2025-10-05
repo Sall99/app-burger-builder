@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { BiShare } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 import { Check, Copy, Facebook, MessageCircle, Share2, Twitter } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -85,34 +86,40 @@ export function ShareBurger() {
     if (!hasIngredients) return null
 
     return (
-        <div className="mt-4">
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="share-button w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md transition-colors flex items-center justify-center gap-2">
-                <Share2 size={18} />
-                <span>{t('shareBurger') || 'Share My Burger'}</span>
-            </button>
+        <div className="share-burger-container">
+            {/* Header */}
+            <div className="share-burger-header" onClick={() => setIsOpen(!isOpen)}>
+                <BiShare className="share-burger-icon" aria-hidden="true" />
+                <div className="share-burger-title-wrapper">
+                    <h3 className="share-burger-title">{t('shareBurger') || 'Share My Burger'}</h3>
+                    <p className="share-burger-subtitle">
+                        {t('shareSubtitle') || 'Share your creation with friends'}
+                    </p>
+                </div>
+                <span className="share-burger-arrow">{isOpen ? '▼' : '▶'}</span>
+            </div>
 
+            {/* Content */}
             {isOpen && (
-                <div className="mt-2 bg-white border-2 border-gray-200 rounded-lg p-4 shadow-lg">
-                    <h3 className="font-semibold text-gray-700 mb-3">
-                        {t('shareOn') || 'Share on'}
-                    </h3>
+                <div className="share-burger-content">
+                    <h4 className="share-options-title">{t('shareOn') || 'Share on'}</h4>
 
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="share-options-grid">
                         {/* Copy Link */}
-                        <button
-                            onClick={handleCopyLink}
-                            className="flex items-center justify-center gap-2 p-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                        <button onClick={handleCopyLink} className="share-option-button">
                             {copied ? (
                                 <>
-                                    <Check size={18} className="text-green-500" />
-                                    <span className="text-sm">{t('copied') || 'Copied!'}</span>
+                                    <Check size={20} className="share-option-icon-success" />
+                                    <span className="share-option-label">
+                                        {t('copied') || 'Copied!'}
+                                    </span>
                                 </>
                             ) : (
                                 <>
-                                    <Copy size={18} />
-                                    <span className="text-sm">{t('copyLink') || 'Copy Link'}</span>
+                                    <Copy size={20} className="share-option-icon" />
+                                    <span className="share-option-label">
+                                        {t('copyLink') || 'Copy Link'}
+                                    </span>
                                 </>
                             )}
                         </button>
@@ -120,42 +127,40 @@ export function ShareBurger() {
                         {/* Facebook */}
                         <button
                             onClick={handleShareFacebook}
-                            className="flex items-center justify-center gap-2 p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
-                            <Facebook size={18} />
-                            <span className="text-sm">Facebook</span>
+                            className="share-option-button share-option-facebook">
+                            <Facebook size={20} />
+                            <span className="share-option-label">Facebook</span>
                         </button>
 
                         {/* Twitter */}
                         <button
                             onClick={handleShareTwitter}
-                            className="flex items-center justify-center gap-2 p-3 bg-sky-500 hover:bg-sky-600 text-white rounded-lg transition-colors">
-                            <Twitter size={18} />
-                            <span className="text-sm">Twitter</span>
+                            className="share-option-button share-option-twitter">
+                            <Twitter size={20} />
+                            <span className="share-option-label">Twitter</span>
                         </button>
 
                         {/* WhatsApp */}
                         <button
                             onClick={handleShareWhatsApp}
-                            className="flex items-center justify-center gap-2 p-3 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors">
-                            <MessageCircle size={18} />
-                            <span className="text-sm">WhatsApp</span>
+                            className="share-option-button share-option-whatsapp">
+                            <MessageCircle size={20} />
+                            <span className="share-option-label">WhatsApp</span>
                         </button>
                     </div>
 
                     {/* Native Share (Mobile) */}
                     {navigator.share && (
-                        <button
-                            onClick={handleNativeShare}
-                            className="w-full mt-2 flex items-center justify-center gap-2 p-3 bg-primary-200 hover:bg-primary-600 text-white rounded-lg transition-colors">
+                        <button onClick={handleNativeShare} className="share-native-button">
                             <Share2 size={18} />
-                            <span className="text-sm">{t('shareMore') || 'More Options'}</span>
+                            <span>{t('shareMore') || 'More Options'}</span>
                         </button>
                     )}
 
                     {/* Preview Text */}
-                    <div className="mt-3 p-3 bg-gray-50 rounded-lg text-xs text-gray-600">
-                        <p className="font-medium mb-1">{t('preview') || 'Preview'}:</p>
-                        <p className="whitespace-pre-line">{generateShareText()}</p>
+                    <div className="share-preview">
+                        <p className="share-preview-title">{t('preview') || 'Preview'}:</p>
+                        <p className="share-preview-text">{generateShareText()}</p>
                     </div>
                 </div>
             )}
