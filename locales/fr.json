@@ -49,17 +49,19 @@
         "redo": "Refaire",
         "clear": "Effacer",
         "confirmClear": "Êtes-vous sûr de vouloir effacer votre burger ?",
-        "savedTemplates": "Mes Burgers",
+        "savedTemplates": "Mes Burgers Sauvegardés",
+        "savedSubtitle": "burgers sauvegardés",
         "saveCurrentBurger": "Sauvegarder le Burger Actuel",
         "burgerName": "Nom du burger...",
         "save": "Sauvegarder",
         "cancel": "Annuler",
         "noSavedBurgers": "Aucun burger sauvegardé",
         "createAndSave": "Créez un burger et sauvegardez-le ici !",
-        "savedBurgers": "Burgers Sauvegardés",
+        "savedBurgers": "Vos Burgers Sauvegardés",
         "load": "Charger",
         "delete": "Supprimer",
         "shareBurger": "Partager Mon Burger",
+        "shareSubtitle": "Partagez votre création avec vos amis",
         "shareOn": "Partager sur",
         "copied": "Copié !",
         "copyLink": "Copier le Lien",
@@ -144,8 +146,11 @@
         "helpDescription": "Obtenez de l'aide pour votre compte, vos commandes ou d'autres demandes"
     },
     "Header": {
-        "signIn": "Sign In",
-        "signUp": "Sign Up"
+        "signIn": "Connexion",
+        "signUp": "Inscription",
+        "loyalty": "Récompenses",
+        "locations": "Emplacements",
+        "notifications": "Notifications"
     },
     "Accessibility": {
         "skipToMain": "Aller au contenu principal",
@@ -327,6 +332,38 @@
             "orderDelivered": "Confirmation de livraison",
             "specialOffers": "Offres spéciales et promotions",
             "loyaltyUpdates": "Mises à jour de points et récompenses"
+        }
+    },
+    "Locations": {
+        "title": "Trouver un Emplacement",
+        "subtitle": "Visitez-nous dans l'un de nos restaurants",
+        "findNearest": "Trouver le Plus Proche",
+        "finding": "Recherche...",
+        "geolocationNotSupported": "La géolocalisation n'est pas prise en charge",
+        "locationPermissionDenied": "Permission de localisation refusée. Veuillez activer les services de localisation.",
+        "nearestLocations": "Emplacements les Plus Proches",
+        "allLocations": "Tous les Emplacements",
+        "miles": "mi",
+        "reviews": "avis",
+        "viewDetails": "Voir les Détails",
+        "selectLocation": "Sélectionnez un emplacement pour voir les détails",
+        "contactInfo": "Coordonnées",
+        "address": "Adresse",
+        "phone": "Téléphone",
+        "email": "Email",
+        "hours": "Horaires",
+        "features": "Services",
+        "getDirections": "Obtenir l'Itinéraire",
+        "mapPlaceholder": "Carte interactive bientôt disponible !",
+        "mapHint": "Cliquez sur 'Obtenir l'Itinéraire' pour ouvrir dans Google Maps",
+        "days": {
+            "monday": "Lundi",
+            "tuesday": "Mardi",
+            "wednesday": "Mercredi",
+            "thursday": "Jeudi",
+            "friday": "Vendredi",
+            "saturday": "Samedi",
+            "sunday": "Dimanche"
         }
     },
     "Pages": {

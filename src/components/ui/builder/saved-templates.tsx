@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { BiBookmark } from 'react-icons/bi'
 import { useDispatch, useSelector } from 'react-redux'
 import { Download, Save, Trash2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -44,39 +45,43 @@ export function SavedTemplates() {
     }
 
     return (
-        <div className="mt-4">
-            {/* Main Toggle Button */}
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="w-full px-4 py-2 bg-primary-200 hover:bg-primary-600 text-white rounded-md transition-colors flex items-center justify-center gap-2">
-                <Save size={18} />
-                <span>{t('savedTemplates') || 'My Burgers'}</span>
-                <span className="ml-auto bg-white text-primary-200 px-2 py-0.5 rounded-full text-xs">
-                    {savedTemplates.length}
-                </span>
-            </button>
+        <div className="saved-templates-container">
+            {/* Header */}
+            <div className="saved-templates-header" onClick={() => setIsOpen(!isOpen)}>
+                <BiBookmark className="saved-templates-icon" aria-hidden="true" />
+                <div className="saved-templates-title-wrapper">
+                    <h3 className="saved-templates-title">
+                        {t('savedTemplates') || 'My Saved Burgers'}
+                    </h3>
+                    <p className="saved-templates-subtitle">
+                        {t('savedSubtitle') ||
+                            `${savedTemplates.length} ${savedTemplates.length === 1 ? 'burger' : 'burgers'} saved`}
+                    </p>
+                </div>
+                <span className="saved-templates-arrow">{isOpen ? '▼' : '▶'}</span>
+            </div>
 
-            {/* Templates Panel */}
+            {/* Content */}
             {isOpen && (
-                <div className="mt-2 bg-white border-2 border-gray-200 rounded-lg p-4 shadow-lg">
+                <div className="saved-templates-content">
                     {/* Save Current Burger */}
                     {hasIngredients && (
-                        <div className="mb-4 pb-4 border-b">
+                        <div className="save-current-section">
                             {!showSaveDialog ? (
                                 <button
                                     onClick={() => setShowSaveDialog(true)}
-                                    className="w-full px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md transition-colors flex items-center justify-center gap-2">
+                                    className="save-current-button">
                                     <Save size={18} />
                                     <span>{t('saveCurrentBurger') || 'Save Current Burger'}</span>
                                 </button>
                             ) : (
-                                <div className="flex gap-2">
+                                <div className="save-dialog">
                                     <input
                                         type="text"
                                         value={templateName}
                                         onChange={(e) => setTemplateName(e.target.value)}
                                         placeholder={t('burgerName') || 'My Awesome Burger'}
-                                        className="flex-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary-400"
+                                        className="save-input"
                                         maxLength={30}
                                         autoFocus
                                         onKeyDown={(e) => {
@@ -87,7 +92,7 @@ export function SavedTemplates() {
                                     <button
                                         onClick={handleSave}
                                         disabled={!templateName.trim()}
-                                        className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                                        className="save-confirm-button">
                                         {t('save') || 'Save'}
                                     </button>
                                     <button
@@ -95,7 +100,7 @@ export function SavedTemplates() {
                                             setShowSaveDialog(false)
                                             setTemplateName('')
                                         }}
-                                        className="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md transition-colors">
+                                        className="save-cancel-button">
                                         {t('cancel') || 'Cancel'}
                                     </button>
                                 </div>
@@ -105,41 +110,39 @@ export function SavedTemplates() {
 
                     {/* Saved Templates List */}
                     {savedTemplates.length === 0 ? (
-                        <div className="text-center text-gray-500 py-8">
-                            <Save size={48} className="mx-auto mb-2 opacity-50" />
-                            <p>{t('noSavedBurgers') || 'No saved burgers yet'}</p>
-                            <p className="text-sm mt-1">
+                        <div className="templates-empty-state">
+                            <Save size={48} className="templates-empty-icon" />
+                            <p className="templates-empty-title">
+                                {t('noSavedBurgers') || 'No saved burgers yet'}
+                            </p>
+                            <p className="templates-empty-subtitle">
                                 {t('createAndSave') || 'Create a burger and save it here!'}
                             </p>
                         </div>
                     ) : (
-                        <div className="space-y-2">
-                            <h3 className="font-semibold text-gray-700 mb-2">
-                                {t('savedBurgers') || 'Saved Burgers'}
-                            </h3>
+                        <div className="templates-list">
+                            <h4 className="templates-list-title">
+                                {t('savedBurgers') || 'Your Saved Burgers'}
+                            </h4>
                             {savedTemplates.map((template: BurgerTemplate) => (
-                                <div
-                                    key={template.id}
-                                    className="template-card flex items-center gap-3 p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-all">
-                                    <div className="flex-1">
-                                        <h4 className="font-medium text-gray-900">
-                                            {template.name}
-                                        </h4>
-                                        <p className="text-xs text-gray-500">
+                                <div key={template.id} className="template-card">
+                                    <div className="template-info">
+                                        <h5 className="template-name">{template.name}</h5>
+                                        <p className="template-details">
                                             ${template.totalPrice.toFixed(2)} •{' '}
                                             {template.ingredientOrder.length} ingredients
                                         </p>
                                     </div>
                                     <button
                                         onClick={() => handleLoad(template.id)}
-                                        className="px-3 py-1.5 bg-primary-200 hover:bg-primary-600 text-white rounded text-sm transition-colors flex items-center gap-1"
+                                        className="template-load-button"
                                         title={t('load') || 'Load'}>
-                                        <Download size={14} />
+                                        <Download size={16} />
                                         <span>{t('load') || 'Load'}</span>
                                     </button>
                                     <button
                                         onClick={() => handleDelete(template.id, template.name)}
-                                        className="p-1.5 text-red-500 hover:bg-red-50 rounded transition-colors"
+                                        className="template-delete-button"
                                         title={t('delete') || 'Delete'}>
                                         <Trash2 size={16} />
                                     </button>
