@@ -292,6 +292,43 @@
         "noRewardsAvailable": "No rewards match your filters",
         "earnMorePoints": "Complete orders to earn more points!"
     },
+    "Notifications": {
+        "title": "Push Notifications",
+        "subtitle": "Stay updated on your orders and special offers",
+        "notSupported": "Push notifications are not supported in your browser",
+        "statusEnabled": "Notifications Enabled",
+        "statusDisabled": "Notifications Disabled",
+        "permissionDenied": "Notification permission denied",
+        "permissionDeniedHint": "Please enable notifications in your browser settings to receive updates",
+        "enable": "Enable Notifications",
+        "enabling": "Enabling...",
+        "disable": "Disable",
+        "disabling": "Disabling...",
+        "sendTest": "Send Test",
+        "toggle": "Toggle notification",
+        "errorNoServiceWorker": "Service worker not available",
+        "errorEnabling": "Failed to enable notifications",
+        "errorDisabling": "Failed to disable notifications",
+        "preferences": "Notification Preferences",
+        "pref": {
+            "orderUpdates": "Order Updates",
+            "orderUpdatesDesc": "Get notified about order status changes",
+            "promotions": "Promotions & Deals",
+            "promotionsDesc": "Receive special offers and combo deals",
+            "loyaltyRewards": "Loyalty Rewards",
+            "loyaltyRewardsDesc": "Alerts for new rewards and tier upgrades",
+            "newFeatures": "New Features",
+            "newFeaturesDesc": "Learn about new menu items and features"
+        },
+        "whatYoullReceive": "What You'll Receive",
+        "info": {
+            "orderConfirmed": "Order confirmation notifications",
+            "outForDelivery": "Out for delivery alerts",
+            "orderDelivered": "Delivery confirmation",
+            "specialOffers": "Special offers and promotions",
+            "loyaltyUpdates": "Loyalty points and rewards updates"
+        }
+    },
     "Pages": {
         "Help": {
             "title": "Help",

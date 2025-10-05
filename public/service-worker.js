@@ -56,27 +56,24 @@ self.addEventListener('push', (event) => {
     }
 
     // Show notification
-    const promiseChain = self.registration.showNotification(
-        notificationData.title,
-        {
-            body: notificationData.body,
-            icon: notificationData.icon,
-            badge: notificationData.badge,
-            tag: notificationData.tag,
-            requireInteraction: notificationData.requireInteraction,
-            data: notificationData.data,
-            actions: [
-                {
-                    action: 'view',
-                    title: 'View'
-                },
-                {
-                    action: 'close',
-                    title: 'Close'
-                }
-            ]
-        }
-    )
+    const promiseChain = self.registration.showNotification(notificationData.title, {
+        body: notificationData.body,
+        icon: notificationData.icon,
+        badge: notificationData.badge,
+        tag: notificationData.tag,
+        requireInteraction: notificationData.requireInteraction,
+        data: notificationData.data,
+        actions: [
+            {
+                action: 'view',
+                title: 'View'
+            },
+            {
+                action: 'close',
+                title: 'Close'
+            }
+        ]
+    })
 
     event.waitUntil(promiseChain)
 })
@@ -95,29 +92,31 @@ self.addEventListener('notificationclick', (event) => {
     const urlToOpen = event.notification.data?.url || '/'
 
     event.waitUntil(
-        self.clients.matchAll({
-            type: 'window',
-            includeUncontrolled: true
-        }).then((clientList) => {
-            // Check if app is already open
-            for (let i = 0; i < clientList.length; i++) {
-                const client = clientList[i]
-                if (client.url === urlToOpen && 'focus' in client) {
-                    return client.focus()
+        self.clients
+            .matchAll({
+                type: 'window',
+                includeUncontrolled: true
+            })
+            .then((clientList) => {
+                // Check if app is already open
+                for (let i = 0; i < clientList.length; i++) {
+                    const client = clientList[i]
+                    if (client.url === urlToOpen && 'focus' in client) {
+                        return client.focus()
+                    }
                 }
-            }
-            // Open new window
-            if (self.clients.openWindow) {
-                return self.clients.openWindow(urlToOpen)
-            }
-        })
+                // Open new window
+                if (self.clients.openWindow) {
+                    return self.clients.openWindow(urlToOpen)
+                }
+            })
     )
 })
 
 // Background sync (optional - for offline order queue)
 self.addEventListener('sync', (event) => {
     console.log('[Service Worker] Background sync:', event.tag)
-    
+
     if (event.tag === 'sync-orders') {
         event.waitUntil(syncOrders())
     }
@@ -127,4 +126,3 @@ async function syncOrders() {
     // Placeholder for syncing orders when back online
     console.log('[Service Worker] Syncing orders...')
 }
-

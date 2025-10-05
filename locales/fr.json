@@ -292,6 +292,43 @@
         "noRewardsAvailable": "Aucune récompense ne correspond à vos filtres",
         "earnMorePoints": "Complétez des commandes pour gagner plus de points !"
     },
+    "Notifications": {
+        "title": "Notifications Push",
+        "subtitle": "Restez informé de vos commandes et offres spéciales",
+        "notSupported": "Les notifications push ne sont pas prises en charge par votre navigateur",
+        "statusEnabled": "Notifications Activées",
+        "statusDisabled": "Notifications Désactivées",
+        "permissionDenied": "Permission de notification refusée",
+        "permissionDeniedHint": "Veuillez activer les notifications dans les paramètres de votre navigateur",
+        "enable": "Activer les Notifications",
+        "enabling": "Activation...",
+        "disable": "Désactiver",
+        "disabling": "Désactivation...",
+        "sendTest": "Envoyer un Test",
+        "toggle": "Basculer la notification",
+        "errorNoServiceWorker": "Service worker non disponible",
+        "errorEnabling": "Échec de l'activation des notifications",
+        "errorDisabling": "Échec de la désactivation des notifications",
+        "preferences": "Préférences de Notification",
+        "pref": {
+            "orderUpdates": "Mises à jour des Commandes",
+            "orderUpdatesDesc": "Recevez des notifications sur l'état de vos commandes",
+            "promotions": "Promotions et Offres",
+            "promotionsDesc": "Recevez des offres spéciales et des combos",
+            "loyaltyRewards": "Récompenses de Fidélité",
+            "loyaltyRewardsDesc": "Alertes pour nouvelles récompenses et niveaux",
+            "newFeatures": "Nouvelles Fonctionnalités",
+            "newFeaturesDesc": "Découvrez les nouveaux articles du menu"
+        },
+        "whatYoullReceive": "Ce que Vous Recevrez",
+        "info": {
+            "orderConfirmed": "Notifications de confirmation de commande",
+            "outForDelivery": "Alertes de livraison en cours",
+            "orderDelivered": "Confirmation de livraison",
+            "specialOffers": "Offres spéciales et promotions",
+            "loyaltyUpdates": "Mises à jour de points et récompenses"
+        }
+    },
     "Pages": {
         "Help": {
             "title": "Aide",
