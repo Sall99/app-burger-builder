@@ -1,8 +1,19 @@
 'use client'
 
 import React, { useState } from 'react'
+import {
+    BiCalendar,
+    BiCheckCircle,
+    BiDollar,
+    BiError,
+    BiPackage,
+    BiSearch,
+    BiTimeFive,
+    BiX
+} from 'react-icons/bi'
 import { OrderStatus } from '@prisma/client'
 import dayjs from 'dayjs'
+import { Check, Loader2, Package, Search, Truck, XCircle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import useSWR from 'swr'
 
@@ -26,11 +37,11 @@ interface OrderResponse {
 }
 
 const statusSteps = [
-    { status: OrderStatus.PENDING, label: 'Pending' },
-    { status: OrderStatus.PROCESSING, label: 'Processing' },
-    { status: OrderStatus.COMPLETED, label: 'Completed' },
-    { status: OrderStatus.DELIVERED, label: 'Delivered' },
-    { status: OrderStatus.CANCELLED, label: 'Cancelled' }
+    { status: OrderStatus.PENDING, label: 'Pending', icon: BiTimeFive },
+    { status: OrderStatus.PROCESSING, label: 'Processing', icon: BiPackage },
+    { status: OrderStatus.COMPLETED, label: 'Completed', icon: BiCheckCircle },
+    { status: OrderStatus.DELIVERED, label: 'Delivered', icon: Truck },
+    { status: OrderStatus.CANCELLED, label: 'Cancelled', icon: BiX }
 ]
 
 const Content: React.FC = () => {
@@ -45,86 +56,165 @@ const Content: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        setSubmittedId(orderId)
+        if (orderId.trim()) {
+            setSubmittedId(orderId.trim())
+        }
     }
+
+    const getStatusIndex = (status: OrderStatus) => {
+        return statusSteps.findIndex((step) => step.status === status)
+    }
+
+    const currentStatusIndex = data?.order ? getStatusIndex(data.order.status) : -1
 
     return (
         <div className="max-w-4xl mx-auto my-8 min-h-screen px-8 sm:px-16">
-            <h1 className="text-xl font-bold mb-6 text-[#f08e4a]">{t('trackMyOrder')}</h1>
+            {/* Header */}
+            <div className="track-header">
+                <BiSearch className="track-header-icon" />
+                <div>
+                    <h1 className="track-header-title">{t('trackMyOrder')}</h1>
+                    <p className="track-header-subtitle">{t('enterOrderId')}</p>
+                </div>
+            </div>
 
-            <form onSubmit={handleSubmit} className="mb-8">
-                <label htmlFor="orderId" className="block text-base font-medium text-gray-700 mb-2">
-                    {t('enterOrderId')}
-                </label>
-                <input
-                    type="text"
-                    id="orderId"
-                    value={orderId}
-                    onChange={(e) => setOrderId(e.target.value)}
-                    placeholder={t('orderIdPlaceholder')}
-                    className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#f08e4a]"
-                />
-                <button
-                    type="submit"
-                    className="mt-4 px-4 text-sm py-2 bg-[#f08e4a] text-white rounded-lg shadow-md hover:bg-[#e07738]">
-                    {t('trackOrderButton')}
+            {/* Search Form */}
+            <form onSubmit={handleSubmit} className="track-search-form">
+                <div className="track-search-input-wrapper">
+                    <BiSearch className="track-search-icon" />
+                    <input
+                        type="text"
+                        id="orderId"
+                        value={orderId}
+                        onChange={(e) => setOrderId(e.target.value)}
+                        placeholder={t('orderIdPlaceholder')}
+                        className="track-search-input"
+                        autoComplete="off"
+                    />
+                </div>
+                <button type="submit" disabled={!orderId.trim()} className="track-search-button">
+                    <Search size={18} />
+                    <span>{t('trackOrderButton')}</span>
                 </button>
             </form>
 
+            {/* Loading State */}
             {isLoading && (
-                <div className="flex items-center justify-center">
-                    <div className="text-[#f08e4a] text-lg">{t('loading')}</div>
+                <div className="track-loading">
+                    <Loader2 className="track-loading-spinner" size={48} />
+                    <p className="track-loading-text">{t('loading')}</p>
                 </div>
             )}
 
+            {/* Error State */}
             {error && (
-                <div className="flex items-center justify-center">
-                    <p className="text-red-500">{t('failedToLoadOrder')}</p>
+                <div className="track-error">
+                    <BiError size={48} className="track-error-icon" />
+                    <p className="track-error-text">{t('failedToLoadOrder')}</p>
                 </div>
             )}
 
+            {/* Order Details */}
             {data && data.order && (
-                <div>
-                    <div className="mb-4">
-                        <h2 className="text-lg">
-                            {t('order')} #{data.order.id}
-                        </h2>
-                        <p className="text-sm text-gray-500">
-                            {t('placedOn')}:{' '}
-                            {dayjs(data.order.createdAt).format('YYYY-MM-DD HH:mm:ss')}
-                        </p>
-                        <p className="mt-2">
-                            <strong>{t('totalPrice')}:</strong> ${data.order.totalPrice.toFixed(2)}
-                        </p>
-                    </div>
-
-                    <div className="border-t border-gray-200 pt-4 space-y-4">
-                        <h3 className="text-xl text-gray-700">{t('orderStatus')}</h3>
-                        <div className="flex flex-col space-y-2">
-                            {statusSteps.map((step, index) => (
-                                <div key={index} className="flex items-center">
-                                    <div
-                                        className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                                            data.order.status === step.status
-                                                ? 'bg-[#f08e4a] text-white'
-                                                : 'bg-gray-200 text-gray-600'
-                                        }`}>
-                                        {index + 1}
-                                    </div>
-                                    <p
-                                        className={`ml-4 font-medium ${
-                                            data.order.status === step.status
-                                                ? 'text-[#f08e4a]'
-                                                : 'text-gray-600'
-                                        }`}>
-                                        {t(step.label)}
-                                    </p>
+                <div className="track-result">
+                    {/* Order Info Card */}
+                    <div className="track-info-card">
+                        <div className="track-info-header">
+                            <Package size={24} className="track-info-icon" />
+                            <div>
+                                <h2 className="track-info-title">
+                                    {t('order')} #{data.order.id.substring(0, 12)}
+                                </h2>
+                                <div className="track-info-date">
+                                    <BiCalendar size={14} />
+                                    <span>
+                                        {t('placedOn')}:{' '}
+                                        {dayjs(data.order.createdAt).format('MMM DD, YYYY • HH:mm')}
+                                    </span>
                                 </div>
-                            ))}
+                            </div>
                         </div>
 
+                        <div className="track-info-price">
+                            <BiDollar size={20} />
+                            <span className="track-info-price-label">{t('totalPrice')}:</span>
+                            <span className="track-info-price-value">
+                                ${data.order.totalPrice.toFixed(2)}
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* Status Timeline */}
+                    <div className="track-timeline-card">
+                        <h3 className="track-timeline-title">{t('orderStatus')}</h3>
+
+                        <div className="track-timeline">
+                            {statusSteps.map((step, index) => {
+                                const Icon = step.icon
+                                const isActive = index === currentStatusIndex
+                                const isCompleted = index < currentStatusIndex
+                                const isCancelled =
+                                    data.order.status === OrderStatus.CANCELLED &&
+                                    step.status === OrderStatus.CANCELLED
+
+                                return (
+                                    <div key={index} className="track-timeline-item">
+                                        <div className="track-timeline-line-wrapper">
+                                            {index < statusSteps.length - 1 && (
+                                                <div
+                                                    className={`track-timeline-line ${
+                                                        isCompleted
+                                                            ? 'track-timeline-line-completed'
+                                                            : ''
+                                                    }`}
+                                                />
+                                            )}
+                                        </div>
+
+                                        <div
+                                            className={`track-timeline-dot ${
+                                                isCancelled
+                                                    ? 'track-timeline-dot-cancelled'
+                                                    : isActive
+                                                      ? 'track-timeline-dot-active'
+                                                      : isCompleted
+                                                        ? 'track-timeline-dot-completed'
+                                                        : 'track-timeline-dot-pending'
+                                            }`}>
+                                            {isCompleted && !isCancelled ? (
+                                                <Check size={16} />
+                                            ) : isCancelled ? (
+                                                <XCircle size={16} />
+                                            ) : (
+                                                <Icon size={16} />
+                                            )}
+                                        </div>
+
+                                        <div className="track-timeline-content">
+                                            <p
+                                                className={`track-timeline-label ${
+                                                    isCancelled
+                                                        ? 'track-timeline-label-cancelled'
+                                                        : isActive
+                                                          ? 'track-timeline-label-active'
+                                                          : isCompleted
+                                                            ? 'track-timeline-label-completed'
+                                                            : 'track-timeline-label-pending'
+                                                }`}>
+                                                {t(step.label)}
+                                            </p>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+
+                        {/* Cancelled Message */}
                         {data.order.status === OrderStatus.CANCELLED && (
-                            <p className="mt-4 text-red-500">{t('orderCancelled')}</p>
+                            <div className="track-cancelled-message">
+                                <BiX size={20} />
+                                <p>{t('orderCancelled')}</p>
+                            </div>
                         )}
                     </div>
                 </div>

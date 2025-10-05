@@ -1,7 +1,9 @@
 'use client'
 
 import React from 'react'
+import { BiBox, BiCalendar, BiCheck, BiDollar, BiMap, BiReceipt } from 'react-icons/bi'
 import dayjs from 'dayjs'
+import { Package, ShoppingBag } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import useSWR from 'swr'
 
@@ -17,25 +19,42 @@ const Content = () => {
 
     if (isLoading) {
         return (
-            <div className="max-w-4xl mx-auto my-8 min-h-screen flex items-center justify-center">
-                <div className="text-[#f08e4a] text-lg font-semibold">{t('Loading')}</div>
+            <div className="max-w-6xl mx-auto my-8 min-h-screen flex items-center justify-center">
+                <div className="history-loading">
+                    <div className="history-loading-spinner" />
+                    <p>{t('Loading')}</p>
+                </div>
             </div>
         )
     }
 
     if (error) {
         return (
-            <div className="max-w-4xl mx-auto my-8 min-h-screen flex items-center justify-center">
-                <p className="text-red-500">{t('LoadError')}</p>
+            <div className="max-w-6xl mx-auto my-8 min-h-screen flex items-center justify-center">
+                <div className="history-error">
+                    <p>{t('LoadError')}</p>
+                </div>
             </div>
         )
     }
 
     return (
-        <div className="max-w-4xl mx-auto my-8 min-h-screen px-8 sm:px-16">
-            <h1 className="text-xl font-bold mb-6 text-[#f08e4a]">{t('OrderHistory')}</h1>
+        <div className="max-w-6xl mx-auto my-8 min-h-screen px-8 sm:px-16">
+            {/* Header */}
+            <div className="history-header">
+                <BiReceipt className="history-header-icon" />
+                <div>
+                    <h1 className="history-header-title">{t('OrderHistory')}</h1>
+                    <p className="history-header-subtitle">
+                        {data?.orders?.length || 0}{' '}
+                        {data?.orders?.length === 1 ? t('Order') : t('Orders')}
+                    </p>
+                </div>
+            </div>
+
+            {/* Orders List */}
             {data && data?.orders?.length > 0 ? (
-                <div className="space-y-4">
+                <div className="history-list">
                     {data.orders.map(
                         ({
                             id,
@@ -45,35 +64,83 @@ const Content = () => {
                             shippingAdresse,
                             totalPrice
                         }: OrderWithShippingAddress) => (
-                            <div
-                                key={id}
-                                className="p-4 border border-gray-200 rounded-lg shadow-sm">
-                                <div className="flex justify-between items-center">
-                                    <div>
-                                        <h2 className="text-base font-semibold">
-                                            {t('Order')} {id}
-                                        </h2>
-                                        <p className="text-sm text-gray-500">
-                                            {t('PlacedOn')}{' '}
-                                            {dayjs(createdAt).format('YYYY-MM-DD HH:mm:ss')}
-                                        </p>
+                            <div key={id} className="history-order-card">
+                                {/* Card Header */}
+                                <div className="history-order-header">
+                                    <div className="history-order-icon-wrapper">
+                                        <ShoppingBag size={24} className="history-order-icon" />
                                     </div>
-                                    <div className="text-[#f08e4a] font-semibold">
-                                        {payment_status ? t('Paid') : t('Pending')}
+                                    <div className="history-order-header-info">
+                                        <h2 className="history-order-id">
+                                            {t('Order')} #{id.substring(0, 8)}
+                                        </h2>
+                                        <div className="history-order-date">
+                                            <BiCalendar size={14} />
+                                            <span>
+                                                {dayjs(createdAt).format('MMM DD, YYYY • HH:mm')}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div
+                                        className={`history-order-badge ${payment_status ? 'history-order-badge-paid' : 'history-order-badge-pending'}`}>
+                                        {payment_status ? (
+                                            <>
+                                                <BiCheck size={16} />
+                                                <span>{t('Paid')}</span>
+                                            </>
+                                        ) : (
+                                            <span>{t('Pending')}</span>
+                                        )}
                                     </div>
                                 </div>
-                                <div className="mt-4 text-gray-700">
-                                    <p>
-                                        <strong>{t('TotalPrice')}</strong> ${totalPrice.toFixed(2)}
-                                    </p>
-                                    <p>
-                                        <strong>{t('Status')}</strong> {status}
-                                    </p>
+
+                                {/* Card Content */}
+                                <div className="history-order-content">
+                                    {/* Price */}
+                                    <div className="history-order-detail">
+                                        <div className="history-order-detail-icon">
+                                            <BiDollar size={18} />
+                                        </div>
+                                        <div className="history-order-detail-info">
+                                            <p className="history-order-detail-label">
+                                                {t('TotalPrice')}
+                                            </p>
+                                            <p className="history-order-detail-value">
+                                                ${totalPrice.toFixed(2)}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Status */}
+                                    <div className="history-order-detail">
+                                        <div className="history-order-detail-icon">
+                                            <BiBox size={18} />
+                                        </div>
+                                        <div className="history-order-detail-info">
+                                            <p className="history-order-detail-label">
+                                                {t('Status')}
+                                            </p>
+                                            <p className="history-order-detail-value history-order-status">
+                                                {status}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Shipping Address */}
                                     {shippingAdresse && (
-                                        <p>
-                                            <strong>{t('ShippingAddress')}</strong>{' '}
-                                            {shippingAdresse.streetAddress}
-                                        </p>
+                                        <div className="history-order-detail history-order-detail-full">
+                                            <div className="history-order-detail-icon">
+                                                <BiMap size={18} />
+                                            </div>
+                                            <div className="history-order-detail-info">
+                                                <p className="history-order-detail-label">
+                                                    {t('ShippingAddress')}
+                                                </p>
+                                                <p className="history-order-detail-value">
+                                                    {shippingAdresse.streetAddress}
+                                                </p>
+                                            </div>
+                                        </div>
                                     )}
                                 </div>
                             </div>
@@ -81,7 +148,11 @@ const Content = () => {
                     )}
                 </div>
             ) : (
-                <p className="text-center text-gray-500">{t('NoOrders')}</p>
+                <div className="history-empty">
+                    <Package size={64} className="history-empty-icon" />
+                    <p className="history-empty-title">{t('NoOrders')}</p>
+                    <p className="history-empty-subtitle">{t('NoOrdersDesc')}</p>
+                </div>
             )}
         </div>
     )
