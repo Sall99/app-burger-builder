@@ -154,6 +154,16 @@
         "openMenu": "Ouvrir le menu",
         "closeMenu": "Fermer le menu"
     },
+    "Coupon": {
+        "enterCode": "Entrez le code promo",
+        "apply": "Appliquer",
+        "validating": "Vérification...",
+        "saved": "Vous avez économisé",
+        "remove": "Retirer",
+        "invalidCode": "Code invalide ou expiré",
+        "minOrderNotMet": "Montant minimum de commande non atteint",
+        "title": "Avez-vous un code promo ?"
+    },
     "Pages": {
         "Help": {
             "title": "Aide",
