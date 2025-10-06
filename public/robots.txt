@@ -1,0 +1,11 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# Host
+Host: https://app-burger-builder.vercel.app
+
+# Sitemaps
+Sitemap: https://app-burger-builder.vercel.app/sitemap.xml

@@ -1,10 +1,15 @@
 import { Metadata } from 'next'
+import { getTranslations } from 'next-intl/server'
 
 import SignInForm from './form'
 
-export const metadata: Metadata = {
-    title: 'Sign In',
-    description: 'Sign in to your account'
+export async function generateMetadata(): Promise<Metadata> {
+    const t = await getTranslations('Pages.Auth.SignIn')
+
+    return {
+        title: t('title'),
+        description: t('description')
+    }
 }
 
 export default function SignInPage() {

@@ -1,9 +1,10 @@
 import { getServerSession } from 'next-auth'
 
+import { authOptions } from './authOptions'
 import { prisma } from './prisma.db'
 
 export async function getUserAndSession() {
-    const session = await getServerSession()
+    const session = await getServerSession(authOptions)
 
     if (!session || !session.user || !session.user.email) {
         throw new Error('Unauthorized')

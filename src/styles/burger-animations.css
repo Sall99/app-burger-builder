@@ -1,0 +1,239 @@
+/* Burger Builder Animations */
+
+/* Ingredient slide-in animation */
+@keyframes slideInFromTop {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Ingredient bounce animation */
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Ingredient slide-out animation */
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
+/* Shake animation for errors or limits */
+@keyframes shake {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-5px);
+    }
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(5px);
+    }
+}
+
+/* Pulse animation for hover states */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Apply animations to ingredients */
+.ingredient-enter {
+    animation: bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.ingredient-exit {
+    animation: slideOut 0.3s ease-out forwards;
+}
+
+.ingredient-hover {
+    transition: transform 0.2s ease;
+}
+
+.ingredient-hover:hover {
+    transform: scale(1.05);
+}
+
+/* Burger builder container animations */
+.burger-builder {
+    transition: all 0.3s ease;
+}
+
+/* Price change animation */
+@keyframes priceChange {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+        color: #fb923c;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.price-change {
+    animation: priceChange 0.4s ease;
+}
+
+/* Control button animations */
+.control-button {
+    transition: all 0.2s ease;
+}
+
+.control-button:active {
+    transform: scale(0.95);
+}
+
+/* Success animation */
+@keyframes successPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(251, 146, 60, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(251, 146, 60, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(251, 146, 60, 0);
+    }
+}
+
+.success-pulse {
+    animation: successPulse 0.6s ease;
+}
+
+/* Drag preview */
+.ingredient-dragging {
+    opacity: 0.5;
+    transform: rotate(5deg);
+    cursor: grabbing !important;
+}
+
+.ingredient-drag-over {
+    border-top: 2px dashed #fb923c;
+}
+
+/* Undo/Redo button animations */
+.undo-redo-button {
+    transition: all 0.2s ease;
+}
+
+.undo-redo-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.undo-redo-button:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Saved template card animation */
+@keyframes cardIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.template-card {
+    animation: cardIn 0.3s ease;
+}
+
+.template-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Share button animation */
+@keyframes shareButtonPulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.share-button {
+    transition: all 0.3s ease;
+}
+
+.share-button:hover {
+    animation: shareButtonPulse 0.6s ease;
+}
+
+/* Loading skeleton */
+@keyframes skeleton {
+    0% {
+        background-position: -200px 0;
+    }
+    100% {
+        background-position: calc(200px + 100%) 0;
+    }
+}
+
+.skeleton {
+    background-color: #e0e0e0;
+    background-image: linear-gradient(90deg, #e0e0e0, #f0f0f0, #e0e0e0);
+    background-size: 200px 100%;
+    background-repeat: no-repeat;
+    animation: skeleton 1.2s ease-in-out infinite;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

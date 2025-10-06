@@ -1,10 +1,15 @@
 import { Metadata } from 'next'
+import { getTranslations } from 'next-intl/server'
 
 import Content from './content'
 
-export const metadata: Metadata = {
-    title: 'Profile',
-    description: 'Manage your account'
+export async function generateMetadata(): Promise<Metadata> {
+    const t = await getTranslations('Pages.Profile')
+
+    return {
+        title: t('title'),
+        description: t('description')
+    }
 }
 export default function Profile() {
     return <Content />

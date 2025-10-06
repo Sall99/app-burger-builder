@@ -11,7 +11,7 @@ type Params = {
 export async function GET(req: NextApiRequest, context: { params: Params }, res: NextResponse) {
     const { id } = context.params
 
-    console
+    console.log('Fetching order with ID:', id)
 
     try {
         await getUserAndSession()
