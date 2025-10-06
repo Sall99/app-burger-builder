@@ -174,12 +174,12 @@ export const NOTIFICATION_TYPES = {
     },
     LOYALTY_REWARD: {
         title: '⭐ New Reward Unlocked!',
-        body: "You've earned enough points for a reward!",
+        body: 'You ve earned enough points for a reward!',
         icon: '/images/Logo.png'
     },
     TIER_UPGRADE: {
         title: '🥇 Tier Upgraded!',
-        body: "Congratulations! You've reached a new loyalty tier!",
+        body: 'Congratulations! You ve reached a new loyalty tier!',
         icon: '/images/Logo.png'
     }
 }
