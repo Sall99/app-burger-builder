@@ -19,12 +19,16 @@
         "Copyright": "Burger-builder. All rights reverved"
     },
     "Total": {
+        "OrderSummary": "Order Summary",
         "Meat": "Meat",
         "Salad": "Salad",
         "Bacon": "Bacon",
         "Cheese": "Cheese",
+        "Subtotal": "Subtotal",
+        "Substitutions": "Substitutions",
+        "Discount": "Discount",
         "Total": "Total",
-        "Order": "Order",
+        "Order": "Order Now",
         "ShippingAddress": "Shipping Address",
         "Payment": "Payment"
     },
@@ -41,9 +45,44 @@
     "PaymentForm": {
         "PaymentSuccessful": "Payment was successful!",
         "EnterPaymentDetails": "Enter your payment details below to complete your purchase:",
-        "PayNow": "Pay Now"
+        "PayNow": "Proceed to Checkout",
+        "Redirecting": "Redirecting to Stripe...",
+        "PaymentError": "Payment failed. Please try again.",
+        "MinimumOrderError": "Minimum order amount not met",
+        "OrderSummary": "Order Summary",
+        "Subtotal": "Subtotal",
+        "Substitutions": "Substitutions",
+        "Discount": "Discount",
+        "Total": "Total",
+        "StripeRedirectMessage": "You will be redirected to Stripe to complete your payment securely.",
+        "SecurePayment": "Secure payment powered by Stripe"
     },
-    "Builder": { "AddIngredients": "Add some ingredients !" },
+    "Builder": {
+        "AddIngredients": "Add some ingredients !",
+        "undo": "Undo",
+        "redo": "Redo",
+        "clear": "Clear",
+        "confirmClear": "Are you sure you want to clear your burger?",
+        "savedTemplates": "My Saved Burgers",
+        "savedSubtitle": "burgers saved",
+        "saveCurrentBurger": "Save Current Burger",
+        "burgerName": "Burger name...",
+        "save": "Save",
+        "cancel": "Cancel",
+        "noSavedBurgers": "No saved burgers yet",
+        "createAndSave": "Create a burger and save it here!",
+        "savedBurgers": "Your Saved Burgers",
+        "load": "Load",
+        "delete": "Delete",
+        "shareBurger": "Share My Burger",
+        "shareSubtitle": "Share your creation with friends",
+        "shareOn": "Share on",
+        "copied": "Copied!",
+        "copyLink": "Copy Link",
+        "shareMore": "More Options",
+        "preview": "Preview",
+        "dragToReorder": "Drag to reorder ingredients"
+    },
     "Ingredients": {
         "BreadBottom": "Bread Bottom",
         "BreadTop": "Bread Top",
@@ -70,15 +109,19 @@
         "LoadError": "Failed to load orders. Please try again.",
         "OrderHistory": "Order History",
         "Order": "Order #",
+        "Orders": "orders",
         "PlacedOn": "Placed on",
         "Paid": "Paid",
         "Pending": "Pending",
         "TotalPrice": "Total Price:",
         "Status": "Status:",
         "ShippingAddress": "Shipping Address:",
-        "NoOrders": "No orders found."
+        "NoOrders": "No orders found.",
+        "NoOrdersDesc": "When you place orders, they'll appear here."
     },
     "UpdateProfile": {
+        "ProfileSettings": "Profile Settings",
+        "ManageYourAccount": "Manage your account information",
         "Hi": "Hi",
         "UpdateMessage": "please take a moment to update your profile.",
         "Name": "Name",
@@ -86,10 +129,28 @@
         "NewPassword": "New Password",
         "ConfirmNewPassword": "Confirm New Password",
         "Updating": "Updating...",
-        "Update": "Update",
+        "Update": "Update Profile",
+        "SaveChanges": "Save Changes",
+        "UpdatePassword": "Update Password",
         "ProfileUpdated": "Profile updated successfully",
         "Error": "An error occurred",
-        "UnknownError": "An unknown error occurred"
+        "UnknownError": "An unknown error occurred",
+        "TotalOrders": "Total Orders",
+        "TotalSpent": "Total Spent",
+        "LoyaltyPoints": "Loyalty Points",
+        "MemberSince": "Member Since",
+        "Verified": "Verified",
+        "PersonalInfo": "Personal Info",
+        "Security": "Security",
+        "Preferences": "Preferences",
+        "SecuritySettings": "Security Settings",
+        "YourPreferences": "Your Preferences",
+        "EmailNotifications": "Email Notifications",
+        "EmailNotificationsDesc": "Receive notifications about your account activity",
+        "PromotionalEmails": "Promotional Emails",
+        "PromotionalEmailsDesc": "Get updates about deals, offers and new features",
+        "OrderUpdates": "Order Updates",
+        "OrderUpdatesDesc": "Receive updates about your orders and delivery"
     },
     "Order": {
         "trackMyOrder": "Track My Order",
@@ -122,6 +183,275 @@
     },
     "Header": {
         "signIn": "Sign In",
-        "signUp": "Sign Up"
+        "signUp": "Sign Up",
+        "loyalty": "Rewards",
+        "locations": "Locations",
+        "notifications": "Notifications"
+    },
+    "Accessibility": {
+        "skipToMain": "Skip to main content",
+        "loading": "Loading",
+        "closeDialog": "Close dialog",
+        "openMenu": "Open menu",
+        "closeMenu": "Close menu"
+    },
+    "Coupon": {
+        "enterCode": "Enter promo code",
+        "apply": "Apply",
+        "validating": "Checking...",
+        "saved": "You saved",
+        "remove": "Remove",
+        "invalidCode": "Invalid or expired coupon",
+        "minOrderNotMet": "Minimum order value not met",
+        "title": "Have a promo code?"
+    },
+    "Dietary": {
+        "title": "Nutritional Information",
+        "calories": "Calories",
+        "protein": "Protein",
+        "carbs": "Carbs",
+        "fat": "Fat",
+        "fiber": "Fiber",
+        "sodium": "Sodium",
+        "allergens": "Allergens",
+        "nutritionalInfo": "Nutrition Facts",
+        "allergenWarning": "Allergen Warning",
+        "dietaryTags": "Dietary Information",
+        "disclaimer": "Nutritional information is approximate and may vary. Always check with staff about specific dietary needs.",
+        "tags": {
+            "vegan": "Vegan",
+            "vegetarian": "Vegetarian",
+            "gluten-free": "Gluten-Free"
+        },
+        "allergenList": {
+            "gluten": "Gluten",
+            "dairy": "Dairy",
+            "eggs": "Eggs",
+            "soy": "Soy",
+            "nuts": "Nuts",
+            "shellfish": "Shellfish"
+        }
+    },
+    "DeliveryTime": {
+        "title": "Estimated Delivery Time",
+        "minutes": "min",
+        "by": "by",
+        "preparation": "Preparation",
+        "delivery": "Delivery",
+        "peakHours": "Peak Hours",
+        "peakHoursMessage": "Delivery may take longer during busy times",
+        "note": "Times are estimates and may vary based on traffic and order volume."
+    },
+    "Chat": {
+        "needHelp": "Need Help?",
+        "openChat": "Open chat support",
+        "closeChat": "Close chat",
+        "chatWithUs": "Chat with us"
+    },
+    "Substitutions": {
+        "title": "Customize Your Ingredients",
+        "subtitle": "Swap ingredients to match your preferences",
+        "addIngredientsFirst": "Add ingredients to see substitution options",
+        "substituted": "Substituted",
+        "resetToOriginal": "Reset to Original",
+        "totalAdjustment": "Substitutions Total",
+        "free": "FREE",
+        "ingredients": {
+            "meat": "Beef Patty",
+            "cheese": "Cheddar Cheese",
+            "bacon": "Bacon",
+            "salad": "Lettuce"
+        },
+        "dietary": {
+            "vegan": "Vegan",
+            "vegetarian": "Vegetarian",
+            "gluten-free": "Gluten-Free",
+            "dairy-free": "Dairy-Free"
+        }
+    },
+    "Combos": {
+        "title": "Meal Deals & Combos",
+        "subtitle": "Pre-made favorites at special prices",
+        "suggestionText": "Your burger matches our {name} combo!",
+        "save": "Save",
+        "saving": "Saving",
+        "off": "off",
+        "applyNow": "Apply Now",
+        "clearCombo": "Clear Combo",
+        "dealOfTheDay": "Deal of the Day",
+        "popular": "Popular",
+        "regular": "Regular",
+        "comboPrice": "Combo",
+        "selectCombo": "Select Combo",
+        "applied": "✓ Applied",
+        "showMore": "Show All Combos",
+        "showLess": "Show Less",
+        "ingredients": {
+            "meat": "Beef",
+            "cheese": "Cheese",
+            "bacon": "Bacon",
+            "salad": "Lettuce"
+        }
+    },
+    "Loyalty": {
+        "title": "Loyalty Program",
+        "subtitle": "Earn points and unlock rewards",
+        "earnMultiplier": "Earn {multiplier}x points per dollar",
+        "totalPoints": "Total Points",
+        "available": "Available",
+        "progressTo": "Progress to {tier}",
+        "points": "points",
+        "maxTierAchieved": "Maximum tier achieved!",
+        "lifetimeSpend": "Lifetime Spend",
+        "orders": "Total Orders",
+        "yourBenefits": "Your Benefits",
+        "allTiers": "All Loyalty Tiers",
+        "pts": "pts",
+        "current": "Current"
+    },
+    "Rewards": {
+        "title": "Rewards Catalog",
+        "availablePoints": "Available Points",
+        "pts": "pts",
+        "allRewards": "All Rewards",
+        "availableNow": "Available Now",
+        "popular": "Popular",
+        "tierRequired": "{tier} required",
+        "type": {
+            "discount": "Discount",
+            "free-item": "Free Item",
+            "upgrade": "Upgrade",
+            "special": "Special Offer"
+        },
+        "value": "value",
+        "worth": "Worth",
+        "expires": "Valid for {days} days",
+        "redeem": "Redeem",
+        "redeeming": "Redeeming...",
+        "needPoints": "Need {points} more",
+        "locked": "Locked",
+        "noRewardsAvailable": "No rewards match your filters",
+        "earnMorePoints": "Complete orders to earn more points!"
+    },
+    "Notifications": {
+        "title": "Push Notifications",
+        "subtitle": "Stay updated on your orders and special offers",
+        "notSupported": "Push notifications are not supported in your browser",
+        "statusEnabled": "Notifications Enabled",
+        "statusDisabled": "Notifications Disabled",
+        "permissionDenied": "Notification permission denied",
+        "permissionDeniedHint": "Please enable notifications in your browser settings to receive updates",
+        "enable": "Enable Notifications",
+        "enabling": "Enabling...",
+        "disable": "Disable",
+        "disabling": "Disabling...",
+        "sendTest": "Send Test",
+        "toggle": "Toggle notification",
+        "errorNoServiceWorker": "Service worker not available",
+        "errorEnabling": "Failed to enable notifications",
+        "errorDisabling": "Failed to disable notifications",
+        "preferences": "Notification Preferences",
+        "pref": {
+            "orderUpdates": "Order Updates",
+            "orderUpdatesDesc": "Get notified about order status changes",
+            "promotions": "Promotions & Deals",
+            "promotionsDesc": "Receive special offers and combo deals",
+            "loyaltyRewards": "Loyalty Rewards",
+            "loyaltyRewardsDesc": "Alerts for new rewards and tier upgrades",
+            "newFeatures": "New Features",
+            "newFeaturesDesc": "Learn about new menu items and features"
+        },
+        "whatYoullReceive": "What You'll Receive",
+        "info": {
+            "orderConfirmed": "Order confirmation notifications",
+            "outForDelivery": "Out for delivery alerts",
+            "orderDelivered": "Delivery confirmation",
+            "specialOffers": "Special offers and promotions",
+            "loyaltyUpdates": "Loyalty points and rewards updates"
+        }
+    },
+    "Locations": {
+        "title": "Find a Location",
+        "subtitle": "Visit us at one of our restaurant locations",
+        "findNearest": "Find Nearest Location",
+        "finding": "Finding...",
+        "geolocationNotSupported": "Geolocation is not supported by your browser",
+        "locationPermissionDenied": "Location permission denied. Please enable location services.",
+        "nearestLocations": "Nearest Locations",
+        "allLocations": "All Locations",
+        "miles": "mi",
+        "reviews": "reviews",
+        "viewDetails": "View Details",
+        "selectLocation": "Select a location to view details",
+        "contactInfo": "Contact Information",
+        "address": "Address",
+        "phone": "Phone",
+        "email": "Email",
+        "hours": "Hours",
+        "features": "Features",
+        "getDirections": "Get Directions",
+        "mapPlaceholder": "Interactive map coming soon!",
+        "mapHint": "Click 'Get Directions' to open in Google Maps",
+        "days": {
+            "monday": "Monday",
+            "tuesday": "Tuesday",
+            "wednesday": "Wednesday",
+            "thursday": "Thursday",
+            "friday": "Friday",
+            "saturday": "Saturday",
+            "sunday": "Sunday"
+        }
+    },
+    "Pages": {
+        "Help": {
+            "title": "Help",
+            "description": "Get assistance with your account, orders, or other inquiries"
+        },
+        "NotFound": {
+            "title": "404 - Page Not Found",
+            "heading": "404",
+            "subheading": "Page Not Found",
+            "description": "Sorry, we couldn't find the page you're looking for. The page might have been moved or deleted.",
+            "goHome": "Go Home",
+            "goBack": "Go Back",
+            "lookingFor": "Looking for something?",
+            "buildBurger": "Build a Burger",
+            "orderHistory": "Order History",
+            "yourProfile": "Your Profile",
+            "helpSupport": "Help & Support"
+        },
+        "Error": {
+            "title": "Error - Something went wrong",
+            "heading": "Something went wrong!",
+            "description": "We encountered an unexpected error. Please try again or contact support if the problem persists.",
+            "errorDetails": "Error Details (Development Only)",
+            "tryAgain": "Try Again",
+            "goHome": "Go Home",
+            "errorReference": "Error Reference:"
+        },
+        "Layout": {
+            "title": "Burger Builder",
+            "description": "Build your perfect burger with our easy-to-use Burger Builder."
+        },
+        "Auth": {
+            "SignIn": {
+                "title": "Sign In",
+                "description": "Sign in to your account"
+            },
+            "SignUp": {
+                "title": "Sign Up",
+                "description": "Sign up to create orders"
+            }
+        },
+        "Profile": {
+            "title": "Profile",
+            "description": "Manage your account"
+        },
+        "History": {
+            "title": "Order History"
+        },
+        "TrackOrder": {
+            "title": "Track Order"
+        }
     }
 }

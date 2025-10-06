@@ -19,12 +19,16 @@
         "Copyright": "Burger-builder. Tous droits réservés"
     },
     "Total": {
+        "OrderSummary": "Résumé de Commande",
         "Meat": "Viande",
         "Salad": "Salade",
         "Bacon": "Bacon",
         "Cheese": "Fromage",
+        "Subtotal": "Sous-total",
+        "Substitutions": "Substitutions",
+        "Discount": "Réduction",
         "Total": "Total",
-        "Order": "Commander",
+        "Order": "Commander Maintenant",
         "ShippingAddress": "Adresse de livraison",
         "Payment": "Paiement"
     },
@@ -41,9 +45,44 @@
     "PaymentForm": {
         "PaymentSuccessful": "Le paiement a réussi !",
         "EnterPaymentDetails": "Entrez vos informations de paiement ci-dessous pour finaliser votre achat :",
-        "PayNow": "Payer maintenant"
+        "PayNow": "Procéder au paiement",
+        "Redirecting": "Redirection vers Stripe...",
+        "PaymentError": "Le paiement a échoué. Veuillez réessayer.",
+        "MinimumOrderError": "Montant minimum de commande non atteint",
+        "OrderSummary": "Résumé de Commande",
+        "Subtotal": "Sous-total",
+        "Substitutions": "Substitutions",
+        "Discount": "Réduction",
+        "Total": "Total",
+        "StripeRedirectMessage": "Vous serez redirigé vers Stripe pour finaliser votre paiement en toute sécurité.",
+        "SecurePayment": "Paiement sécurisé par Stripe"
     },
-    "Builder": { "AddIngredients": "Ajoutez des ingrédients !" },
+    "Builder": {
+        "AddIngredients": "Ajoutez des ingrédients !",
+        "undo": "Annuler",
+        "redo": "Refaire",
+        "clear": "Effacer",
+        "confirmClear": "Êtes-vous sûr de vouloir effacer votre burger ?",
+        "savedTemplates": "Mes Burgers Sauvegardés",
+        "savedSubtitle": "burgers sauvegardés",
+        "saveCurrentBurger": "Sauvegarder le Burger Actuel",
+        "burgerName": "Nom du burger...",
+        "save": "Sauvegarder",
+        "cancel": "Annuler",
+        "noSavedBurgers": "Aucun burger sauvegardé",
+        "createAndSave": "Créez un burger et sauvegardez-le ici !",
+        "savedBurgers": "Vos Burgers Sauvegardés",
+        "load": "Charger",
+        "delete": "Supprimer",
+        "shareBurger": "Partager Mon Burger",
+        "shareSubtitle": "Partagez votre création avec vos amis",
+        "shareOn": "Partager sur",
+        "copied": "Copié !",
+        "copyLink": "Copier le Lien",
+        "shareMore": "Plus d'Options",
+        "preview": "Aperçu",
+        "dragToReorder": "Glissez pour réorganiser les ingrédients"
+    },
     "Ingredients": {
         "BreadBottom": "Bas du pain",
         "BreadTop": "Haut du pain",
@@ -70,15 +109,19 @@
         "LoadError": "Échec du chargement des commandes. Veuillez réessayer.",
         "OrderHistory": "Historique des commandes",
         "Order": "Commande #",
+        "Orders": "commandes",
         "PlacedOn": "Passée le",
         "Paid": "Payé",
         "Pending": "En attente",
         "TotalPrice": "Prix total :",
         "Status": "Statut :",
         "ShippingAddress": "Adresse de livraison :",
-        "NoOrders": "Aucune commande trouvée."
+        "NoOrders": "Aucune commande trouvée.",
+        "NoOrdersDesc": "Lorsque vous passerez des commandes, elles apparaîtront ici."
     },
     "UpdateProfile": {
+        "ProfileSettings": "Paramètres du Profil",
+        "ManageYourAccount": "Gérez les informations de votre compte",
         "Hi": "Bonjour",
         "UpdateMessage": "veuillez prendre un moment pour mettre à jour votre profil.",
         "Name": "Nom",
@@ -86,10 +129,28 @@
         "NewPassword": "Nouveau mot de passe",
         "ConfirmNewPassword": "Confirmez le nouveau mot de passe",
         "Updating": "Mise à jour...",
-        "Update": "Mettre à jour",
+        "Update": "Mettre à Jour le Profil",
+        "SaveChanges": "Enregistrer les Modifications",
+        "UpdatePassword": "Mettre à Jour le Mot de Passe",
         "ProfileUpdated": "Profil mis à jour avec succès",
         "Error": "Une erreur s'est produite",
-        "UnknownError": "Une erreur inconnue s'est produite"
+        "UnknownError": "Une erreur inconnue s'est produite",
+        "TotalOrders": "Commandes Totales",
+        "TotalSpent": "Total Dépensé",
+        "LoyaltyPoints": "Points de Fidélité",
+        "MemberSince": "Membre Depuis",
+        "Verified": "Vérifié",
+        "PersonalInfo": "Informations Personnelles",
+        "Security": "Sécurité",
+        "Preferences": "Préférences",
+        "SecuritySettings": "Paramètres de Sécurité",
+        "YourPreferences": "Vos Préférences",
+        "EmailNotifications": "Notifications par Email",
+        "EmailNotificationsDesc": "Recevez des notifications sur l'activité de votre compte",
+        "PromotionalEmails": "Emails Promotionnels",
+        "PromotionalEmailsDesc": "Recevez des mises à jour sur les offres et nouvelles fonctionnalités",
+        "OrderUpdates": "Mises à Jour de Commande",
+        "OrderUpdatesDesc": "Recevez des mises à jour sur vos commandes et livraisons"
     },
     "Order": {
         "trackMyOrder": "Suivre ma commande",
@@ -121,7 +182,276 @@
         "helpDescription": "Obtenez de l'aide pour votre compte, vos commandes ou d'autres demandes"
     },
     "Header": {
-        "signIn": "Sign In",
-        "signUp": "Sign Up"
+        "signIn": "Connexion",
+        "signUp": "Inscription",
+        "loyalty": "Récompenses",
+        "locations": "Emplacements",
+        "notifications": "Notifications"
+    },
+    "Accessibility": {
+        "skipToMain": "Aller au contenu principal",
+        "loading": "Chargement",
+        "closeDialog": "Fermer la boîte de dialogue",
+        "openMenu": "Ouvrir le menu",
+        "closeMenu": "Fermer le menu"
+    },
+    "Coupon": {
+        "enterCode": "Entrez le code promo",
+        "apply": "Appliquer",
+        "validating": "Vérification...",
+        "saved": "Vous avez économisé",
+        "remove": "Retirer",
+        "invalidCode": "Code invalide ou expiré",
+        "minOrderNotMet": "Montant minimum de commande non atteint",
+        "title": "Avez-vous un code promo ?"
+    },
+    "Dietary": {
+        "title": "Informations Nutritionnelles",
+        "calories": "Calories",
+        "protein": "Protéines",
+        "carbs": "Glucides",
+        "fat": "Lipides",
+        "fiber": "Fibres",
+        "sodium": "Sodium",
+        "allergens": "Allergènes",
+        "nutritionalInfo": "Valeurs Nutritionnelles",
+        "allergenWarning": "Avertissement Allergènes",
+        "dietaryTags": "Informations Diététiques",
+        "disclaimer": "Les informations nutritionnelles sont approximatives et peuvent varier. Consultez toujours le personnel pour des besoins alimentaires spécifiques.",
+        "tags": {
+            "vegan": "Végétalien",
+            "vegetarian": "Végétarien",
+            "gluten-free": "Sans Gluten"
+        },
+        "allergenList": {
+            "gluten": "Gluten",
+            "dairy": "Produits Laitiers",
+            "eggs": "Œufs",
+            "soy": "Soja",
+            "nuts": "Noix",
+            "shellfish": "Fruits de Mer"
+        }
+    },
+    "DeliveryTime": {
+        "title": "Temps de Livraison Estimé",
+        "minutes": "min",
+        "by": "vers",
+        "preparation": "Préparation",
+        "delivery": "Livraison",
+        "peakHours": "Heures de Pointe",
+        "peakHoursMessage": "La livraison peut prendre plus de temps pendant les heures de pointe",
+        "note": "Les délais sont des estimations et peuvent varier selon le trafic et le volume de commandes."
+    },
+    "Chat": {
+        "needHelp": "Besoin d'aide ?",
+        "openChat": "Ouvrir le chat d'assistance",
+        "closeChat": "Fermer le chat",
+        "chatWithUs": "Discutez avec nous"
+    },
+    "Substitutions": {
+        "title": "Personnalisez Vos Ingrédients",
+        "subtitle": "Échangez des ingrédients selon vos préférences",
+        "addIngredientsFirst": "Ajoutez des ingrédients pour voir les options de substitution",
+        "substituted": "Substitué",
+        "resetToOriginal": "Rétablir l'Original",
+        "totalAdjustment": "Total des Substitutions",
+        "free": "GRATUIT",
+        "ingredients": {
+            "meat": "Steak Haché",
+            "cheese": "Fromage Cheddar",
+            "bacon": "Bacon",
+            "salad": "Laitue"
+        },
+        "dietary": {
+            "vegan": "Végétalien",
+            "vegetarian": "Végétarien",
+            "gluten-free": "Sans Gluten",
+            "dairy-free": "Sans Produits Laitiers"
+        }
+    },
+    "Combos": {
+        "title": "Offres Repas & Combos",
+        "subtitle": "Favoris pré-faits à prix spéciaux",
+        "suggestionText": "Votre burger correspond à notre combo {name} !",
+        "save": "Économisez",
+        "saving": "Économie",
+        "off": "de réduction",
+        "applyNow": "Appliquer Maintenant",
+        "clearCombo": "Effacer le Combo",
+        "dealOfTheDay": "Offre du Jour",
+        "popular": "Populaire",
+        "regular": "Régulier",
+        "comboPrice": "Combo",
+        "selectCombo": "Sélectionner",
+        "applied": "✓ Appliqué",
+        "showMore": "Voir Tous les Combos",
+        "showLess": "Voir Moins",
+        "ingredients": {
+            "meat": "Boeuf",
+            "cheese": "Fromage",
+            "bacon": "Bacon",
+            "salad": "Laitue"
+        }
+    },
+    "Loyalty": {
+        "title": "Programme de Fidélité",
+        "subtitle": "Gagnez des points et débloquez des récompenses",
+        "earnMultiplier": "Gagnez {multiplier}x points par dollar",
+        "totalPoints": "Points Totaux",
+        "available": "Disponibles",
+        "progressTo": "Progrès vers {tier}",
+        "points": "points",
+        "maxTierAchieved": "Niveau maximum atteint !",
+        "lifetimeSpend": "Dépenses Totales",
+        "orders": "Commandes Totales",
+        "yourBenefits": "Vos Avantages",
+        "allTiers": "Tous les Niveaux",
+        "pts": "pts",
+        "current": "Actuel"
+    },
+    "Rewards": {
+        "title": "Catalogue de Récompenses",
+        "availablePoints": "Points Disponibles",
+        "pts": "pts",
+        "allRewards": "Toutes les Récompenses",
+        "availableNow": "Disponibles Maintenant",
+        "popular": "Populaire",
+        "tierRequired": "{tier} requis",
+        "type": {
+            "discount": "Réduction",
+            "free-item": "Article Gratuit",
+            "upgrade": "Amélioration",
+            "special": "Offre Spéciale"
+        },
+        "value": "valeur",
+        "worth": "Valeur",
+        "expires": "Valable {days} jours",
+        "redeem": "Échanger",
+        "redeeming": "Échange en cours...",
+        "needPoints": "Besoin de {points} de plus",
+        "locked": "Verrouillé",
+        "noRewardsAvailable": "Aucune récompense ne correspond à vos filtres",
+        "earnMorePoints": "Complétez des commandes pour gagner plus de points !"
+    },
+    "Notifications": {
+        "title": "Notifications Push",
+        "subtitle": "Restez informé de vos commandes et offres spéciales",
+        "notSupported": "Les notifications push ne sont pas prises en charge par votre navigateur",
+        "statusEnabled": "Notifications Activées",
+        "statusDisabled": "Notifications Désactivées",
+        "permissionDenied": "Permission de notification refusée",
+        "permissionDeniedHint": "Veuillez activer les notifications dans les paramètres de votre navigateur",
+        "enable": "Activer les Notifications",
+        "enabling": "Activation...",
+        "disable": "Désactiver",
+        "disabling": "Désactivation...",
+        "sendTest": "Envoyer un Test",
+        "toggle": "Basculer la notification",
+        "errorNoServiceWorker": "Service worker non disponible",
+        "errorEnabling": "Échec de l'activation des notifications",
+        "errorDisabling": "Échec de la désactivation des notifications",
+        "preferences": "Préférences de Notification",
+        "pref": {
+            "orderUpdates": "Mises à jour des Commandes",
+            "orderUpdatesDesc": "Recevez des notifications sur l'état de vos commandes",
+            "promotions": "Promotions et Offres",
+            "promotionsDesc": "Recevez des offres spéciales et des combos",
+            "loyaltyRewards": "Récompenses de Fidélité",
+            "loyaltyRewardsDesc": "Alertes pour nouvelles récompenses et niveaux",
+            "newFeatures": "Nouvelles Fonctionnalités",
+            "newFeaturesDesc": "Découvrez les nouveaux articles du menu"
+        },
+        "whatYoullReceive": "Ce que Vous Recevrez",
+        "info": {
+            "orderConfirmed": "Notifications de confirmation de commande",
+            "outForDelivery": "Alertes de livraison en cours",
+            "orderDelivered": "Confirmation de livraison",
+            "specialOffers": "Offres spéciales et promotions",
+            "loyaltyUpdates": "Mises à jour de points et récompenses"
+        }
+    },
+    "Locations": {
+        "title": "Trouver un Emplacement",
+        "subtitle": "Visitez-nous dans l'un de nos restaurants",
+        "findNearest": "Trouver le Plus Proche",
+        "finding": "Recherche...",
+        "geolocationNotSupported": "La géolocalisation n'est pas prise en charge",
+        "locationPermissionDenied": "Permission de localisation refusée. Veuillez activer les services de localisation.",
+        "nearestLocations": "Emplacements les Plus Proches",
+        "allLocations": "Tous les Emplacements",
+        "miles": "mi",
+        "reviews": "avis",
+        "viewDetails": "Voir les Détails",
+        "selectLocation": "Sélectionnez un emplacement pour voir les détails",
+        "contactInfo": "Coordonnées",
+        "address": "Adresse",
+        "phone": "Téléphone",
+        "email": "Email",
+        "hours": "Horaires",
+        "features": "Services",
+        "getDirections": "Obtenir l'Itinéraire",
+        "mapPlaceholder": "Carte interactive bientôt disponible !",
+        "mapHint": "Cliquez sur 'Obtenir l'Itinéraire' pour ouvrir dans Google Maps",
+        "days": {
+            "monday": "Lundi",
+            "tuesday": "Mardi",
+            "wednesday": "Mercredi",
+            "thursday": "Jeudi",
+            "friday": "Vendredi",
+            "saturday": "Samedi",
+            "sunday": "Dimanche"
+        }
+    },
+    "Pages": {
+        "Help": {
+            "title": "Aide",
+            "description": "Obtenez de l'aide pour votre compte, vos commandes ou d'autres demandes"
+        },
+        "NotFound": {
+            "title": "404 - Page non trouvée",
+            "heading": "404",
+            "subheading": "Page non trouvée",
+            "description": "Désolé, nous n'avons pas pu trouver la page que vous recherchez. La page a peut-être été déplacée ou supprimée.",
+            "goHome": "Aller à l'accueil",
+            "goBack": "Retour",
+            "lookingFor": "Vous cherchez quelque chose ?",
+            "buildBurger": "Construire un Burger",
+            "orderHistory": "Historique des commandes",
+            "yourProfile": "Votre Profil",
+            "helpSupport": "Aide et Support"
+        },
+        "Error": {
+            "title": "Erreur - Quelque chose s'est mal passé",
+            "heading": "Quelque chose s'est mal passé !",
+            "description": "Nous avons rencontré une erreur inattendue. Veuillez réessayer ou contacter le support si le problème persiste.",
+            "errorDetails": "Détails de l'erreur (Développement uniquement)",
+            "tryAgain": "Réessayer",
+            "goHome": "Aller à l'accueil",
+            "errorReference": "Référence d'erreur :"
+        },
+        "Layout": {
+            "title": "Constructeur de Burger",
+            "description": "Construisez votre burger parfait avec notre Constructeur de Burger facile à utiliser."
+        },
+        "Auth": {
+            "SignIn": {
+                "title": "Se connecter",
+                "description": "Connectez-vous à votre compte"
+            },
+            "SignUp": {
+                "title": "S'inscrire",
+                "description": "Inscrivez-vous pour passer des commandes"
+            }
+        },
+        "Profile": {
+            "title": "Profil",
+            "description": "Gérez votre compte"
+        },
+        "History": {
+            "title": "Historique des commandes"
+        },
+        "TrackOrder": {
+            "title": "Suivre la commande"
+        }
     }
 }

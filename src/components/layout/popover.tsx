@@ -1,3 +1,5 @@
+'use client'
+
 import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
@@ -35,15 +37,10 @@ export default function PopoverProfil() {
             <Popover className="relative">
                 {({ open, close }) => (
                     <>
-                        <Popover.Button
-                            className={`${
-                                open ? 'text-white' : 'text-white/90'
-                            } group inline-flex items-center rounded-md bg-primary-200 px-3 py-2 text-base hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75`}>
-                            <span>{t('profile')}</span>
+                        <Popover.Button className="profile-button">
+                            <span className="profile-button-text">{t('profile')}</span>
                             <ChevronDownIcon
-                                className={`${
-                                    open ? 'text-orange-300' : 'text-orange-300/70'
-                                } ml-2 h-5 w-5 transition duration-150 ease-in-out group-hover:text-orange-300/80`}
+                                className={`profile-button-icon ${open ? 'profile-button-icon-open' : ''}`}
                                 aria-hidden="true"
                             />
                         </Popover.Button>
@@ -55,52 +52,50 @@ export default function PopoverProfil() {
                             leave="transition ease-in duration-150"
                             leaveFrom="opacity-100 translate-y-0"
                             leaveTo="opacity-0 translate-y-1">
-                            <Popover.Panel className="absolute -left-[18%] z-10 mt-3 w-96 max-w-sm -translate-x-1/2 transform px-4 sm:px-0 lg:max-w-3xl">
-                                <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black/5">
-                                    <div className="relative grid gap-8 bg-white p-7">
+                            <Popover.Panel className="profile-dropdown-panel">
+                                <div className="profile-dropdown-container">
+                                    <div className="profile-dropdown-content">
                                         {solutions(t).map((item) => (
                                             <Link
                                                 key={item.name}
                                                 href={item.href}
-                                                className="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50"
+                                                className="profile-dropdown-item"
                                                 onClick={() => close()}>
-                                                <div className="flex h-10 w-10 shrink-0 items-center justify-center text-white sm:h-12 sm:w-12">
+                                                <div className="profile-dropdown-icon">
                                                     <item.icon aria-hidden="true" />
                                                 </div>
-                                                <div className="ml-4">
-                                                    <p className="text-sm font-medium text-gray-900">
+                                                <div className="profile-dropdown-text">
+                                                    <p className="profile-dropdown-item-title">
                                                         {item.name}
                                                     </p>
-                                                    <p className="text-sm text-gray-500">
+                                                    <p className="profile-dropdown-item-desc">
                                                         {item.description}
                                                     </p>
                                                 </div>
                                             </Link>
                                         ))}
-                                        <p
-                                            className="-m-3 hover:cursor-pointer flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50"
+                                        <button
+                                            className="profile-dropdown-item profile-dropdown-logout"
                                             onClick={() => signOut()}>
-                                            <div className="flex h-10 w-10 shrink-0 items-center justify-center  sm:h-12 sm:w-12">
+                                            <div className="profile-dropdown-icon">
                                                 <LogOut />
                                             </div>
-                                            <div className="ml-4">
-                                                <p className="text-sm font-medium text-gray-900">
+                                            <div className="profile-dropdown-text">
+                                                <p className="profile-dropdown-item-title">
                                                     {t('logout')}
                                                 </p>
                                             </div>
-                                        </p>
+                                        </button>
                                     </div>
-                                    <div className="bg-gray-50 p-4">
+                                    <div className="profile-dropdown-footer">
                                         <Link
                                             href="/help"
-                                            className="flow-root rounded-md px-2 py-2 transition hover:bg-gray-50 duration-150 ease-in-out focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50"
+                                            className="profile-dropdown-help"
                                             onClick={() => close()}>
-                                            <span className="flex items-center">
-                                                <span className="text-sm font-medium text-gray-900">
-                                                    {t('help')}
-                                                </span>
+                                            <span className="profile-dropdown-help-title">
+                                                {t('help')}
                                             </span>
-                                            <span className="block text-sm text-gray-500">
+                                            <span className="profile-dropdown-help-desc">
                                                 {t('helpDescription')}
                                             </span>
                                         </Link>

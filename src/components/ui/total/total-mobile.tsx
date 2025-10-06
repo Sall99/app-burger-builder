@@ -1,20 +1,23 @@
 'use client'
 
 import { useState } from 'react'
-import { BiDollar } from 'react-icons/bi'
+import { BiDollar, BiReceipt } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
-import clsx from 'clsx'
+import { ShoppingCart } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { selectIngredients } from '@/redux/selectors/ingredients'
+import { selectSubstitutions } from '@/redux/selectors/substitutions'
+import { RootState } from '@/redux/store'
 import { totalFormatter } from '@/utils/utils'
 
+import { CouponInput } from '../coupon'
 import { Modal } from '../modal/modal'
 import { ShippingAddress } from '../shipping-address'
-import { Button, PaymentForm } from '..'
+import { PaymentForm } from '..'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!)
 
@@ -23,9 +26,14 @@ export const TotalMobile = () => {
     const t = useTranslations('Total')
 
     const { ingredients, totalPrice } = useSelector(selectIngredients)
+    const coupon = useSelector((state: RootState) => state.rootReducer.coupon)
+    const { totalAdjustment: substitutionAdjustment } = useSelector(selectSubstitutions)
     const [isPaymentOpen, setIsPaymeOpen] = useState(false)
     const { meat, salad, bacon, cheese } = ingredients
     const [isOpen, setIsOpen] = useState(false)
+
+    const priceAfterSubstitutions = totalPrice + substitutionAdjustment
+    const finalPrice = priceAfterSubstitutions - (coupon.appliedDiscount || 0)
 
     const handleOrder = () => {
         if (typeof window !== 'undefined' && window.dataLayer) {
@@ -49,50 +57,90 @@ export const TotalMobile = () => {
     }
 
     return (
-        <div className="w-full px-4 py-6 md:hidden text-center text-[#f08e4a] form-card">
-            <div className="overflow-x-auto">
-                <table className="w-full md:w-auto">
-                    <thead>
-                        <tr>
-                            <th className="px-2 py-2">{t('Meat')}</th>
-                            <th className="px-2 py-2">{t('Salad')}</th>
-                            <th className="px-2 py-2">{t('Bacon')}</th>
-                            <th className="px-2 py-2">{t('Cheese')}</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td className="px-2 py-2 text-center md:text-left">{meat}</td>
-                            <td className="px-2 py-2 text-center md:text-left">{salad}</td>
-                            <td className="px-2 py-2 text-center md:text-left">{bacon}</td>
-                            <td className="px-2 py-2 text-center md:text-left">{cheese}</td>
-                        </tr>
-
-                        <tr className="mt-4">
-                            <td className="price px-2 py-4 text-lg font-bold md:text-base">
-                                {t('Total')}
-                            </td>
-                            <td
-                                colSpan={3}
-                                className="price flex items-center justify-center gap-1 px-2 py-4 text-lg font-bold md:text-base">
-                                <span>{totalFormatter.format(totalPrice)}</span> <BiDollar />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div className="total-card-mobile">
+            {/* Header */}
+            <div className="total-card-mobile-header">
+                <BiReceipt className="total-card-mobile-icon" />
+                <h3 className="total-card-mobile-title">{t('OrderSummary') || 'Order Summary'}</h3>
             </div>
-            <div className="mt-4 md:mt-0">
-                <Button
-                    label={t('Order')}
-                    className={clsx(
-                        'h-12 w-20 md:h-8',
-                        totalPrice <= 4 && 'bg-primary-300 hover:bg-primary-300'
-                    )}
-                    disabled={totalPrice <= 4}
-                    onClick={handleOrder}
-                />
+
+            {/* Ingredients Grid */}
+            <div className="total-mobile-grid">
+                <div className="total-mobile-grid-item">
+                    <span className="total-mobile-label">{t('Meat')}</span>
+                    <span className="total-mobile-value">{meat}</span>
+                </div>
+                <div className="total-mobile-grid-item">
+                    <span className="total-mobile-label">{t('Salad')}</span>
+                    <span className="total-mobile-value">{salad}</span>
+                </div>
+                <div className="total-mobile-grid-item">
+                    <span className="total-mobile-label">{t('Bacon')}</span>
+                    <span className="total-mobile-value">{bacon}</span>
+                </div>
+                <div className="total-mobile-grid-item">
+                    <span className="total-mobile-label">{t('Cheese')}</span>
+                    <span className="total-mobile-value">{cheese}</span>
+                </div>
             </div>
+
+            {/* Price Summary */}
+            <div className="total-mobile-summary">
+                <div className="total-mobile-row">
+                    <span className="total-mobile-summary-label">{t('Subtotal')}</span>
+                    <div className="total-mobile-summary-value">
+                        <span>{totalFormatter.format(totalPrice)}</span>
+                        <BiDollar />
+                    </div>
+                </div>
+
+                {substitutionAdjustment !== 0 && (
+                    <div
+                        className={`total-mobile-row ${substitutionAdjustment > 0 ? 'total-mobile-adjustment-positive' : 'total-mobile-adjustment-negative'}`}>
+                        <span>{t('Substitutions') || 'Substitutions'}</span>
+                        <div className="total-mobile-summary-value">
+                            <span>
+                                {substitutionAdjustment > 0 && '+'}
+                                {totalFormatter.format(substitutionAdjustment)}
+                            </span>
+                            <BiDollar />
+                        </div>
+                    </div>
+                )}
+
+                {coupon.isValid && coupon.appliedDiscount > 0 && (
+                    <div className="total-mobile-row total-mobile-discount">
+                        <span>{t('Discount') || 'Discount'}</span>
+                        <div className="total-mobile-summary-value">
+                            <span>-{totalFormatter.format(coupon.appliedDiscount)}</span>
+                            <BiDollar />
+                        </div>
+                    </div>
+                )}
+
+                {/* Coupon */}
+                <div className="total-mobile-coupon">
+                    <CouponInput orderTotal={totalPrice} />
+                </div>
+
+                <div className="total-mobile-row total-mobile-final">
+                    <span className="total-mobile-final-label">{t('Total')}</span>
+                    <div className="total-mobile-final-value">
+                        <span>{totalFormatter.format(finalPrice)}</span>
+                        <BiDollar />
+                    </div>
+                </div>
+            </div>
+
+            {/* Order Button */}
+            <button
+                onClick={handleOrder}
+                disabled={finalPrice <= 4}
+                className="total-mobile-button">
+                <ShoppingCart size={20} />
+                <span>{t('Order')}</span>
+            </button>
+
             <Modal
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
