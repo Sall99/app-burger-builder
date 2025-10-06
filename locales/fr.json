@@ -45,7 +45,17 @@
     "PaymentForm": {
         "PaymentSuccessful": "Le paiement a réussi !",
         "EnterPaymentDetails": "Entrez vos informations de paiement ci-dessous pour finaliser votre achat :",
-        "PayNow": "Payer maintenant"
+        "PayNow": "Procéder au paiement",
+        "Redirecting": "Redirection vers Stripe...",
+        "PaymentError": "Le paiement a échoué. Veuillez réessayer.",
+        "MinimumOrderError": "Montant minimum de commande non atteint",
+        "OrderSummary": "Résumé de Commande",
+        "Subtotal": "Sous-total",
+        "Substitutions": "Substitutions",
+        "Discount": "Réduction",
+        "Total": "Total",
+        "StripeRedirectMessage": "Vous serez redirigé vers Stripe pour finaliser votre paiement en toute sécurité.",
+        "SecurePayment": "Paiement sécurisé par Stripe"
     },
     "Builder": {
         "AddIngredients": "Ajoutez des ingrédients !",
