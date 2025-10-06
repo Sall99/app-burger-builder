@@ -5034,3 +5034,132 @@ tbody tr td {
         font-size: 0.9375rem;
     }
 }
+
+/* ============================================
+   PAYMENT FORM STYLES
+   ============================================ */
+
+.payment-form-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Payment Summary */
+.payment-summary {
+    padding: 1.5rem;
+    background: linear-gradient(
+        to bottom right,
+        var(--color-primary-300),
+        var(--color-primary-400)
+    );
+    border-radius: 0.5rem;
+}
+
+.payment-summary-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-primary-600);
+    margin: 0 0 1rem 0;
+}
+
+.payment-summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    font-size: 0.9375rem;
+    color: var(--color-primary-600);
+}
+
+.payment-summary-row:not(:last-child) {
+    border-bottom: 1px solid rgba(193, 87, 17, 0.2);
+}
+
+.payment-discount {
+    color: #059669;
+}
+
+.payment-total {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+    padding-top: 1rem !important;
+    border-top: 2px solid var(--color-primary-600) !important;
+}
+
+/* Info Message */
+.payment-info-message {
+    padding: 1rem;
+    background-color: #dbeafe;
+    border: 1px solid #3b82f6;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    color: #1e40af;
+    text-align: center;
+    margin: 0;
+}
+
+/* Error Message */
+.payment-error-message {
+    padding: 1rem;
+    background-color: #fee;
+    border: 1px solid #fcc;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    color: #c00;
+    text-align: center;
+}
+
+/* Submit Button */
+.payment-submit-button {
+    width: 100%;
+    padding: 1rem 2rem !important;
+    background: linear-gradient(
+        135deg,
+        var(--color-primary-200) 0%,
+        var(--color-primary-600) 100%
+    ) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 0.5rem !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.payment-submit-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(193, 87, 17, 0.4);
+}
+
+.payment-submit-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Security Note */
+.payment-security-note {
+    font-size: 0.8125rem;
+    color: var(--color-gray-100);
+    text-align: center;
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .payment-summary {
+        padding: 1rem;
+    }
+
+    .payment-summary-title {
+        font-size: 1rem;
+    }
+}
