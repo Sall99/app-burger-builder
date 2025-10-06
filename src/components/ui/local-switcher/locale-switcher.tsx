@@ -1,9 +1,9 @@
 'use client'
 
 import React, { Fragment, useState, useTransition } from 'react'
+import { BiWorld } from 'react-icons/bi'
 import { Popover, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { BiWorld } from 'react-icons/bi'
 import { useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
 

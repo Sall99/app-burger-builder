@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl'
 
 import { selectLoyalty } from '@/redux/selectors/loyalty'
 import { redeemReward } from '@/redux/slices/loyalty'
-import { getAvailableRewards, REWARDS, type Reward } from '@/types/loyalty'
+import { getAvailableRewards, type Reward, REWARDS } from '@/types/loyalty'
 
 export const RewardsCatalog: React.FC = () => {
     const t = useTranslations('Rewards')

@@ -3,7 +3,8 @@
  * Pre-configured burger combinations with special pricing
  */
 
-import type { Ingredients } from './index'
+// Define the ingredients type locally
+type Ingredients = { [key: string]: number }
 
 export interface Combo {
     id: string

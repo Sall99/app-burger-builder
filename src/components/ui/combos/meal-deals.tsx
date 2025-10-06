@@ -10,7 +10,7 @@ import { selectCombo } from '@/redux/selectors/combo'
 import { selectIngredients } from '@/redux/selectors/ingredients'
 import { applyCombo, clearCombo } from '@/redux/slices/combo'
 import { clearIngredients, setIngredients } from '@/redux/slices/ingredients-enhanced'
-import { COMBOS, calculateComboSavings, type Combo } from '@/types/combos'
+import { calculateComboSavings, type Combo, COMBOS } from '@/types/combos'
 import { totalFormatter } from '@/utils/utils'
 
 export const MealDeals: React.FC = () => {

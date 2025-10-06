@@ -166,11 +166,15 @@ export async function withRateLimit(
  */
 export function cleanupRateLimitStore() {
     const now = Date.now()
-    for (const [key, value] of rateLimitMap.entries()) {
+    const keysToDelete: string[] = []
+
+    rateLimitMap.forEach((value, key) => {
         if (now > value.resetTime) {
-            rateLimitMap.delete(key)
+            keysToDelete.push(key)
         }
-    }
+    })
+
+    keysToDelete.forEach((key) => rateLimitMap.delete(key))
 }
 
 // Cleanup every 5 minutes

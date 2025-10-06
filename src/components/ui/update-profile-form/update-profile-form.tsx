@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import {
     BiDollar,
     BiEnvelope,
@@ -11,8 +13,6 @@ import {
     BiUser
 } from 'react-icons/bi'
 import { MdVerified } from 'react-icons/md'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AxiosError } from 'axios'
 import { useTranslations } from 'next-intl'
