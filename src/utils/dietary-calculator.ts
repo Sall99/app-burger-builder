@@ -1,9 +1,9 @@
 import {
-    INGREDIENT_DIETARY_DATA,
+    type AllergenInfo,
     BUN_DIETARY_DATA,
+    INGREDIENT_DIETARY_DATA,
     type IngredientDietary,
-    type NutritionalInfo,
-    type AllergenInfo
+    type NutritionalInfo
 } from '@/types/dietary'
 
 export interface BurgerDietaryInfo {

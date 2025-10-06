@@ -150,7 +150,7 @@ export function ShareBurger() {
                     </div>
 
                     {/* Native Share (Mobile) */}
-                    {navigator.share && (
+                    {typeof navigator.share === 'function' && (
                         <button onClick={handleNativeShare} className="share-native-button">
                             <Share2 size={18} />
                             <span>{t('shareMore') || 'More Options'}</span>

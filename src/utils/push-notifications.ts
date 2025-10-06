@@ -57,7 +57,7 @@ export async function subscribeToPushNotifications(
             applicationServerKey: urlBase64ToUint8Array(
                 // This is a demo VAPID public key - replace with your own in production
                 'BEl62iUYgUivxIkv69yViEuiBIa-Ib37J8xQmrr0-jMZCzX5Dx0ZLPKpT0G5HH8DFzj-dYvKlmCNIKdXWBMr0x0'
-            )
+            ) as any
         })
 
         console.log('Push subscription:', subscription)
@@ -147,7 +147,7 @@ function urlBase64ToUint8Array(base64String: string): Uint8Array {
     for (let i = 0; i < rawData.length; ++i) {
         outputArray[i] = rawData.charCodeAt(i)
     }
-    return outputArray
+    return new Uint8Array(outputArray.buffer.slice(0))
 }
 
 // Notification types and templates
