@@ -1,14 +1,9 @@
 /**
- * Accessibility utilities for screen reader announcements and focus management
- */
-
-/**
  * Announce text to screen readers using ARIA live regions
  * @param message - The message to announce
  * @param priority - The priority level ('polite' or 'assertive')
  */
 export function announce(message: string, priority: 'polite' | 'assertive' = 'polite'): void {
-    // Create or get existing live region
     let liveRegion = document.getElementById('live-region')
 
     if (!liveRegion) {
@@ -20,10 +15,8 @@ export function announce(message: string, priority: 'polite' | 'assertive' = 'po
         document.body.appendChild(liveRegion)
     }
 
-    // Set the priority
     liveRegion.setAttribute('aria-live', priority)
 
-    // Clear and set new message
     liveRegion.textContent = ''
     setTimeout(() => {
         liveRegion.textContent = message

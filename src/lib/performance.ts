@@ -1,8 +1,3 @@
-/**
- * Performance monitoring utilities
- * Provides tools to measure and track performance metrics
- */
-
 interface PerformanceMetric {
     name: string
     value: number
@@ -10,11 +5,7 @@ interface PerformanceMetric {
     timestamp: number
 }
 
-/**
- * Report Web Vitals to analytics or monitoring service
- */
 export function reportWebVitals(metric: PerformanceMetric): void {
-    // Log to console in development
     if (process.env.NODE_ENV === 'development') {
         console.log(`[Performance] ${metric.name}:`, {
             value: `${Math.round(metric.value)}ms`,
@@ -22,9 +13,7 @@ export function reportWebVitals(metric: PerformanceMetric): void {
         })
     }
 
-    // Send to analytics in production
     if (process.env.NODE_ENV === 'production' && typeof window !== 'undefined') {
-        // Google Analytics
         if (window.gtag) {
             window.gtag('event', metric.name, {
                 value: Math.round(metric.value),
@@ -33,14 +22,10 @@ export function reportWebVitals(metric: PerformanceMetric): void {
             })
         }
 
-        // Custom API endpoint
         sendToAnalytics(metric)
     }
 }
 
-/**
- * Send metrics to custom analytics endpoint
- */
 function sendToAnalytics(metric: PerformanceMetric): void {
     try {
         fetch('/api/analytics/performance', {
@@ -48,12 +33,9 @@ function sendToAnalytics(metric: PerformanceMetric): void {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(metric)
         }).catch((err) => {
-            // Fail silently to prevent error loops
             console.warn('Failed to send performance metric:', err)
         })
-    } catch {
-        // Fail silently
-    }
+    } catch {}
 }
 
 /**
@@ -206,13 +188,10 @@ export function getWebVitalsRating(
 export function initPerformanceMonitoring(): void {
     if (typeof window === 'undefined') return
 
-    // Monitor long tasks
     monitorLongTasks()
 
-    // Monitor resources
     monitorResources()
 
-    // Log initial page load metrics
     if (window.performance && window.performance.timing) {
         window.addEventListener('load', () => {
             setTimeout(() => {
@@ -229,7 +208,6 @@ export function initPerformanceMonitoring(): void {
     }
 }
 
-// Global type declarations
 declare global {
     interface Window {
         gtag?: (...args: unknown[]) => void

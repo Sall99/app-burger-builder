@@ -1,16 +1,11 @@
-/**
- * Ingredient Substitution System
- * Defines available substitutions and their properties
- */
-
 export interface Substitution {
     id: string
     name: string
     description: string
     originalIngredient: string
     substituteIngredient: string
-    priceAdjustment: number // Can be positive (upcharge) or negative (discount)
-    isDietary: boolean // Is this for dietary reasons? (vegan, gluten-free, etc)
+    priceAdjustment: number
+    isDietary: boolean
     dietaryType?: 'vegan' | 'vegetarian' | 'gluten-free' | 'dairy-free'
     icon?: string
 }

@@ -1,8 +1,3 @@
-/**
- * Environment Variable Validation
- * Validates required environment variables at build/runtime
- */
-
 const requiredEnvVars = ['DATABASE_URL', 'NEXTAUTH_SECRET', 'NEXTAUTH_URL'] as const
 
 const optionalEnvVars = [
@@ -39,24 +34,20 @@ export function validateEnv(): ValidationResult {
         }
     }
 
-    // Check optional but recommended variables
     for (const envVar of optionalEnvVars) {
         if (!process.env[envVar]) {
             warnings.push(`Optional: ${envVar} is not set`)
         }
     }
 
-    // Validate DATABASE_URL format
     if (process.env.DATABASE_URL && !process.env.DATABASE_URL.startsWith('mongodb')) {
         warnings.push('DATABASE_URL should be a MongoDB connection string')
     }
 
-    // Validate NEXTAUTH_SECRET length
     if (process.env.NEXTAUTH_SECRET && process.env.NEXTAUTH_SECRET.length < 32) {
         warnings.push('NEXTAUTH_SECRET should be at least 32 characters long for security')
     }
 
-    // Check if OAuth is properly configured
     const hasGitHub = process.env.GITHUB_ID && process.env.GITHUB_SECRET
     const hasGoogle = process.env.GOOGLE_ID && process.env.GOOGLE_SECRET
 
@@ -105,28 +96,18 @@ export function getEnvironment(): 'development' | 'production' | 'test' {
     return 'development'
 }
 
-/**
- * Checks if we're in production
- */
 export function isProduction(): boolean {
     return getEnvironment() === 'production'
 }
 
-/**
- * Checks if we're in development
- */
 export function isDevelopment(): boolean {
     return getEnvironment() === 'development'
 }
 
-/**
- * Checks if we're in test environment
- */
 export function isTest(): boolean {
     return getEnvironment() === 'test'
 }
 
-// Validate environment variables on module load (only in Node.js environment)
 if (typeof window === 'undefined') {
     const result = validateEnv()
 

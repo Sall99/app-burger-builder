@@ -16,7 +16,6 @@ describe('Error Logger', () => {
         console.error = jest.fn()
         global.fetch = jest.fn()
 
-        // Mock localStorage for all tests
         const localStorageMock = {
             getItem: jest.fn(() => '[]'),
             setItem: jest.fn(),
@@ -133,7 +132,6 @@ describe('Error Logger', () => {
                 writable: true
             })
 
-            // Mock window object for localStorage
             Object.defineProperty(window, 'localStorage', {
                 value: {
                     getItem: jest.fn(() => '[]'),
@@ -148,16 +146,12 @@ describe('Error Logger', () => {
 
             expect(localStorage.setItem).toHaveBeenCalledWith('app_errors', expect.any(String))
 
-            // Restore original NODE_ENV
             Object.defineProperty(process.env, 'NODE_ENV', {
                 value: originalEnv,
                 configurable: true,
                 writable: true
             })
         })
-
-        // Can't assign to process.env.NODE_ENV directly in recent Node.js versions as it's read-only.
-        // This block is redundant and can be removed because NODE_ENV is already restored above.
 
         it('should clear stored errors', () => {
             clearStoredErrors()
@@ -167,7 +161,6 @@ describe('Error Logger', () => {
 
         it('should get stored errors', () => {
             const mockErrors = [{ message: 'Error 1' }, { message: 'Error 2' }]
-            // Override the default mock for this test
             ;(localStorage.getItem as jest.Mock).mockReturnValue(JSON.stringify(mockErrors))
 
             const errors = getStoredErrors()

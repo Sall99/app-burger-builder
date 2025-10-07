@@ -4171,10 +4171,6 @@ tbody tr td {
     transform: none;
 }
 
-/* ============================================
-   ENHANCED PROFILE PAGE STYLES
-   ============================================ */
-
 .profile-content {
     display: flex;
     flex-direction: column;

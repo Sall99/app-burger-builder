@@ -1,8 +1,3 @@
-/**
- * Loyalty & Rewards Program
- * Points-based system with tiers and redeemable rewards
- */
-
 export type LoyaltyTier = 'bronze' | 'silver' | 'gold' | 'platinum'
 
 export interface TierInfo {
@@ -14,7 +9,7 @@ export interface TierInfo {
     gradient: string
     icon: string
     benefits: string[]
-    pointsMultiplier: number // e.g., 1.5x means earn 50% more points
+    pointsMultiplier: number
 }
 
 export interface Reward {
@@ -24,7 +19,7 @@ export interface Reward {
     pointsCost: number
     icon: string
     type: 'discount' | 'free-item' | 'upgrade' | 'special'
-    value: number // Dollar value or percentage
+    value: number
     minTier?: LoyaltyTier
     isPopular?: boolean
     expiryDays?: number
@@ -33,7 +28,7 @@ export interface Reward {
 export interface UserLoyalty {
     userId: string
     totalPoints: number
-    availablePoints: number // Total minus redeemed
+    availablePoints: number
     currentTier: LoyaltyTier
     lifetimeSpend: number
     ordersCount: number

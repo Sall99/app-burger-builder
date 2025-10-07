@@ -1,8 +1,3 @@
-/**
- * Delivery Time Estimation Calculator
- * Calculates estimated delivery time based on order complexity and distance
- */
-
 export interface DeliveryTimeEstimate {
     prepTime: number // minutes
     deliveryTime: number // minutes

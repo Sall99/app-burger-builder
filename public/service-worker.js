@@ -4,7 +4,6 @@
  * Handles push events and notification clicks
  */
 
-// Service worker version
 const CACHE_VERSION = 'v1'
 
 self.addEventListener('install', (event) => {
@@ -17,7 +16,6 @@ self.addEventListener('activate', (event) => {
     event.waitUntil(self.clients.claim())
 })
 
-// Push event - receive notification
 self.addEventListener('push', (event) => {
     console.log('[Service Worker] Push received')
 
@@ -31,7 +29,6 @@ self.addEventListener('push', (event) => {
         }
     }
 
-    // Parse push data if available
     if (event.data) {
         try {
             const data = event.data.json()
@@ -53,7 +50,6 @@ self.addEventListener('push', (event) => {
         }
     }
 
-    // Show notification
     const promiseChain = self.registration.showNotification(notificationData.title, {
         body: notificationData.body,
         icon: notificationData.icon,
@@ -76,7 +72,6 @@ self.addEventListener('push', (event) => {
     event.waitUntil(promiseChain)
 })
 
-// Notification click event
 self.addEventListener('notificationclick', (event) => {
     console.log('[Service Worker] Notification clicked')
 
@@ -86,7 +81,6 @@ self.addEventListener('notificationclick', (event) => {
         return
     }
 
-    // Open the app
     const urlToOpen = event.notification.data?.url || '/'
 
     event.waitUntil(
@@ -96,14 +90,13 @@ self.addEventListener('notificationclick', (event) => {
                 includeUncontrolled: true
             })
             .then((clientList) => {
-                // Check if app is already open
                 for (let i = 0; i < clientList.length; i++) {
                     const client = clientList[i]
                     if (client.url === urlToOpen && 'focus' in client) {
                         return client.focus()
                     }
                 }
-                // Open new window
+
                 if (self.clients.openWindow) {
                     return self.clients.openWindow(urlToOpen)
                 }
@@ -111,7 +104,6 @@ self.addEventListener('notificationclick', (event) => {
     )
 })
 
-// Background sync (optional - for offline order queue)
 self.addEventListener('sync', (event) => {
     console.log('[Service Worker] Background sync:', event.tag)
 
@@ -121,6 +113,5 @@ self.addEventListener('sync', (event) => {
 })
 
 async function syncOrders() {
-    // Placeholder for syncing orders when back online
     console.log('[Service Worker] Syncing orders...')
 }

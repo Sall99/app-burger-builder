@@ -71,7 +71,6 @@ export const UpdateProfileForm = () => {
         update(formData)
     }
 
-    // Mock data for stats (in real app, fetch from API)
     const stats = {
         totalOrders: 42,
         totalSpent: 285.5,
@@ -81,7 +80,6 @@ export const UpdateProfileForm = () => {
 
     return (
         <div className="profile-content">
-            {/* Stats Cards Grid */}
             <div className="profile-stats-grid">
                 <div className="profile-stat-card profile-stat-orders">
                     <div className="profile-stat-icon">
@@ -126,7 +124,6 @@ export const UpdateProfileForm = () => {
                 </div>
             </div>
 
-            {/* User Info Card */}
             <div className="profile-user-card">
                 <div className="profile-avatar">
                     <BiUser />
@@ -142,7 +139,6 @@ export const UpdateProfileForm = () => {
                 </div>
             </div>
 
-            {/* Settings Tabs */}
             <div className="profile-tabs">
                 <button
                     onClick={() => setActiveTab('info')}
@@ -161,7 +157,6 @@ export const UpdateProfileForm = () => {
                 </button>
             </div>
 
-            {/* Tab Content */}
             <div className="profile-tab-content">
                 {activeTab === 'info' && (
                     <div className="profile-section">

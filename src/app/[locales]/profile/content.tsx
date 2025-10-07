@@ -10,7 +10,6 @@ const Content = () => {
 
     return (
         <div className="profile-container">
-            {/* Header Section */}
             <div className="profile-header">
                 <BiUser className="profile-header-icon" />
                 <div className="profile-header-content">
@@ -23,7 +22,6 @@ const Content = () => {
                 </div>
             </div>
 
-            {/* Profile Content */}
             <UpdateProfileForm />
         </div>
     )

@@ -19,10 +19,8 @@ export const RewardsCatalog: React.FC = () => {
 
     const { availablePoints, currentTier } = loyalty
 
-    // Get available rewards (user has enough points and meets tier requirements)
     const availableRewards = getAvailableRewards(availablePoints, currentTier)
 
-    // Filter rewards
     let displayedRewards = REWARDS
     if (filter === 'available') {
         displayedRewards = availableRewards
@@ -33,7 +31,6 @@ export const RewardsCatalog: React.FC = () => {
     const handleRedeem = async (reward: Reward) => {
         setRedeeming(reward.id)
 
-        // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 500))
 
         dispatch(
@@ -46,7 +43,6 @@ export const RewardsCatalog: React.FC = () => {
 
         setRedeeming(null)
 
-        // Show success message (accessibility)
         if (typeof window !== 'undefined') {
             const announcement = `Successfully redeemed ${reward.name}!`
             const ariaLive = document.createElement('div')
@@ -65,7 +61,6 @@ export const RewardsCatalog: React.FC = () => {
 
     return (
         <div className="rewards-catalog">
-            {/* Header */}
             <div className="rewards-header">
                 <MdCardGiftcard className="rewards-icon" aria-hidden="true" />
                 <div>
@@ -79,7 +74,6 @@ export const RewardsCatalog: React.FC = () => {
                 </div>
             </div>
 
-            {/* Filter Buttons */}
             <div className="rewards-filters">
                 <button
                     onClick={() => setFilter('all')}
@@ -98,7 +92,6 @@ export const RewardsCatalog: React.FC = () => {
                 </button>
             </div>
 
-            {/* Rewards Grid */}
             <div className="rewards-grid">
                 {displayedRewards.map((reward) => {
                     const canRedeemReward = canRedeem(reward)
@@ -108,33 +101,26 @@ export const RewardsCatalog: React.FC = () => {
                         <div
                             key={reward.id}
                             className={`reward-card ${canRedeemReward ? '' : 'reward-card-locked'}`}>
-                            {/* Popular Badge */}
                             {reward.isPopular && (
                                 <div className="reward-badge reward-badge-popular">
                                     <BiStar /> {t('popular')}
                                 </div>
                             )}
 
-                            {/* Tier Badge */}
                             {reward.minTier && (
                                 <div className="reward-badge reward-badge-tier">
                                     {t('tierRequired', { tier: reward.minTier })}
                                 </div>
                             )}
 
-                            {/* Icon */}
                             <div className="reward-icon-large">{reward.icon}</div>
 
-                            {/* Name */}
                             <h4 className="reward-name">{reward.name}</h4>
 
-                            {/* Description */}
                             <p className="reward-description">{reward.description}</p>
 
-                            {/* Type Badge */}
                             <div className="reward-type-badge">{t(`type.${reward.type}`)}</div>
 
-                            {/* Value Display */}
                             {reward.value > 0 && (
                                 <div className="reward-value">
                                     {reward.type === 'discount' && (
@@ -153,14 +139,12 @@ export const RewardsCatalog: React.FC = () => {
                                 </div>
                             )}
 
-                            {/* Expiry Info */}
                             {reward.expiryDays && (
                                 <p className="reward-expiry">
                                     {t('expires', { days: reward.expiryDays })}
                                 </p>
                             )}
 
-                            {/* Points Cost */}
                             <div className="reward-cost">
                                 <span className="reward-cost-icon">⭐</span>
                                 <span className="reward-cost-value">
@@ -168,7 +152,6 @@ export const RewardsCatalog: React.FC = () => {
                                 </span>
                             </div>
 
-                            {/* Redeem Button */}
                             <button
                                 onClick={() => handleRedeem(reward)}
                                 disabled={!canRedeemReward || isRedeeming}
@@ -190,7 +173,6 @@ export const RewardsCatalog: React.FC = () => {
                 })}
             </div>
 
-            {/* Empty State */}
             {displayedRewards.length === 0 && (
                 <div className="rewards-empty">
                     <p>{t('noRewardsAvailable')}</p>

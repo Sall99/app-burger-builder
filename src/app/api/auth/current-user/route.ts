@@ -16,15 +16,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
             where: { email: session.user.email }
         })
 
-        // const userData = await prisma.user.findUnique({
-        //     where: { email: session.user.email },
-        //     select: {
-        //         id: true,
-        //         email: true,
-        //         name: true
-        //     }
-        // })
-
         return NextResponse.json(
             {
                 message: 'success',

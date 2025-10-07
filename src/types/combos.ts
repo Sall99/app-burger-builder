@@ -1,9 +1,3 @@
-/**
- * Meal Deals / Combos System
- * Pre-configured burger combinations with special pricing
- */
-
-// Define the ingredients type locally
 type Ingredients = { [key: string]: number }
 
 export interface Combo {
@@ -198,7 +192,6 @@ export function calculateComboSavings(ingredients: Ingredients): {
     let bestCombo: Combo | null = null
     let maxSavings = 0
 
-    // Check if current ingredients match any combo exactly
     for (const combo of COMBOS) {
         const matches =
             ingredients.meat === combo.ingredients.meat &&
