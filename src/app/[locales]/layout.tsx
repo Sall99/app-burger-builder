@@ -118,21 +118,83 @@ export default async function RootLayout({ children }: Props) {
     const t = await getTranslations('Accessibility')
 
     const schemaOrgData = {
-        '@context': 'http://schema.org',
-        '@type': 'Restaurant',
-        url: 'https://app-burger-builder.vercel.app',
-        name: 'Burger Builder',
-        description: 'Build your perfect burger with our easy-to-use Burger Builder.',
-        publisher: {
-            '@type': 'Organization',
-            name: 'Sall99'
-        }
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'Organization',
+                '@id': 'https://app-burger-builder.vercel.app/#organization',
+                name: 'Burger Builder',
+                url: 'https://app-burger-builder.vercel.app',
+                logo: {
+                    '@type': 'ImageObject',
+                    url: 'https://app-burger-builder.vercel.app/images/Logo.png'
+                },
+                sameAs: [
+                    'https://facebook.com/burgerbuilder',
+                    'https://twitter.com/burgerbuilder',
+                    'https://instagram.com/burgerbuilder'
+                ]
+            },
+            {
+                '@type': 'WebSite',
+                '@id': 'https://app-burger-builder.vercel.app/#website',
+                url: 'https://app-burger-builder.vercel.app',
+                name: 'Burger Builder',
+                description: 'Build your perfect burger with our interactive burger builder',
+                publisher: {
+                    '@id': 'https://app-burger-builder.vercel.app/#organization'
+                },
+                inLanguage: ['en', 'fr'],
+                potentialAction: {
+                    '@type': 'SearchAction',
+                    target: {
+                        '@type': 'EntryPoint',
+                        urlTemplate:
+                            'https://app-burger-builder.vercel.app/search?q={search_term_string}'
+                    },
+                    'query-input': 'required name=search_term_string'
+                }
+            },
+            {
+                '@type': 'Restaurant',
+                '@id': 'https://app-burger-builder.vercel.app/#restaurant',
+                name: 'Burger Builder',
+                image: 'https://app-burger-builder.vercel.app/images/Logo.png',
+                url: 'https://app-burger-builder.vercel.app',
+                servesCuisine: 'American, Fast Food, Burgers',
+                priceRange: '$$',
+                acceptsReservations: false,
+                menu: 'https://app-burger-builder.vercel.app',
+                hasMenu: {
+                    '@type': 'Menu',
+                    hasMenuItem: [
+                        {
+                            '@type': 'MenuItem',
+                            name: 'Custom Burger',
+                            description: 'Build your own burger with premium ingredients',
+                            offers: {
+                                '@type': 'Offer',
+                                price: '4.00',
+                                priceCurrency: 'USD'
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
     }
 
     return (
         <html lang={locale}>
             <head>
                 <link rel="canonical" href="https://app-burger-builder.vercel.app" />
+                <link rel="manifest" href="/manifest.json" />
+                <meta name="theme-color" content="#f59e0b" />
+                <meta name="mobile-web-app-capable" content="yes" />
+                <meta name="apple-mobile-web-app-capable" content="yes" />
+                <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+                <meta name="apple-mobile-web-app-title" content="Burger Builder" />
+                <link rel="apple-touch-icon" href="/images/Logo.png" />
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrgData) }}
