@@ -9,23 +9,23 @@ const Content = () => {
     const t = useTranslations('UpdateProfile')
 
     return (
-        <section className="profile-page-container">
-            {/* Header */}
-            <div className="profile-page-header">
-                <BiUser className="profile-page-icon" />
-                <div>
-                    <h1 className="profile-page-title">
+        <div className="profile-container">
+            {/* Header Section */}
+            <div className="profile-header">
+                <BiUser className="profile-header-icon" />
+                <div className="profile-header-content">
+                    <h1 className="profile-header-title">
                         {t('ProfileSettings') || 'Profile Settings'}
                     </h1>
-                    <p className="profile-page-subtitle">
+                    <p className="profile-header-subtitle">
                         {t('ManageYourAccount') || 'Manage your account information'}
                     </p>
                 </div>
             </div>
 
-            {/* Form */}
+            {/* Profile Content */}
             <UpdateProfileForm />
-        </section>
+        </div>
     )
 }
 

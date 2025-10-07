@@ -81,7 +81,7 @@ export const UpdateProfileForm = () => {
 
     return (
         <div className="profile-content">
-            {/* Stats Cards */}
+            {/* Stats Cards Grid */}
             <div className="profile-stats-grid">
                 <div className="profile-stat-card profile-stat-orders">
                     <div className="profile-stat-icon">
@@ -126,7 +126,7 @@ export const UpdateProfileForm = () => {
                 </div>
             </div>
 
-            {/* Profile Avatar & Name */}
+            {/* User Info Card */}
             <div className="profile-user-card">
                 <div className="profile-avatar">
                     <BiUser />
@@ -142,7 +142,7 @@ export const UpdateProfileForm = () => {
                 </div>
             </div>
 
-            {/* Tabs */}
+            {/* Settings Tabs */}
             <div className="profile-tabs">
                 <button
                     onClick={() => setActiveTab('info')}
