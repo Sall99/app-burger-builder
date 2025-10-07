@@ -1,12 +1,140 @@
 import type { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    return [
+    const baseUrl = 'https://app-burger-builder.vercel.app'
+    const currentDate = new Date()
+
+    // Define all your pages with their priorities
+    const routes = [
         {
-            url: 'https://app-burger-builder.vercel.app',
-            lastModified: new Date(),
-            changeFrequency: 'yearly',
-            priority: 1
+            url: baseUrl,
+            lastModified: currentDate,
+            changeFrequency: 'daily' as const,
+            priority: 1.0
+        },
+        // English routes
+        {
+            url: `${baseUrl}/en`,
+            lastModified: currentDate,
+            changeFrequency: 'daily' as const,
+            priority: 1.0
+        },
+        {
+            url: `${baseUrl}/en/auth/signin`,
+            lastModified: currentDate,
+            changeFrequency: 'monthly' as const,
+            priority: 0.8
+        },
+        {
+            url: `${baseUrl}/en/auth/signup`,
+            lastModified: currentDate,
+            changeFrequency: 'monthly' as const,
+            priority: 0.8
+        },
+        {
+            url: `${baseUrl}/en/profile`,
+            lastModified: currentDate,
+            changeFrequency: 'weekly' as const,
+            priority: 0.7
+        },
+        {
+            url: `${baseUrl}/en/history`,
+            lastModified: currentDate,
+            changeFrequency: 'weekly' as const,
+            priority: 0.7
+        },
+        {
+            url: `${baseUrl}/en/track-order`,
+            lastModified: currentDate,
+            changeFrequency: 'weekly' as const,
+            priority: 0.7
+        },
+        {
+            url: `${baseUrl}/en/locations`,
+            lastModified: currentDate,
+            changeFrequency: 'monthly' as const,
+            priority: 0.8
+        },
+        {
+            url: `${baseUrl}/en/loyalty`,
+            lastModified: currentDate,
+            changeFrequency: 'weekly' as const,
+            priority: 0.7
+        },
+        {
+            url: `${baseUrl}/en/help`,
+            lastModified: currentDate,
+            changeFrequency: 'monthly' as const,
+            priority: 0.6
+        },
+        {
+            url: `${baseUrl}/en/notifications`,
+            lastModified: currentDate,
+            changeFrequency: 'weekly' as const,
+            priority: 0.5
+        },
+        // French routes
+        {
+            url: `${baseUrl}/fr`,
+            lastModified: currentDate,
+            changeFrequency: 'daily' as const,
+            priority: 1.0
+        },
+        {
+            url: `${baseUrl}/fr/auth/signin`,
+            lastModified: currentDate,
+            changeFrequency: 'monthly' as const,
+            priority: 0.8
+        },
+        {
+            url: `${baseUrl}/fr/auth/signup`,
+            lastModified: currentDate,
+            changeFrequency: 'monthly' as const,
+            priority: 0.8
+        },
+        {
+            url: `${baseUrl}/fr/profile`,
+            lastModified: currentDate,
+            changeFrequency: 'weekly' as const,
+            priority: 0.7
+        },
+        {
+            url: `${baseUrl}/fr/history`,
+            lastModified: currentDate,
+            changeFrequency: 'weekly' as const,
+            priority: 0.7
+        },
+        {
+            url: `${baseUrl}/fr/track-order`,
+            lastModified: currentDate,
+            changeFrequency: 'weekly' as const,
+            priority: 0.7
+        },
+        {
+            url: `${baseUrl}/fr/locations`,
+            lastModified: currentDate,
+            changeFrequency: 'monthly' as const,
+            priority: 0.8
+        },
+        {
+            url: `${baseUrl}/fr/loyalty`,
+            lastModified: currentDate,
+            changeFrequency: 'weekly' as const,
+            priority: 0.7
+        },
+        {
+            url: `${baseUrl}/fr/help`,
+            lastModified: currentDate,
+            changeFrequency: 'monthly' as const,
+            priority: 0.6
+        },
+        {
+            url: `${baseUrl}/fr/notifications`,
+            lastModified: currentDate,
+            changeFrequency: 'weekly' as const,
+            priority: 0.5
         }
     ]
+
+    return routes
 }
