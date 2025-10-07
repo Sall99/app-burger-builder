@@ -23,7 +23,6 @@ export const LocationFinder: React.FC = () => {
     const [sortedLocations, setSortedLocations] =
         useState<Array<RestaurantLocation & { distance?: number }>>(RESTAURANT_LOCATIONS)
 
-    // Get user's current location
     const getUserLocation = () => {
         if (!('geolocation' in navigator)) {
             setLocationError(t('geolocationNotSupported'))
@@ -38,11 +37,9 @@ export const LocationFinder: React.FC = () => {
                 const { latitude, longitude } = position.coords
                 setUserLocation({ lat: latitude, lng: longitude })
 
-                // Sort locations by distance
                 const sorted = getLocationsByDistance(latitude, longitude)
                 setSortedLocations(sorted)
 
-                // Auto-select nearest location
                 if (sorted.length > 0) {
                     setSelectedLocation(sorted[0])
                 }
@@ -58,7 +55,6 @@ export const LocationFinder: React.FC = () => {
     }
 
     useEffect(() => {
-        // Try to get user location on mount
         getUserLocation()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -74,7 +70,6 @@ export const LocationFinder: React.FC = () => {
 
     return (
         <div className="location-finder">
-            {/* Header */}
             <div className="location-header">
                 <BiMap className="location-icon" aria-hidden="true" />
                 <div>
@@ -83,7 +78,6 @@ export const LocationFinder: React.FC = () => {
                 </div>
             </div>
 
-            {/* Find Nearest Button */}
             <div className="location-find-nearest">
                 <button
                     onClick={getUserLocation}
@@ -95,9 +89,7 @@ export const LocationFinder: React.FC = () => {
                 {locationError && <p className="location-error">{locationError}</p>}
             </div>
 
-            {/* Two Column Layout */}
             <div className="location-content">
-                {/* Location List */}
                 <div className="location-list">
                     <h4 className="location-list-title">
                         {userLocation ? t('nearestLocations') : t('allLocations')}
@@ -108,7 +100,6 @@ export const LocationFinder: React.FC = () => {
                             key={location.id}
                             onClick={() => handleLocationClick(location)}
                             className={`location-card ${selectedLocation?.id === location.id ? 'location-card-active' : ''}`}>
-                            {/* Header */}
                             <div className="location-card-header">
                                 <h5 className="location-card-name">{location.name}</h5>
                                 {location.distance !== undefined && (
@@ -118,7 +109,6 @@ export const LocationFinder: React.FC = () => {
                                 )}
                             </div>
 
-                            {/* Rating */}
                             {location.rating && (
                                 <div className="location-rating">
                                     <MdStar className="location-star" />
@@ -129,19 +119,16 @@ export const LocationFinder: React.FC = () => {
                                 </div>
                             )}
 
-                            {/* Address */}
                             <div className="location-address">
                                 <MdLocationOn className="location-info-icon" />
                                 <span>{formatAddress(location)}</span>
                             </div>
 
-                            {/* Phone */}
                             <div className="location-phone">
                                 <BiPhone className="location-info-icon" />
                                 <a href={`tel:${location.phone}`}>{location.phone}</a>
                             </div>
 
-                            {/* Features */}
                             <div className="location-features">
                                 {location.features.slice(0, 3).map((feature, idx) => (
                                     <span key={idx} className="location-feature-badge">
@@ -150,21 +137,17 @@ export const LocationFinder: React.FC = () => {
                                 ))}
                             </div>
 
-                            {/* View Button */}
                             <button className="location-view-button">{t('viewDetails')}</button>
                         </div>
                     ))}
                 </div>
 
-                {/* Location Details */}
                 <div className="location-details">
                     {selectedLocation ? (
                         <>
-                            {/* Selected Location */}
                             <div className="location-details-card">
                                 <h4 className="location-details-name">{selectedLocation.name}</h4>
 
-                                {/* Rating */}
                                 {selectedLocation.rating && (
                                     <div className="location-rating location-rating-large">
                                         <MdStar className="location-star" />
@@ -177,7 +160,6 @@ export const LocationFinder: React.FC = () => {
                                     </div>
                                 )}
 
-                                {/* Contact Info */}
                                 <div className="location-details-section">
                                     <h5 className="location-details-section-title">
                                         {t('contactInfo')}
@@ -218,7 +200,6 @@ export const LocationFinder: React.FC = () => {
                                     </div>
                                 </div>
 
-                                {/* Hours */}
                                 <div className="location-details-section">
                                     <h5 className="location-details-section-title">
                                         <BiTime /> {t('hours')}
@@ -239,7 +220,6 @@ export const LocationFinder: React.FC = () => {
                                     </div>
                                 </div>
 
-                                {/* Features */}
                                 <div className="location-details-section">
                                     <h5 className="location-details-section-title">
                                         {t('features')}
@@ -253,7 +233,6 @@ export const LocationFinder: React.FC = () => {
                                     </div>
                                 </div>
 
-                                {/* Directions Button */}
                                 <button
                                     onClick={() => handleGetDirections(selectedLocation)}
                                     className="location-directions-button">
@@ -261,7 +240,6 @@ export const LocationFinder: React.FC = () => {
                                 </button>
                             </div>
 
-                            {/* Map Placeholder */}
                             <div className="location-map-placeholder">
                                 <BiMap className="location-map-icon" />
                                 <p>{t('mapPlaceholder')}</p>
@@ -279,4 +257,3 @@ export const LocationFinder: React.FC = () => {
         </div>
     )
 }
-

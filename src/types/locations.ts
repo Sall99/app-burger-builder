@@ -1,8 +1,3 @@
-/**
- * Restaurant Locations System
- * Store locations with Google Maps integration
- */
-
 export interface RestaurantLocation {
     id: string
     name: string
@@ -166,7 +161,7 @@ export function calculateDistance(lat1: number, lng1: number, lat2: number, lng2
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
     const distance = R * c
 
-    return Math.round(distance * 10) / 10 // Round to 1 decimal
+    return Math.round(distance * 10) / 10
 }
 
 function toRad(degrees: number): number {
@@ -249,4 +244,3 @@ export function getDirectionsUrl(location: RestaurantLocation): string {
     const address = formatAddress(location)
     return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`
 }
-

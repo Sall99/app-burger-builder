@@ -15,17 +15,11 @@ const HASH_SALT_ROUNDS = 10
 const MIN_PASSWORD_LENGTH = 8
 const MAX_NAME_LENGTH = 60
 
-/**
- * Validates email format
- */
 function isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return emailRegex.test(email)
 }
 
-/**
- * Sanitizes user input
- */
 function sanitizeInput(input: string): string {
     return input.trim().replace(/[<>]/g, '')
 }
@@ -40,7 +34,7 @@ const createUser = async (userData: UserRequestBody) => {
             hashedPassword
         }
     })
-    // Don't return sensitive data
+
     const { hashedPassword: _, ...userWithoutPassword } = newUser
     return userWithoutPassword
 }
@@ -55,7 +49,6 @@ async function userExists(email: string) {
 }
 
 export async function POST(request: NextRequest) {
-    // Apply rate limiting: 5 sign-up attempts per minute
     const rateLimitResult = await withRateLimit(request, 'auth', 5)
     if (rateLimitResult && 'status' in rateLimitResult) {
         return rateLimitResult
@@ -65,17 +58,14 @@ export async function POST(request: NextRequest) {
         const body = await request.json()
         const { email, name, password } = body
 
-        // Validate required fields
         if (!email || !name || !password) {
             return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
         }
 
-        // Validate email format
         if (!isValidEmail(email)) {
             return NextResponse.json({ error: 'Invalid email format' }, { status: 400 })
         }
 
-        // Validate password length
         if (password.length < MIN_PASSWORD_LENGTH) {
             return NextResponse.json(
                 { error: `Password must be at least ${MIN_PASSWORD_LENGTH} characters` },
@@ -83,7 +73,6 @@ export async function POST(request: NextRequest) {
             )
         }
 
-        // Validate name length
         if (name.length > MAX_NAME_LENGTH) {
             return NextResponse.json(
                 { error: `Name must be less than ${MAX_NAME_LENGTH} characters` },
@@ -91,7 +80,6 @@ export async function POST(request: NextRequest) {
             )
         }
 
-        // Check if user already exists
         const doesUserExist = await userExists(email)
 
         if (doesUserExist) {
@@ -101,12 +89,11 @@ export async function POST(request: NextRequest) {
             )
         }
 
-        // Create new user
         const newUser = await createUser(body)
         return NextResponse.json(newUser, { status: 201 })
     } catch (error) {
         console.error('Error creating user:', error)
-        // Don't expose internal error details
+
         return NextResponse.json(
             { error: 'Unable to create account. Please try again later.' },
             { status: 500 }

@@ -4,7 +4,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://app-burger-builder.vercel.app'
     const currentDate = new Date()
 
-    // Define all your pages with their priorities
     const routes = [
         {
             url: baseUrl,
@@ -12,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: 'daily' as const,
             priority: 1.0
         },
-        // English routes
+
         {
             url: `${baseUrl}/en`,
             lastModified: currentDate,

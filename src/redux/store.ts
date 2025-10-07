@@ -4,7 +4,6 @@ import createWebStorage from 'redux-persist/lib/storage/createWebStorage'
 
 import rootReducer from './root-reducer'
 
-// Create a noop storage for SSR
 const createNoopStorage = () => {
     return {
         getItem(_key: string) {

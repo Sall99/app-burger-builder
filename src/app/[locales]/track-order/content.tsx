@@ -69,7 +69,6 @@ const Content: React.FC = () => {
 
     return (
         <div className="max-w-4xl mx-auto my-8 min-h-screen px-8 sm:px-16">
-            {/* Header */}
             <div className="track-header">
                 <BiSearch className="track-header-icon" />
                 <div>
@@ -78,7 +77,6 @@ const Content: React.FC = () => {
                 </div>
             </div>
 
-            {/* Search Form */}
             <form onSubmit={handleSubmit} className="track-search-form">
                 <div className="track-search-input-wrapper">
                     <BiSearch className="track-search-icon" />
@@ -98,7 +96,6 @@ const Content: React.FC = () => {
                 </button>
             </form>
 
-            {/* Loading State */}
             {isLoading && (
                 <div className="track-loading">
                     <Loader2 className="track-loading-spinner" size={48} />
@@ -106,7 +103,6 @@ const Content: React.FC = () => {
                 </div>
             )}
 
-            {/* Error State */}
             {error && (
                 <div className="track-error">
                     <BiError size={48} className="track-error-icon" />
@@ -114,10 +110,8 @@ const Content: React.FC = () => {
                 </div>
             )}
 
-            {/* Order Details */}
             {data && data.order && (
                 <div className="track-result">
-                    {/* Order Info Card */}
                     <div className="track-info-card">
                         <div className="track-info-header">
                             <Package size={24} className="track-info-icon" />
@@ -144,7 +138,6 @@ const Content: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Status Timeline */}
                     <div className="track-timeline-card">
                         <h3 className="track-timeline-title">{t('orderStatus')}</h3>
 
@@ -209,7 +202,6 @@ const Content: React.FC = () => {
                             })}
                         </div>
 
-                        {/* Cancelled Message */}
                         {data.order.status === OrderStatus.CANCELLED && (
                             <div className="track-cancelled-message">
                                 <BiX size={20} />

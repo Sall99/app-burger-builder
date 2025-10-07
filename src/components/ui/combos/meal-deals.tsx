@@ -20,7 +20,6 @@ export const MealDeals: React.FC = () => {
     const { selectedCombo, isComboApplied } = useSelector(selectCombo)
     const [showAll, setShowAll] = useState(false)
 
-    // Check if current ingredients match a combo
     const { bestCombo } = calculateComboSavings(ingredients)
 
     // Show only popular combos by default, or all if clicked

@@ -22,7 +22,6 @@ export const SortableBurgerIngredient = ({ id, type }: SortableIngredientProps) 
         touchAction: 'none'
     }
 
-    // Generate the appropriate ingredient div based on type
     const getIngredientElement = () => {
         switch (type) {
             case 'meat':

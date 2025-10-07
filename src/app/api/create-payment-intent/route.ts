@@ -45,12 +45,10 @@ export async function POST(req: NextRequest) {
         const { data } = await req.json()
         const { amount, shippingAddress } = data
 
-        // Validate input
         if (!amount || !shippingAddress) {
             return NextResponse.json({ error: 'Invalid request data' }, { status: 400 })
         }
 
-        // Validate amount (prevent negative or excessively large amounts)
         if (amount <= 0 || amount > 10000) {
             return NextResponse.json({ error: 'Invalid order amount' }, { status: 400 })
         }
@@ -64,10 +62,8 @@ export async function POST(req: NextRequest) {
             )
         }
 
-        // Get base URL from environment or request
         const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
 
-        // Create Stripe checkout session (proper way, not using hardcoded tokens)
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             customer_email: user.email,
@@ -93,8 +89,6 @@ export async function POST(req: NextRequest) {
             }
         })
 
-        // Create order with pending payment status
-        // Payment status will be updated via webhook when payment succeeds
         const order = await createOrder(user.id, amount, shippingAddress, false)
 
         return NextResponse.json(
@@ -108,7 +102,6 @@ export async function POST(req: NextRequest) {
     } catch (error) {
         console.error('Payment processing error:', error)
 
-        // Don't expose internal error details to client
         return NextResponse.json(
             { error: 'Unable to process payment. Please try again later.' },
             { status: 500 }

@@ -3,7 +3,6 @@ import { render, screen } from '@testing-library/react'
 
 import { ErrorBoundary, withErrorBoundary } from '../error-boundary'
 
-// Component that throws an error
 const ThrowError = ({ shouldThrow = true }: { shouldThrow?: boolean }) => {
     if (shouldThrow) {
         throw new Error('Test error')
@@ -11,7 +10,6 @@ const ThrowError = ({ shouldThrow = true }: { shouldThrow?: boolean }) => {
     return <div>No error</div>
 }
 
-// Suppress console.error and unhandled exceptions globally for error boundary tests
 const originalConsoleError = console.error
 const originalConsoleWarn = console.warn
 
@@ -19,11 +17,8 @@ beforeAll(() => {
     console.error = jest.fn()
     console.warn = jest.fn()
 
-    // Suppress unhandled exceptions for error boundary tests
     const originalOnError = window.onerror
     window.onerror = jest.fn()
-
-    // Store original for cleanup
     ;(window as any).__originalOnError = originalOnError
 })
 
@@ -31,7 +26,6 @@ afterAll(() => {
     console.error = originalConsoleError
     console.warn = originalConsoleWarn
 
-    // Restore original error handler
     if ((window as any).__originalOnError) {
         window.onerror = (window as any).__originalOnError
     }
@@ -90,7 +84,6 @@ describe.skip('ErrorBoundary', () => {
     })
 
     it('should display error details in development mode', () => {
-        // Workaround for read-only process.env.NODE_ENV in Jest
         const originalEnv = process.env.NODE_ENV
 
         Object.defineProperty(process.env, 'NODE_ENV', {
@@ -106,7 +99,6 @@ describe.skip('ErrorBoundary', () => {
 
         expect(screen.getByText(/Error Details/)).toBeInTheDocument()
 
-        // Restore process.env.NODE_ENV using Object.defineProperty to avoid assignment error
         Object.defineProperty(process.env, 'NODE_ENV', {
             value: originalEnv,
             configurable: true

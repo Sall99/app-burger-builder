@@ -43,7 +43,6 @@ export const BuilderAnimated: FC<BuilderProps> = ({ ingredients }) => {
         })
     )
 
-    // Animate new ingredients
     useEffect(() => {
         if (lastAction === 'add' && ingredientOrder.length > 0) {
             const lastIngredient = ingredientOrder[ingredientOrder.length - 1]
@@ -69,7 +68,6 @@ export const BuilderAnimated: FC<BuilderProps> = ({ ingredients }) => {
         }
     }
 
-    // For fallback when enhanced reducer not used
     const arrayIngredients =
         ingredientOrder.length > 0
             ? ingredientOrder.map((item) => item)

@@ -19,7 +19,6 @@ export const IngredientSubstitutions: React.FC = () => {
     const { appliedSubstitutions, totalAdjustment } = useSelector(selectSubstitutions)
     const [expandedIngredient, setExpandedIngredient] = useState<string | null>(null)
 
-    // Get ingredients that have quantity > 0
     const availableIngredients = Object.entries(ingredients).filter(([, count]) => count > 0)
 
     if (availableIngredients.length === 0) {
@@ -64,7 +63,6 @@ export const IngredientSubstitutions: React.FC = () => {
                 </div>
             </div>
 
-            {/* Ingredients List */}
             <div className="substitutions-list">
                 {availableIngredients.map(([ingredient, count]) => {
                     const substitutions = getSubstitutionsForIngredient(ingredient)
@@ -75,7 +73,6 @@ export const IngredientSubstitutions: React.FC = () => {
 
                     return (
                         <div key={ingredient} className="substitution-item">
-                            {/* Ingredient Header */}
                             <button
                                 onClick={() =>
                                     setExpandedIngredient(isExpanded ? null : ingredient)
@@ -108,10 +105,8 @@ export const IngredientSubstitutions: React.FC = () => {
                                 </svg>
                             </button>
 
-                            {/* Substitution Options */}
                             {isExpanded && (
                                 <div className="substitution-options">
-                                    {/* Reset Button */}
                                     {activeSub && (
                                         <button
                                             onClick={() => handleRemoveSubstitution(ingredient)}
@@ -128,7 +123,6 @@ export const IngredientSubstitutions: React.FC = () => {
                                         </button>
                                     )}
 
-                                    {/* Available Substitutions */}
                                     {substitutions.map((sub) => {
                                         const isActive = activeSub?.substitutionId === sub.id
 
@@ -179,7 +173,6 @@ export const IngredientSubstitutions: React.FC = () => {
                 })}
             </div>
 
-            {/* Total Adjustment */}
             {totalAdjustment !== 0 && (
                 <div className="substitutions-total">
                     <span>{t('totalAdjustment')}:</span>

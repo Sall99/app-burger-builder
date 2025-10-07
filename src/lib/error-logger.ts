@@ -13,9 +13,6 @@ interface ErrorContext {
     componentStack?: string
 }
 
-/**
- * Log levels for different error severities
- */
 export enum ErrorLevel {
     ERROR = 'error',
     WARNING = 'warning',
@@ -23,9 +20,6 @@ export enum ErrorLevel {
     DEBUG = 'debug'
 }
 
-/**
- * Main error logging function
- */
 export function logError(
     error: Error | string,
     context?: ErrorContext,
@@ -40,66 +34,44 @@ export function logError(
         ...context
     }
 
-    // Console logging (always enabled)
     if (typeof error === 'string') {
         console.error(`[${level.toUpperCase()}] ${error}`, errorData)
     } else {
         console.error(`[${level.toUpperCase()}] ${error.message}`, error, errorData)
     }
 
-    // Send to error tracking service in production
     if (process.env.NODE_ENV === 'production') {
         sendToErrorTracking(errorData, level)
     }
 
-    // Store in local storage for debugging (development only)
     if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
         storeErrorLocally(errorData)
     }
 }
 
-/**
- * Send error to external error tracking service
- * Replace with your preferred service (Sentry, Bugsnag, etc.)
- */
 function sendToErrorTracking(errorData: object, level: ErrorLevel): void {
-    // Example: Send to Sentry
-    // if (window.Sentry) {
-    //     window.Sentry.captureException(errorData, { level })
-    // }
-
-    // Example: Send to custom API
     try {
         fetch('/api/log-error', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ ...errorData, level })
         }).catch((err) => {
-            // Fail silently to prevent error loops
             console.warn('Failed to send error to tracking service:', err)
         })
-    } catch (err) {
-        // Fail silently
-    }
+    } catch (err) {}
 }
 
-/**
- * Store error in local storage for development debugging
- */
 function storeErrorLocally(errorData: object): void {
     try {
         const errors = JSON.parse(localStorage.getItem('app_errors') || '[]')
         errors.push(errorData)
 
-        // Keep only last 50 errors
         if (errors.length > 50) {
             errors.shift()
         }
 
         localStorage.setItem('app_errors', JSON.stringify(errors))
-    } catch (err) {
-        // Fail silently if localStorage is not available
-    }
+    } catch (err) {}
 }
 
 /**

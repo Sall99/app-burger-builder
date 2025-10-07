@@ -17,15 +17,12 @@ const substitutionsSlice = createSlice({
     initialState,
     reducers: {
         applySubstitution: (state, action: PayloadAction<AppliedSubstitution>) => {
-            // Remove any existing substitution for this ingredient
             state.appliedSubstitutions = state.appliedSubstitutions.filter(
                 (sub) => sub.originalIngredient !== action.payload.originalIngredient
             )
 
-            // Add new substitution
             state.appliedSubstitutions.push(action.payload)
 
-            // Recalculate total adjustment
             state.totalAdjustment = state.appliedSubstitutions.reduce(
                 (total, sub) => total + sub.priceAdjustment,
                 0
@@ -33,12 +30,10 @@ const substitutionsSlice = createSlice({
         },
 
         removeSubstitution: (state, action: PayloadAction<string>) => {
-            // Remove substitution by original ingredient
             state.appliedSubstitutions = state.appliedSubstitutions.filter(
                 (sub) => sub.originalIngredient !== action.payload
             )
 
-            // Recalculate total adjustment
             state.totalAdjustment = state.appliedSubstitutions.reduce(
                 (total, sub) => total + sub.priceAdjustment,
                 0

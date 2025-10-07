@@ -6,10 +6,6 @@ import { useTranslations } from 'next-intl'
 
 import { crispHelpers } from './crisp-chat'
 
-/**
- * Chat Trigger Button
- * Optional button to open chat - useful for custom placement
- */
 export const ChatTriggerButton: React.FC = () => {
     const t = useTranslations('Chat')
 
@@ -29,10 +25,6 @@ export const ChatTriggerButton: React.FC = () => {
     )
 }
 
-/**
- * Floating Chat Button
- * Alternative design - floating action button
- */
 export const FloatingChatButton: React.FC = () => {
     const t = useTranslations('Chat')
 

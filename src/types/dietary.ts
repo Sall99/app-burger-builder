@@ -116,7 +116,6 @@ export const INGREDIENT_DIETARY_DATA: Record<string, IngredientDietary> = {
     }
 }
 
-// Base bun nutritional info
 export const BUN_DIETARY_DATA: IngredientDietary = {
     name: 'Sesame Bun',
     nutritional: {

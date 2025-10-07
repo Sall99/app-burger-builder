@@ -219,7 +219,7 @@ export default async function RootLayout({ children }: Props) {
                     </Providers>
                 </SessionWrapper>
                 <GoogleAnalytics />
-                {/* Live Chat Support */}
+
                 {process.env.NEXT_PUBLIC_CRISP_WEBSITE_ID && (
                     <CrispChatWithUser
                         websiteId={process.env.NEXT_PUBLIC_CRISP_WEBSITE_ID}

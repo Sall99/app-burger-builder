@@ -19,7 +19,6 @@ export function ShareBurger() {
 
     const hasIngredients = (ingredientOrder?.length ?? 0) > 0
 
-    // Generate shareable text
     const generateShareText = () => {
         const ingredientList = Object.entries(ingredients)
             .filter(([, count]) => count > 0)
@@ -29,7 +28,6 @@ export function ShareBurger() {
         return `Check out my custom burger! 🍔\n${ingredientList}\nTotal: $${totalPrice.toFixed(2)}\n\nBuild your own at ${window.location.origin}`
     }
 
-    // Generate share URL with burger data
     const generateShareUrl = () => {
         const burgerData = btoa(JSON.stringify({ ingredients, totalPrice }))
         return `${window.location.origin}?burger=${burgerData}`
@@ -87,7 +85,6 @@ export function ShareBurger() {
 
     return (
         <div className="share-burger-container">
-            {/* Header */}
             <div className="share-burger-header" onClick={() => setIsOpen(!isOpen)}>
                 <BiShare className="share-burger-icon" aria-hidden="true" />
                 <div className="share-burger-title-wrapper">
@@ -99,13 +96,11 @@ export function ShareBurger() {
                 <span className="share-burger-arrow">{isOpen ? '▼' : '▶'}</span>
             </div>
 
-            {/* Content */}
             {isOpen && (
                 <div className="share-burger-content">
                     <h4 className="share-options-title">{t('shareOn') || 'Share on'}</h4>
 
                     <div className="share-options-grid">
-                        {/* Copy Link */}
                         <button onClick={handleCopyLink} className="share-option-button">
                             {copied ? (
                                 <>
@@ -124,7 +119,6 @@ export function ShareBurger() {
                             )}
                         </button>
 
-                        {/* Facebook */}
                         <button
                             onClick={handleShareFacebook}
                             className="share-option-button share-option-facebook">
@@ -132,7 +126,6 @@ export function ShareBurger() {
                             <span className="share-option-label">Facebook</span>
                         </button>
 
-                        {/* Twitter */}
                         <button
                             onClick={handleShareTwitter}
                             className="share-option-button share-option-twitter">
@@ -140,7 +133,6 @@ export function ShareBurger() {
                             <span className="share-option-label">Twitter</span>
                         </button>
 
-                        {/* WhatsApp */}
                         <button
                             onClick={handleShareWhatsApp}
                             className="share-option-button share-option-whatsapp">
@@ -149,7 +141,6 @@ export function ShareBurger() {
                         </button>
                     </div>
 
-                    {/* Native Share (Mobile) */}
                     {typeof navigator.share === 'function' && (
                         <button onClick={handleNativeShare} className="share-native-button">
                             <Share2 size={18} />
@@ -157,7 +148,6 @@ export function ShareBurger() {
                         </button>
                     )}
 
-                    {/* Preview Text */}
                     <div className="share-preview">
                         <p className="share-preview-title">{t('preview') || 'Preview'}:</p>
                         <p className="share-preview-text">{generateShareText()}</p>
