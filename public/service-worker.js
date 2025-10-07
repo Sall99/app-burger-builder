@@ -7,13 +7,11 @@
 // Service worker version
 const CACHE_VERSION = 'v1'
 
-// Install event
 self.addEventListener('install', (event) => {
     console.log('[Service Worker] Installing...')
     self.skipWaiting()
 })
 
-// Activate event
 self.addEventListener('activate', (event) => {
     console.log('[Service Worker] Activating...')
     event.waitUntil(self.clients.claim())
