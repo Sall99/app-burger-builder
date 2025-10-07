@@ -52,48 +52,44 @@ export const Header: FC<HeaderProps> = ({ session }) => {
     const t = useTranslations('Header')
 
     return (
-        <nav className="flex items-center justify-between py-4 px-8 sm:px-16">
-            <Link href="/">
-                <Image src="/images/Logo.png" width={34} height={34} alt="logo" priority />
-            </Link>
+        <div className="header-container">
+            <div className="header-content">
+                <Link href="/" className="header-logo">
+                    <Image src="/images/Logo.png" width={40} height={40} alt="logo" priority />
+                </Link>
 
-            {/* Main Navigation Links */}
-            <ul className="hidden md:flex items-center justify-center text-primary-200 text-base font-normal gap-6">
-                {mainNavLinks.map(({ path, name, Icon }) => (
-                    <li key={path} className="hover:cursor-pointer">
-                        <Link
-                            href={path}
-                            className="flex items-center justify-center gap-2 text-sm tracking-wide hover:underline">
-                            <Icon size={18} />
-                            <span>{t(name)}</span>
-                        </Link>
-                    </li>
-                ))}
-            </ul>
+                {/* Main Navigation Links */}
+                <ul className="header-nav">
+                    {mainNavLinks.map(({ path, name, Icon }) => (
+                        <li key={path} className="header-nav-item">
+                            <Link href={path} className="header-nav-link">
+                                <Icon className="header-nav-icon" />
+                                <span>{t(name)}</span>
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
 
-            <div className="flex gap-4 items-center">
-                <LocaleSwitcher />
-                <div>
-                    {session ? (
-                        <div>
+                <div className="header-actions">
+                    <LocaleSwitcher />
+                    <div className="header-auth">
+                        {session ? (
                             <PopoverProfilLazy />
-                        </div>
-                    ) : (
-                        <ul className="flex items-center justify-center text-primary-200 text-base font-normal gap-8">
-                            {authNavLinks.map(({ path, name, Icon }) => (
-                                <li key={path} className="hover:cursor-pointer">
-                                    <Link
-                                        href={path}
-                                        className="flex items-center justify-center gap-2 text-sm tracking-wide hover:underline">
-                                        <Icon size={20} />
-                                        <span>{t(name)}</span>
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
+                        ) : (
+                            <ul className="header-auth-links">
+                                {authNavLinks.map(({ path, name, Icon }) => (
+                                    <li key={path} className="header-auth-item">
+                                        <Link href={path} className="header-auth-link">
+                                            <Icon className="header-auth-icon" />
+                                            <span>{t(name)}</span>
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
                 </div>
             </div>
-        </nav>
+        </div>
     )
 }
