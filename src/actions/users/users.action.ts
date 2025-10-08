@@ -5,3 +5,9 @@ export const currentUserAction = async () => {
 
     return data
 }
+
+export const getUserStats = async () => {
+    const { data } = await instance.get('/user/stats')
+
+    return data
+}

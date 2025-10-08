@@ -3,15 +3,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import {
-    BiDollar,
-    BiEnvelope,
-    BiLock,
-    BiShield,
-    BiStar,
-    BiTrendingUp,
-    BiUser
-} from 'react-icons/bi'
+import { BiEnvelope, BiLock, BiShield, BiStar, BiUser } from 'react-icons/bi'
 import { MdVerified } from 'react-icons/md'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AxiosError } from 'axios'
@@ -71,59 +63,8 @@ export const UpdateProfileForm = () => {
         update(formData)
     }
 
-    const stats = {
-        totalOrders: 42,
-        totalSpent: 285.5,
-        memberSince: '2024',
-        loyaltyPoints: 1250
-    }
-
     return (
         <div className="profile-content">
-            <div className="profile-stats-grid">
-                <div className="profile-stat-card profile-stat-orders">
-                    <div className="profile-stat-icon">
-                        <BiTrendingUp />
-                    </div>
-                    <div className="profile-stat-info">
-                        <p className="profile-stat-value">{stats.totalOrders}</p>
-                        <p className="profile-stat-label">{t('TotalOrders') || 'Total Orders'}</p>
-                    </div>
-                </div>
-
-                <div className="profile-stat-card profile-stat-spent">
-                    <div className="profile-stat-icon">
-                        <BiDollar />
-                    </div>
-                    <div className="profile-stat-info">
-                        <p className="profile-stat-value">${stats.totalSpent}</p>
-                        <p className="profile-stat-label">{t('TotalSpent') || 'Total Spent'}</p>
-                    </div>
-                </div>
-
-                <div className="profile-stat-card profile-stat-loyalty">
-                    <div className="profile-stat-icon">
-                        <BiStar />
-                    </div>
-                    <div className="profile-stat-info">
-                        <p className="profile-stat-value">{stats.loyaltyPoints}</p>
-                        <p className="profile-stat-label">
-                            {t('LoyaltyPoints') || 'Loyalty Points'}
-                        </p>
-                    </div>
-                </div>
-
-                <div className="profile-stat-card profile-stat-member">
-                    <div className="profile-stat-icon">
-                        <MdVerified />
-                    </div>
-                    <div className="profile-stat-info">
-                        <p className="profile-stat-value">{stats.memberSince}</p>
-                        <p className="profile-stat-label">{t('MemberSince') || 'Member Since'}</p>
-                    </div>
-                </div>
-            </div>
-
             <div className="profile-user-card">
                 <div className="profile-avatar">
                     <BiUser />
