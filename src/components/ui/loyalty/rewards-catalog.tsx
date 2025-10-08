@@ -31,27 +31,49 @@ export const RewardsCatalog: React.FC = () => {
     const handleRedeem = async (reward: Reward) => {
         setRedeeming(reward.id)
 
-        await new Promise((resolve) => setTimeout(resolve, 500))
+        try {
+            const { redeemLoyaltyReward } = await import('@/actions/loyalty')
 
-        dispatch(
-            redeemReward({
+            const result = await redeemLoyaltyReward({
                 rewardId: reward.id,
+                rewardName: reward.name,
                 pointsCost: reward.pointsCost,
                 expiryDays: reward.expiryDays
             })
-        )
 
-        setRedeeming(null)
+            if (result.success) {
+                dispatch(
+                    redeemReward({
+                        rewardId: reward.id,
+                        pointsCost: reward.pointsCost,
+                        expiryDays: reward.expiryDays
+                    })
+                )
 
-        if (typeof window !== 'undefined') {
-            const announcement = `Successfully redeemed ${reward.name}!`
-            const ariaLive = document.createElement('div')
-            ariaLive.setAttribute('role', 'status')
-            ariaLive.setAttribute('aria-live', 'polite')
-            ariaLive.className = 'sr-only'
-            ariaLive.textContent = announcement
-            document.body.appendChild(ariaLive)
-            setTimeout(() => document.body.removeChild(ariaLive), 1000)
+                if (typeof window !== 'undefined') {
+                    const announcement = `Successfully redeemed ${reward.name}!`
+                    const ariaLive = document.createElement('div')
+                    ariaLive.setAttribute('role', 'status')
+                    ariaLive.setAttribute('aria-live', 'polite')
+                    ariaLive.className = 'sr-only'
+                    ariaLive.textContent = announcement
+                    document.body.appendChild(ariaLive)
+                    setTimeout(() => document.body.removeChild(ariaLive), 1000)
+                }
+            } else {
+                if (typeof window !== 'undefined') {
+                    const { default: toast } = await import('react-hot-toast')
+                    toast.error(result.error || 'Failed to redeem reward')
+                }
+            }
+        } catch (error) {
+            console.error('Error redeeming reward:', error)
+            if (typeof window !== 'undefined') {
+                const { default: toast } = await import('react-hot-toast')
+                toast.error('An error occurred while redeeming the reward')
+            }
+        } finally {
+            setRedeeming(null)
         }
     }
 
