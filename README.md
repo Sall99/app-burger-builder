@@ -12,6 +12,7 @@ Burger Builder is a web application that allows users to customize and build the
     - [Running the Application](#running-the-application)
 - [Environment Variables](#environment-variables)
 - [Testing](#testing)
+- [Admin Panel](#admin-panel)
 - [Database](#database)
 - [Deployment](#deployment)
 - [Contributing](#contributing)
@@ -22,12 +23,18 @@ Burger Builder is a web application that allows users to customize and build the
 - **Next.js 14**: A React framework for server-side rendering, static site generation, and API routes.
 - **Prisma**: A next-generation ORM for Node.js and TypeScript that simplifies database access and management.
 - **MongoDB**: A NoSQL database for storing application data in a flexible, document-oriented format.
+- **NextAuth.js**: Authentication and session management with role-based access control.
+- **Tailwind CSS**: Utility-first CSS framework for responsive design.
+- **TypeScript**: Type-safe JavaScript for better development experience.
 
 ## Features
 
 - **Custom Burger Builder**: Create and customize your burger with a variety of ingredients.
+- **Admin Panel**: Comprehensive admin dashboard for managing orders, users, and coupons.
+- **User Role Management**: Role-based access control with admin and user permissions.
+- **Multi-language Support**: Localized interface in English and French.
 - **Responsive Design**: Optimized for both desktop and mobile devices.
-- **Authentication**: Secure login and session management.
+- **Authentication**: Secure login and session management with role-based access.
 - **SEO Optimization**: Enhanced with server-side rendering and dynamic meta tags.
 - **Analytics**: Integrated with tools for performance and user behavior tracking.
 
@@ -120,6 +127,15 @@ This project uses environment variables for configuration. See **[ENVIRONMENT.md
     - GitHub: `GITHUB_ID`, `GITHUB_SECRET`
     - Google: `GOOGLE_ID`, `GOOGLE_SECRET`
 
+### Admin Access
+
+The application includes test credentials for easy development and testing:
+
+- **Admin User**: `admin@test.com` / `admin123`
+- **Regular User**: `user@test.com` / `user123`
+
+These credentials are available in the sign-in and sign-up forms for testing purposes.
+
 For complete documentation, see [ENVIRONMENT.md](./ENVIRONMENT.md)
 
 ## Testing
@@ -146,16 +162,42 @@ npm run test:all
 
 **Current Coverage**: ~25% (51 tests passing)
 
+## Admin Panel
+
+The application includes a comprehensive admin panel accessible at `/admin` for users with admin roles.
+
+### Admin Features
+
+- **Dashboard**: Overview of key metrics and statistics
+- **Order Management**: View, filter, and manage customer orders
+- **User Management**: Manage user accounts and roles
+- **Coupon Management**: Create and manage discount codes
+- **Multi-language Support**: Admin interface available in English and French
+
+### Admin Routes
+
+- `/admin` - Main dashboard
+- `/admin/orders` - Order management
+- `/admin/users` - User management  
+- `/admin/coupons` - Coupon management
+
+### Access Control
+
+- Admin routes are protected by middleware
+- Only users with `admin` role can access admin features
+- Regular users are redirected to the main application
+
 ## Database
 
 This project uses **MongoDB** with **Prisma ORM**.
 
 ### Schema
 
-- **User**: Authentication and profile data
+- **User**: Authentication and profile data with role management (admin/user)
 - **Account**: OAuth provider accounts
 - **Order**: Order details with status tracking
 - **Address**: Shipping addresses
+- **Coupon**: Discount codes and promotional offers
 
 ### Prisma Commands
 
