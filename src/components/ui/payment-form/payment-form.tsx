@@ -19,8 +19,9 @@ interface PaymentFormProps {
 
 export function PaymentForm({ setIsPaymeOpen }: PaymentFormProps) {
     const { shippingAddress } = useAppSelector(selectShippingAddress)
-    const { totalPrice } = useAppSelector(selectIngredients)
-    const { totalAdjustment: substitutionAdjustment } = useAppSelector(selectSubstitutions)
+    const { ingredients, totalPrice } = useAppSelector(selectIngredients)
+    const { totalAdjustment: substitutionAdjustment, appliedSubstitutions } =
+        useAppSelector(selectSubstitutions)
     const coupon = useAppSelector((state: RootState) => state.rootReducer.coupon)
     const [paymentError, setPaymentError] = useState<string | null>(null)
     const [loading, setLoading] = useState(false)
@@ -44,7 +45,15 @@ export function PaymentForm({ setIsPaymeOpen }: PaymentFormProps) {
 
             const result = await paymentAction({
                 amount: finalPrice,
-                shippingAddress
+                shippingAddress,
+                ingredients,
+                substitutions: appliedSubstitutions,
+                coupon: coupon.isValid
+                    ? {
+                          code: coupon.code,
+                          discount: coupon.appliedDiscount
+                      }
+                    : null
             })
 
             if (result && result.url) {
@@ -105,6 +114,7 @@ export function PaymentForm({ setIsPaymeOpen }: PaymentFormProps) {
                 {paymentError && <div className="payment-error-message">{paymentError}</div>}
 
                 <Button
+                    type="submit"
                     label={loading ? t('Redirecting') || 'Redirecting...' : t('PayNow')}
                     className="payment-submit-button"
                     loading={loading}

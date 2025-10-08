@@ -57,6 +57,34 @@
         "StripeRedirectMessage": "Vous serez redirigé vers Stripe pour finaliser votre paiement en toute sécurité.",
         "SecurePayment": "Paiement sécurisé par Stripe"
     },
+    "Success": {
+        "title": "Paiement réussi !",
+        "subtitle": "Merci pour votre commande !",
+        "confirmation": "Votre commande de burger a été confirmée et est en cours de préparation.",
+        "sessionId": "ID de session",
+        "emailSent": "Un email de confirmation a été envoyé à votre adresse email.",
+        "trackOrder": "Suivre votre commande",
+        "buildAnother": "Créer un autre burger",
+        "needHelp": "Besoin d'aide ?",
+        "contactSupport": "Contacter le support",
+        "verifying": "Vérification de votre paiement...",
+        "error": "Erreur",
+        "returnHome": "Retour à l'accueil"
+    },
+    "Cancel": {
+        "title": "Paiement annulé",
+        "subtitle": "Votre paiement a été annulé",
+        "message": "Aucun débit n'a été effectué sur votre compte. Votre commande de burger n'a pas été finalisée.",
+        "help": "Si vous avez rencontré des problèmes lors du paiement, veuillez contacter notre équipe de support.",
+        "tryAgain": "Réessayer",
+        "getHelp": "Obtenir de l'aide",
+        "whatHappened": "Que s'est-il passé ?",
+        "reason1": "Vous avez cliqué sur le bouton retour ou annulé le paiement",
+        "reason2": "La session de paiement a peut-être expiré",
+        "reason3": "Il y a eu un problème technique avec le processeur de paiement",
+        "needHelp": "Besoin d'aide ?",
+        "contactSupport": "Contacter le support"
+    },
     "Builder": {
         "AddIngredients": "Ajoutez des ingrédients !",
         "undo": "Annuler",

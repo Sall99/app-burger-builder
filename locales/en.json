@@ -57,6 +57,34 @@
         "StripeRedirectMessage": "You will be redirected to Stripe to complete your payment securely.",
         "SecurePayment": "Secure payment powered by Stripe"
     },
+    "Success": {
+        "title": "Payment Successful!",
+        "subtitle": "Thank you for your order!",
+        "confirmation": "Your burger order has been confirmed and is being prepared.",
+        "sessionId": "Session ID",
+        "emailSent": "A confirmation email has been sent to your email address.",
+        "trackOrder": "Track Your Order",
+        "buildAnother": "Build Another Burger",
+        "needHelp": "Need help?",
+        "contactSupport": "Contact Support",
+        "verifying": "Verifying your payment...",
+        "error": "Error",
+        "returnHome": "Return to Home"
+    },
+    "Cancel": {
+        "title": "Payment Cancelled",
+        "subtitle": "Your payment has been cancelled",
+        "message": "No charges were made to your account. Your burger order was not completed.",
+        "help": "If you experienced any issues during checkout, please contact our support team.",
+        "tryAgain": "Try Again",
+        "getHelp": "Get Help",
+        "whatHappened": "What happened?",
+        "reason1": "You clicked the back button or cancelled the payment",
+        "reason2": "The payment session may have expired",
+        "reason3": "There was a technical issue with the payment processor",
+        "needHelp": "Still need help?",
+        "contactSupport": "Contact Support"
+    },
     "Builder": {
         "AddIngredients": "Add some ingredients !",
         "undo": "Undo",

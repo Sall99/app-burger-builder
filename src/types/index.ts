@@ -38,6 +38,12 @@ export type shippingAddressFormValues = {
 export interface PaymentActionValues {
     amount: number
     shippingAddress: shippingAddressFormValues
+    ingredients?: { [key: string]: number }
+    substitutions?: any
+    coupon?: {
+        code: string
+        discount: number
+    } | null
 }
 
 export interface OrderWithShippingAddress extends Order {

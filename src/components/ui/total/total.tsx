@@ -19,7 +19,7 @@ import { Modal } from '../modal/modal'
 import { ShippingAddress } from '../shipping-address'
 import { PaymentForm } from '..'
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!)
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
 export const Total = () => {
     const session = useSession()
