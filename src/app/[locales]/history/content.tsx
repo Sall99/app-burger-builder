@@ -1,14 +1,14 @@
 'use client'
 
 import React from 'react'
-import { BiBox, BiCalendar, BiCheck, BiDollar, BiMap, BiReceipt } from 'react-icons/bi'
+import { BiBox, BiCalendar, BiCheck, BiDollar, BiMap, BiReceipt, BiShow } from 'react-icons/bi'
 import dayjs from 'dayjs'
+import Link from 'next/link'
 import { Package, ShoppingBag } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import useSWR from 'swr'
 
 import { getOrders } from '@/actions/orders'
-import { currentUserAction } from '@/actions/users'
 import { OrderWithShippingAddress } from '@/types'
 
 const Content = () => {
@@ -40,7 +40,6 @@ const Content = () => {
 
     return (
         <div className="max-w-6xl mx-auto my-8 min-h-screen px-8 sm:px-16">
-            {/* Header */}
             <div className="history-header">
                 <BiReceipt className="history-header-icon" />
                 <div>
@@ -52,7 +51,6 @@ const Content = () => {
                 </div>
             </div>
 
-            {/* Orders List */}
             {data && data?.orders?.length > 0 ? (
                 <div className="history-list">
                     {data.orders.map(
@@ -65,7 +63,6 @@ const Content = () => {
                             totalPrice
                         }: OrderWithShippingAddress) => (
                             <div key={id} className="history-order-card">
-                                {/* Card Header */}
                                 <div className="history-order-header">
                                     <div className="history-order-icon-wrapper">
                                         <ShoppingBag size={24} className="history-order-icon" />
@@ -94,9 +91,7 @@ const Content = () => {
                                     </div>
                                 </div>
 
-                                {/* Card Content */}
                                 <div className="history-order-content">
-                                    {/* Price */}
                                     <div className="history-order-detail">
                                         <div className="history-order-detail-icon">
                                             <BiDollar size={18} />
@@ -111,7 +106,6 @@ const Content = () => {
                                         </div>
                                     </div>
 
-                                    {/* Status */}
                                     <div className="history-order-detail">
                                         <div className="history-order-detail-icon">
                                             <BiBox size={18} />
@@ -126,7 +120,6 @@ const Content = () => {
                                         </div>
                                     </div>
 
-                                    {/* Shipping Address */}
                                     {shippingAdresse && (
                                         <div className="history-order-detail history-order-detail-full">
                                             <div className="history-order-detail-icon">
@@ -142,6 +135,15 @@ const Content = () => {
                                             </div>
                                         </div>
                                     )}
+                                </div>
+
+                                <div className="history-order-footer">
+                                    <Link
+                                        href={`/track-order?order_id=${id}`}
+                                        className="history-order-track-button">
+                                        <BiShow size={18} />
+                                        <span>{t('TrackOrder')}</span>
+                                    </Link>
                                 </div>
                             </div>
                         )

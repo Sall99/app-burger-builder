@@ -19,15 +19,15 @@ interface PaymentFormProps {
 
 export function PaymentForm({ setIsPaymeOpen }: PaymentFormProps) {
     const { shippingAddress } = useAppSelector(selectShippingAddress)
-    const { totalPrice } = useAppSelector(selectIngredients)
-    const { totalAdjustment: substitutionAdjustment } = useAppSelector(selectSubstitutions)
+    const { ingredients, totalPrice } = useAppSelector(selectIngredients)
+    const { totalAdjustment: substitutionAdjustment, appliedSubstitutions } =
+        useAppSelector(selectSubstitutions)
     const coupon = useAppSelector((state: RootState) => state.rootReducer.coupon)
     const [paymentError, setPaymentError] = useState<string | null>(null)
     const [loading, setLoading] = useState(false)
 
     const t = useTranslations('PaymentForm')
 
-    // Calculate final price with substitutions and discounts
     const priceAfterSubstitutions = totalPrice + substitutionAdjustment
     const finalPrice = priceAfterSubstitutions - (coupon.appliedDiscount || 0)
 
@@ -37,21 +37,26 @@ export function PaymentForm({ setIsPaymeOpen }: PaymentFormProps) {
         setPaymentError(null)
 
         try {
-            // Validate minimum order
             if (finalPrice <= 4) {
                 setPaymentError(t('MinimumOrderError') || 'Minimum order amount not met')
                 setLoading(false)
                 return
             }
 
-            // Create Stripe Checkout Session
             const result = await paymentAction({
                 amount: finalPrice,
-                shippingAddress
+                shippingAddress,
+                ingredients,
+                substitutions: appliedSubstitutions,
+                coupon: coupon.isValid
+                    ? {
+                          code: coupon.code,
+                          discount: coupon.appliedDiscount
+                      }
+                    : null
             })
 
             if (result && result.url) {
-                // Redirect to Stripe Checkout
                 window.location.href = result.url
             } else {
                 throw new Error('No checkout URL received')
@@ -72,7 +77,6 @@ export function PaymentForm({ setIsPaymeOpen }: PaymentFormProps) {
     return (
         <div className="payment-form-container">
             <form onSubmit={onSubmit} className="payment-form">
-                {/* Order Summary */}
                 <div className="payment-summary">
                     <h3 className="payment-summary-title">
                         {t('OrderSummary') || 'Order Summary'}
@@ -102,24 +106,21 @@ export function PaymentForm({ setIsPaymeOpen }: PaymentFormProps) {
                     </div>
                 </div>
 
-                {/* Info Message */}
                 <p className="payment-info-message">
                     {t('StripeRedirectMessage') ||
                         'You will be redirected to Stripe to complete your payment securely.'}
                 </p>
 
-                {/* Error Message */}
                 {paymentError && <div className="payment-error-message">{paymentError}</div>}
 
-                {/* Submit Button */}
                 <Button
+                    type="submit"
                     label={loading ? t('Redirecting') || 'Redirecting...' : t('PayNow')}
                     className="payment-submit-button"
                     loading={loading}
                     disabled={finalPrice <= 4}
                 />
 
-                {/* Security Note */}
                 <p className="payment-security-note">
                     🔒 {t('SecurePayment') || 'Secure payment powered by Stripe'}
                 </p>

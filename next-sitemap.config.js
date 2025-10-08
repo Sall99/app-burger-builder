@@ -15,7 +15,6 @@ module.exports = {
         additionalSitemaps: ['https://app-burger-builder.vercel.app/sitemap.xml']
     },
     transform: async (config, path) => {
-        // Custom transform for specific pages
         return {
             loc: path,
             changefreq: 'daily',

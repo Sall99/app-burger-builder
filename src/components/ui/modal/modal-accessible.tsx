@@ -12,14 +12,6 @@ interface ModalAccessibleProps {
     closeOnClickOutside?: boolean
 }
 
-/**
- * Accessible modal component with focus management
- * Features:
- * - Focus trap
- * - Escape key handling
- * - Screen reader announcements
- * - Proper ARIA attributes
- */
 export function ModalAccessible({
     isOpen,
     setIsOpen,
@@ -32,19 +24,15 @@ export function ModalAccessible({
 
     useEffect(() => {
         if (isOpen) {
-            // Store previously focused element
             previousFocusRef.current = document.activeElement as HTMLElement
 
-            // Announce modal opening
             announce(`${title} dialog opened`, 'polite')
 
-            // Set up focus trap
             if (modalRef.current) {
                 const cleanup = trapFocus(modalRef.current)
                 return cleanup
             }
         } else {
-            // Return focus when closed
             if (previousFocusRef.current) {
                 previousFocusRef.current.focus()
             }

@@ -24,7 +24,6 @@ export const LoyaltyDashboard: React.FC = () => {
 
     return (
         <div className="loyalty-dashboard">
-            {/* Header */}
             <div className="loyalty-header">
                 <BiTrophy className="loyalty-icon" aria-hidden="true" />
                 <div>
@@ -33,7 +32,6 @@ export const LoyaltyDashboard: React.FC = () => {
                 </div>
             </div>
 
-            {/* Tier Card */}
             <div
                 className="loyalty-tier-card"
                 style={{
@@ -50,7 +48,6 @@ export const LoyaltyDashboard: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Points Display */}
                 <div className="loyalty-points-display">
                     <div className="loyalty-points-item">
                         <span className="loyalty-points-value">{totalPoints}</span>
@@ -63,7 +60,6 @@ export const LoyaltyDashboard: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Progress to Next Tier */}
                 {nextTier && (
                     <div className="loyalty-progress-section">
                         <div className="loyalty-progress-header">
@@ -85,7 +81,6 @@ export const LoyaltyDashboard: React.FC = () => {
                     </div>
                 )}
 
-                {/* Max Tier Achieved */}
                 {!nextTier && (
                     <div className="loyalty-max-tier">
                         <span className="loyalty-max-tier-icon">🎉</span>
@@ -94,7 +89,6 @@ export const LoyaltyDashboard: React.FC = () => {
                 )}
             </div>
 
-            {/* Stats Grid */}
             <div className="loyalty-stats-grid">
                 <div className="loyalty-stat-card">
                     <span className="loyalty-stat-icon">💰</span>
@@ -108,7 +102,6 @@ export const LoyaltyDashboard: React.FC = () => {
                 </div>
             </div>
 
-            {/* Benefits List */}
             <div className="loyalty-benefits">
                 <h5 className="loyalty-benefits-title">{t('yourBenefits')}</h5>
                 <ul className="loyalty-benefits-list">
@@ -121,7 +114,6 @@ export const LoyaltyDashboard: React.FC = () => {
                 </ul>
             </div>
 
-            {/* All Tiers Preview */}
             <div className="loyalty-tiers-preview">
                 <h5 className="loyalty-tiers-title">{t('allTiers')}</h5>
                 <div className="loyalty-tiers-grid">

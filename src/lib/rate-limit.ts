@@ -1,13 +1,8 @@
-/**
- * Rate Limiting Middleware
- * Prevents abuse by limiting the number of requests per IP
- */
-
 import { NextRequest, NextResponse } from 'next/server'
 
 interface RateLimitOptions {
-    interval: number // Time window in milliseconds
-    uniqueTokenPerInterval: number // Max number of unique tokens per interval
+    interval: number
+    uniqueTokenPerInterval: number
 }
 
 interface TokenCount {
@@ -15,14 +10,9 @@ interface TokenCount {
     resetTime: number
 }
 
-// In-memory store for rate limiting (use Redis in production)
 const rateLimitMap = new Map<string, TokenCount>()
 
-/**
- * Gets the client IP address from the request
- */
 function getClientIp(request: NextRequest): string {
-    // Check various headers that might contain the real IP
     const forwarded = request.headers.get('x-forwarded-for')
     const real = request.headers.get('x-real-ip')
     const cfConnectingIp = request.headers.get('cf-connecting-ip')
@@ -56,7 +46,6 @@ export function rateLimit(options: RateLimitOptions) {
             const tokenCount = rateLimitMap.get(token)
 
             if (!tokenCount) {
-                // First request from this token
                 rateLimitMap.set(token, {
                     count: 1,
                     resetTime: now + interval
@@ -64,7 +53,6 @@ export function rateLimit(options: RateLimitOptions) {
                 return { success: true, remaining: limit - 1 }
             }
 
-            // Check if we need to reset
             if (now > tokenCount.resetTime) {
                 rateLimitMap.set(token, {
                     count: 1,
@@ -73,7 +61,6 @@ export function rateLimit(options: RateLimitOptions) {
                 return { success: true, remaining: limit - 1 }
             }
 
-            // Check if limit exceeded
             if (tokenCount.count >= limit) {
                 const resetIn = Math.ceil((tokenCount.resetTime - now) / 1000)
                 return {
@@ -96,38 +83,28 @@ export function rateLimit(options: RateLimitOptions) {
     }
 }
 
-/**
- * Default rate limiter configurations
- */
 export const limiter = {
-    // 10 requests per minute for authentication
     auth: rateLimit({
-        interval: 60 * 1000, // 1 minute
+        interval: 60 * 1000,
         uniqueTokenPerInterval: 500
     }),
 
-    // 30 requests per minute for general API
     api: rateLimit({
-        interval: 60 * 1000, // 1 minute
+        interval: 60 * 1000,
         uniqueTokenPerInterval: 500
     }),
 
-    // 100 requests per minute for read operations
     read: rateLimit({
-        interval: 60 * 1000, // 1 minute
+        interval: 60 * 1000,
         uniqueTokenPerInterval: 500
     }),
 
-    // 5 requests per minute for write operations (orders, payments)
     write: rateLimit({
-        interval: 60 * 1000, // 1 minute
+        interval: 60 * 1000,
         uniqueTokenPerInterval: 500
     })
 }
 
-/**
- * Middleware to apply rate limiting
- */
 export async function withRateLimit(
     request: NextRequest,
     limiterType: keyof typeof limiter,
@@ -160,10 +137,6 @@ export async function withRateLimit(
     return { success: true }
 }
 
-/**
- * Cleanup function to remove old entries
- * Call this periodically in production
- */
 export function cleanupRateLimitStore() {
     const now = Date.now()
     const keysToDelete: string[] = []
@@ -177,7 +150,6 @@ export function cleanupRateLimitStore() {
     keysToDelete.forEach((key) => rateLimitMap.delete(key))
 }
 
-// Cleanup every 5 minutes
 if (typeof window === 'undefined') {
     setInterval(cleanupRateLimitStore, 5 * 60 * 1000)
 }

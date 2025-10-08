@@ -46,7 +46,6 @@ export function SavedTemplates() {
 
     return (
         <div className="saved-templates-container">
-            {/* Header */}
             <div className="saved-templates-header" onClick={() => setIsOpen(!isOpen)}>
                 <BiBookmark className="saved-templates-icon" aria-hidden="true" />
                 <div className="saved-templates-title-wrapper">
@@ -61,10 +60,8 @@ export function SavedTemplates() {
                 <span className="saved-templates-arrow">{isOpen ? '▼' : '▶'}</span>
             </div>
 
-            {/* Content */}
             {isOpen && (
                 <div className="saved-templates-content">
-                    {/* Save Current Burger */}
                     {hasIngredients && (
                         <div className="save-current-section">
                             {!showSaveDialog ? (
@@ -108,7 +105,6 @@ export function SavedTemplates() {
                         </div>
                     )}
 
-                    {/* Saved Templates List */}
                     {savedTemplates.length === 0 ? (
                         <div className="templates-empty-state">
                             <Save size={48} className="templates-empty-icon" />

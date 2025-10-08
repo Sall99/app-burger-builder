@@ -65,7 +65,6 @@ const ingredientSlice = createSlice({
         addIngredients(state, action: PayloadAction<string>) {
             const { payload } = action
 
-            // Save current state to history before making changes
             if (state.historyIndex < state.history.length - 1) {
                 state.history = state.history.slice(0, state.historyIndex + 1)
             }
@@ -77,17 +76,14 @@ const ingredientSlice = createSlice({
             })
             state.historyIndex++
 
-            // Limit history to 20 items
             if (state.history.length > 20) {
                 state.history.shift()
                 state.historyIndex--
             }
 
-            // Add ingredient
             state.ingredients[payload] += 1
             state.totalPrice = Number((state.totalPrice + state.prices[payload]).toFixed(2))
 
-            // Add to order array for rendering
             state.ingredientOrder.push({
                 id: `${payload}-${Date.now()}-${Math.random()}`,
                 type: payload
@@ -98,7 +94,6 @@ const ingredientSlice = createSlice({
         removeIngredients(state, action: PayloadAction<string>) {
             const { payload } = action
             if (state.ingredients[payload] > 0) {
-                // Save to history
                 if (state.historyIndex < state.history.length - 1) {
                     state.history = state.history.slice(0, state.historyIndex + 1)
                 }
@@ -115,11 +110,9 @@ const ingredientSlice = createSlice({
                     state.historyIndex--
                 }
 
-                // Remove ingredient
                 state.ingredients[payload] -= 1
                 state.totalPrice = Number((state.totalPrice - state.prices[payload]).toFixed(2))
 
-                // Remove from order array (last instance)
                 const index = state.ingredientOrder
                     .map((item, idx) => (item.type === payload ? idx : -1))
                     .filter((idx) => idx !== -1)
@@ -158,7 +151,6 @@ const ingredientSlice = createSlice({
             }
         },
         clearBurger(state) {
-            // Save to history
             if (state.ingredientOrder.length > 0) {
                 state.history.push({
                     ingredients: { ...state.ingredients },
@@ -168,7 +160,6 @@ const ingredientSlice = createSlice({
                 state.historyIndex++
             }
 
-            // Reset
             state.ingredients = ingredientNames.reduce(
                 (acc, ingredient) => {
                     acc[ingredient] = 0
@@ -191,7 +182,6 @@ const ingredientSlice = createSlice({
             }
             state.savedTemplates.push(template)
 
-            // Limit to 10 saved templates
             if (state.savedTemplates.length > 10) {
                 state.savedTemplates.shift()
             }
@@ -199,7 +189,6 @@ const ingredientSlice = createSlice({
         loadTemplate(state, action: PayloadAction<string>) {
             const template = state.savedTemplates.find((t) => t.id === action.payload)
             if (template) {
-                // Save to history
                 state.history.push({
                     ingredients: { ...state.ingredients },
                     ingredientOrder: [...state.ingredientOrder],
@@ -207,7 +196,6 @@ const ingredientSlice = createSlice({
                 })
                 state.historyIndex++
 
-                // Load template
                 state.ingredients = { ...template.ingredients }
                 state.ingredientOrder = [...template.ingredientOrder]
                 state.totalPrice = template.totalPrice
@@ -221,7 +209,6 @@ const ingredientSlice = createSlice({
             state.lastAction = null
         },
         setIngredients(state, action: PayloadAction<{ [key: string]: number }>) {
-            // Save to history
             state.history.push({
                 ingredients: { ...state.ingredients },
                 ingredientOrder: [...state.ingredientOrder],
@@ -229,10 +216,8 @@ const ingredientSlice = createSlice({
             })
             state.historyIndex++
 
-            // Set ingredients
             state.ingredients = { ...action.payload }
 
-            // Rebuild ingredient order array
             state.ingredientOrder = []
             Object.entries(action.payload).forEach(([type, count]) => {
                 for (let i = 0; i < count; i++) {
@@ -243,15 +228,13 @@ const ingredientSlice = createSlice({
                 }
             })
 
-            // Recalculate total price
             state.totalPrice = Object.entries(action.payload).reduce(
                 (total, [type, count]) => total + state.prices[type] * count,
-                4 // Base price
+                4
             )
             state.lastAction = null
         },
         clearIngredients(state) {
-            // Save to history
             if (state.ingredientOrder.length > 0) {
                 state.history.push({
                     ingredients: { ...state.ingredients },
@@ -261,7 +244,6 @@ const ingredientSlice = createSlice({
                 state.historyIndex++
             }
 
-            // Clear all ingredients
             state.ingredients = ingredientNames.reduce(
                 (acc, ingredient) => {
                     acc[ingredient] = 0

@@ -17,12 +17,15 @@ model User {
   emailVerified  DateTime?
   image          String?
   hashedPassword String?
+  role           UserRole  @default(USER)
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
   accounts       Account[]
   Order          Order[]
 
-  couponUsage CouponUsage[]
+  couponUsage     CouponUsage[]
+  loyalty         Loyalty?
+  redeemedRewards RedeemedReward[]
 }
 
 model Account {
@@ -109,4 +112,52 @@ model CouponUsage {
   usedAt   DateTime @default(now())
 
   @@map("coupon_usage")
+}
+
+model Loyalty {
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String      @unique @db.ObjectId
+  totalPoints     Int         @default(0)
+  availablePoints Int         @default(0)
+  currentTier     LoyaltyTier @default(BRONZE)
+  lifetimeSpend   Float       @default(0)
+  ordersCount     Int         @default(0)
+  joinedAt        DateTime    @default(now())
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("loyalties")
+}
+
+model RedeemedReward {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String    @db.ObjectId
+  rewardId   String
+  rewardName String
+  pointsCost Int
+  redeemedAt DateTime  @default(now())
+  expiresAt  DateTime?
+  isUsed     Boolean   @default(false)
+  usedAt     DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("redeemed_rewards")
+}
+
+enum LoyaltyTier {
+  BRONZE
+  SILVER
+  GOLD
+  PLATINUM
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  SUPER_ADMIN
 }

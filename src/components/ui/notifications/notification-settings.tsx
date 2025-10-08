@@ -25,7 +25,6 @@ export const NotificationSettings: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [registration, setRegistration] = useState<ServiceWorkerRegistration | null>(null)
 
-    // Notification preferences
     const [preferences, setPreferences] = useState({
         orderUpdates: true,
         promotions: true,
@@ -34,16 +33,13 @@ export const NotificationSettings: React.FC = () => {
     })
 
     useEffect(() => {
-        // Check support
         setIsSupported(isPushNotificationSupported())
         setPermission(getNotificationPermission())
 
-        // Register service worker
         if (isPushNotificationSupported()) {
             registerServiceWorker().then((reg) => {
                 if (reg) {
                     setRegistration(reg)
-                    // Check if already subscribed
                     isPushSubscribed(reg).then(setIsSubscribed)
                 }
             })
@@ -59,20 +55,16 @@ export const NotificationSettings: React.FC = () => {
         setIsLoading(true)
 
         try {
-            // Request permission
             const perm = await requestNotificationPermission()
             setPermission(perm)
 
             if (perm === 'granted') {
-                // Subscribe to push
                 const subscription = await subscribeToPushNotifications(registration)
 
                 if (subscription) {
-                    // Send subscription to server
                     await sendSubscriptionToServer(subscription)
                     setIsSubscribed(true)
 
-                    // Send test notification
                     await sendTestNotification()
                 }
             }
@@ -131,7 +123,6 @@ export const NotificationSettings: React.FC = () => {
 
     return (
         <div className="notifications-settings">
-            {/* Header */}
             <div className="notifications-header">
                 <MdNotifications className="notifications-icon" />
                 <div>
@@ -140,7 +131,6 @@ export const NotificationSettings: React.FC = () => {
                 </div>
             </div>
 
-            {/* Status Banner */}
             <div
                 className={`notifications-status ${isSubscribed ? 'notifications-status-enabled' : 'notifications-status-disabled'}`}>
                 <div className="notifications-status-content">
@@ -158,7 +148,6 @@ export const NotificationSettings: React.FC = () => {
                 </div>
             </div>
 
-            {/* Permission State */}
             {permission === 'denied' && (
                 <div className="notifications-warning">
                     <p>{t('permissionDenied')}</p>
@@ -166,7 +155,6 @@ export const NotificationSettings: React.FC = () => {
                 </div>
             )}
 
-            {/* Main Toggle */}
             <div className="notifications-main-toggle">
                 {!isSubscribed ? (
                     <button
@@ -194,7 +182,6 @@ export const NotificationSettings: React.FC = () => {
                 )}
             </div>
 
-            {/* Preferences */}
             {isSubscribed && (
                 <div className="notifications-preferences">
                     <h4 className="notifications-preferences-title">{t('preferences')}</h4>
@@ -269,7 +256,6 @@ export const NotificationSettings: React.FC = () => {
                 </div>
             )}
 
-            {/* Info */}
             <div className="notifications-info">
                 <h5 className="notifications-info-title">{t('whatYoullReceive')}</h5>
                 <ul className="notifications-info-list">

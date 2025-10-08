@@ -9,10 +9,8 @@ export default function LoyaltyPage() {
     return (
         <LoyaltyInitializer>
             <section className="min-h-screen py-8">
-                {/* Loyalty Dashboard */}
                 <LoyaltyDashboard />
 
-                {/* Rewards Catalog */}
                 <RewardsCatalog />
             </section>
         </LoyaltyInitializer>

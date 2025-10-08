@@ -15,10 +15,6 @@ interface State {
     error: Error | null
 }
 
-/**
- * React Error Boundary component
- * Catches JavaScript errors anywhere in the child component tree
- */
 export class ErrorBoundary extends Component<Props, State> {
     constructor(props: Props) {
         super(props)
@@ -36,24 +32,20 @@ export class ErrorBoundary extends Component<Props, State> {
     }
 
     componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-        // Log error to monitoring service
         logError(error, {
             componentStack: errorInfo.componentStack ?? undefined,
             type: 'ErrorBoundary'
         })
 
-        // Call custom error handler if provided
         this.props.onError?.(error, errorInfo)
     }
 
     render(): ReactNode {
         if (this.state.hasError) {
-            // Custom fallback UI if provided
             if (this.props.fallback) {
                 return this.props.fallback
             }
 
-            // Default fallback UI
             return (
                 <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
                     <div className="max-w-md w-full text-center">
@@ -102,9 +94,6 @@ export class ErrorBoundary extends Component<Props, State> {
     }
 }
 
-/**
- * Higher-order component to wrap components with ErrorBoundary
- */
 export function withErrorBoundary<P extends object>(
     Component: React.ComponentType<P>,
     fallback?: ReactNode

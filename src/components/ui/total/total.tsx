@@ -19,7 +19,7 @@ import { Modal } from '../modal/modal'
 import { ShippingAddress } from '../shipping-address'
 import { PaymentForm } from '..'
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!)
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
 export const Total = () => {
     const session = useSession()
@@ -58,15 +58,12 @@ export const Total = () => {
 
     return (
         <div className="total-card-container">
-            {/* Header */}
             <div className="total-card-header">
                 <BiReceipt className="total-card-icon" aria-hidden="true" />
                 <h3 className="total-card-title">{t('OrderSummary') || 'Order Summary'}</h3>
             </div>
 
-            {/* Content */}
             <div className="total-card-content">
-                {/* Ingredients List */}
                 <div className="total-ingredients-list">
                     <div className="total-ingredient-row">
                         <span className="total-ingredient-label">{t('Meat')}</span>
@@ -86,7 +83,6 @@ export const Total = () => {
                     </div>
                 </div>
 
-                {/* Subtotal */}
                 <div className="total-price-row total-subtotal">
                     <span className="total-price-label">{t('Subtotal')}</span>
                     <div className="total-price-value">
@@ -95,7 +91,6 @@ export const Total = () => {
                     </div>
                 </div>
 
-                {/* Substitutions */}
                 {substitutionAdjustment !== 0 && (
                     <div
                         className={`total-price-row ${substitutionAdjustment > 0 ? 'total-adjustment-positive' : 'total-adjustment-negative'}`}>
@@ -112,7 +107,6 @@ export const Total = () => {
                     </div>
                 )}
 
-                {/* Discount */}
                 {coupon.isValid && coupon.appliedDiscount > 0 && (
                     <div className="total-price-row total-discount">
                         <span className="total-discount-label">{t('Discount') || 'Discount'}</span>
@@ -123,12 +117,10 @@ export const Total = () => {
                     </div>
                 )}
 
-                {/* Coupon Input */}
                 <div className="total-coupon-section">
                     <CouponInput orderTotal={totalPrice} />
                 </div>
 
-                {/* Final Total */}
                 <div className="total-price-row total-final">
                     <span className="total-final-label">{t('Total')}</span>
                     <div className="total-final-value">
@@ -137,7 +129,6 @@ export const Total = () => {
                     </div>
                 </div>
 
-                {/* Order Button */}
                 <button
                     onClick={handleOrder}
                     disabled={finalPrice <= 4}

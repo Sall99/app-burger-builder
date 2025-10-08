@@ -19,7 +19,7 @@ import { Modal } from '../modal/modal'
 import { ShippingAddress } from '../shipping-address'
 import { PaymentForm } from '..'
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!)
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
 export const TotalMobile = () => {
     const session = useSession()
@@ -58,13 +58,11 @@ export const TotalMobile = () => {
 
     return (
         <div className="total-card-mobile">
-            {/* Header */}
             <div className="total-card-mobile-header">
                 <BiReceipt className="total-card-mobile-icon" />
                 <h3 className="total-card-mobile-title">{t('OrderSummary') || 'Order Summary'}</h3>
             </div>
 
-            {/* Ingredients Grid */}
             <div className="total-mobile-grid">
                 <div className="total-mobile-grid-item">
                     <span className="total-mobile-label">{t('Meat')}</span>
@@ -84,7 +82,6 @@ export const TotalMobile = () => {
                 </div>
             </div>
 
-            {/* Price Summary */}
             <div className="total-mobile-summary">
                 <div className="total-mobile-row">
                     <span className="total-mobile-summary-label">{t('Subtotal')}</span>
@@ -118,7 +115,6 @@ export const TotalMobile = () => {
                     </div>
                 )}
 
-                {/* Coupon */}
                 <div className="total-mobile-coupon">
                     <CouponInput orderTotal={totalPrice} />
                 </div>
@@ -132,7 +128,6 @@ export const TotalMobile = () => {
                 </div>
             </div>
 
-            {/* Order Button */}
             <button
                 onClick={handleOrder}
                 disabled={finalPrice <= 4}

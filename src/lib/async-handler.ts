@@ -1,11 +1,3 @@
-/**
- * Utility functions for safe async error handling
- */
-
-/**
- * Type-safe async handler that returns [error, data] tuple
- * Inspired by Go's error handling pattern
- */
 export async function safeAsync<T>(promise: Promise<T>): Promise<[null, T] | [Error, null]> {
     try {
         const data = await promise

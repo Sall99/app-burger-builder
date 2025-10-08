@@ -92,7 +92,6 @@ export function generateMetadata({
     }
 }
 
-// Generate JSON-LD structured data for better SEO
 export function generateJsonLd(
     type: 'Organization' | 'WebSite' | 'Product' | 'Restaurant',
     data?: any

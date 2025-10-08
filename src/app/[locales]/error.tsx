@@ -5,10 +5,6 @@ import { useTranslations } from 'next-intl'
 
 import { logError } from '@/lib/error-logger'
 
-/**
- * Next.js Error Component
- * Catches errors in the app directory route segments
- */
 export default function Error({
     error,
     reset
@@ -19,7 +15,6 @@ export default function Error({
     const t = useTranslations('Pages.Error')
 
     useEffect(() => {
-        // Log error when component mounts
         logError(error, {
             digest: error.digest,
             type: 'PAGE_ERROR'

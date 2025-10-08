@@ -6,10 +6,6 @@ interface SkipLinkProps {
     text?: string
 }
 
-/**
- * Skip navigation link for keyboard users
- * Allows users to skip directly to main content
- */
 export const SkipLink = ({ text = 'Skip to main content' }: SkipLinkProps) => {
     return (
         <Link

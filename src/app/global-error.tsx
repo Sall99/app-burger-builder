@@ -4,11 +4,6 @@ import { useEffect } from 'react'
 
 import { logError } from '@/lib/error-logger'
 
-/**
- * Global Error Component
- * Catches errors in the root layout
- * Note: This file MUST be in the app directory (not app/[locales])
- */
 export default function GlobalError({
     error,
     reset

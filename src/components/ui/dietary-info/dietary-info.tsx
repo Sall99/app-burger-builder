@@ -26,7 +26,6 @@ export const DietaryInfo: React.FC = () => {
 
     return (
         <div className="dietary-info-container">
-            {/* Header - Always Visible */}
             <button
                 onClick={() => setIsExpanded(!isExpanded)}
                 className="dietary-header"
@@ -47,7 +46,6 @@ export const DietaryInfo: React.FC = () => {
                     </div>
                 </div>
                 <div className="dietary-header-right">
-                    {/* Dietary Tags */}
                     {dietaryTags.length > 0 && (
                         <div className="dietary-tags-desktop">
                             {dietaryTags.map((tag) => (
@@ -74,10 +72,8 @@ export const DietaryInfo: React.FC = () => {
                 </div>
             </button>
 
-            {/* Expanded Content */}
             {isExpanded && (
                 <div id="dietary-details" className="dietary-content">
-                    {/* Nutritional Information */}
                     <div className="dietary-section">
                         <h4 className="dietary-section-title">{t('nutritionalInfo')}</h4>
                         <div className="dietary-nutrition-grid">
@@ -114,7 +110,6 @@ export const DietaryInfo: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Allergen Warning */}
                     {allergenList.length > 0 && (
                         <div className="dietary-allergen-section">
                             <div className="dietary-allergen-content">
@@ -135,7 +130,6 @@ export const DietaryInfo: React.FC = () => {
                         </div>
                     )}
 
-                    {/* Dietary Tags (Mobile) */}
                     {dietaryTags.length > 0 && (
                         <div className="dietary-tags-mobile">
                             <h4 className="dietary-section-title">{t('dietaryTags')}</h4>
@@ -150,7 +144,6 @@ export const DietaryInfo: React.FC = () => {
                         </div>
                     )}
 
-                    {/* Info Note */}
                     <div className="dietary-disclaimer">{t('disclaimer')}</div>
                 </div>
             )}

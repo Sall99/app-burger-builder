@@ -18,10 +18,9 @@ export const DeliveryTime: React.FC = () => {
     const t = useTranslations('DeliveryTime')
     const { ingredients } = useSelector(selectIngredients)
 
-    // Calculate delivery time based on current burger
     const deliveryEstimate = useMemo(() => {
         return calculateDeliveryTime(ingredients, {
-            distance: 5 // default 5 miles, could be dynamic based on user location
+            distance: 5
         })
     }, [ingredients])
 
@@ -30,7 +29,6 @@ export const DeliveryTime: React.FC = () => {
 
     return (
         <div className="delivery-time-container">
-            {/* Main ETA Display */}
             <div className="delivery-time-header">
                 <MdDeliveryDining className="delivery-icon" aria-hidden="true" />
                 <div className="delivery-time-content">
@@ -47,7 +45,6 @@ export const DeliveryTime: React.FC = () => {
                 </div>
             </div>
 
-            {/* Peak Hour Warning */}
             {deliveryEstimate.isPeakHour && (
                 <div className="delivery-time-peak-warning">
                     <span className="delivery-peak-badge">{t('peakHours')}</span>
@@ -55,7 +52,6 @@ export const DeliveryTime: React.FC = () => {
                 </div>
             )}
 
-            {/* Breakdown Details */}
             <div className="delivery-time-breakdown">
                 <div className="delivery-breakdown-item">
                     <span className="delivery-breakdown-label">{t('preparation')}</span>
@@ -72,7 +68,6 @@ export const DeliveryTime: React.FC = () => {
                 </div>
             </div>
 
-            {/* Info Note */}
             <div className="delivery-time-note">{t('note')}</div>
         </div>
     )

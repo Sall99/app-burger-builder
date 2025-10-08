@@ -1,9 +1,8 @@
+'use client'
+
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 
-/**
- * Next.js 404 Not Found Page
- */
 export default function NotFound() {
     const t = useTranslations('Pages.NotFound')
     return (
