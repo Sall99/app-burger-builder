@@ -43,7 +43,7 @@ async function createOrder(
 export async function POST(req: NextRequest) {
     try {
         const { data } = await req.json()
-        const { amount, shippingAddress } = data
+        const { amount, shippingAddress, ingredients, substitutions, coupon } = data
 
         if (!amount || !shippingAddress) {
             return NextResponse.json({ error: 'Invalid request data' }, { status: 400 })
@@ -64,6 +64,14 @@ export async function POST(req: NextRequest) {
 
         const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
 
+        // Build order description
+        const ingredientsList = ingredients
+            ? Object.entries(ingredients)
+                  .filter(([_, count]) => (count as number) > 0)
+                  .map(([name, count]) => `${name}: ${count}`)
+                  .join(', ')
+            : 'Custom burger'
+
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             customer_email: user.email,
@@ -73,7 +81,7 @@ export async function POST(req: NextRequest) {
                         currency: 'usd',
                         product_data: {
                             name: 'Burger Order',
-                            description: 'Custom burger order'
+                            description: `Custom burger order - ${ingredientsList}`
                         },
                         unit_amount: Math.round(amount * 100) // Convert to cents
                     },
@@ -85,7 +93,11 @@ export async function POST(req: NextRequest) {
             cancel_url: `${baseUrl}/cancel`,
             metadata: {
                 userId: user.id,
-                shippingAddress: JSON.stringify(shippingAddress)
+                shippingAddress: JSON.stringify(shippingAddress),
+                ingredients: ingredients ? JSON.stringify(ingredients) : '',
+                substitutions: substitutions ? JSON.stringify(substitutions) : '',
+                coupon: coupon ? JSON.stringify(coupon) : '',
+                orderAmount: amount.toString()
             }
         })
 
