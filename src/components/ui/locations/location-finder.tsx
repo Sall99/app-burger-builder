@@ -240,10 +240,16 @@ export const LocationFinder: React.FC = () => {
                                 </button>
                             </div>
 
-                            <div className="location-map-placeholder">
-                                <BiMap className="location-map-icon" />
-                                <p>{t('mapPlaceholder')}</p>
-                                <p className="location-map-hint">{t('mapHint')}</p>
+                            <div className="location-map-container">
+                                <iframe
+                                    width="100%"
+                                    height="450"
+                                    style={{ border: 0, borderRadius: '0.5rem' }}
+                                    loading="lazy"
+                                    allowFullScreen
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                    src={`https://www.google.com/maps?q=${selectedLocation.coordinates.lat},${selectedLocation.coordinates.lng}&hl=en&z=15&output=embed`}
+                                    title={`Map showing ${selectedLocation.name}`}></iframe>
                             </div>
                         </>
                     ) : (
