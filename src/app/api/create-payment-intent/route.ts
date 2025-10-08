@@ -64,6 +64,9 @@ export async function POST(req: NextRequest) {
 
         const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
 
+        // Create order first to get the ID
+        const order = await createOrder(user.id, amount, shippingAddress, false)
+
         // Build order description
         const ingredientsList = ingredients
             ? Object.entries(ingredients)
@@ -93,6 +96,7 @@ export async function POST(req: NextRequest) {
             cancel_url: `${baseUrl}/cancel`,
             metadata: {
                 userId: user.id,
+                orderId: order.id,
                 shippingAddress: JSON.stringify(shippingAddress),
                 ingredients: ingredients ? JSON.stringify(ingredients) : '',
                 substitutions: substitutions ? JSON.stringify(substitutions) : '',
@@ -100,8 +104,6 @@ export async function POST(req: NextRequest) {
                 orderAmount: amount.toString()
             }
         })
-
-        const order = await createOrder(user.id, amount, shippingAddress, false)
 
         return NextResponse.json(
             {

@@ -54,6 +54,18 @@ const Content: React.FC = () => {
         () => getOrderById(submittedId!)
     )
 
+    // Auto-fill and submit if order_id is in URL
+    React.useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const params = new URLSearchParams(window.location.search)
+            const urlOrderId = params.get('order_id')
+            if (urlOrderId && !submittedId) {
+                setOrderId(urlOrderId)
+                setSubmittedId(urlOrderId)
+            }
+        }
+    }, [])
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         if (orderId.trim()) {

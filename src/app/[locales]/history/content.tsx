@@ -1,8 +1,9 @@
 'use client'
 
 import React from 'react'
-import { BiBox, BiCalendar, BiCheck, BiDollar, BiMap, BiReceipt } from 'react-icons/bi'
+import { BiBox, BiCalendar, BiCheck, BiDollar, BiMap, BiReceipt, BiShow } from 'react-icons/bi'
 import dayjs from 'dayjs'
+import Link from 'next/link'
 import { Package, ShoppingBag } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import useSWR from 'swr'
@@ -134,6 +135,15 @@ const Content = () => {
                                             </div>
                                         </div>
                                     )}
+                                </div>
+
+                                <div className="history-order-footer">
+                                    <Link
+                                        href={`/track-order?order_id=${id}`}
+                                        className="history-order-track-button">
+                                        <BiShow size={18} />
+                                        <span>{t('TrackOrder')}</span>
+                                    </Link>
                                 </div>
                             </div>
                         )
