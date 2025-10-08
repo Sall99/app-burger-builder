@@ -53,6 +53,7 @@ export default function SignInForm() {
     const {
         handleSubmit,
         register,
+        setValue,
         formState: { errors }
     } = useForm<SignInFormValues>({
         resolver: yupResolver(signInFormSchema)
@@ -67,9 +68,35 @@ export default function SignInForm() {
         [onSignIn]
     )
 
+    const fillTestData = () => {
+        setValue('email', 'test@test.com')
+        setValue('password', 'testtest')
+    }
+
     return (
         <AuthContainer title={t('signIn')}>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            {/* Test Credentials Card */}
+            <div className="mt-6 mb-6 p-3 bg-primary-300 border border-primary-100 rounded-lg">
+                <h3 className="text-sm font-semibold text-primary-600 mb-2">
+                    🧪 {t('testCredentials')}
+                </h3>
+                <div className="text-xs text-gray-100 space-y-1 mb-3">
+                    <p>
+                        <span className="font-medium">Email:</span> test@test.com
+                    </p>
+                    <p>
+                        <span className="font-medium">Password:</span> testtest
+                    </p>
+                </div>
+                <button
+                    type="button"
+                    onClick={fillTestData}
+                    className="w-full py-2 px-4 bg-primary-100 hover:bg-primary-200 text-white text-sm rounded-md transition-colors focus:outline-none focus:ring-1 focus:ring-primary-200">
+                    {t('fillTestData')}
+                </button>
+            </div>
+
+            <form onSubmit={handleSubmit(onSubmit)} className="mt-6">
                 {inputFields.map(({ name, type, placeholder }) => (
                     <Input
                         key={name}

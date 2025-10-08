@@ -33,7 +33,7 @@ export default function Home() {
 
                     <BuilderAnimated ingredients={ingredients} />
 
-                    <div className="w-full max-w-4xl mt-8">
+                    <div className="w-full max-w-[70rem] mt-20">
                         <Controls />
                     </div>
                 </section>

@@ -41,6 +41,27 @@ export const authOptions: AuthOptions = {
             }
         })
     ],
+    callbacks: {
+        async jwt({ token, user, trigger, session }) {
+            if (user) {
+                const { role, id } = user as typeof user & { role?: string; id?: string };
+                token.role = role;
+                token.id = id;
+            }
+            if (trigger === 'update' && session) {
+                token = { ...token, ...session };
+            }
+            
+            return token;
+        },
+        async session({ session, token }) {
+            if (session.user) {
+                (session.user as typeof session.user & { role?: string; id?: string }).role = token.role as string;
+                (session.user as typeof session.user & { role?: string; id?: string }).id = token.id as string;
+            }
+            return session;
+        }
+    },
     pages: {
         signIn: '/'
     },

@@ -50,10 +50,11 @@ export const Input: FC<InputProps> = ({
     const hasError = errors && errors[name];
     const errorMessage = hasError ? errors[name].message : '';
     const inputClass = clsx(
-        'border-b border-gray-200 w-full outline-none focus:outline-none mb-4 text-gray-100',
+        'block w-full px-2 py-2 pt-5 rounded-md border bg-white text-gray-100 focus:outline-none focus:ring-1 focus:ring-primary-100 focus:border-primary-100 transition-all text-sm',
         {
-            'border-red-400 border-opacity-90': hasError,
-            'bg-gray-100 cursor-not-allowed': disabled
+            'border-red-400 focus:ring-red-200': hasError,
+            'border-gray-200': !hasError,
+            'bg-gray-50 text-gray-400 cursor-not-allowed': disabled
         },
         classname
     );
@@ -82,16 +83,16 @@ export const Input: FC<InputProps> = ({
                     aria-invalid={hasError ? 'true' : 'false'}
                     aria-describedby={hasError ? `${name}-error` : undefined}
                 />
-                <label
-                    htmlFor={id || name}
-                    className="absolute left-0 top-0 text-sm text-gray-400 transition-all pointer-events-none">
+                <span className="text-gray-300 text-sm px-2">
                     {placeholder}
-                </label>
+                </span>
             </div>
             {hasError && (
-                <span id={`${name}-error`} className="text-red-400 text-xs opacity-90">
-                    {errorMessage}
-                </span>
+                <div className="mt-1">
+                    <span id={`${name}-error`} className="text-red-500 text-xs">
+                        {errorMessage}
+                    </span>
+                </div>
             )}
         </div>
     );
