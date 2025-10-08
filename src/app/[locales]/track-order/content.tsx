@@ -64,7 +64,7 @@ const Content: React.FC = () => {
                 setSubmittedId(urlOrderId)
             }
         }
-    }, [])
+    }, [submittedId])
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()

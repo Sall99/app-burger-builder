@@ -3,8 +3,8 @@
 import React from 'react'
 import { BiBox, BiCalendar, BiCheck, BiDollar, BiMap, BiReceipt, BiShow } from 'react-icons/bi'
 import dayjs from 'dayjs'
-import Link from 'next/link'
 import { Package, ShoppingBag } from 'lucide-react'
+import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import useSWR from 'swr'
 
