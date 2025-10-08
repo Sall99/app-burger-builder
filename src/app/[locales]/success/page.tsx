@@ -11,17 +11,31 @@ export default function SuccessPage() {
     const sessionId = searchParams.get('session_id')
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
+    const [orderId, setOrderId] = useState<string | null>(null)
     const t = useTranslations('Success')
 
     useEffect(() => {
-        if (sessionId) {
-            setTimeout(() => {
+        const fetchOrderId = async () => {
+            if (sessionId) {
+                try {
+                    const response = await fetch(`/api/stripe/session?session_id=${sessionId}`)
+                    const data = await response.json()
+
+                    if (data.orderId) {
+                        setOrderId(data.orderId)
+                    }
+                    setLoading(false)
+                } catch (err) {
+                    console.error('Error fetching order ID:', err)
+                    setLoading(false)
+                }
+            } else {
+                setError('No session ID found')
                 setLoading(false)
-            }, 1000)
-        } else {
-            setError('No session ID found')
-            setLoading(false)
+            }
         }
+
+        fetchOrderId()
     }, [sessionId])
 
     if (loading) {
@@ -87,22 +101,35 @@ export default function SuccessPage() {
                     </div>
                 </div>
 
-                <div className="bg-gray-50 rounded-lg p-4 mb-6">
-                    <div className="flex items-center gap-2 mb-2">
-                        <BiReceipt className="text-gray-600" />
-                        <span className="text-sm font-medium text-gray-700">
-                            {t('sessionId') || 'Session ID'}
-                        </span>
+                {orderId && (
+                    <div className="bg-gray-50 rounded-lg p-4 mb-6">
+                        <div className="flex items-center gap-2 mb-2">
+                            <BiReceipt className="text-gray-600" />
+                            <span className="text-sm font-medium text-gray-700">
+                                {t('orderId') || 'Order ID'}
+                            </span>
+                        </div>
+                        <div className="flex items-center justify-between ml-6">
+                            <p className="text-xs text-gray-600 font-mono break-all">{orderId}</p>
+                            <button
+                                onClick={() => {
+                                    navigator.clipboard.writeText(orderId)
+                                }}
+                                className="ml-2 text-xs text-primary-200 hover:text-primary-600 font-medium">
+                                Copy
+                            </button>
+                        </div>
                     </div>
-                    <p className="text-xs text-gray-600 font-mono break-all ml-6">{sessionId}</p>
-                </div>
+                )}
 
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                    <Link
-                        href="/track-order"
-                        className="bg-primary-200 hover:bg-primary-600 text-white font-medium py-2 px-5 rounded text-sm transition-colors text-center">
-                        {t('trackOrder') || 'Track Your Order'}
-                    </Link>
+                    {orderId && (
+                        <Link
+                            href={`/track-order?order_id=${orderId}`}
+                            className="bg-primary-200 hover:bg-primary-600 text-white font-medium py-2 px-5 rounded text-sm transition-colors text-center">
+                            {t('trackOrder') || 'Track Your Order'}
+                        </Link>
+                    )}
                     <Link
                         href="/"
                         className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-5 rounded text-sm transition-colors text-center">

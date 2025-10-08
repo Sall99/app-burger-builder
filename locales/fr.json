@@ -62,6 +62,7 @@
         "subtitle": "Merci pour votre commande !",
         "confirmation": "Votre commande de burger a été confirmée et est en cours de préparation.",
         "sessionId": "ID de session",
+        "orderId": "ID de commande",
         "emailSent": "Un email de confirmation a été envoyé à votre adresse email.",
         "trackOrder": "Suivre votre commande",
         "buildAnother": "Créer un autre burger",
@@ -144,6 +145,7 @@
         "TotalPrice": "Prix total :",
         "Status": "Statut :",
         "ShippingAddress": "Adresse de livraison :",
+        "TrackOrder": "Suivre la commande",
         "NoOrders": "Aucune commande trouvée.",
         "NoOrdersDesc": "Lorsque vous passerez des commandes, elles apparaîtront ici."
     },

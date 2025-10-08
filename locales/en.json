@@ -62,6 +62,7 @@
         "subtitle": "Thank you for your order!",
         "confirmation": "Your burger order has been confirmed and is being prepared.",
         "sessionId": "Session ID",
+        "orderId": "Order ID",
         "emailSent": "A confirmation email has been sent to your email address.",
         "trackOrder": "Track Your Order",
         "buildAnother": "Build Another Burger",
@@ -144,6 +145,7 @@
         "TotalPrice": "Total Price:",
         "Status": "Status:",
         "ShippingAddress": "Shipping Address:",
+        "TrackOrder": "Track Order",
         "NoOrders": "No orders found.",
         "NoOrdersDesc": "When you place orders, they'll appear here."
     },
