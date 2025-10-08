@@ -3,9 +3,9 @@
 import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { LogOut } from 'lucide-react'
+import { LogOut, Shield } from 'lucide-react'
 import Link from 'next/link'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 const solutions = (t: any) => [
@@ -31,6 +31,9 @@ const solutions = (t: any) => [
 
 export default function PopoverProfil() {
     const t = useTranslations('Popover')
+    const { data: session } = useSession()
+    const userRole = (session?.user as any)?.role
+    const isAdmin = userRole === 'ADMIN' || userRole === 'SUPER_ADMIN'
 
     return (
         <div className="w-full max-w-sm px-4">
@@ -74,6 +77,24 @@ export default function PopoverProfil() {
                                                 </div>
                                             </Link>
                                         ))}
+                                        {isAdmin && (
+                                            <Link
+                                                href="/admin"
+                                                className="profile-dropdown-item"
+                                                onClick={() => close()}>
+                                                <div className="profile-dropdown-icon">
+                                                    <Shield />
+                                                </div>
+                                                <div className="profile-dropdown-text">
+                                                    <p className="profile-dropdown-item-title">
+                                                        {t('adminPanel') || 'Admin Panel'}
+                                                    </p>
+                                                    <p className="profile-dropdown-item-desc">
+                                                        {t('adminPanelDescription') || 'Manage your application'}
+                                                    </p>
+                                                </div>
+                                            </Link>
+                                        )}
                                         <button
                                             className="profile-dropdown-item profile-dropdown-logout"
                                             onClick={() => signOut()}>
