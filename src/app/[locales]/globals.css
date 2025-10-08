@@ -301,7 +301,7 @@ tbody tr td {
 /* DIETARY INFO */
 .dietary-info-container {
     background-color: var(--color-primary-300);
-    max-width: 50rem;
+    max-width: 70rem;
     margin: 2rem auto;
     border-radius: 0.5rem;
     overflow: hidden;
@@ -522,7 +522,7 @@ tbody tr td {
 /* DELIVERY TIME */
 .delivery-time-container {
     background-color: var(--color-primary-300);
-    max-width: 50rem;
+    max-width: 70rem;
     margin: 2rem auto;
     border-radius: 0.5rem;
     overflow: hidden;
@@ -737,7 +737,7 @@ tbody tr td {
 /* SUBSTITUTIONS */
 .substitutions-container {
     background-color: var(--color-primary-300);
-    max-width: 50rem;
+    max-width: 70rem;
     margin: 2rem auto;
     border-radius: 0.5rem;
     overflow: hidden;
@@ -2786,7 +2786,7 @@ tbody tr td {
 
 .share-burger-container {
     background-color: var(--color-primary-300);
-    max-width: 90rem;
+    max-width: 70rem;
     margin: 2rem auto;
     border-radius: 0.5rem;
     overflow: hidden;
@@ -2980,7 +2980,7 @@ tbody tr td {
 
 .saved-templates-container {
     background-color: var(--color-primary-300);
-    max-width: 90rem;
+    max-width: 70rem;
     margin: 2rem auto;
     border-radius: 0.5rem;
     overflow: hidden;
