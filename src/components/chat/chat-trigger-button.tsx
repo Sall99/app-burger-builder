@@ -4,13 +4,13 @@ import React from 'react'
 import { BiSupport } from 'react-icons/bi'
 import { useTranslations } from 'next-intl'
 
-import { crispHelpers } from './crisp-chat'
+import { tawkHelpers } from './tawk-chat'
 
 export const ChatTriggerButton: React.FC = () => {
     const t = useTranslations('Chat')
 
     const handleClick = () => {
-        crispHelpers.open()
+        tawkHelpers.open()
     }
 
     return (
@@ -29,7 +29,7 @@ export const FloatingChatButton: React.FC = () => {
     const t = useTranslations('Chat')
 
     const handleClick = () => {
-        crispHelpers.open()
+        tawkHelpers.open()
     }
 
     return (
