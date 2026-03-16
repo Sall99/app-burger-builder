@@ -473,8 +473,14 @@
             "errorReference": "Error Reference:"
         },
         "Layout": {
-            "title": "Burger Builder",
-            "description": "Build your perfect burger with our easy-to-use Burger Builder."
+            "title": "Burger Builder - Build Your Perfect Custom Burger Online",
+            "description": "Create your perfect custom burger online with our interactive Burger Builder. Choose from premium ingredients including meat, cheese, bacon, and fresh vegetables. Order delivery or pickup today!"
+        },
+        "Home": {
+            "title": "Build Your Perfect Custom Burger | Burger Builder",
+            "description": "Create and customize your dream burger online. Choose from fresh ingredients, watch your burger build in real-time, and get it delivered to your door.",
+            "h1": "Build Your Perfect Custom Burger Online",
+            "seoText": "Welcome to Burger Builder — the interactive online burger customizer. Choose from premium fresh ingredients including beef patties, crispy bacon, melted cheese, fresh lettuce, and more. Build your dream burger in real-time, save your favorite creations, discover meal deals, and order for delivery. Available in English and French."
         },
         "Auth": {
             "SignIn": {

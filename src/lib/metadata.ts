@@ -85,8 +85,7 @@ export function generateMetadata({
             images: [image]
         },
         verification: {
-            google: 'your-google-site-verification-code',
-            yandex: 'your-yandex-verification-code'
+            google: 'wl3JxJ5o6Fls3aR5fEDCg3Y4TMnvnzW_BcFid2DWSL0'
         },
         category: 'food & dining'
     }

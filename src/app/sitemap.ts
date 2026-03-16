@@ -22,31 +22,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
             url: `${baseUrl}/en/auth/signin`,
             lastModified: currentDate,
             changeFrequency: 'monthly' as const,
-            priority: 0.8
+            priority: 0.6
         },
         {
             url: `${baseUrl}/en/auth/signup`,
             lastModified: currentDate,
             changeFrequency: 'monthly' as const,
-            priority: 0.8
-        },
-        {
-            url: `${baseUrl}/en/profile`,
-            lastModified: currentDate,
-            changeFrequency: 'weekly' as const,
-            priority: 0.7
-        },
-        {
-            url: `${baseUrl}/en/history`,
-            lastModified: currentDate,
-            changeFrequency: 'weekly' as const,
-            priority: 0.7
-        },
-        {
-            url: `${baseUrl}/en/track-order`,
-            lastModified: currentDate,
-            changeFrequency: 'weekly' as const,
-            priority: 0.7
+            priority: 0.6
         },
         {
             url: `${baseUrl}/en/locations`,
@@ -55,22 +37,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.8
         },
         {
-            url: `${baseUrl}/en/loyalty`,
-            lastModified: currentDate,
-            changeFrequency: 'weekly' as const,
-            priority: 0.7
-        },
-        {
             url: `${baseUrl}/en/help`,
             lastModified: currentDate,
             changeFrequency: 'monthly' as const,
             priority: 0.6
-        },
-        {
-            url: `${baseUrl}/en/notifications`,
-            lastModified: currentDate,
-            changeFrequency: 'weekly' as const,
-            priority: 0.5
         },
         // French routes
         {
@@ -83,31 +53,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
             url: `${baseUrl}/fr/auth/signin`,
             lastModified: currentDate,
             changeFrequency: 'monthly' as const,
-            priority: 0.8
+            priority: 0.6
         },
         {
             url: `${baseUrl}/fr/auth/signup`,
             lastModified: currentDate,
             changeFrequency: 'monthly' as const,
-            priority: 0.8
-        },
-        {
-            url: `${baseUrl}/fr/profile`,
-            lastModified: currentDate,
-            changeFrequency: 'weekly' as const,
-            priority: 0.7
-        },
-        {
-            url: `${baseUrl}/fr/history`,
-            lastModified: currentDate,
-            changeFrequency: 'weekly' as const,
-            priority: 0.7
-        },
-        {
-            url: `${baseUrl}/fr/track-order`,
-            lastModified: currentDate,
-            changeFrequency: 'weekly' as const,
-            priority: 0.7
+            priority: 0.6
         },
         {
             url: `${baseUrl}/fr/locations`,
@@ -116,22 +68,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.8
         },
         {
-            url: `${baseUrl}/fr/loyalty`,
-            lastModified: currentDate,
-            changeFrequency: 'weekly' as const,
-            priority: 0.7
-        },
-        {
             url: `${baseUrl}/fr/help`,
             lastModified: currentDate,
             changeFrequency: 'monthly' as const,
             priority: 0.6
-        },
-        {
-            url: `${baseUrl}/fr/notifications`,
-            lastModified: currentDate,
-            changeFrequency: 'weekly' as const,
-            priority: 0.5
         }
     ]
 

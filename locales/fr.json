@@ -473,8 +473,14 @@
             "errorReference": "Référence d'erreur :"
         },
         "Layout": {
-            "title": "Constructeur de Burger",
-            "description": "Construisez votre burger parfait avec notre Constructeur de Burger facile à utiliser."
+            "title": "Burger Builder - Créez Votre Burger Personnalisé en Ligne",
+            "description": "Créez votre burger personnalisé en ligne avec notre Constructeur de Burger interactif. Choisissez parmi des ingrédients premium : viande, fromage, bacon et légumes frais. Commandez en livraison ou à emporter !"
+        },
+        "Home": {
+            "title": "Créez Votre Burger Personnalisé | Burger Builder",
+            "description": "Créez et personnalisez le burger de vos rêves en ligne. Choisissez parmi des ingrédients frais, regardez votre burger se construire en temps réel et faites-le livrer.",
+            "h1": "Créez Votre Burger Personnalisé en Ligne",
+            "seoText": "Bienvenue chez Burger Builder — le créateur de burger interactif en ligne. Choisissez parmi des ingrédients frais premium : steaks de boeuf, bacon croustillant, fromage fondu, laitue fraîche et plus encore. Construisez votre burger de rêve en temps réel, sauvegardez vos créations favorites, découvrez les offres repas et commandez en livraison. Disponible en anglais et en français."
         },
         "Auth": {
             "SignIn": {
