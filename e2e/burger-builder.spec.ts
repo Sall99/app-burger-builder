@@ -1,4 +1,4 @@
-import { expect,test } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test.describe('Burger Builder', () => {
     test.beforeEach(async ({ page }) => {
@@ -21,21 +21,21 @@ test.describe('Burger Builder', () => {
     })
 
     test('should display all ingredient controls', async ({ page }) => {
-        // Check if all ingredient controls are present
-        await expect(page.getByText('Meat', { exact: true })).toBeVisible()
-        await expect(page.getByText('Bacon', { exact: true })).toBeVisible()
-        await expect(page.getByText('Cheese', { exact: true })).toBeVisible()
-        await expect(page.getByText('Salad', { exact: true })).toBeVisible()
+        // Check if all ingredient controls are present within the controls area
+        const controls = page.getByLabel('Burger ingredient controls')
+        await expect(controls.getByText('Meat')).toBeVisible()
+        await expect(controls.getByText('Bacon')).toBeVisible()
+        await expect(controls.getByText('Cheese')).toBeVisible()
+        await expect(controls.getByText('Salad')).toBeVisible()
     })
 
     test('should add ingredients when clicking add button', async ({ page }) => {
         // Wait for controls to be visible
         await page.waitForSelector('.build-controls')
 
-        // Find and click the add button for meat (first icon in the control)
-        const meatControl = page.locator('.controls > div').filter({ hasText: 'Meat' })
-        const addButton = meatControl.locator('.ctrl > div').first()
-        await addButton.click()
+        // Find and click the add button for meat using aria-label
+        const addMeatButton = page.getByRole('button', { name: 'Add Meat' })
+        await addMeatButton.click()
 
         // Check if meat ingredient was added
         const meatIngredient = page.locator('.Meat')
@@ -43,29 +43,26 @@ test.describe('Burger Builder', () => {
     })
 
     test('should update total price when adding ingredients', async ({ page }) => {
-        // Initial price should be visible
-        const totalElement = page.locator('text=Total').locator('..')
+        // Initial price should be visible in the desktop total section
+        const totalElement = page.locator('.total-price-row.total-final').first()
         await expect(totalElement).toBeVisible()
 
         // Add a meat ingredient
-        const meatControl = page.locator('.controls > div').filter({ hasText: 'Meat' })
-        const addButton = meatControl.locator('.ctrl > div').first()
-        await addButton.click()
+        const addMeatButton = page.getByRole('button', { name: 'Add Meat' })
+        await addMeatButton.click()
 
         // Price should increase (meat costs $1.30, base is $4.00)
-        // You might need to adjust this selector based on your actual implementation
         await page.waitForTimeout(500) // Wait for state update
     })
 
     test('should build a complete burger', async ({ page }) => {
         await page.waitForSelector('.build-controls')
 
-        // Add multiple ingredients
+        // Add multiple ingredients using aria-label buttons
         const ingredients = ['Meat', 'Cheese', 'Bacon', 'Salad']
 
         for (const ingredient of ingredients) {
-            const control = page.locator('.controls > div').filter({ hasText: ingredient })
-            const addButton = control.locator('.ctrl > div').first()
+            const addButton = page.getByRole('button', { name: `Add ${ingredient}` })
             await addButton.click()
             await page.waitForTimeout(200)
         }
@@ -84,16 +81,15 @@ test.describe('Burger Builder', () => {
         await page.waitForSelector('.build-controls')
 
         // Add meat first
-        const meatControl = page.locator('.controls > div').filter({ hasText: 'Meat' })
-        const addButton = meatControl.locator('.ctrl > div').first()
-        await addButton.click()
+        const addMeatButton = page.getByRole('button', { name: 'Add Meat' })
+        await addMeatButton.click()
 
         // Verify meat is added
         await expect(page.locator('.Meat')).toBeVisible()
 
         // Remove meat
-        const removeButton = meatControl.locator('.ctrl > div').last()
-        await removeButton.click()
+        const removeMeatButton = page.getByRole('button', { name: 'Remove Meat' })
+        await removeMeatButton.click()
 
         // Wait a bit for the removal
         await page.waitForTimeout(200)
@@ -108,4 +104,3 @@ test.describe('Burger Builder', () => {
         await expect(orderButton).toBeVisible()
     })
 })
-
