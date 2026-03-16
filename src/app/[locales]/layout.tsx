@@ -61,8 +61,9 @@ export async function generateMetadata(): Promise<Metadata> {
         alternates: {
             canonical: 'https://app-burger-builder.vercel.app',
             languages: {
-                'en-US': 'https://app-burger-builder.vercel.app/en-US',
-                'es-ES': 'https://app-burger-builder.vercel.app/es-ES'
+                en: 'https://app-burger-builder.vercel.app/en',
+                fr: 'https://app-burger-builder.vercel.app/fr',
+                'x-default': 'https://app-burger-builder.vercel.app'
             }
         },
         openGraph: {
@@ -128,12 +129,7 @@ export default async function RootLayout({ children }: Props) {
                 logo: {
                     '@type': 'ImageObject',
                     url: 'https://app-burger-builder.vercel.app/images/Logo.png'
-                },
-                sameAs: [
-                    'https://facebook.com/burgerbuilder',
-                    'https://twitter.com/burgerbuilder',
-                    'https://instagram.com/burgerbuilder'
-                ]
+                }
             },
             {
                 '@type': 'WebSite',
@@ -187,7 +183,6 @@ export default async function RootLayout({ children }: Props) {
     return (
         <html lang={locale}>
             <head>
-                <link rel="canonical" href="https://app-burger-builder.vercel.app" />
                 <link rel="manifest" href="/manifest.json" />
                 <meta name="theme-color" content="#f59e0b" />
                 <meta name="mobile-web-app-capable" content="yes" />

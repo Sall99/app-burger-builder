@@ -1,269 +1,428 @@
-# Burger Builder
+# 🍔 Burger Builder
 
-Burger Builder is a web application that allows users to customize and build their perfect burger from a variety of fresh ingredients. Built with Next.js 14, Prisma, and MongoDB, this project demonstrates a modern, full-stack approach to web development.
+A production-grade, full-stack e-commerce web application for building custom burgers online. Users can visually stack ingredients with drag-and-drop, apply coupons, earn loyalty rewards, pay via Stripe, and track orders — all in English or French.
+
+**🌐 Live:** [app-burger-builder.vercel.app](https://app-burger-builder.vercel.app)
+
+---
 
 ## Table of Contents
 
 - [Tech Stack](#tech-stack)
 - [Features](#features)
+- [Architecture](#architecture)
+- [Project Structure](#project-structure)
+- [Database Schema](#database-schema)
 - [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
-    - [Running the Application](#running-the-application)
 - [Environment Variables](#environment-variables)
 - [Testing](#testing)
 - [Admin Panel](#admin-panel)
-- [Database](#database)
 - [Deployment](#deployment)
 - [Contributing](#contributing)
 - [License](#license)
 
+---
+
 ## Tech Stack
 
-- **Next.js 14**: A React framework for server-side rendering, static site generation, and API routes.
-- **Prisma**: A next-generation ORM for Node.js and TypeScript that simplifies database access and management.
-- **MongoDB**: A NoSQL database for storing application data in a flexible, document-oriented format.
-- **NextAuth.js**: Authentication and session management with role-based access control.
-- **Tailwind CSS**: Utility-first CSS framework for responsive design.
-- **TypeScript**: Type-safe JavaScript for better development experience.
+| Layer | Technology |
+|---|---|
+| **Framework** | Next.js 14 (App Router) |
+| **Language** | TypeScript 5.5 |
+| **Styling** | Tailwind CSS 3 + CSS Animations |
+| **State Management** | Redux Toolkit + Redux Persist |
+| **Database** | MongoDB Atlas (via Prisma ORM) |
+| **Authentication** | NextAuth.js (GitHub + Google OAuth + Credentials) |
+| **Payments** | Stripe (React Stripe.js + Webhooks) |
+| **Internationalization** | next-intl (English + French) |
+| **Analytics** | Vercel Analytics, Speed Insights, Google Analytics, GTM |
+| **Live Chat** | Tawk.to |
+| **Form Validation** | Yup + React Hook Form |
+| **Data Fetching** | Axios + SWR |
+| **Drag & Drop** | dnd-kit |
+| **Icons** | Lucide React, Heroicons, React Icons |
+| **Unit Testing** | Jest + React Testing Library |
+| **E2E Testing** | Playwright |
+| **CI / DX** | Husky, lint-staged, Commitizen, Commitlint, ESLint, Prettier |
+| **Deployment** | Vercel |
+| **Node** | ≥ 22.0.0 |
+
+---
 
 ## Features
 
-- **Custom Burger Builder**: Create and customize your burger with a variety of ingredients.
-- **Admin Panel**: Comprehensive admin dashboard for managing orders, users, and coupons.
-- **User Role Management**: Role-based access control with admin and user permissions.
-- **Multi-language Support**: Localized interface in English and French.
-- **Responsive Design**: Optimized for both desktop and mobile devices.
-- **Authentication**: Secure login and session management with role-based access.
-- **SEO Optimization**: Enhanced with server-side rendering and dynamic meta tags.
-- **Analytics**: Integrated with tools for performance and user behavior tracking.
+### 🍔 Interactive Burger Builder
+- Visual burger stacking with animated ingredient additions/removals
+- Drag-and-drop reordering via dnd-kit
+- Undo / redo build history
+- Real-time price calculation
+- Responsive layout (desktop + mobile total views)
+- Saved burger templates & share functionality
+
+### 🛒 E-Commerce Flow
+- Ingredient controls with quantity management
+- Meal deals & combo bundles
+- Coupon system (validation, usage limits, min order values, per-user limits)
+- Shipping address form with Yup validation
+- Stripe Checkout with payment intent + webhook processing
+- Post-purchase order tracking
+
+### 👤 User System
+- GitHub + Google OAuth sign-in
+- Email / password credentials with bcrypt
+- Role-based access control: `USER`, `ADMIN`, `SUPER_ADMIN`
+- Profile management page
+
+### ⭐ Loyalty Program
+- Points accumulation based on spending
+- Tiered rewards: Bronze → Silver → Gold → Platinum
+- Reward redemption with expiry tracking
+- Dedicated loyalty dashboard
+
+### 🔐 Admin Panel
+- Route-protected via middleware (ADMIN / SUPER_ADMIN only)
+- Dashboard with stat cards
+- Order, user, and coupon management
+- Multi-language admin interface
+
+### 🌍 Internationalization (i18n)
+- English + French (25K+ chars each)
+- Locale-aware routing via `[locales]` dynamic segment
+- Automatic locale detection in middleware
+- Locale switcher component
+
+### 🔍 SEO & Performance
+- OpenGraph & Twitter Card meta tags
+- Schema.org structured data (Organization, Restaurant, Menu)
+- Dynamic sitemap generation (next-sitemap)
+- robots.txt
+- Google Search Console verification
+- Web Vitals monitoring
+- Bundle analyzer (`npm run analyze`)
+- Image optimization (AVIF, WebP)
+
+### 🔒 Security
+- HSTS, X-Frame-Options, X-Content-Type-Options
+- XSS Protection, Referrer Policy, Permissions Policy
+- Rate limiting on API routes
+- Async error handler wrapper
+- Error logging service
+
+### ♿ Accessibility
+- Skip-to-main link
+- Keyboard shortcuts
+- ARIA-compliant components
+- Focus management utilities
+
+### 💬 Live Chat & Notifications
+- Tawk.to widget with user context (email, name)
+- Push notifications utility
+- React Hot Toast in-app notifications
+
+---
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Client (Browser)                                           │
+│  ┌─────────────┐  ┌──────────────┐  ┌───────────────────┐  │
+│  │  React UI   │→ │ Redux Store  │→ │ Redux Persist     │  │
+│  │  Components │  │ (7 slices)   │  │ (localStorage)    │  │
+│  └─────────────┘  └──────────────┘  └───────────────────┘  │
+└────────────┬────────────────────────────────────────────────┘
+             │
+             ▼
+┌─────────────────────────────────────────────────────────────┐
+│  Next.js 14 Server                                          │
+│  ┌──────────────┐  ┌───────────────┐  ┌─────────────────┐  │
+│  │  Middleware   │  │ Server Actions│  │  API Routes     │  │
+│  │  (Auth+i18n) │  │ (5 modules)   │  │  (8 endpoints)  │  │
+│  └──────────────┘  └───────┬───────┘  └────────┬────────┘  │
+│                            │                    │           │
+│                            ▼                    ▼           │
+│                    ┌──────────────────────────────┐         │
+│                    │      Prisma ORM              │         │
+│                    └──────────────┬───────────────┘         │
+└───────────────────────────────────┼─────────────────────────┘
+                                    │
+        ┌───────────────────────────┼──────────────────┐
+        ▼                          ▼                   ▼
+ ┌──────────────┐       ┌──────────────┐     ┌──────────────┐
+ │ MongoDB Atlas│       │  Stripe API  │     │  OAuth       │
+ │ (7 models)   │       │  (Payments)  │     │(GitHub/Google)│
+ └──────────────┘       └──────────────┘     └──────────────┘
+```
+
+### State Management (Redux Slices)
+
+| Slice | Purpose | Persisted |
+|---|---|---|
+| `ingredients` | Burger ingredients state | ✅ |
+| `ingredients-enhanced` | Undo/redo, templates | ❌ |
+| `combo` | Meal deal selections | ❌ |
+| `coupon` | Applied coupon state | ❌ |
+| `loyalty` | Loyalty points / rewards | ❌ |
+| `shipping-address` | Shipping form data | ✅ |
+| `substitutions` | Ingredient substitution options | ❌ |
+
+---
+
+## Project Structure
+
+```
+app-burger-builder/
+├── prisma/
+│   └── schema.prisma            # MongoDB schema (7 models)
+├── locales/
+│   ├── en.json                  # English translations
+│   └── fr.json                  # French translations
+├── i18n/                        # next-intl configuration
+├── libs/                        # Auth options, session wrapper
+├── e2e/                         # Playwright E2E tests
+│   ├── authentication.spec.ts
+│   ├── burger-builder.spec.ts
+│   └── navigation.spec.ts
+├── src/
+│   ├── middleware.ts             # Auth + i18n + security middleware
+│   ├── actions/                  # Server actions
+│   │   ├── auth/                 #   Auth actions
+│   │   ├── loyalty/              #   Loyalty program
+│   │   ├── orders/               #   Order management
+│   │   ├── payments/             #   Payment processing
+│   │   └── users/                #   User management
+│   ├── app/
+│   │   ├── [locales]/            # Locale-aware pages
+│   │   │   ├── layout.tsx        #   Root layout + SEO + Schema.org
+│   │   │   ├── page.tsx          #   🏠 Burger Builder (home)
+│   │   │   ├── admin/            #   🔐 Admin dashboard
+│   │   │   ├── auth/             #   🔑 Sign in / Sign up
+│   │   │   ├── profile/          #   👤 User profile
+│   │   │   ├── history/          #   📋 Order history
+│   │   │   ├── loyalty/          #   ⭐ Loyalty program
+│   │   │   ├── success/          #   ✅ Payment success
+│   │   │   ├── cancel/           #   ❌ Payment cancel
+│   │   │   ├── track-order/      #   📦 Order tracking
+│   │   │   ├── locations/        #   📍 Store locations
+│   │   │   ├── help/             #   ❓ Help / FAQ
+│   │   │   └── notifications/    #   🔔 Notifications
+│   │   └── api/                  # API routes
+│   │       ├── auth/             #   NextAuth handler
+│   │       ├── admin/            #   Admin endpoints
+│   │       ├── orders/           #   Order CRUD
+│   │       ├── coupons/          #   Coupon validation
+│   │       ├── loyalty/          #   Loyalty endpoints
+│   │       ├── create-payment-intent/  # Stripe payment intent
+│   │       ├── stripe/           #   Stripe webhooks
+│   │       └── user/             #   User endpoints
+│   ├── components/
+│   │   ├── admin/                # Admin nav, stat cards
+│   │   ├── chat/                 # Tawk.to integration
+│   │   ├── error-boundary/       # Error boundaries
+│   │   ├── layout/               # Header, Footer, Popover
+│   │   └── ui/                   # 23 reusable UI components
+│   ├── redux/                    # Redux Toolkit store
+│   │   ├── store.ts              #   Store with persistence
+│   │   ├── slices/               #   7 state slices
+│   │   └── selectors/            #   Memoized selectors
+│   ├── lib/                      # Core utilities
+│   │   ├── rate-limit.ts         #   API rate limiting
+│   │   ├── error-logger.ts       #   Error logging
+│   │   ├── performance.ts        #   Performance monitoring
+│   │   ├── accessibility.ts      #   A11y helpers
+│   │   ├── metadata.ts           #   SEO metadata helpers
+│   │   ├── async-handler.ts      #   Async error wrapper
+│   │   └── env.ts                #   Env validation
+│   ├── config/                   # App + SEO config
+│   ├── hooks/                    # Custom hooks
+│   ├── providers/                # React providers
+│   ├── types/                    # TypeScript definitions
+│   ├── utils/                    # Utilities
+│   └── styles/                   # CSS animations
+```
+
+---
+
+## Database Schema
+
+**Prisma + MongoDB** with 7 models:
+
+```
+User ──┬── Account         (OAuth providers)
+       ├── Order ── Address (Shipping)
+       ├── CouponUsage ── Coupon
+       ├── Loyalty         (Points & tiers)
+       └── RedeemedReward  (Reward history)
+```
+
+**Enums:**
+- `UserRole` — `USER` · `ADMIN` · `SUPER_ADMIN`
+- `OrderStatus` — `PENDING` · `PROCESSING` · `COMPLETED` · `DELIVERED` · `CANCELLED`
+- `LoyaltyTier` — `BRONZE` · `SILVER` · `GOLD` · `PLATINUM`
+
+### Prisma Commands
+
+```bash
+npx prisma generate        # Generate Prisma Client
+npx prisma db push          # Push schema to database
+npx prisma studio           # Open database GUI
+```
+
+---
 
 ## Getting Started
 
 ### Prerequisites
 
-Ensure you have the following installed:
-
-- [Node.js](https://nodejs.org/) (v16 or higher)
-- [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
-- [MongoDB](https://www.mongodb.com/) (local or cloud instance)
+- [Node.js](https://nodejs.org/) ≥ 22.0.0
+- [npm](https://www.npmjs.com/)
+- [MongoDB](https://www.mongodb.com/) (local or Atlas)
 
 ### Installation
 
-1. **Clone the repository**:
+1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/your-username/app-burger-builder.git
+    git clone https://github.com/Sall99/app-burger-builder.git
     cd app-burger-builder
     ```
 
-2. **Install dependencies**:
+2. **Install dependencies:**
 
     ```bash
     npm install
     ```
 
-3. **Set up environment variables**:
-
-    Copy the example environment file and update with your values:
+3. **Set up environment variables:**
 
     ```bash
     cp env.example .env.local
     ```
 
-    See [Environment Variables](#environment-variables) section for details.
+    See [Environment Variables](#environment-variables) for details.
 
-4. **Set up the database**:
-
-    Generate Prisma client:
+4. **Set up the database:**
 
     ```bash
     npx prisma generate
-    ```
-
-    Push the database schema:
-
-    ```bash
     npx prisma db push
     ```
 
 ### Running the Application
 
 ```bash
-# Development mode
-npm run dev
-
-# Production build
-npm run build
-npm start
-
-# Run tests
-npm test
-
-# Run E2E tests
-npm run test:e2e
+npm run dev          # Development server → http://localhost:3000
+npm run build        # Production build (prisma generate + next build)
+npm start            # Start production server
+npm run analyze      # Bundle analyzer
 ```
 
-The application will be available at `http://localhost:3000`
+---
 
 ## Environment Variables
 
-This project uses environment variables for configuration. See **[ENVIRONMENT.md](./ENVIRONMENT.md)** for detailed documentation.
+| Variable | Required | Purpose |
+|---|---|---|
+| `DATABASE_URL` | ✅ | MongoDB Atlas connection string |
+| `NEXTAUTH_SECRET` | ✅ | NextAuth encryption key |
+| `GITHUB_ID` | ⬜ | GitHub OAuth client ID |
+| `GITHUB_SECRET` | ⬜ | GitHub OAuth client secret |
+| `GOOGLE_ID` | ⬜ | Google OAuth client ID |
+| `GOOGLE_SECRET` | ⬜ | Google OAuth client secret |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | ⬜ | Stripe publishable key |
+| `NEXT_STRIPE_SECRET_KEY` | ⬜ | Stripe server-side secret key |
+| `GOOGLE_ANALYTICS` | ⬜ | GA4 tracking ID |
+| `NEXT_PUBLIC_TAWK_PROPERTY_ID` | ⬜ | Tawk.to property |
+| `NEXT_PUBLIC_TAWK_WIDGET_ID` | ⬜ | Tawk.to widget |
 
-### Quick Start
+### Quick Setup
 
-1. Copy the example file:
+```bash
+cp env.example .env.local
+# or pull from Vercel:
+vercel env pull .env.local
+```
 
-    ```bash
-    cp env.example .env.local
-    ```
+### Test Credentials
 
-2. Update the following required variables:
-    - `DATABASE_URL` - Your MongoDB connection string
-    - `NEXTAUTH_SECRET` - Generate with: `openssl rand -base64 32`
-    - `NEXTAUTH_URL` - `http://localhost:3000` for development
+- **Admin:** `admin@test.com` / `admin123`
+- **User:** `user@test.com` / `user123`
 
-3. (Optional) Add OAuth credentials for social login:
-    - GitHub: `GITHUB_ID`, `GITHUB_SECRET`
-    - Google: `GOOGLE_ID`, `GOOGLE_SECRET`
-
-### Admin Access
-
-The application includes test credentials for easy development and testing:
-
-- **Admin User**: `admin@test.com` / `admin123`
-- **Regular User**: `user@test.com` / `user123`
-
-These credentials are available in the sign-in and sign-up forms for testing purposes.
-
-For complete documentation, see [ENVIRONMENT.md](./ENVIRONMENT.md)
+---
 
 ## Testing
 
-This project has comprehensive test coverage including unit tests, integration tests, and E2E tests.
+| Type | Tool | Command |
+|---|---|---|
+| Unit / Integration | Jest + Testing Library | `npm test` |
+| Coverage report | Jest | `npm run test:coverage` |
+| CI mode | Jest | `npm run test:ci` |
+| E2E | Playwright | `npm run test:e2e` |
+| E2E (UI mode) | Playwright | `npm run test:e2e:ui` |
+| All tests | Jest + Playwright | `npm run test:all` |
 
-See **[TESTING.md](./TESTING.md)** for detailed testing documentation.
+### E2E Test Suites
 
-### Quick Test Commands
+- `authentication.spec.ts` — Sign in / sign up flows
+- `burger-builder.spec.ts` — Builder interactions & ordering
+- `navigation.spec.ts` — Route navigation & locale switching
 
-```bash
-# Run all unit tests
-npm test
-
-# Run tests with coverage
-npm run test:coverage
-
-# Run E2E tests
-npm run test:e2e
-
-# Run all tests (CI mode)
-npm run test:all
-```
-
-**Current Coverage**: ~25% (51 tests passing)
+---
 
 ## Admin Panel
 
-The application includes a comprehensive admin panel accessible at `/admin` for users with admin roles.
+Accessible at `/admin` for `ADMIN` and `SUPER_ADMIN` roles only.
 
-### Admin Features
+| Route | Feature |
+|---|---|
+| `/admin` | Dashboard with key metrics |
+| `/admin/orders` | Order management & filtering |
+| `/admin/users` | User account & role management |
+| `/admin/coupons` | Coupon creation & management |
 
-- **Dashboard**: Overview of key metrics and statistics
-- **Order Management**: View, filter, and manage customer orders
-- **User Management**: Manage user accounts and roles
-- **Coupon Management**: Create and manage discount codes
-- **Multi-language Support**: Admin interface available in English and French
+Protected by middleware — unauthorized users are redirected to the sign-in page.
 
-### Admin Routes
-
-- `/admin` - Main dashboard
-- `/admin/orders` - Order management
-- `/admin/users` - User management  
-- `/admin/coupons` - Coupon management
-
-### Access Control
-
-- Admin routes are protected by middleware
-- Only users with `admin` role can access admin features
-- Regular users are redirected to the main application
-
-## Database
-
-This project uses **MongoDB** with **Prisma ORM**.
-
-### Schema
-
-- **User**: Authentication and profile data with role management (admin/user)
-- **Account**: OAuth provider accounts
-- **Order**: Order details with status tracking
-- **Address**: Shipping addresses
-- **Coupon**: Discount codes and promotional offers
-
-### Prisma Commands
-
-```bash
-# Generate Prisma Client
-npx prisma generate
-
-# Push schema to database
-npx prisma db push
-
-# Open Prisma Studio (database GUI)
-npx prisma studio
-
-# Create a migration
-npx prisma migrate dev --name your-migration-name
-```
+---
 
 ## Deployment
 
 ### Vercel (Recommended)
 
-1. Push your code to GitHub
+1. Push code to GitHub
 2. Import project in [Vercel](https://vercel.com)
-3. Add environment variables in Vercel dashboard
+3. Add environment variables in the Vercel dashboard
 4. Deploy!
 
-### Environment Variables for Production
+Automatic sitemap generation runs post-build via `next-sitemap`.
 
-Make sure to set these in your hosting platform:
-
-- `DATABASE_URL`
-- `NEXTAUTH_URL` (your production URL)
-- `NEXTAUTH_SECRET`
-- OAuth credentials (if using social login)
-- Stripe keys (if using payments)
-
-See [ENVIRONMENT.md](./ENVIRONMENT.md) for complete list.
+---
 
 ## Contributing
 
-Contributions are welcome! Please:
-
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+3. Commit using Conventional Commits (`git commit -m 'feat: add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-### Code Style
+### Code Standards
 
-- Use TypeScript
-- Follow ESLint rules
+- TypeScript throughout
+- ESLint + Prettier enforced via Husky pre-commit hooks
+- Conventional Commits via Commitizen (`npm run commit`)
 - Write tests for new features
-- Use Conventional Commits
+
+---
 
 ## License
 
 This project is licensed under the MIT License.
 
+---
+
 ## Acknowledgments
 
-- Built with [Next.js](https://nextjs.org/)
-- Database: [MongoDB](https://www.mongodb.com/) with [Prisma](https://www.prisma.io/)
-- Authentication: [NextAuth.js](https://next-auth.js.org/)
-- Payments: [Stripe](https://stripe.com/)
-- UI: [Tailwind CSS](https://tailwindcss.com/)
+- [Next.js](https://nextjs.org/) · [Prisma](https://www.prisma.io/) · [MongoDB](https://www.mongodb.com/) · [NextAuth.js](https://next-auth.js.org/) · [Stripe](https://stripe.com/) · [Tailwind CSS](https://tailwindcss.com/) · [dnd-kit](https://dndkit.com/) · [next-intl](https://next-intl-docs.vercel.app/)
 
 ---
 

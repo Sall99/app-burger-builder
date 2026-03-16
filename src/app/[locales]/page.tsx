@@ -1,56 +1,31 @@
-'use client'
-
 import React from 'react'
-import { useSelector } from 'react-redux'
+import type { Metadata } from 'next'
+import { getTranslations } from 'next-intl/server'
 
-import {
-    BuilderAnimated,
-    BuilderWrapper,
-    Controls,
-    DeliveryTime,
-    DietaryInfo,
-    IngredientSubstitutions,
-    MealDeals,
-    SavedTemplates,
-    ShareBurger,
-    UndoRedoControls
-} from '@/components/ui'
-import { Total } from '@/components/ui/total/total'
-import { TotalMobile } from '@/components/ui/total/total-mobile'
-import { selectIngredients } from '@/redux/selectors/ingredients'
+import { seoConfig } from '@/config/seo'
 
-export default function Home() {
-    const { ingredients } = useSelector(selectIngredients)
+import { HomeClient } from './home-client'
+
+export async function generateMetadata(): Promise<Metadata> {
+    const t = await getTranslations('Pages.Home')
+
+    return {
+        title: t('title'),
+        description: t('description'),
+        keywords: seoConfig.keywords.join(', ')
+    }
+}
+
+export default async function Home() {
+    const t = await getTranslations('Pages.Home')
 
     return (
-        <BuilderWrapper>
-            <section className="flex min-h-screen flex-col items-center pt-8">
-                <UndoRedoControls />
-
-                <section className="flex flex-col items-center px-8 sm:px-16 justify-center relative w-full">
-                    <Total />
-                    <TotalMobile />
-
-                    <BuilderAnimated ingredients={ingredients} />
-
-                    <div className="w-full max-w-[70rem] mt-20">
-                        <Controls />
-                    </div>
-                </section>
-                <section className="px-8 sm:px-16 w-full">
-                    <MealDeals />
-
-                    <IngredientSubstitutions />
-
-                    <DeliveryTime />
-
-                    <DietaryInfo />
-
-                    <SavedTemplates />
-
-                    <ShareBurger />
-                </section>
+        <>
+            <section className="sr-only" aria-label="Page description">
+                <h1>{t('h1')}</h1>
+                <p>{t('seoText')}</p>
             </section>
-        </BuilderWrapper>
+            <HomeClient />
+        </>
     )
 }

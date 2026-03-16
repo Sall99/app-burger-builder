@@ -6,7 +6,7 @@ test.describe('Authentication Flow', () => {
 
         // Check for sign in form elements using labels
         await expect(page.getByLabel(/email/i)).toBeVisible()
-        await expect(page.getByLabel(/password/i)).toBeVisible()
+        await expect(page.getByLabel('Password', { exact: true })).toBeVisible()
         await expect(page.getByRole('button', { name: /sign in/i })).toBeVisible()
     })
 
@@ -15,7 +15,7 @@ test.describe('Authentication Flow', () => {
 
         // Check for sign up form elements using labels
         await expect(page.getByLabel(/email/i)).toBeVisible()
-        await expect(page.getByLabel(/password/i)).toBeVisible()
+        await expect(page.getByLabel('Password', { exact: true })).toBeVisible()
     })
 
     test('should show validation errors on empty sign in form submission', async ({ page }) => {
@@ -58,7 +58,7 @@ test.describe('Authentication Flow', () => {
 
         // Enter invalid email using labels
         await page.getByLabel(/email/i).fill('invalidemail')
-        await page.getByLabel(/password/i).fill('password123')
+        await page.getByLabel('Password', { exact: true }).fill('password123')
         await page.getByRole('button', { name: /sign in/i }).click()
 
         // Wait for validation
