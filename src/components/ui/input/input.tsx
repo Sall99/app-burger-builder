@@ -83,9 +83,9 @@ export const Input: FC<InputProps> = ({
                     aria-invalid={hasError ? 'true' : 'false'}
                     aria-describedby={hasError ? `${name}-error` : undefined}
                 />
-                <span className="text-gray-300 text-sm px-2">
+                <label htmlFor={id || name} className="text-gray-300 text-sm px-2">
                     {placeholder}
-                </span>
+                </label>
             </div>
             {hasError && (
                 <div className="mt-1">
