@@ -480,7 +480,43 @@
             "title": "Build Your Perfect Custom Burger | Burger Builder",
             "description": "Create and customize your dream burger online. Choose from fresh ingredients, watch your burger build in real-time, and get it delivered to your door.",
             "h1": "Build Your Perfect Custom Burger Online",
-            "seoText": "Welcome to Burger Builder — the interactive online burger customizer. Choose from premium fresh ingredients including beef patties, crispy bacon, melted cheese, fresh lettuce, and more. Build your dream burger in real-time, save your favorite creations, discover meal deals, and order for delivery. Available in English and French."
+            "seoText": "Welcome to Burger Builder — the interactive online burger customizer. Choose from premium fresh ingredients including beef patties, crispy bacon, melted cheese, fresh lettuce, and more. Build your dream burger in real-time, save your favorite creations, discover meal deals, and order for delivery. Available in English and French.",
+            "howToBuildTitle": "How to Build Your Burger",
+            "howToBuildText": "Building your perfect burger has never been easier. Simply select your favorite ingredients — choose from juicy beef patties, crispy bacon strips, melted cheddar cheese, and fresh garden lettuce. Watch your burger come to life in real-time with our interactive burger builder. Once satisfied, proceed to checkout for fast delivery straight to your door.",
+            "ingredientsTitle": "Premium Fresh Ingredients",
+            "ingredientsText": "We use only the highest quality ingredients. Every burger starts with a fresh-baked bun and can be customized with: premium beef or plant-based patties, aged cheddar cheese, crispy smoked bacon, fresh romaine lettuce, and signature sauces. No compromises — just great food.",
+            "deliveryTitle": "Fast Food Delivery to Your Door",
+            "deliveryText": "Hungry? Order now and get your custom burger delivered in as little as 30 minutes. We offer fast, reliable food delivery with real-time order tracking. Perfect for home delivery, office lunch, or any occasion.",
+            "whyChooseTitle": "Why Choose Burger Builder?",
+            "whyChoose1": "100% customizable — build exactly the burger you crave",
+            "whyChoose2": "Fresh, quality ingredients sourced daily",
+            "whyChoose3": "Real-time interactive burger preview",
+            "whyChoose4": "Fast delivery with live order tracking",
+            "whyChoose5": "Save your favorite burger creations",
+            "whyChoose6": "Loyalty rewards on every order",
+            "faqTitle": "Frequently Asked Questions",
+            "faq": [
+                {
+                    "question": "How do I build a custom burger online?",
+                    "answer": "Simply visit our interactive Burger Builder, select your preferred ingredients from the menu, and watch your burger build in real-time. Add beef patties, cheese, bacon, lettuce, and more — then place your order for delivery."
+                },
+                {
+                    "question": "Can I order a burger for delivery?",
+                    "answer": "Yes! We offer fast burger delivery straight to your door. After building your custom burger, proceed to checkout and enter your delivery address. Estimated delivery time is 30–45 minutes."
+                },
+                {
+                    "question": "What burger ingredients are available?",
+                    "answer": "We offer premium beef patties, crispy bacon, melted cheddar cheese, fresh lettuce, and more. You can fully customize your burger by adding or removing any ingredient to match your taste."
+                },
+                {
+                    "question": "Is there a minimum order for burger delivery?",
+                    "answer": "Our minimum order starts from $4.00. Build your burger and check the total before placing your order. We also offer meal deals and combo packs for great value."
+                },
+                {
+                    "question": "Can I save my custom burger for later?",
+                    "answer": "Yes! Create an account and you can save your favorite burger creations to re-order anytime. You'll also earn loyalty points with every order and unlock exclusive rewards."
+                }
+            ]
         },
         "Auth": {
             "SignIn": {
