@@ -10,6 +10,8 @@ const nextConfig = {
     // Optimize production builds
     compress: true,
     productionBrowserSourceMaps: false,
+    poweredByHeader: false,
+    trailingSlash: false,
 
     // Image optimization
     images: {
@@ -56,6 +58,26 @@ const nextConfig = {
                     {
                         key: 'Permissions-Policy',
                         value: 'camera=(), microphone=(), geolocation=()'
+                    }
+                ]
+            },
+            {
+                // Cache static assets aggressively (images, fonts, etc.)
+                source: '/images/:path*',
+                headers: [
+                    {
+                        key: 'Cache-Control',
+                        value: 'public, max-age=31536000, immutable'
+                    }
+                ]
+            },
+            {
+                // Cache OG images and favicons
+                source: '/:path(og-image|og-image-square|twitter-image|favicon).:ext*',
+                headers: [
+                    {
+                        key: 'Cache-Control',
+                        value: 'public, max-age=31536000, immutable'
                     }
                 ]
             }

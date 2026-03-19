@@ -8,8 +8,17 @@ export async function generateMetadata(): Promise<Metadata> {
     const t = await getTranslations('Pages.Help')
 
     return {
-        title: t('title'),
-        description: t('description')
+        title: 'Help & FAQ | Burger Builder - How to Order Custom Burgers',
+        description:
+            'Get help with Burger Builder. Learn how to build a custom burger, place an order, track delivery, manage your account, and find answers to frequently asked questions.',
+        keywords:
+            'burger builder help, how to order burger online, custom burger FAQ, food ordering help, burger delivery help, burger builder support',
+        openGraph: {
+            title: 'Help & FAQ | Burger Builder',
+            description:
+                'Learn how to build custom burgers, place orders, and track delivery. Get answers to all your questions.',
+            url: 'https://app-burger-builder.vercel.app/en/help'
+        }
     }
 }
 
