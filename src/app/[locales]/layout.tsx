@@ -236,6 +236,36 @@ export default async function RootLayout({ children }: Props) {
                         }
                     ]
                 }
+            },
+            {
+                '@type': 'BreadcrumbList',
+                '@id': 'https://app-burger-builder.vercel.app/#breadcrumb',
+                itemListElement: [
+                    {
+                        '@type': 'ListItem',
+                        position: 1,
+                        name: 'Home',
+                        item: 'https://app-burger-builder.vercel.app'
+                    },
+                    {
+                        '@type': 'ListItem',
+                        position: 2,
+                        name: 'Build Your Burger',
+                        item: 'https://app-burger-builder.vercel.app/en'
+                    },
+                    {
+                        '@type': 'ListItem',
+                        position: 3,
+                        name: 'Locations',
+                        item: 'https://app-burger-builder.vercel.app/en/locations'
+                    },
+                    {
+                        '@type': 'ListItem',
+                        position: 4,
+                        name: 'Help & FAQ',
+                        item: 'https://app-burger-builder.vercel.app/en/help'
+                    }
+                ]
             }
         ]
     }
