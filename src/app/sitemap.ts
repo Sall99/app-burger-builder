@@ -19,13 +19,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 1.0
         },
         {
-            url: `${baseUrl}/en/auth/signin`,
+            url: `${baseUrl}/en/auth/sign-in`,
             lastModified: currentDate,
             changeFrequency: 'monthly' as const,
             priority: 0.6
         },
         {
-            url: `${baseUrl}/en/auth/signup`,
+            url: `${baseUrl}/en/auth/sign-up`,
             lastModified: currentDate,
             changeFrequency: 'monthly' as const,
             priority: 0.6
@@ -50,13 +50,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 1.0
         },
         {
-            url: `${baseUrl}/fr/auth/signin`,
+            url: `${baseUrl}/fr/auth/sign-in`,
             lastModified: currentDate,
             changeFrequency: 'monthly' as const,
             priority: 0.6
         },
         {
-            url: `${baseUrl}/fr/auth/signup`,
+            url: `${baseUrl}/fr/auth/sign-up`,
             lastModified: currentDate,
             changeFrequency: 'monthly' as const,
             priority: 0.6

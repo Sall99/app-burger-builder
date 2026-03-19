@@ -1,6 +1,45 @@
 # *
 User-agent: *
 Allow: /
+Allow: /en/
+Allow: /fr/
+Allow: /en/auth/sign-in
+Allow: /en/auth/sign-up
+Allow: /fr/auth/sign-in
+Allow: /fr/auth/sign-up
+Allow: /en/locations
+Allow: /fr/locations
+Allow: /en/help
+Allow: /fr/help
+
+# Block private/auth-required pages
+Disallow: /api/
+Disallow: /en/admin/
+Disallow: /fr/admin/
+Disallow: /en/profile/
+Disallow: /fr/profile/
+Disallow: /en/history/
+Disallow: /fr/history/
+Disallow: /en/track-order/
+Disallow: /fr/track-order/
+Disallow: /en/loyalty/
+Disallow: /fr/loyalty/
+Disallow: /en/notifications/
+Disallow: /fr/notifications/
+Disallow: /en/success/
+Disallow: /fr/success/
+Disallow: /en/cancel/
+Disallow: /fr/cancel/
+
+# Googlebot specific
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# Bingbot specific
+User-agent: Bingbot
+Allow: /
 Disallow: /api/
 Disallow: /admin/
 

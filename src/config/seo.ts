@@ -5,16 +5,43 @@ export const seoConfig = {
     defaultDescription:
         'Create your perfect custom burger online with our interactive Burger Builder. Choose from premium ingredients including meat, cheese, bacon, and fresh vegetables. Order delivery or pickup today!',
     keywords: [
+        // Primary — high intent
         'burger builder',
         'custom burger',
-        'online burger order',
-        'build your burger',
+        'build your own burger',
+        'build a burger online',
+        'order burger online',
+        'burger near me',
         'burger delivery',
+        'custom hamburger',
+        // Food general — broader reach
+        'food delivery',
+        'online food ordering',
         'fast food online',
-        'hamburger customization',
         'food ordering app',
-        'burger menu',
-        'online food delivery'
+        'order food online',
+        'best food delivery app',
+        // Gourmet / quality signals
+        'gourmet burger',
+        'gourmet burger builder',
+        'fresh burger ingredients',
+        'premium burger',
+        'interactive burger builder',
+        'burger customization',
+        'hamburger customization',
+        // Restaurant / local intent
+        'burger restaurant near me',
+        'best burgers near me',
+        'online burger restaurant',
+        'fast food restaurant',
+        // Long-tail
+        'build your own burger online',
+        'custom burger delivery',
+        'create your burger',
+        'design your burger',
+        'burger menu online',
+        'burger ordering system',
+        'best burger app'
     ],
     author: 'Burger Builder Team',
     twitterHandle: '@burgerbuilder',

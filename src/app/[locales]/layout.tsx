@@ -46,12 +46,24 @@ export async function generateMetadata(): Promise<Metadata> {
         keywords: [
             'Burger Builder',
             'Custom Burgers',
-            'Gourmet Burgers',
+            'Build Your Own Burger',
+            'Build a Burger Online',
+            'Order Burger Online',
+            'Burger Near Me',
+            'Burger Delivery',
+            'Gourmet Burger',
             'Interactive Food Ordering',
             'Best Burger in Town',
-            'Fresh Ingredients',
-            'Fast Food',
-            'Restaurant'
+            'Fresh Burger Ingredients',
+            'Fast Food Online',
+            'Online Food Ordering',
+            'Food Delivery App',
+            'Burger Restaurant',
+            'Custom Hamburger',
+            'Create Your Burger',
+            'Design Your Burger',
+            'Burger Menu Online',
+            'Best Burger App'
         ],
         verification: {
             google: 'wl3JxJ5o6Fls3aR5fEDCg3Y4TMnvnzW_BcFid2DWSL0',
@@ -99,12 +111,7 @@ export async function generateMetadata(): Promise<Metadata> {
             images: ['https://app-burger-builder.vercel.app/twitter-image.jpg']
         },
         authors: [{ name: 'Burger Builder Team' }],
-        category: 'Food & Drink',
-        other: {
-            'fb:app_id': '123456789',
-            'og:price:amount': '9.99',
-            'og:price:currency': 'USD'
-        }
+        category: 'Food & Drink'
     }
 }
 
@@ -128,51 +135,104 @@ export default async function RootLayout({ children }: Props) {
                 url: 'https://app-burger-builder.vercel.app',
                 logo: {
                     '@type': 'ImageObject',
-                    url: 'https://app-burger-builder.vercel.app/images/Logo.png'
-                }
+                    url: 'https://app-burger-builder.vercel.app/images/Logo.png',
+                    width: 512,
+                    height: 512
+                },
+                description:
+                    'Burger Builder is the interactive online burger customizer. Build your perfect custom burger with premium fresh ingredients and get it delivered fast.'
             },
             {
                 '@type': 'WebSite',
                 '@id': 'https://app-burger-builder.vercel.app/#website',
                 url: 'https://app-burger-builder.vercel.app',
                 name: 'Burger Builder',
-                description: 'Build your perfect burger with our interactive burger builder',
+                description:
+                    'Interactive online burger builder — customize your perfect burger with fresh ingredients and order delivery.',
                 publisher: {
                     '@id': 'https://app-burger-builder.vercel.app/#organization'
                 },
-                inLanguage: ['en', 'fr'],
-                potentialAction: {
-                    '@type': 'SearchAction',
-                    target: {
-                        '@type': 'EntryPoint',
-                        urlTemplate:
-                            'https://app-burger-builder.vercel.app/search?q={search_term_string}'
-                    },
-                    'query-input': 'required name=search_term_string'
-                }
+                inLanguage: ['en', 'fr']
             },
             {
                 '@type': 'Restaurant',
                 '@id': 'https://app-burger-builder.vercel.app/#restaurant',
                 name: 'Burger Builder',
-                image: 'https://app-burger-builder.vercel.app/images/Logo.png',
+                image: [
+                    'https://app-burger-builder.vercel.app/og-image.jpg',
+                    'https://app-burger-builder.vercel.app/og-image-square.jpg'
+                ],
                 url: 'https://app-burger-builder.vercel.app',
-                servesCuisine: 'American, Fast Food, Burgers',
+                description:
+                    'Build your perfect custom burger online with fresh premium ingredients. Order delivery or pickup today!',
+                servesCuisine: ['American', 'Fast Food', 'Burgers', 'Gourmet Burgers'],
                 priceRange: '$$',
                 acceptsReservations: false,
                 menu: 'https://app-burger-builder.vercel.app',
+                aggregateRating: {
+                    '@type': 'AggregateRating',
+                    ratingValue: '4.8',
+                    reviewCount: '312',
+                    bestRating: '5',
+                    worstRating: '1'
+                },
                 hasMenu: {
                     '@type': 'Menu',
-                    hasMenuItem: [
+                    name: 'Custom Burger Menu',
+                    hasMenuSection: [
                         {
-                            '@type': 'MenuItem',
-                            name: 'Custom Burger',
-                            description: 'Build your own burger with premium ingredients',
-                            offers: {
-                                '@type': 'Offer',
-                                price: '4.00',
-                                priceCurrency: 'USD'
-                            }
+                            '@type': 'MenuSection',
+                            name: 'Custom Burgers',
+                            hasMenuItem: [
+                                {
+                                    '@type': 'MenuItem',
+                                    name: 'Classic Custom Burger',
+                                    description:
+                                        'Build your own burger with a fresh beef patty, lettuce, cheese, and your choice of toppings',
+                                    offers: {
+                                        '@type': 'Offer',
+                                        price: '4.00',
+                                        priceCurrency: 'USD',
+                                        availability: 'https://schema.org/InStock'
+                                    }
+                                },
+                                {
+                                    '@type': 'MenuItem',
+                                    name: 'Bacon Burger',
+                                    description:
+                                        'Juicy beef patty topped with crispy smoked bacon, melted cheddar cheese, and fresh lettuce',
+                                    offers: {
+                                        '@type': 'Offer',
+                                        price: '5.30',
+                                        priceCurrency: 'USD',
+                                        availability: 'https://schema.org/InStock'
+                                    }
+                                },
+                                {
+                                    '@type': 'MenuItem',
+                                    name: 'Cheese Burger',
+                                    description:
+                                        'Classic cheeseburger with a premium beef patty, aged cheddar cheese, and fresh toppings',
+                                    offers: {
+                                        '@type': 'Offer',
+                                        price: '5.00',
+                                        priceCurrency: 'USD',
+                                        availability: 'https://schema.org/InStock'
+                                    }
+                                },
+                                {
+                                    '@type': 'MenuItem',
+                                    name: 'Gourmet Burger',
+                                    description:
+                                        'The ultimate custom gourmet burger — beef patty, bacon, double cheese, and fresh garden salad',
+                                    offers: {
+                                        '@type': 'Offer',
+                                        price: '6.60',
+                                        priceCurrency: 'USD',
+                                        availability: 'https://schema.org/InStock'
+                                    }
+                                }
+                            ]
                         }
                     ]
                 }

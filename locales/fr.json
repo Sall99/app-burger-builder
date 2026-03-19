@@ -480,7 +480,43 @@
             "title": "Créez Votre Burger Personnalisé | Burger Builder",
             "description": "Créez et personnalisez le burger de vos rêves en ligne. Choisissez parmi des ingrédients frais, regardez votre burger se construire en temps réel et faites-le livrer.",
             "h1": "Créez Votre Burger Personnalisé en Ligne",
-            "seoText": "Bienvenue chez Burger Builder — le créateur de burger interactif en ligne. Choisissez parmi des ingrédients frais premium : steaks de boeuf, bacon croustillant, fromage fondu, laitue fraîche et plus encore. Construisez votre burger de rêve en temps réel, sauvegardez vos créations favorites, découvrez les offres repas et commandez en livraison. Disponible en anglais et en français."
+            "seoText": "Bienvenue chez Burger Builder — le créateur de burger interactif en ligne. Choisissez parmi des ingrédients frais premium : steaks de boeuf, bacon croustillant, fromage fondu, laitue fraîche et plus encore. Construisez votre burger de rêve en temps réel, sauvegardez vos créations favorites, découvrez les offres repas et commandez en livraison. Disponible en anglais et en français.",
+            "howToBuildTitle": "Comment Créer Votre Burger",
+            "howToBuildText": "Créer votre burger parfait n'a jamais été aussi simple. Sélectionnez vos ingrédients favoris — steak de bœuf juteux, bacon croustillant, fromage cheddar fondu et laitue fraîche. Regardez votre burger prendre vie en temps réel avec notre créateur interactif. Une fois satisfait, passez à la caisse pour une livraison rapide.",
+            "ingredientsTitle": "Ingrédients Frais et Premium",
+            "ingredientsText": "Nous n'utilisons que des ingrédients de la meilleure qualité. Chaque burger commence par un pain fraîchement cuit et peut être personnalisé avec : steaks de bœuf premium ou végétarien, cheddar affiné, bacon fumé croustillant, laitue romaine fraîche et sauces signature. Aucun compromis — juste de la bonne nourriture.",
+            "deliveryTitle": "Livraison Rapide à Domicile",
+            "deliveryText": "Vous avez faim ? Commandez maintenant et recevez votre burger personnalisé en aussi peu que 30 minutes. Nous offrons une livraison de repas rapide et fiable avec un suivi de commande en temps réel. Parfait pour la livraison à domicile, le déjeuner au bureau ou toute occasion.",
+            "whyChooseTitle": "Pourquoi Choisir Burger Builder ?",
+            "whyChoose1": "100% personnalisable — créez exactement le burger que vous souhaitez",
+            "whyChoose2": "Ingrédients frais et de qualité approvisionnés quotidiennement",
+            "whyChoose3": "Aperçu interactif du burger en temps réel",
+            "whyChoose4": "Livraison rapide avec suivi de commande en direct",
+            "whyChoose5": "Sauvegardez vos créations de burger favorites",
+            "whyChoose6": "Récompenses de fidélité à chaque commande",
+            "faqTitle": "Questions Fréquentes",
+            "faq": [
+                {
+                    "question": "Comment créer un burger personnalisé en ligne ?",
+                    "answer": "Visitez simplement notre Burger Builder interactif, sélectionnez vos ingrédients préférés dans le menu et regardez votre burger se construire en temps réel. Ajoutez des steaks, du fromage, du bacon, de la laitue et plus encore — puis passez votre commande pour la livraison."
+                },
+                {
+                    "question": "Puis-je commander un burger en livraison ?",
+                    "answer": "Oui ! Nous offrons une livraison de burger rapide directement chez vous. Après avoir créé votre burger personnalisé, procédez au paiement et entrez votre adresse de livraison. Le délai de livraison estimé est de 30 à 45 minutes."
+                },
+                {
+                    "question": "Quels ingrédients de burger sont disponibles ?",
+                    "answer": "Nous proposons des steaks de bœuf premium, du bacon croustillant, du fromage cheddar fondu, de la laitue fraîche et bien plus encore. Vous pouvez entièrement personnaliser votre burger en ajoutant ou en supprimant n'importe quel ingrédient selon vos goûts."
+                },
+                {
+                    "question": "Y a-t-il une commande minimale pour la livraison de burger ?",
+                    "answer": "Notre commande minimale commence à 4,00 $. Créez votre burger et vérifiez le total avant de passer votre commande. Nous proposons également des offres repas et des packs combo pour un excellent rapport qualité-prix."
+                },
+                {
+                    "question": "Puis-je sauvegarder mon burger personnalisé pour plus tard ?",
+                    "answer": "Oui ! Créez un compte et vous pourrez sauvegarder vos créations de burger favorites pour les recommander à tout moment. Vous gagnerez également des points de fidélité à chaque commande et débloquerez des récompenses exclusives."
+                }
+            ]
         },
         "Auth": {
             "SignIn": {
