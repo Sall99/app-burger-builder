@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { BiCurrentLocation, BiMap, BiPhone, BiTime } from 'react-icons/bi'
 import { MdEmail, MdLocationOn, MdStar } from 'react-icons/md'
 import { useTranslations } from 'next-intl'
@@ -48,16 +48,25 @@ export const LocationFinder: React.FC = () => {
             },
             (error) => {
                 console.error('Geolocation error:', error)
-                setLocationError(t('locationPermissionDenied'))
+                switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        setLocationError(t('locationPermissionDenied'))
+                        break
+                    case error.POSITION_UNAVAILABLE:
+                        setLocationError(t('locationUnavailable'))
+                        break
+                    case error.TIMEOUT:
+                        setLocationError(t('locationTimeout'))
+                        break
+                    default:
+                        setLocationError(t('locationPermissionDenied'))
+                }
                 setIsLoadingLocation(false)
             }
         )
     }
 
-    useEffect(() => {
-        getUserLocation()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    // Geolocation is only triggered when the user clicks "Find Nearest"
 
     const handleLocationClick = (location: RestaurantLocation) => {
         setSelectedLocation(location)
