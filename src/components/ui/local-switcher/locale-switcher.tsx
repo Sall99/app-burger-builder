@@ -1,103 +1,74 @@
 'use client'
 
-import React, { Fragment, useState, useTransition } from 'react'
-import { BiWorld } from 'react-icons/bi'
+import React, { Fragment, useTransition } from 'react'
 import { Popover, Transition } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { useRouter } from 'next/navigation'
+import { Check, ChevronDown, Globe } from 'lucide-react'
+import { usePathname, useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
 
 const locales = [
-    {
-        name: 'en',
-        label: 'English',
-        flag: '🇬🇧',
-        description: 'Switch to English'
-    },
-    {
-        name: 'fr',
-        label: 'Français',
-        flag: '🇫🇷',
-        description: 'Passer au français'
-    }
+    { name: 'en', short: 'EN', label: 'English' },
+    { name: 'fr', short: 'FR', label: 'Français' }
 ]
 
 const LocaleSwitcher = () => {
     const router = useRouter()
+    const pathname = usePathname()
     const [isPending, startTransition] = useTransition()
     const localActive = useLocale()
     const currentLocale = locales.find((l) => l.name === localActive) || locales[0]
 
     const handleLocaleChange = (locale: string, close: () => void) => {
         startTransition(() => {
-            router.replace(`/${locale}`)
+            const nextPath = pathname?.replace(/^\/(en|fr)(?=\/|$)/, `/${locale}`) || `/${locale}`
+            router.replace(nextPath)
             close()
         })
     }
 
     return (
-        <Popover className="locale-switcher-wrapper">
+        <Popover className="relative">
             {({ open, close }) => (
                 <>
-                    <Popover.Button className="locale-switcher-button" disabled={isPending}>
-                        <BiWorld className="locale-switcher-button-icon" />
-                        <span className="locale-switcher-button-text">{currentLocale.label}</span>
-                        <ChevronDownIcon
-                            className={`locale-switcher-chevron ${open ? 'locale-switcher-chevron-open' : ''}`}
+                    <Popover.Button
+                        disabled={isPending}
+                        className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-950 focus:outline-none disabled:opacity-50"
+                        aria-label="Change language">
+                        <Globe size={14} className="text-zinc-400" />
+                        <span>{currentLocale.short}</span>
+                        <ChevronDown
+                            size={12}
+                            className={`text-zinc-400 transition-transform duration-150 ${open ? 'rotate-180' : ''}`}
                         />
                     </Popover.Button>
 
                     <Transition
                         as={Fragment}
-                        enter="transition ease-out duration-200"
-                        enterFrom="opacity-0 translate-y-1"
-                        enterTo="opacity-100 translate-y-0"
-                        leave="transition ease-in duration-150"
-                        leaveFrom="opacity-100 translate-y-0"
-                        leaveTo="opacity-0 translate-y-1">
-                        <Popover.Panel className="locale-dropdown-panel">
-                            <div className="locale-dropdown-container">
-                                <div className="locale-dropdown-header">
-                                    <BiWorld className="locale-dropdown-header-icon" />
-                                    <span className="locale-dropdown-header-title">
-                                        Choose Language
-                                    </span>
-                                </div>
-                                <div className="locale-dropdown-content">
-                                    {locales.map((locale) => (
-                                        <button
-                                            key={locale.name}
-                                            onClick={() => handleLocaleChange(locale.name, close)}
-                                            className={`locale-dropdown-item ${
-                                                locale.name === localActive
-                                                    ? 'locale-dropdown-item-active'
-                                                    : ''
-                                            }`}
-                                            disabled={isPending}>
-                                            <div className="locale-dropdown-item-icon">
-                                                <span className="locale-dropdown-flag">
-                                                    {locale.flag}
-                                                </span>
-                                            </div>
-                                            <div className="locale-dropdown-item-content">
-                                                <span className="locale-dropdown-label">
-                                                    {locale.label}
-                                                </span>
-                                                <span className="locale-dropdown-description">
-                                                    {locale.description}
-                                                </span>
-                                            </div>
-                                            {locale.name === localActive && (
-                                                <div className="locale-dropdown-check">
-                                                    <span className="locale-dropdown-check-icon">
-                                                        ✓
-                                                    </span>
-                                                </div>
-                                            )}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
+                        enter="transition ease-out duration-150"
+                        enterFrom="opacity-0 translate-y-1 scale-95"
+                        enterTo="opacity-100 translate-y-0 scale-100"
+                        leave="transition ease-in duration-100"
+                        leaveFrom="opacity-100 translate-y-0 scale-100"
+                        leaveTo="opacity-0 translate-y-1 scale-95">
+                        <Popover.Panel className="absolute right-0 z-50 mt-2 w-40 origin-top-right overflow-hidden rounded-xl border border-zinc-200 bg-white p-1 shadow-elevated">
+                            {locales.map((locale) => {
+                                const isActive = locale.name === localActive
+                                return (
+                                    <button
+                                        key={locale.name}
+                                        type="button"
+                                        onClick={() => handleLocaleChange(locale.name, close)}
+                                        disabled={isPending}
+                                        className={`flex w-full items-center justify-between rounded-lg px-2.5 py-2 text-xs font-medium transition-colors ${
+                                            isActive
+                                                ? 'bg-zinc-100 text-zinc-950 font-semibold'
+                                                : 'text-zinc-600 hover:bg-zinc-50 hover:text-zinc-950'
+                                        }`}>
+                                        <span>{locale.label}</span>
+                                        {isActive && <Check size={13} className="text-zinc-950" />}
+                                    </button>
+                                )
+                            })}
                         </Popover.Panel>
                     </Transition>
                 </>

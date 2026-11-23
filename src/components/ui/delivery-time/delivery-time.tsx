@@ -1,9 +1,8 @@
 'use client'
 
 import React, { useMemo } from 'react'
-import { BiTimeFive } from 'react-icons/bi'
-import { MdDeliveryDining } from 'react-icons/md'
 import { useSelector } from 'react-redux'
+import { Clock, Truck } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { selectIngredients } from '@/redux/selectors/ingredients'
@@ -18,57 +17,47 @@ export const DeliveryTime: React.FC = () => {
     const t = useTranslations('DeliveryTime')
     const { ingredients } = useSelector(selectIngredients)
 
-    const deliveryEstimate = useMemo(() => {
-        return calculateDeliveryTime(ingredients, {
-            distance: 5
-        })
-    }, [ingredients])
+    const deliveryEstimate = useMemo(
+        () => calculateDeliveryTime(ingredients, { distance: 5 }),
+        [ingredients]
+    )
 
     const timeRange = getDeliveryTimeRange(deliveryEstimate.totalTime)
     const deliveryTimeStr = formatDeliveryTimeString(deliveryEstimate.estimatedDelivery)
 
     return (
-        <div className="delivery-time-container">
-            <div className="delivery-time-header">
-                <MdDeliveryDining className="delivery-icon" aria-hidden="true" />
-                <div className="delivery-time-content">
-                    <h3 className="delivery-time-title">{t('title')}</h3>
-                    <div className="delivery-time-estimate">
-                        <span className="delivery-time-main">
-                            {timeRange.min}-{timeRange.max} {t('minutes')}
-                        </span>
-                        <span className="delivery-time-clock">
-                            <BiTimeFive aria-hidden="true" />
-                            {t('by')} {deliveryTimeStr}
-                        </span>
-                    </div>
+        <div className="rounded-2xl border border-zinc-200/80 bg-white p-5 space-y-3">
+            <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                    <Truck size={15} className="text-zinc-500" />
+                    <h3 className="text-sm font-semibold text-zinc-950">{t('title')}</h3>
                 </div>
+                <span className="inline-flex items-center gap-1 text-xs font-medium text-zinc-500">
+                    <Clock size={12} />
+                    {t('by')} {deliveryTimeStr}
+                </span>
             </div>
 
-            {deliveryEstimate.isPeakHour && (
-                <div className="delivery-time-peak-warning">
-                    <span className="delivery-peak-badge">{t('peakHours')}</span>
-                    <span className="delivery-peak-text">{t('peakHoursMessage')}</span>
+            <div className="grid grid-cols-3 gap-2 text-center">
+                <div className="rounded-xl bg-zinc-50 border border-zinc-100 p-2.5">
+                    <p className="text-sm font-bold text-zinc-950 tabular-nums">
+                        {timeRange.min}–{timeRange.max}m
+                    </p>
+                    <p className="text-[11px] text-zinc-500">Total</p>
                 </div>
-            )}
-
-            <div className="delivery-time-breakdown">
-                <div className="delivery-breakdown-item">
-                    <span className="delivery-breakdown-label">{t('preparation')}</span>
-                    <span className="delivery-breakdown-value">
+                <div className="rounded-xl bg-zinc-50 border border-zinc-100 p-2.5">
+                    <p className="text-sm font-bold text-zinc-950 tabular-nums">
                         {formatDeliveryTime(deliveryEstimate.prepTime)}
-                    </span>
+                    </p>
+                    <p className="text-[11px] text-zinc-500">{t('preparation')}</p>
                 </div>
-                <div className="delivery-breakdown-divider">+</div>
-                <div className="delivery-breakdown-item">
-                    <span className="delivery-breakdown-label">{t('delivery')}</span>
-                    <span className="delivery-breakdown-value">
+                <div className="rounded-xl bg-zinc-50 border border-zinc-100 p-2.5">
+                    <p className="text-sm font-bold text-zinc-950 tabular-nums">
                         {formatDeliveryTime(deliveryEstimate.deliveryTime)}
-                    </span>
+                    </p>
+                    <p className="text-[11px] text-zinc-500">{t('delivery')}</p>
                 </div>
             </div>
-
-            <div className="delivery-time-note">{t('note')}</div>
         </div>
     )
 }

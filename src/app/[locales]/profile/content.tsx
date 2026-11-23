@@ -1,20 +1,16 @@
 'use client'
+
 import React from 'react'
-import {
-    BiCalendar,
-    BiCheck,
-    BiDollar,
-    BiLoaderAlt,
-    BiPackage,
-    BiReceipt,
-    BiUser
-} from 'react-icons/bi'
 import dayjs from 'dayjs'
-import { useTranslations } from 'next-intl'
+import { AlertCircle, ArrowUpRight, Loader2 } from 'lucide-react'
+import Link from 'next/link'
+import { useLocale, useTranslations } from 'next-intl'
 import useSWR from 'swr'
 
 import { getUserStats } from '@/actions/users'
+import { AccountShell, OrderStatusBadge, PaymentStatusBadge } from '@/components/account'
 import { UpdateProfileForm } from '@/components/ui'
+import { totalFormatter } from '@/utils/utils'
 
 interface UserStats {
     user: {
@@ -41,126 +37,108 @@ interface UserStats {
 
 const Content = () => {
     const t = useTranslations('UpdateProfile')
+    const locale = useLocale()
+    const isFr = locale === 'fr'
     const { data, error, isLoading } = useSWR<UserStats>(['userStats'], getUserStats, {
         revalidateOnFocus: false
     })
 
-    if (isLoading) {
-        return (
-            <div className="max-w-6xl mx-auto my-8 min-h-screen px-8 sm:px-16 flex items-center justify-center">
-                <div className="text-center">
-                    <BiLoaderAlt className="w-12 h-12 animate-spin text-primary-200 mx-auto mb-4" />
-                    <p className="text-lg text-gray-700">{t('Loading') || 'Loading...'}</p>
-                </div>
-            </div>
-        )
-    }
-
-    if (error || !data) {
-        return (
-            <div className="max-w-6xl mx-auto my-8 min-h-screen px-8 sm:px-16 flex items-center justify-center">
-                <div className="text-center">
-                    <p className="text-lg text-red-600">{t('Error') || 'Failed to load profile'}</p>
-                </div>
-            </div>
-        )
-    }
-
     return (
-        <div className="max-w-6xl mx-auto my-8 min-h-screen px-8 sm:px-16">
-            <div className="grid grid-cols-1 mt-20 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-                    <div className="flex items-center justify-between mb-3">
-                        <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                            <BiPackage className="w-6 h-6 text-blue-600" />
-                        </div>
-                    </div>
-                    <p className="text-xl font-bold text-gray-900 mb-1">{data.stats.totalOrders}</p>
-                    <p className="text-xs text-gray-600">{t('TotalOrders')}</p>
+        <AccountShell
+            title={isFr ? 'Profil & paramètres' : 'Profile & Settings'}
+            subtitle={
+                isFr
+                    ? 'Informations personnelles, sécurité et résumé de votre compte.'
+                    : 'Personal details, security, and account overview.'
+            }>
+            {isLoading ? (
+                <div className="flex items-center justify-center rounded-2xl border border-zinc-200/80 py-16">
+                    <Loader2 className="h-6 w-6 animate-spin text-zinc-400" />
                 </div>
-
-                <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-                    <div className="flex items-center justify-between mb-3">
-                        <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                            <BiDollar className="w-6 h-6 text-green-600" />
-                        </div>
-                    </div>
-                    <p className="text-xl font-bold text-gray-900 mb-1">
-                        ${data.stats.totalSpent.toFixed(2)}
+            ) : error || !data ? (
+                <div className="rounded-2xl border border-red-200 bg-red-50/40 p-8 text-center space-y-2">
+                    <AlertCircle className="mx-auto h-7 w-7 text-red-500" />
+                    <p className="text-sm font-medium text-red-700">
+                        {t('Error') || 'Failed to load profile'}
                     </p>
-                    <p className="text-xs text-gray-600">{t('TotalSpent')}</p>
                 </div>
-
-                <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-                    <div className="flex items-center justify-between mb-3">
-                        <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                            <BiCheck className="w-6 h-6 text-green-600" />
-                        </div>
-                    </div>
-                    <p className="text-xl font-bold text-gray-900 mb-1">{data.stats.paidOrders}</p>
-                    <p className="text-xs text-gray-600">{t('PaidOrders') || 'Paid Orders'}</p>
-                </div>
-
-                <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-                    <div className="flex items-center justify-between mb-3">
-                        <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                            <BiCalendar className="w-6 h-6 text-purple-600" />
-                        </div>
-                    </div>
-                    <p className="text-xl font-bold text-gray-900 mb-1">
-                        {dayjs(data.user.memberSince).format('MMM YYYY')}
-                    </p>
-                    <p className="text-xs text-gray-600">{t('MemberSince')}</p>
-                </div>
-            </div>
-
-            {data.recentOrders && data.recentOrders.length > 0 && (
-                <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-                    <div className="flex items-center gap-2 mb-4">
-                        <BiReceipt className="w-5 h-5 text-primary-200" />
-                        <h2 className="text-lg font-semibold text-gray-900">
-                            {t('RecentOrders') || 'Recent Orders'}
-                        </h2>
-                    </div>
-                    <div className="space-y-3">
-                        {data.recentOrders.map((order) => (
-                            <div
-                                key={order.id}
-                                className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                                <div className="flex items-center gap-3">
-                                    <BiPackage className="w-5 h-5 text-gray-600" />
-                                    <div>
-                                        <p className="text-sm font-medium text-gray-900">
-                                            #{order.id.substring(0, 8)}
-                                        </p>
-                                        <p className="text-xs text-gray-500">
-                                            {dayjs(order.createdAt).format('MMM DD, YYYY')}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <p className="text-sm font-semibold text-gray-900">
-                                        ${order.totalPrice.toFixed(2)}
-                                    </p>
-                                    <span
-                                        className={`text-xs px-2 py-1 rounded ${
-                                            order.payment_status
-                                                ? 'bg-green-100 text-green-700'
-                                                : 'bg-yellow-100 text-yellow-700'
-                                        }`}>
-                                        {order.payment_status ? t('Paid') : t('Pending')}
-                                    </span>
-                                </div>
+            ) : (
+                <div className="space-y-6">
+                    {/* Crisp Metric Strip */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-zinc-200/80 rounded-2xl border border-zinc-200/80 bg-white overflow-hidden">
+                        {[
+                            { value: data.stats.totalOrders, label: t('TotalOrders') },
+                            {
+                                value: totalFormatter.format(data.stats.totalSpent),
+                                label: t('TotalSpent')
+                            },
+                            {
+                                value: data.stats.paidOrders,
+                                label: t('PaidOrders') || (isFr ? 'Payées' : 'Paid')
+                            },
+                            {
+                                value: dayjs(data.user.memberSince).format('MMM YYYY'),
+                                label: t('MemberSince')
+                            }
+                        ].map((stat) => (
+                            <div key={stat.label} className="p-4 sm:p-5">
+                                <p className="text-xs font-medium text-zinc-500">{stat.label}</p>
+                                <p className="mt-1 text-xl font-bold tracking-tight text-zinc-950 tabular-nums">
+                                    {stat.value}
+                                </p>
                             </div>
                         ))}
                     </div>
+
+                    {/* Profile Settings */}
+                    <div className="rounded-2xl border border-zinc-200/80 bg-white p-6">
+                        <UpdateProfileForm />
+                    </div>
+
+                    {/* Recent Orders */}
+                    {data.recentOrders && data.recentOrders.length > 0 && (
+                        <div className="rounded-2xl border border-zinc-200/80 bg-white overflow-hidden">
+                            <div className="flex items-center justify-between border-b border-zinc-100 px-5 py-4">
+                                <h2 className="text-sm font-semibold text-zinc-950">
+                                    {t('RecentOrders') ||
+                                        (isFr ? 'Commandes récentes' : 'Recent Orders')}
+                                </h2>
+                                <Link
+                                    href={`/${locale}/history`}
+                                    className="inline-flex items-center gap-1 text-xs font-medium text-zinc-500 hover:text-zinc-950">
+                                    <span>{isFr ? 'Tout voir' : 'View all'}</span>
+                                    <ArrowUpRight size={13} />
+                                </Link>
+                            </div>
+                            <div className="divide-y divide-zinc-100">
+                                {data.recentOrders.map((order) => (
+                                    <Link
+                                        key={order.id}
+                                        href={`/${locale}/track-order?order_id=${order.id}`}
+                                        className="flex flex-wrap items-center justify-between gap-3 px-5 py-3.5 hover:bg-zinc-50 transition-colors">
+                                        <div>
+                                            <p className="font-mono text-xs font-semibold text-zinc-950">
+                                                #{order.id.substring(0, 8)}
+                                            </p>
+                                            <p className="text-[11px] text-zinc-500">
+                                                {dayjs(order.createdAt).format('DD MMM YYYY')}
+                                            </p>
+                                        </div>
+                                        <div className="flex items-center gap-2.5">
+                                            <OrderStatusBadge status={order.status} />
+                                            <PaymentStatusBadge paid={order.payment_status} />
+                                            <span className="text-sm font-bold text-zinc-950 tabular-nums min-w-[3.5rem] text-right">
+                                                {totalFormatter.format(order.totalPrice)}
+                                            </span>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
-
-            <div className="bg-white rounded-lg shadow-md p-6">
-                <UpdateProfileForm />
-            </div>
-        </div>
+        </AccountShell>
     )
 }
 

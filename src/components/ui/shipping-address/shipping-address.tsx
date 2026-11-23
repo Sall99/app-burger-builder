@@ -4,9 +4,10 @@ import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { ArrowRight, Lock, MapPin } from 'lucide-react'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import { useAppSelector } from '@/redux/hook'
 import { selectShippingAddress } from '@/redux/selectors/shipping-address'
@@ -27,8 +28,9 @@ interface ShippingAddressProps {
     isOpen: boolean
 }
 
-export function ShippingAddress({ handlePayment, isOpen }: ShippingAddressProps) {
+export function ShippingAddress({ handlePayment }: ShippingAddressProps) {
     const dispatch = useDispatch()
+    const locale = useLocale()
     const { shippingAddress } = useAppSelector(selectShippingAddress)
     const { data: session } = useSession()
     const t = useTranslations('ShippingAddress')
@@ -45,25 +47,41 @@ export function ShippingAddress({ handlePayment, isOpen }: ShippingAddressProps)
 
     const onSubmit: SubmitHandler<ShippingFormValues> = (data) => {
         dispatch(addShippingAddress(data))
+        if (isShippingAddressPresent) {
+            handlePayment()
+        }
     }
 
     if (!session) {
         return (
-            <div className="p-4 rounded-md">
-                <p className="flex flex-col gap-4">
-                    <span className="text-primary-200 text-sm">{t('YouShouldBeLoggedIn')}</span>
-                    <Link href="/auth/sign-in" className="text-sm underline">
-                        {t('GoToLoginPage')}
-                    </Link>
-                </p>
+            <div className="rounded-xl border border-zinc-200/80 bg-zinc-50/70 p-6 text-center space-y-4">
+                <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-white text-zinc-900 ring-1 ring-zinc-200">
+                    <Lock size={18} />
+                </div>
+                <p className="text-sm font-semibold text-zinc-950">{t('YouShouldBeLoggedIn')}</p>
+                <Link
+                    href={`/${locale}/auth/sign-in`}
+                    className="inline-flex items-center gap-2 rounded-xl bg-zinc-950 px-5 py-2.5 text-sm font-medium text-white hover:bg-zinc-800 transition-colors">
+                    <span>{t('GoToLoginPage')}</span>
+                    <ArrowRight size={14} />
+                </Link>
             </div>
         )
     }
 
     return (
-        <div className="form-card">
-            <form onSubmit={handleSubmit(onSubmit)} aria-live="polite">
-                <div className="flex gap-8">
+        <div className="space-y-4">
+            <div className="flex items-center gap-2.5 rounded-xl border border-zinc-200/80 bg-zinc-50/70 px-3.5 py-2.5 text-xs text-zinc-600">
+                <MapPin size={14} className="shrink-0 text-orange-500" />
+                <span>
+                    {locale === 'fr'
+                        ? 'Indiquez votre adresse pour recevoir votre burger bien chaud.'
+                        : 'Enter your delivery details so we can bring your burger hot & fresh.'}
+                </span>
+            </div>
+
+            <form onSubmit={handleSubmit(onSubmit)} aria-live="polite" className="space-y-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3">
                     <Input
                         name="firstName"
                         type="text"
@@ -98,14 +116,17 @@ export function ShippingAddress({ handlePayment, isOpen }: ShippingAddressProps)
                     aria-invalid={!!errors.town}
                 />
 
-                <Button
-                    type="submit"
-                    label={
-                        isShippingAddressPresent ? t('ProceedToPayment') : t('AddShippingAddress')
-                    }
-                    className="w-full h-10"
-                    onClick={isShippingAddressPresent ? handlePayment : undefined}
-                />
+                <div className="pt-2">
+                    <Button
+                        type="submit"
+                        label={
+                            isShippingAddressPresent
+                                ? t('ProceedToPayment')
+                                : t('AddShippingAddress')
+                        }
+                        className="w-full py-2.5 text-sm font-medium"
+                    />
+                </div>
             </form>
         </div>
     )

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Flame, Truck, UtensilsCrossed } from 'lucide-react'
 import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 
@@ -19,7 +20,6 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Home() {
     const t = await getTranslations('Pages.Home')
 
-    // FAQ entries for structured rendering and schema
     const faqs = [0, 1, 2, 3, 4].map((i) => ({
         question: t(`faq.${i}.question`),
         answer: t(`faq.${i}.answer`)
@@ -38,70 +38,80 @@ export default async function Home() {
         }))
     }
 
-    return (
-        <>
-            {/* Visually hidden primary SEO heading */}
-            <h1 className="sr-only">{t('h1')}</h1>
+    const pillars = [
+        {
+            icon: Flame,
+            title: t('howToBuildTitle'),
+            desc: t('howToBuildText')
+        },
+        {
+            icon: UtensilsCrossed,
+            title: t('ingredientsTitle'),
+            desc: t('ingredientsText')
+        },
+        {
+            icon: Truck,
+            title: t('deliveryTitle'),
+            desc: t('deliveryText')
+        }
+    ]
 
-            {/* FAQ structured data */}
+    return (
+        <div>
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
             />
 
-            {/* Interactive burger builder UI */}
             <HomeClient />
 
-            {/* Visible SEO content section — crawled by Google */}
-            <section className="bg-neutral-950 text-white px-6 py-16 md:px-16 lg:px-24">
-                <div className="max-w-5xl mx-auto space-y-16">
-
-                    {/* How to Build */}
-                    <div>
-                        <h2 className="text-2xl font-bold text-amber-400 mb-4">{t('howToBuildTitle')}</h2>
-                        <p className="text-gray-300 leading-relaxed text-base">{t('howToBuildText')}</p>
-                    </div>
-
-                    {/* Ingredients */}
-                    <div>
-                        <h2 className="text-2xl font-bold text-amber-400 mb-4">{t('ingredientsTitle')}</h2>
-                        <p className="text-gray-300 leading-relaxed text-base">{t('ingredientsText')}</p>
-                    </div>
-
-                    {/* Delivery */}
-                    <div>
-                        <h2 className="text-2xl font-bold text-amber-400 mb-4">{t('deliveryTitle')}</h2>
-                        <p className="text-gray-300 leading-relaxed text-base">{t('deliveryText')}</p>
-                    </div>
-
-                    {/* Why Choose */}
-                    <div>
-                        <h2 className="text-2xl font-bold text-amber-400 mb-6">{t('whyChooseTitle')}</h2>
-                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            {[1, 2, 3, 4, 5, 6].map((i) => (
-                                <li key={i} className="flex items-start gap-2 text-gray-300">
-                                    <span className="text-amber-400 mt-1 shrink-0">✓</span>
-                                    <span>{t(`whyChoose${i}`)}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    {/* FAQ */}
-                    <div>
-                        <h2 className="text-2xl font-bold text-amber-400 mb-6">{t('faqTitle')}</h2>
-                        <div className="space-y-6">
-                            {faqs.map((faq, i) => (
-                                <div key={i} className="border-b border-neutral-800 pb-6">
-                                    <h3 className="text-white font-semibold mb-2">{faq.question}</h3>
-                                    <p className="text-gray-400 leading-relaxed">{faq.answer}</p>
+            {/* Clean 3-Column Editorial Section */}
+            <section className="border-t border-surface-border bg-white py-12">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+                        {pillars.map(({ icon: Icon, title, desc }) => (
+                            <div key={title} className="space-y-3">
+                                <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-surface-border bg-surface text-ink">
+                                    <Icon size={17} aria-hidden="true" />
                                 </div>
-                            ))}
-                        </div>
+                                <h2 className="font-display text-lg font-bold tracking-tight text-ink">
+                                    {title}
+                                </h2>
+                                <p className="text-sm leading-relaxed text-ink-muted">{desc}</p>
+                            </div>
+                        ))}
                     </div>
-
                 </div>
             </section>
-        </>
+
+            {/* Clean FAQ Section */}
+            <section
+                aria-labelledby="faq-heading"
+                className="border-t border-surface-border bg-surface py-12">
+                <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+                    <h2
+                        id="faq-heading"
+                        className="mb-6 font-display text-2xl font-bold tracking-tight text-ink">
+                        {t('faqTitle')}
+                    </h2>
+
+                    <div className="divide-y divide-surface-border rounded-xl border border-surface-border bg-white">
+                        {faqs.map((faq, idx) => (
+                            <details key={idx} className="group px-5 py-4">
+                                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-ink">
+                                    <span>{faq.question}</span>
+                                    <span className="text-base text-ink-subtle transition-transform group-open:rotate-45">
+                                        +
+                                    </span>
+                                </summary>
+                                <p className="mt-2.5 text-sm leading-relaxed text-ink-muted">
+                                    {faq.answer}
+                                </p>
+                            </details>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        </div>
     )
 }

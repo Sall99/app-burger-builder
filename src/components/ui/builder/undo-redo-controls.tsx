@@ -20,39 +20,44 @@ export function UndoRedoControls() {
     const hasIngredients = (ingredientOrder?.length ?? 0) > 0
 
     return (
-        <div className="builder-controls-container">
+        <div
+            className="inline-flex items-center gap-0.5 rounded-xl border border-zinc-200/80 bg-white p-1 shadow-soft"
+            role="toolbar"
+            aria-label="Burger history controls">
             <button
+                type="button"
                 onClick={() => dispatch(undo())}
                 disabled={!canUndo}
-                className="builder-control-button builder-control-undo"
+                className="inline-flex h-7 w-7 items-center justify-center rounded-lg text-zinc-700 transition-colors hover:bg-zinc-100 disabled:opacity-30 disabled:cursor-not-allowed"
                 aria-label={t('undo') || 'Undo'}
                 title={t('undo') || 'Undo (Ctrl+Z)'}>
-                <Undo2 size={18} />
-                <span className="builder-control-label">{t('undo') || 'Undo'}</span>
+                <Undo2 size={14} />
             </button>
 
             <button
+                type="button"
                 onClick={() => dispatch(redo())}
                 disabled={!canRedo}
-                className="builder-control-button builder-control-redo"
+                className="inline-flex h-7 w-7 items-center justify-center rounded-lg text-zinc-700 transition-colors hover:bg-zinc-100 disabled:opacity-30 disabled:cursor-not-allowed"
                 aria-label={t('redo') || 'Redo'}
                 title={t('redo') || 'Redo (Ctrl+Y)'}>
-                <Redo2 size={18} />
-                <span className="builder-control-label">{t('redo') || 'Redo'}</span>
+                <Redo2 size={14} />
             </button>
 
+            <div className="mx-0.5 h-3.5 w-px bg-zinc-200" aria-hidden="true" />
+
             <button
+                type="button"
                 onClick={() => {
                     if (window.confirm(t('confirmClear') || 'Clear your burger?')) {
                         dispatch(clearBurger())
                     }
                 }}
                 disabled={!hasIngredients}
-                className="builder-control-button builder-control-clear"
+                className="inline-flex h-7 w-7 items-center justify-center rounded-lg text-zinc-500 transition-colors hover:bg-red-50 hover:text-red-600 disabled:opacity-30 disabled:cursor-not-allowed"
                 aria-label={t('clear') || 'Clear'}
                 title={t('clear') || 'Clear burger'}>
-                <RotateCcw size={18} />
-                <span className="builder-control-label">{t('clear') || 'Clear'}</span>
+                <RotateCcw size={14} />
             </button>
         </div>
     )

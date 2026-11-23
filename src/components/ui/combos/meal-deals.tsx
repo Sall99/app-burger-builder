@@ -1,9 +1,8 @@
 'use client'
 
 import React, { useState } from 'react'
-import { BiDollar, BiStar } from 'react-icons/bi'
-import { MdLocalOffer } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
+import { Check, Sparkles, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { selectCombo } from '@/redux/selectors/combo'
@@ -21,28 +20,11 @@ export const MealDeals: React.FC = () => {
     const [showAll, setShowAll] = useState(false)
 
     const { bestCombo } = calculateComboSavings(ingredients)
-
-    // Show only popular combos by default, or all if clicked
     const displayedCombos = showAll ? COMBOS : COMBOS.filter((c) => c.isPopular || c.isDealOfTheDay)
 
     const handleApplyCombo = (combo: Combo) => {
-        // Apply combo to Redux
         dispatch(applyCombo(combo))
-
-        // Set ingredients to match combo
         dispatch(setIngredients(combo.ingredients))
-
-        // Announce for accessibility
-        if (typeof window !== 'undefined') {
-            const announcement = `Applied ${combo.name} combo. Saved ${totalFormatter.format(combo.savings)}`
-            const ariaLive = document.createElement('div')
-            ariaLive.setAttribute('role', 'status')
-            ariaLive.setAttribute('aria-live', 'polite')
-            ariaLive.className = 'sr-only'
-            ariaLive.textContent = announcement
-            document.body.appendChild(ariaLive)
-            setTimeout(() => document.body.removeChild(ariaLive), 1000)
-        }
     }
 
     const handleClearCombo = () => {
@@ -51,156 +33,101 @@ export const MealDeals: React.FC = () => {
     }
 
     return (
-        <div className="combos-container">
-            {/* Header */}
-            <div className="combos-header">
-                <MdLocalOffer className="combos-icon" aria-hidden="true" />
-                <div>
-                    <h3 className="combos-title">{t('title')}</h3>
-                    <p className="combos-subtitle">{t('subtitle')}</p>
-                </div>
-            </div>
-
-            {/* Combo Suggestion */}
+        <div className="space-y-3">
             {bestCombo && !isComboApplied && (
-                <div className="combo-suggestion">
-                    <div className="combo-suggestion-content">
-                        <span className="combo-suggestion-icon">💡</span>
-                        <div>
-                            <p className="combo-suggestion-text">
-                                {t('suggestionText', { name: bestCombo.name })}
-                            </p>
-                            <p className="combo-suggestion-savings">
-                                {t('save')} {totalFormatter.format(bestCombo.savings)}!
-                            </p>
-                        </div>
+                <div className="flex items-center justify-between gap-3 rounded-2xl border border-orange-200 bg-orange-50/70 px-4 py-3">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                        <Sparkles size={15} className="shrink-0 text-orange-500" />
+                        <p className="truncate text-xs font-medium text-zinc-800">
+                            {t('suggestionText', { name: bestCombo.name })} —{' '}
+                            <span className="font-semibold text-orange-600">
+                                {t('save')} {totalFormatter.format(bestCombo.savings)}
+                            </span>
+                        </p>
                     </div>
                     <button
+                        type="button"
                         onClick={() => handleApplyCombo(bestCombo)}
-                        className="combo-suggestion-button">
+                        className="shrink-0 rounded-lg bg-zinc-950 px-3 py-1.5 text-[11px] font-semibold text-white hover:bg-zinc-800">
                         {t('applyNow')}
                     </button>
                 </div>
             )}
 
-            {/* Active Combo Banner */}
             {isComboApplied && selectedCombo && (
-                <div className="combo-active-banner">
-                    <div className="combo-active-content">
-                        <span className="combo-active-icon">{selectedCombo.icon}</span>
-                        <div>
-                            <p className="combo-active-name">{selectedCombo.name}</p>
-                            <p className="combo-active-savings">
-                                {t('saving')} {totalFormatter.format(selectedCombo.savings)} (
-                                {selectedCombo.savingsPercentage}% {t('off')})
-                            </p>
-                        </div>
-                    </div>
-                    <button onClick={handleClearCombo} className="combo-clear-button">
+                <div className="flex items-center justify-between gap-3 rounded-2xl border border-emerald-200 bg-emerald-50/70 px-4 py-3">
+                    <p className="text-xs font-medium text-emerald-800">
+                        <strong>{selectedCombo.name}</strong> · {t('saving')}{' '}
+                        {totalFormatter.format(selectedCombo.savings)}
+                    </p>
+                    <button
+                        type="button"
+                        onClick={handleClearCombo}
+                        className="inline-flex items-center gap-1 rounded-lg bg-white px-2.5 py-1 text-[11px] font-semibold text-zinc-700 border border-emerald-200 hover:bg-emerald-50">
+                        <X size={12} />
                         {t('clearCombo')}
                     </button>
                 </div>
             )}
 
-            {/* Combos Grid */}
-            <div className="combos-grid">
+            <div className="divide-y divide-zinc-100 rounded-2xl border border-zinc-200/80 bg-white overflow-hidden">
                 {displayedCombos.map((combo) => {
                     const isActive = isComboApplied && selectedCombo?.id === combo.id
-
                     return (
                         <div
                             key={combo.id}
-                            className={`combo-card ${isActive ? 'combo-card-active' : ''}`}>
-                            {/* Deal of the Day Badge */}
-                            {combo.isDealOfTheDay && (
-                                <div className="combo-badge combo-badge-deal">
-                                    <BiStar /> {t('dealOfTheDay')}
+                            className={`flex items-center justify-between gap-4 p-4 transition-colors ${
+                                isActive ? 'bg-orange-50/40' : 'hover:bg-zinc-50/70'
+                            }`}>
+                            <div className="min-w-0 space-y-1">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-base leading-none">{combo.icon}</span>
+                                    <h4 className="text-sm font-semibold text-zinc-950 truncate">
+                                        {combo.name}
+                                    </h4>
+                                    <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
+                                        -{combo.savingsPercentage}%
+                                    </span>
                                 </div>
-                            )}
-
-                            {/* Popular Badge */}
-                            {combo.isPopular && !combo.isDealOfTheDay && (
-                                <div className="combo-badge combo-badge-popular">
-                                    {t('popular')}
-                                </div>
-                            )}
-
-                            {/* Combo Icon */}
-                            <div className="combo-icon-large">{combo.icon}</div>
-
-                            {/* Combo Name */}
-                            <h4 className="combo-name">{combo.name}</h4>
-
-                            {/* Combo Description */}
-                            <p className="combo-description">{combo.description}</p>
-
-                            {/* Ingredients */}
-                            <div className="combo-ingredients">
-                                {combo.ingredients.meat > 0 && (
-                                    <span className="combo-ingredient">
-                                        🍔 {combo.ingredients.meat}x {t('ingredients.meat')}
-                                    </span>
-                                )}
-                                {combo.ingredients.cheese > 0 && (
-                                    <span className="combo-ingredient">
-                                        🧀 {combo.ingredients.cheese}x {t('ingredients.cheese')}
-                                    </span>
-                                )}
-                                {combo.ingredients.salad > 0 && (
-                                    <span className="combo-ingredient">
-                                        🥬 {combo.ingredients.salad}x {t('ingredients.salad')}
-                                    </span>
-                                )}
-                                {combo.ingredients.bacon > 0 && (
-                                    <span className="combo-ingredient">
-                                        🥓 {combo.ingredients.bacon}x {t('ingredients.bacon')}
-                                    </span>
-                                )}
+                                <p className="text-xs text-zinc-500 line-clamp-1">
+                                    {combo.description}
+                                </p>
                             </div>
 
-                            {/* Pricing */}
-                            <div className="combo-pricing">
-                                <div className="combo-price-regular">
-                                    <span className="combo-price-label">{t('regular')}:</span>
-                                    <span className="combo-price-value combo-price-strikethrough">
+                            <div className="flex shrink-0 items-center gap-3">
+                                <div className="text-right">
+                                    <span className="block text-[11px] text-zinc-400 line-through tabular-nums">
                                         {totalFormatter.format(combo.regularPrice)}
-                                        <BiDollar />
                                     </span>
-                                </div>
-                                <div className="combo-price-combo">
-                                    <span className="combo-price-label">{t('comboPrice')}:</span>
-                                    <span className="combo-price-value combo-price-highlight">
+                                    <span className="text-sm font-bold text-zinc-950 tabular-nums">
                                         {totalFormatter.format(combo.comboPrice)}
-                                        <BiDollar />
                                     </span>
                                 </div>
-                                <div className="combo-savings-badge">
-                                    {t('save')} {totalFormatter.format(combo.savings)} (
-                                    {combo.savingsPercentage}% {t('off')})
-                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => handleApplyCombo(combo)}
+                                    disabled={isActive}
+                                    className={`inline-flex items-center gap-1 rounded-xl px-3 py-1.5 text-xs font-semibold transition-all ${
+                                        isActive
+                                            ? 'bg-emerald-600 text-white'
+                                            : 'border border-zinc-200 bg-white text-zinc-900 hover:border-zinc-950 hover:bg-zinc-950 hover:text-white'
+                                    }`}>
+                                    {isActive && <Check size={12} />}
+                                    <span>{isActive ? t('applied') : t('selectCombo')}</span>
+                                </button>
                             </div>
-
-                            {/* Apply Button */}
-                            <button
-                                onClick={() => handleApplyCombo(combo)}
-                                disabled={isActive}
-                                className={`combo-apply-button ${isActive ? 'combo-apply-button-active' : ''}`}>
-                                {isActive ? t('applied') : t('selectCombo')}
-                            </button>
                         </div>
                     )
                 })}
             </div>
 
-            {/* Show More/Less Button */}
-            {COMBOS.length > displayedCombos.length && (
-                <div className="combos-show-more">
-                    <button
-                        onClick={() => setShowAll(!showAll)}
-                        className="combos-show-more-button">
-                        {showAll ? t('showLess') : t('showMore')}
-                    </button>
-                </div>
+            {COMBOS.length > 3 && (
+                <button
+                    type="button"
+                    onClick={() => setShowAll(!showAll)}
+                    className="w-full rounded-xl border border-zinc-200 py-2 text-xs font-medium text-zinc-600 hover:bg-zinc-50 hover:text-zinc-950 transition-colors">
+                    {showAll ? t('showLess') : t('showMore')}
+                </button>
             )}
         </div>
     )

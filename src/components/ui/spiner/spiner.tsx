@@ -1,7 +1,10 @@
-import React from 'react';
+import React from 'react'
 
 export function Spiner() {
     return (
-        <div className="border-white h-6 w-6 animate-spin rounded-full border-2 border-t-primary-100" />
-    );
+        <div
+            className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white"
+            aria-hidden="true"
+        />
+    )
 }

@@ -3,14 +3,14 @@ import { GoogleTagManager } from '@next/third-parties/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
-import { Roboto } from 'next/font/google'
+import { Outfit, Poppins } from 'next/font/google'
 import { getServerSession } from 'next-auth'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages, getTranslations } from 'next-intl/server'
 
 import { WebVitals } from '@/app/web-vitals'
 import { Footer, Header } from '@/components'
-import { TawkChatWithUser } from '@/components/chat'
+import { GeminiChat } from '@/components/chat'
 import { GoogleAnalytics } from '@/components/google'
 import { SkipLink } from '@/components/ui'
 import { ToasterProvider } from '@/providers'
@@ -20,9 +20,18 @@ import { authOptions, SessionWrapper } from '../../../libs'
 
 import './globals.css'
 
-const roboto = Roboto({
-    weight: ['400', '500', '700', '900'],
-    subsets: ['latin']
+const outfit = Outfit({
+    weight: ['500', '600', '700', '800', '900'],
+    subsets: ['latin'],
+    display: 'swap',
+    variable: '--font-outfit'
+})
+
+const poppins = Poppins({
+    weight: ['400', '500', '600', '700'],
+    subsets: ['latin'],
+    display: 'swap',
+    variable: '--font-poppins'
 })
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -110,7 +119,7 @@ export async function generateMetadata(): Promise<Metadata> {
                 'Design your dream burger with our interactive Burger Builder. Choose from premium, fresh ingredients!',
             images: ['https://app-burger-builder.vercel.app/twitter-image.jpg']
         },
-        authors: [{ name: 'Burger Builder Team' }],
+        authors: [{ name: 'Abou Daouda Sall', url: 'https://github.com/Sall99' }],
         category: 'Food & Drink'
     }
 }
@@ -271,10 +280,17 @@ export default async function RootLayout({ children }: Props) {
     }
 
     return (
-        <html lang={locale}>
+        <html lang={locale} className={`${outfit.variable} ${poppins.variable}`}>
             <head>
                 <link rel="manifest" href="/manifest.json" />
-                <meta name="theme-color" content="#f59e0b" />
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+                {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&display=swap"
+                    rel="stylesheet"
+                />
+                <meta name="theme-color" content="#E8431D" />
                 <meta name="mobile-web-app-capable" content="yes" />
                 <meta name="apple-mobile-web-app-capable" content="yes" />
                 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -285,7 +301,7 @@ export default async function RootLayout({ children }: Props) {
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrgData) }}
                 />
             </head>
-            <body className={roboto.className}>
+            <body className="font-sans bg-[#F8F6F2] text-ink antialiased selection:bg-brand-100 selection:text-brand-700 min-h-screen flex flex-col">
                 <SessionWrapper>
                     <Providers>
                         <SkipLink text={t('skipToMain')} />
@@ -294,25 +310,17 @@ export default async function RootLayout({ children }: Props) {
                         <GoogleTagManager gtmId={'G-ZM99W2R4EX'} />
                         <NextIntlClientProvider messages={messages}>
                             <Header session={session} />
-                            <main id="main-content" tabIndex={-1}>
+                            <main id="main-content" tabIndex={-1} className="flex-1">
                                 {children}
                             </main>
                             <Footer />
+                            <GeminiChat userName={session?.user?.name || undefined} />
                         </NextIntlClientProvider>
                         <Analytics />
                         <SpeedInsights />
                     </Providers>
                 </SessionWrapper>
                 <GoogleAnalytics />
-
-                {process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID && (
-                    <TawkChatWithUser
-                        propertyId={process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID}
-                        widgetId={process.env.NEXT_PUBLIC_TAWK_WIDGET_ID}
-                        userEmail={session?.user?.email || undefined}
-                        userName={session?.user?.name || undefined}
-                    />
-                )}
             </body>
         </html>
     )

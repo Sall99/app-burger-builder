@@ -123,7 +123,9 @@
         "Meat": "Meat",
         "Cheese": "Cheese",
         "Salad": "Salad",
-        "Bacon": "Bacon"
+        "Bacon": "Bacon",
+        "ChooseIngredients": "Choose Your Ingredients",
+        "BaseBun": "Brioche bun $4.00"
     },
     "Help": {
         "HelpTitle": "Help",
@@ -419,7 +421,9 @@
         "findNearest": "Find Nearest Location",
         "finding": "Finding...",
         "geolocationNotSupported": "Geolocation is not supported by your browser",
-        "locationPermissionDenied": "Location permission denied. Please enable location services.",
+        "locationPermissionDenied": "Location permission denied. Click the lock icon in the address bar to re-enable location access.",
+        "locationUnavailable": "Unable to determine your position. Please check your location settings.",
+        "locationTimeout": "Location request timed out. Please try again.",
         "nearestLocations": "Nearest Locations",
         "allLocations": "All Locations",
         "miles": "mi",

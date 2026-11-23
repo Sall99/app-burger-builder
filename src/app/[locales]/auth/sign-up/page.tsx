@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import { SignUpForm } from './form'
 
 export async function generateMetadata(): Promise<Metadata> {
-    const t = await getTranslations('Pages.Auth.SignUp')
+    await getTranslations('Pages.Auth.SignUp')
 
     return {
         title: 'Create Account | Burger Builder - Start Building Custom Burgers',
@@ -23,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const Signup = () => {
     return (
-        <div className="flex justify-center px-8 sm:px-16">
+        <div className="flex min-h-[calc(100vh-12rem)] items-center justify-center px-4 py-12 sm:px-6">
             <SignUpForm />
         </div>
     )

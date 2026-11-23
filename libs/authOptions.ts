@@ -47,9 +47,27 @@ export const authOptions: AuthOptions = {
                 const { role, id } = user as typeof user & { role?: string; id?: string };
                 token.role = role;
                 token.id = id;
+            } else if (token.email) {
+                try {
+                    const dbUser = await prisma.user.findUnique({
+                        where: { email: token.email },
+                        select: { role: true, id: true }
+                    });
+                    if (dbUser) {
+                        token.role = dbUser.role;
+                        token.id = dbUser.id;
+                    }
+                } catch {
+                    // Ignore transient DB lookup failures during token refresh
+                }
             }
             if (trigger === 'update' && session) {
-                token = { ...token, ...session };
+                if (typeof session.name === 'string') {
+                    token.name = session.name
+                }
+                if (typeof session.image === 'string') {
+                    token.picture = session.image
+                }
             }
             
             return token;

@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import SignInForm from './form'
 
 export async function generateMetadata(): Promise<Metadata> {
-    const t = await getTranslations('Pages.Auth.SignIn')
+    await getTranslations('Pages.Auth.SignIn')
 
     return {
         title: 'Sign In to Burger Builder | Access Your Custom Burger Account',
@@ -23,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function SignInPage() {
     return (
-        <div className="flex justify-center px-8 sm:px-16">
+        <div className="flex min-h-[calc(100vh-12rem)] items-center justify-center px-4 py-12 sm:px-6">
             <SignInForm />
         </div>
     )

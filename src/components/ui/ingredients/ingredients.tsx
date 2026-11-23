@@ -4,36 +4,51 @@ import { useTranslations } from 'next-intl'
 
 import { IngredientTypes } from '@/types'
 
+import { BurgerLayerArt } from './burger-layer-artwork'
+
 export const BurgerIngredients = (props: IngredientTypes) => {
     const t = useTranslations('Ingredients')
-    let ingredients
 
     switch (props.type) {
         case 'BreadBottom':
-            ingredients = <div className="BreadBottom" aria-label={t('BreadBottom')}></div>
-            break
-        case 'BreadTop':
-            ingredients = (
-                <div className="BreadTop" aria-label={t('BreadTop')}>
-                    <div className="Seeds1"></div>
-                    <div className="Seeds2"></div>
+            return (
+                <div className="BreadBottom" aria-label={t('BreadBottom')}>
+                    <BurgerLayerArt type="BreadBottom" />
                 </div>
             )
-            break
+        case 'BreadTop':
+            return (
+                <div className="BreadTop" aria-label={t('BreadTop')}>
+                    <div className="Seeds1 sr-only" />
+                    <div className="Seeds2 sr-only" />
+                    <BurgerLayerArt type="BreadTop" />
+                </div>
+            )
         case 'meat':
-            ingredients = <div className="Meat" aria-label={t('Meat')}></div>
-            break
+            return (
+                <div className="Meat" aria-label={t('Meat')}>
+                    <BurgerLayerArt type="meat" />
+                </div>
+            )
         case 'cheese':
-            ingredients = <div className="Cheese" aria-label={t('Cheese')}></div>
-            break
+            return (
+                <div className="Cheese" aria-label={t('Cheese')}>
+                    <BurgerLayerArt type="cheese" />
+                </div>
+            )
         case 'salad':
-            ingredients = <div className="Salad" aria-label={t('Salad')}></div>
-            break
+            return (
+                <div className="Salad" aria-label={t('Salad')}>
+                    <BurgerLayerArt type="salad" />
+                </div>
+            )
         case 'bacon':
-            ingredients = <div className="Bacon" aria-label={t('Bacon')}></div>
-            break
+            return (
+                <div className="Bacon" aria-label={t('Bacon')}>
+                    <BurgerLayerArt type="bacon" />
+                </div>
+            )
         default:
-            return (ingredients = null)
+            return null
     }
-    return ingredients
 }
