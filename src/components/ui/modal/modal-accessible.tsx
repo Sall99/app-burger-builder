@@ -4,6 +4,8 @@ import { Fragment, useEffect, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { X } from 'lucide-react'
 
+import { announce, trapFocus } from '@/lib/accessibility'
+
 interface ModalAccessibleProps {
     isOpen: boolean
     setIsOpen: (open: boolean) => void
@@ -25,17 +27,14 @@ export function ModalAccessible({
     useEffect(() => {
         if (isOpen) {
             previousFocusRef.current = document.activeElement as HTMLElement
-
             announce(`${title} dialog opened`, 'polite')
 
             if (modalRef.current) {
                 const cleanup = trapFocus(modalRef.current)
                 return cleanup
             }
-        } else {
-            if (previousFocusRef.current) {
-                previousFocusRef.current.focus()
-            }
+        } else if (previousFocusRef.current) {
+            previousFocusRef.current.focus()
         }
     }, [isOpen, title])
 
@@ -54,45 +53,52 @@ export function ModalAccessible({
                 aria-describedby="modal-description">
                 <Transition.Child
                     as={Fragment}
-                    enter="ease-out duration-300"
+                    enter="ease-out duration-200"
                     enterFrom="opacity-0"
                     enterTo="opacity-100"
-                    leave="ease-in duration-200"
+                    leave="ease-in duration-150"
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0">
-                    <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
+                    <div
+                        className="fixed inset-0 bg-zinc-950/40 backdrop-blur-sm"
+                        aria-hidden="true"
+                    />
                 </Transition.Child>
 
                 <div className="fixed inset-0 overflow-y-auto">
                     <div className="flex min-h-full items-center justify-center p-4 text-center">
                         <Transition.Child
                             as={Fragment}
-                            enter="ease-out duration-300"
-                            enterFrom="opacity-0 scale-95"
-                            enterTo="opacity-100 scale-100"
-                            leave="ease-in duration-200"
-                            leaveFrom="opacity-100 scale-100"
-                            leaveTo="opacity-0 scale-95">
+                            enter="ease-out duration-200"
+                            enterFrom="opacity-0 scale-95 translate-y-2"
+                            enterTo="opacity-100 scale-100 translate-y-0"
+                            leave="ease-in duration-150"
+                            leaveFrom="opacity-100 scale-100 translate-y-0"
+                            leaveTo="opacity-0 scale-95 translate-y-2">
                             <Dialog.Panel
                                 ref={modalRef}
-                                className="modal-content relative w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+                                className="relative w-full max-w-lg transform overflow-hidden rounded-2xl border border-zinc-200/80 bg-white text-left align-middle shadow-elevated transition-all"
                                 role="dialog"
                                 aria-modal="true">
-                                <button
-                                    onClick={handleClose}
-                                    className="absolute right-4 top-4 p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-colors"
-                                    aria-label="Close dialog">
-                                    <X size={20} aria-hidden="true" />
-                                </button>
+                                <div className="flex items-center justify-between border-b border-zinc-100 px-6 py-4">
+                                    <Dialog.Title
+                                        id="modal-title"
+                                        as="h2"
+                                        className="text-base font-semibold tracking-tight text-zinc-950 pr-6">
+                                        {title}
+                                    </Dialog.Title>
+                                    <button
+                                        type="button"
+                                        onClick={handleClose}
+                                        className="flex h-8 w-8 items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-100 hover:text-zinc-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 transition-colors"
+                                        aria-label="Close dialog">
+                                        <X size={16} aria-hidden="true" />
+                                    </button>
+                                </div>
 
-                                <Dialog.Title
-                                    id="modal-title"
-                                    as="h2"
-                                    className="text-lg font-semibold text-gray-900 mb-4 pr-8">
-                                    {title}
-                                </Dialog.Title>
-
-                                <div id="modal-description">{content}</div>
+                                <div id="modal-description" className="p-6">
+                                    {content}
+                                </div>
                             </Dialog.Panel>
                         </Transition.Child>
                     </div>
@@ -100,10 +106,4 @@ export function ModalAccessible({
             </Dialog>
         </Transition>
     )
-}
-function announce(arg0: string, arg1: string) {
-    throw new Error('Function not implemented.')
-}
-function trapFocus(current: HTMLDivElement) {
-    throw new Error('Function not implemented.')
 }

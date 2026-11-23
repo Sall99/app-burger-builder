@@ -1,12 +1,20 @@
 'use client'
 
 import React, { useState } from 'react'
-import { BiCurrentLocation, BiMap, BiPhone, BiTime } from 'react-icons/bi'
-import { MdEmail, MdLocationOn, MdStar } from 'react-icons/md'
+import {
+    Check,
+    Clock,
+    Compass,
+    ExternalLink,
+    Mail,
+    MapPin,
+    Navigation,
+    Phone,
+    Star
+} from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import {
-    calculateDistance,
     formatAddress,
     getDirectionsUrl,
     getLocationsByDistance,
@@ -17,7 +25,9 @@ import {
 export const LocationFinder: React.FC = () => {
     const t = useTranslations('Locations')
     const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null)
-    const [selectedLocation, setSelectedLocation] = useState<RestaurantLocation | null>(null)
+    const [selectedLocation, setSelectedLocation] = useState<RestaurantLocation | null>(
+        RESTAURANT_LOCATIONS[0] || null
+    )
     const [isLoadingLocation, setIsLoadingLocation] = useState(false)
     const [locationError, setLocationError] = useState<string | null>(null)
     const [sortedLocations, setSortedLocations] =
@@ -36,18 +46,12 @@ export const LocationFinder: React.FC = () => {
             (position) => {
                 const { latitude, longitude } = position.coords
                 setUserLocation({ lat: latitude, lng: longitude })
-
                 const sorted = getLocationsByDistance(latitude, longitude)
                 setSortedLocations(sorted)
-
-                if (sorted.length > 0) {
-                    setSelectedLocation(sorted[0])
-                }
-
+                if (sorted.length > 0) setSelectedLocation(sorted[0])
                 setIsLoadingLocation(false)
             },
             (error) => {
-                console.error('Geolocation error:', error)
                 switch (error.code) {
                     case error.PERMISSION_DENIED:
                         setLocationError(t('locationPermissionDenied'))
@@ -66,206 +70,178 @@ export const LocationFinder: React.FC = () => {
         )
     }
 
-    // Geolocation is only triggered when the user clicks "Find Nearest"
-
-    const handleLocationClick = (location: RestaurantLocation) => {
-        setSelectedLocation(location)
-    }
-
-    const handleGetDirections = (location: RestaurantLocation) => {
-        const url = getDirectionsUrl(location)
-        window.open(url, '_blank')
-    }
-
     return (
-        <div className="location-finder">
-            <div className="location-header">
-                <BiMap className="location-icon" aria-hidden="true" />
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-8">
+            <div className="flex flex-col gap-4 border-b border-zinc-200/80 pb-6 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                    <h3 className="location-title">{t('title')}</h3>
-                    <p className="location-subtitle">{t('subtitle')}</p>
+                    <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-950">
+                        {t('title')}
+                    </h1>
+                    <p className="mt-1 text-sm text-zinc-500">{t('subtitle')}</p>
                 </div>
-            </div>
 
-            <div className="location-find-nearest">
                 <button
+                    type="button"
                     onClick={getUserLocation}
                     disabled={isLoadingLocation}
-                    className="location-find-button">
-                    <BiCurrentLocation />
-                    {isLoadingLocation ? t('finding') : t('findNearest')}
+                    className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-zinc-950 px-4 py-2 text-xs font-semibold text-white hover:bg-zinc-800 transition-colors disabled:opacity-50">
+                    <Compass size={14} />
+                    <span>{isLoadingLocation ? t('finding') : t('findNearest')}</span>
                 </button>
-                {locationError && <p className="location-error">{locationError}</p>}
             </div>
 
-            <div className="location-content">
-                <div className="location-list">
-                    <h4 className="location-list-title">
-                        {userLocation ? t('nearestLocations') : t('allLocations')}
-                    </h4>
+            {locationError && (
+                <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs font-medium text-amber-900">
+                    {locationError}
+                </div>
+            )}
 
-                    {sortedLocations.map((location) => (
-                        <div
-                            key={location.id}
-                            onClick={() => handleLocationClick(location)}
-                            className={`location-card ${selectedLocation?.id === location.id ? 'location-card-active' : ''}`}>
-                            <div className="location-card-header">
-                                <h5 className="location-card-name">{location.name}</h5>
-                                {location.distance !== undefined && (
-                                    <span className="location-distance">
-                                        {location.distance} {t('miles')}
-                                    </span>
-                                )}
-                            </div>
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 items-start">
+                <div className="space-y-2.5 lg:col-span-5">
+                    <p className="text-xs font-medium text-zinc-500">
+                        {userLocation ? t('nearestLocations') : t('allLocations')} (
+                        {sortedLocations.length})
+                    </p>
 
-                            {location.rating && (
-                                <div className="location-rating">
-                                    <MdStar className="location-star" />
-                                    <span className="location-rating-value">{location.rating}</span>
-                                    <span className="location-reviews">
-                                        ({location.reviewCount} {t('reviews')})
-                                    </span>
+                    {sortedLocations.map((location) => {
+                        const isSelected = selectedLocation?.id === location.id
+                        return (
+                            <button
+                                key={location.id}
+                                type="button"
+                                onClick={() => setSelectedLocation(location)}
+                                className={`w-full text-left rounded-2xl border p-4 transition-all ${
+                                    isSelected
+                                        ? 'border-zinc-950 bg-zinc-50/80 shadow-soft'
+                                        : 'border-zinc-200/80 bg-white hover:border-zinc-300'
+                                }`}>
+                                <div className="flex items-start justify-between gap-2">
+                                    <h3 className="text-sm font-semibold text-zinc-950">
+                                        {location.name}
+                                    </h3>
+                                    {location.distance !== undefined && (
+                                        <span className="shrink-0 rounded-full bg-zinc-900 px-2 py-0.5 text-[10px] font-semibold text-white">
+                                            {location.distance} {t('miles')}
+                                        </span>
+                                    )}
                                 </div>
-                            )}
 
-                            <div className="location-address">
-                                <MdLocationOn className="location-info-icon" />
-                                <span>{formatAddress(location)}</span>
-                            </div>
+                                {location.rating && (
+                                    <div className="mt-1 flex items-center gap-1 text-xs text-zinc-500">
+                                        <Star
+                                            size={12}
+                                            className="fill-amber-400 text-amber-400"
+                                        />
+                                        <span className="font-semibold text-zinc-900">
+                                            {location.rating}
+                                        </span>
+                                        <span>({location.reviewCount})</span>
+                                    </div>
+                                )}
 
-                            <div className="location-phone">
-                                <BiPhone className="location-info-icon" />
-                                <a href={`tel:${location.phone}`}>{location.phone}</a>
-                            </div>
-
-                            <div className="location-features">
-                                {location.features.slice(0, 3).map((feature, idx) => (
-                                    <span key={idx} className="location-feature-badge">
-                                        {feature}
-                                    </span>
-                                ))}
-                            </div>
-
-                            <button className="location-view-button">{t('viewDetails')}</button>
-                        </div>
-                    ))}
+                                <p className="mt-2 flex items-start gap-1.5 text-xs text-zinc-500">
+                                    <MapPin size={13} className="mt-0.5 shrink-0 text-zinc-400" />
+                                    <span>{formatAddress(location)}</span>
+                                </p>
+                            </button>
+                        )
+                    })}
                 </div>
 
-                <div className="location-details">
-                    {selectedLocation ? (
+                <div className="lg:col-span-7 lg:sticky lg:top-24 space-y-4">
+                    {selectedLocation && (
                         <>
-                            <div className="location-details-card">
-                                <h4 className="location-details-name">{selectedLocation.name}</h4>
-
-                                {selectedLocation.rating && (
-                                    <div className="location-rating location-rating-large">
-                                        <MdStar className="location-star" />
-                                        <span className="location-rating-value">
-                                            {selectedLocation.rating}
-                                        </span>
-                                        <span className="location-reviews">
-                                            ({selectedLocation.reviewCount} {t('reviews')})
-                                        </span>
-                                    </div>
-                                )}
-
-                                <div className="location-details-section">
-                                    <h5 className="location-details-section-title">
-                                        {t('contactInfo')}
-                                    </h5>
-
-                                    <div className="location-detail-item">
-                                        <MdLocationOn className="location-detail-icon" />
-                                        <div>
-                                            <p className="location-detail-label">{t('address')}</p>
-                                            <p className="location-detail-value">
-                                                {formatAddress(selectedLocation)}
-                                            </p>
-                                        </div>
+                            <div className="rounded-2xl border border-zinc-200/80 bg-white p-6 space-y-5">
+                                <div className="flex flex-wrap items-start justify-between gap-4 border-b border-zinc-100 pb-4">
+                                    <div>
+                                        <h2 className="text-lg font-bold tracking-tight text-zinc-950">
+                                            {selectedLocation.name}
+                                        </h2>
+                                        <p className="mt-0.5 text-xs text-zinc-500">
+                                            {formatAddress(selectedLocation)}
+                                        </p>
                                     </div>
 
-                                    <div className="location-detail-item">
-                                        <BiPhone className="location-detail-icon" />
-                                        <div>
-                                            <p className="location-detail-label">{t('phone')}</p>
-                                            <p className="location-detail-value">
-                                                <a href={`tel:${selectedLocation.phone}`}>
-                                                    {selectedLocation.phone}
-                                                </a>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div className="location-detail-item">
-                                        <MdEmail className="location-detail-icon" />
-                                        <div>
-                                            <p className="location-detail-label">{t('email')}</p>
-                                            <p className="location-detail-value">
-                                                <a href={`mailto:${selectedLocation.email}`}>
-                                                    {selectedLocation.email}
-                                                </a>
-                                            </p>
-                                        </div>
-                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() =>
+                                            window.open(getDirectionsUrl(selectedLocation), '_blank')
+                                        }
+                                        className="inline-flex items-center gap-1.5 rounded-full bg-zinc-950 px-4 py-2 text-xs font-semibold text-white hover:bg-zinc-800 transition-colors">
+                                        <Navigation size={13} />
+                                        <span>{t('getDirections')}</span>
+                                        <ExternalLink size={11} />
+                                    </button>
                                 </div>
 
-                                <div className="location-details-section">
-                                    <h5 className="location-details-section-title">
-                                        <BiTime /> {t('hours')}
-                                    </h5>
-                                    <div className="location-hours-grid">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs">
+                                    <div className="space-y-2.5">
+                                        <p className="font-semibold text-zinc-950">
+                                            {t('contactInfo')}
+                                        </p>
+                                        <div className="flex items-center gap-2 text-zinc-600">
+                                            <Phone size={13} className="text-zinc-400" />
+                                            <a
+                                                href={`tel:${selectedLocation.phone}`}
+                                                className="hover:text-zinc-950">
+                                                {selectedLocation.phone}
+                                            </a>
+                                        </div>
+                                        <div className="flex items-center gap-2 text-zinc-600">
+                                            <Mail size={13} className="text-zinc-400" />
+                                            <a
+                                                href={`mailto:${selectedLocation.email}`}
+                                                className="hover:text-zinc-950 truncate">
+                                                {selectedLocation.email}
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-1.5">
+                                        <p className="flex items-center gap-1.5 font-semibold text-zinc-950 mb-2">
+                                            <Clock size={13} className="text-zinc-400" />
+                                            <span>{t('hours')}</span>
+                                        </p>
                                         {Object.entries(selectedLocation.hours).map(
                                             ([day, hours]) => (
-                                                <div key={day} className="location-hour-item">
-                                                    <span className="location-hour-day">
-                                                        {t(`days.${day}`)}:
+                                                <div
+                                                    key={day}
+                                                    className="flex justify-between text-zinc-600">
+                                                    <span className="font-medium text-zinc-800">
+                                                        {t(`days.${day}`)}
                                                     </span>
-                                                    <span className="location-hour-time">
-                                                        {hours}
-                                                    </span>
+                                                    <span>{hours}</span>
                                                 </div>
                                             )
                                         )}
                                     </div>
                                 </div>
 
-                                <div className="location-details-section">
-                                    <h5 className="location-details-section-title">
-                                        {t('features')}
-                                    </h5>
-                                    <div className="location-features-grid">
-                                        {selectedLocation.features.map((feature, idx) => (
-                                            <span key={idx} className="location-feature-tag">
-                                                ✓ {feature}
-                                            </span>
-                                        ))}
-                                    </div>
+                                <div className="flex flex-wrap gap-1.5 border-t border-zinc-100 pt-4">
+                                    {selectedLocation.features.map((feature, idx) => (
+                                        <span
+                                            key={idx}
+                                            className="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-2.5 py-1 text-[11px] font-medium text-zinc-700">
+                                            <Check size={11} className="text-emerald-600" />
+                                            {feature}
+                                        </span>
+                                    ))}
                                 </div>
-
-                                <button
-                                    onClick={() => handleGetDirections(selectedLocation)}
-                                    className="location-directions-button">
-                                    <BiMap /> {t('getDirections')}
-                                </button>
                             </div>
 
-                            <div className="location-map-container">
+                            <div className="overflow-hidden rounded-2xl border border-zinc-200/80 bg-white">
                                 <iframe
                                     width="100%"
-                                    height="450"
-                                    style={{ border: 0, borderRadius: '0.5rem' }}
+                                    height="340"
+                                    style={{ border: 0 }}
                                     loading="lazy"
                                     allowFullScreen
                                     referrerPolicy="no-referrer-when-downgrade"
                                     src={`https://www.google.com/maps?q=${selectedLocation.coordinates.lat},${selectedLocation.coordinates.lng}&hl=en&z=15&output=embed`}
-                                    title={`Map showing ${selectedLocation.name}`}></iframe>
+                                    title={`Map showing ${selectedLocation.name}`}
+                                />
                             </div>
                         </>
-                    ) : (
-                        <div className="location-no-selection">
-                            <BiMap className="location-no-selection-icon" />
-                            <p>{t('selectLocation')}</p>
-                        </div>
                     )}
                 </div>
             </div>

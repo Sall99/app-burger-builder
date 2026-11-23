@@ -1,36 +1,26 @@
 'use client'
 
 import { useState } from 'react'
-import { BiShare } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
-import { Check, Copy, Facebook, MessageCircle, Share2, Twitter } from 'lucide-react'
+import { Check, Copy, Share2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { RootState } from '@/redux/store'
 
 export function ShareBurger() {
     const t = useTranslations('Builder')
-    const [isOpen, setIsOpen] = useState(false)
     const [copied, setCopied] = useState(false)
 
     const { ingredients, totalPrice, ingredientOrder } = useSelector(
         (state: RootState) => state.rootReducer.ingredients
     )
 
-    const hasIngredients = (ingredientOrder?.length ?? 0) > 0
-
-    const generateShareText = () => {
-        const ingredientList = Object.entries(ingredients)
-            .filter(([, count]) => count > 0)
-            .map(([name, count]) => `${count}x ${name}`)
-            .join(', ')
-
-        return `Check out my custom burger! 🍔\n${ingredientList}\nTotal: $${totalPrice.toFixed(2)}\n\nBuild your own at ${window.location.origin}`
-    }
+    if ((ingredientOrder?.length ?? 0) === 0) return null
 
     const generateShareUrl = () => {
+        const origin = typeof window !== 'undefined' ? window.location.origin : ''
         const burgerData = btoa(JSON.stringify({ ingredients, totalPrice }))
-        return `${window.location.origin}?burger=${burgerData}`
+        return `${origin}?burger=${burgerData}`
     }
 
     const handleCopyLink = async () => {
@@ -43,117 +33,30 @@ export function ShareBurger() {
         }
     }
 
-    const handleShareFacebook = () => {
-        const url = encodeURIComponent(generateShareUrl())
-        const text = encodeURIComponent(generateShareText())
-        window.open(
-            `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`,
-            '_blank',
-            'width=600,height=400'
-        )
-    }
-
-    const handleShareTwitter = () => {
-        const text = encodeURIComponent(generateShareText())
-        window.open(
-            `https://twitter.com/intent/tweet?text=${text}`,
-            '_blank',
-            'width=600,height=400'
-        )
-    }
-
-    const handleShareWhatsApp = () => {
-        const text = encodeURIComponent(generateShareText())
-        window.open(`https://wa.me/?text=${text}`, '_blank')
-    }
-
-    const handleNativeShare = async () => {
-        if (navigator.share) {
-            try {
-                await navigator.share({
-                    title: 'My Custom Burger',
-                    text: generateShareText(),
-                    url: generateShareUrl()
-                })
-            } catch (err) {
-                console.error('Error sharing:', err)
-            }
-        }
-    }
-
-    if (!hasIngredients) return null
-
     return (
-        <div className="share-burger-container">
-            <div className="share-burger-header" onClick={() => setIsOpen(!isOpen)}>
-                <BiShare className="share-burger-icon" aria-hidden="true" />
-                <div className="share-burger-title-wrapper">
-                    <h3 className="share-burger-title">{t('shareBurger') || 'Share My Burger'}</h3>
-                    <p className="share-burger-subtitle">
-                        {t('shareSubtitle') || 'Share your creation with friends'}
-                    </p>
-                </div>
-                <span className="share-burger-arrow">{isOpen ? '▼' : '▶'}</span>
+        <div className="flex items-center justify-between gap-3 rounded-2xl border border-zinc-200/80 bg-white px-5 py-3.5">
+            <div className="flex items-center gap-2.5 min-w-0">
+                <Share2 size={15} className="shrink-0 text-zinc-500" />
+                <p className="truncate text-xs font-semibold text-zinc-900">
+                    {t('shareBurger') || 'Share My Burger'}
+                </p>
             </div>
-
-            {isOpen && (
-                <div className="share-burger-content">
-                    <h4 className="share-options-title">{t('shareOn') || 'Share on'}</h4>
-
-                    <div className="share-options-grid">
-                        <button onClick={handleCopyLink} className="share-option-button">
-                            {copied ? (
-                                <>
-                                    <Check size={20} className="share-option-icon-success" />
-                                    <span className="share-option-label">
-                                        {t('copied') || 'Copied!'}
-                                    </span>
-                                </>
-                            ) : (
-                                <>
-                                    <Copy size={20} className="share-option-icon" />
-                                    <span className="share-option-label">
-                                        {t('copyLink') || 'Copy Link'}
-                                    </span>
-                                </>
-                            )}
-                        </button>
-
-                        <button
-                            onClick={handleShareFacebook}
-                            className="share-option-button share-option-facebook">
-                            <Facebook size={20} />
-                            <span className="share-option-label">Facebook</span>
-                        </button>
-
-                        <button
-                            onClick={handleShareTwitter}
-                            className="share-option-button share-option-twitter">
-                            <Twitter size={20} />
-                            <span className="share-option-label">Twitter</span>
-                        </button>
-
-                        <button
-                            onClick={handleShareWhatsApp}
-                            className="share-option-button share-option-whatsapp">
-                            <MessageCircle size={20} />
-                            <span className="share-option-label">WhatsApp</span>
-                        </button>
-                    </div>
-
-                    {typeof navigator.share === 'function' && (
-                        <button onClick={handleNativeShare} className="share-native-button">
-                            <Share2 size={18} />
-                            <span>{t('shareMore') || 'More Options'}</span>
-                        </button>
-                    )}
-
-                    <div className="share-preview">
-                        <p className="share-preview-title">{t('preview') || 'Preview'}:</p>
-                        <p className="share-preview-text">{generateShareText()}</p>
-                    </div>
-                </div>
-            )}
+            <button
+                type="button"
+                onClick={handleCopyLink}
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs font-semibold text-zinc-800 hover:border-zinc-950 hover:bg-white transition-colors">
+                {copied ? (
+                    <>
+                        <Check size={13} className="text-emerald-600" />
+                        <span className="text-emerald-700">{t('copied') || 'Copied'}</span>
+                    </>
+                ) : (
+                    <>
+                        <Copy size={13} />
+                        <span>{t('copyLink') || 'Copy Link'}</span>
+                    </>
+                )}
+            </button>
         </div>
     )
 }

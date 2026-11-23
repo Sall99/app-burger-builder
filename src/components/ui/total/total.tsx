@@ -1,13 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { BiDollar, BiReceipt } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
-import { ShoppingCart } from 'lucide-react'
+import { ArrowRight, ChevronDown, Tag } from 'lucide-react'
 import { useSession } from 'next-auth/react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import { selectIngredients } from '@/redux/selectors/ingredients'
 import { selectSubstitutions } from '@/redux/selectors/substitutions'
@@ -24,28 +23,26 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 export const Total = () => {
     const session = useSession()
     const t = useTranslations('Total')
+    const locale = useLocale()
+    const isFr = locale === 'fr'
 
     const { ingredients, totalPrice } = useSelector(selectIngredients)
     const coupon = useSelector((state: RootState) => state.rootReducer.coupon)
     const { totalAdjustment: substitutionAdjustment } = useSelector(selectSubstitutions)
     const [isPaymentOpen, setIsPaymeOpen] = useState(false)
-    const { meat, salad, bacon, cheese } = ingredients
     const [isOpen, setIsOpen] = useState(false)
+    const [showPromo, setShowPromo] = useState(false)
+    const { meat, salad, bacon, cheese } = ingredients
 
     const priceAfterSubstitutions = totalPrice + substitutionAdjustment
-    const finalPrice = priceAfterSubstitutions - (coupon.appliedDiscount || 0)
+    const finalPrice = Math.max(0, priceAfterSubstitutions - (coupon.appliedDiscount || 0))
+    const canOrder = finalPrice > 4
 
     const handleOrder = () => {
         if (typeof window !== 'undefined' && window.dataLayer) {
             window.dataLayer.push({
                 event: 'orderInitiated',
-                orderDetails: {
-                    meat,
-                    salad,
-                    bacon,
-                    cheese,
-                    totalPrice
-                }
+                orderDetails: { meat, salad, bacon, cheese, totalPrice }
             })
         }
         setIsOpen(true)
@@ -57,86 +54,89 @@ export const Total = () => {
     }
 
     return (
-        <div className="total-card-container">
-            <div className="total-card-header">
-                <BiReceipt className="total-card-icon" aria-hidden="true" />
-                <h3 className="total-card-title">{t('OrderSummary') || 'Order Summary'}</h3>
+        <aside className="rounded-xl border border-surface-border bg-white p-5 space-y-4">
+            {/* Header + Promo Toggle */}
+            <div className="flex items-center justify-between gap-2 pb-3 border-b border-surface-border">
+                <span className="font-display text-sm font-bold text-ink">
+                    {isFr ? 'Récapitulatif' : 'Order Summary'}
+                </span>
+
+                <button
+                    type="button"
+                    onClick={() => setShowPromo((prev) => !prev)}
+                    className="inline-flex items-center gap-1.5 text-xs font-medium text-ink-muted hover:text-ink transition-colors">
+                    <Tag size={12} />
+                    <span>
+                        {coupon.isValid
+                            ? coupon.code
+                            : isFr
+                              ? 'Code promo'
+                              : 'Promo code'}
+                    </span>
+                    <ChevronDown
+                        size={13}
+                        className={`transition-transform ${showPromo || coupon.isValid ? 'rotate-180' : ''}`}
+                    />
+                </button>
             </div>
 
-            <div className="total-card-content">
-                <div className="total-ingredients-list">
-                    <div className="total-ingredient-row">
-                        <span className="total-ingredient-label">{t('Meat')}</span>
-                        <span className="total-ingredient-value">{meat}</span>
-                    </div>
-                    <div className="total-ingredient-row">
-                        <span className="total-ingredient-label">{t('Salad')}</span>
-                        <span className="total-ingredient-value">{salad}</span>
-                    </div>
-                    <div className="total-ingredient-row">
-                        <span className="total-ingredient-label">{t('Bacon')}</span>
-                        <span className="total-ingredient-value">{bacon}</span>
-                    </div>
-                    <div className="total-ingredient-row">
-                        <span className="total-ingredient-label">{t('Cheese')}</span>
-                        <span className="total-ingredient-value">{cheese}</span>
-                    </div>
+            {(showPromo || coupon.isValid) && (
+                <div>
+                    <CouponInput orderTotal={totalPrice} />
                 </div>
+            )}
 
-                <div className="total-price-row total-subtotal">
-                    <span className="total-price-label">{t('Subtotal')}</span>
-                    <div className="total-price-value">
-                        <span>{totalFormatter.format(totalPrice)}</span>
-                        <BiDollar />
-                    </div>
+            {/* Price Breakdown */}
+            <div className="space-y-1.5 text-sm">
+                <div className="flex justify-between text-ink-muted">
+                    <span>{t('Subtotal')}</span>
+                    <span className="tabular-nums font-medium text-ink">
+                        {totalFormatter.format(totalPrice)}
+                    </span>
                 </div>
 
                 {substitutionAdjustment !== 0 && (
-                    <div
-                        className={`total-price-row ${substitutionAdjustment > 0 ? 'total-adjustment-positive' : 'total-adjustment-negative'}`}>
-                        <span className="total-adjustment-label">
-                            {t('Substitutions') || 'Substitutions'}
+                    <div className="flex justify-between text-ink-muted">
+                        <span>{t('Substitutions') || 'Substitutions'}</span>
+                        <span className="tabular-nums font-medium text-ink">
+                            {substitutionAdjustment > 0 ? '+' : ''}
+                            {totalFormatter.format(substitutionAdjustment)}
                         </span>
-                        <div className="total-adjustment-value">
-                            <span>
-                                {substitutionAdjustment > 0 && '+'}
-                                {totalFormatter.format(substitutionAdjustment)}
-                            </span>
-                            <BiDollar />
-                        </div>
                     </div>
                 )}
 
                 {coupon.isValid && coupon.appliedDiscount > 0 && (
-                    <div className="total-price-row total-discount">
-                        <span className="total-discount-label">{t('Discount') || 'Discount'}</span>
-                        <div className="total-discount-value">
-                            <span>-{totalFormatter.format(coupon.appliedDiscount)}</span>
-                            <BiDollar />
-                        </div>
+                    <div className="flex justify-between text-fresh-700 font-medium">
+                        <span>{t('Discount') || 'Discount'}</span>
+                        <span className="tabular-nums">
+                            -{totalFormatter.format(coupon.appliedDiscount)}
+                        </span>
                     </div>
                 )}
 
-                <div className="total-coupon-section">
-                    <CouponInput orderTotal={totalPrice} />
+                <div className="flex items-baseline justify-between border-t border-surface-border pt-3">
+                    <span className="text-sm font-semibold text-ink">{t('Total')}</span>
+                    <span className="tabular-nums text-xl font-bold tracking-tight text-ink">
+                        {totalFormatter.format(finalPrice)}
+                    </span>
                 </div>
-
-                <div className="total-price-row total-final">
-                    <span className="total-final-label">{t('Total')}</span>
-                    <div className="total-final-value">
-                        <span>{totalFormatter.format(finalPrice)}</span>
-                        <BiDollar />
-                    </div>
-                </div>
-
-                <button
-                    onClick={handleOrder}
-                    disabled={finalPrice <= 4}
-                    className="total-order-button">
-                    <ShoppingCart size={18} />
-                    <span>{t('Order')}</span>
-                </button>
             </div>
+
+            {/* Primary CTA */}
+            <button
+                type="button"
+                onClick={handleOrder}
+                disabled={!canOrder}
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand-500 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-600 disabled:bg-surface-muted disabled:text-ink-subtle disabled:cursor-not-allowed">
+                <span>
+                    {canOrder
+                        ? `${t('Order')} · ${totalFormatter.format(finalPrice)}`
+                        : isFr
+                          ? 'Ajoutez un ingrédient pour commander'
+                          : 'Add an ingredient to order'}
+                </span>
+                {canOrder && <ArrowRight size={15} />}
+            </button>
 
             <Modal
                 isOpen={isOpen}
@@ -154,6 +154,6 @@ export const Total = () => {
                     </Elements>
                 }
             />
-        </div>
+        </aside>
     )
 }

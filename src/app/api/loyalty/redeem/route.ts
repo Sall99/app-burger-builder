@@ -1,12 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 
+import { REWARDS } from '@/types/loyalty'
+
 import { authOptions } from '../../../../../libs/authOptions'
 import prisma from '../../../../../libs/prisma.db'
 
+export const dynamic = 'force-dynamic'
+
 /**
  * POST /api/loyalty/redeem
- * Redeem a loyalty reward
+ * Redeem a loyalty reward (validated server-side against catalog)
  */
 export async function POST(request: NextRequest) {
     try {
@@ -17,10 +21,15 @@ export async function POST(request: NextRequest) {
         }
 
         const body = await request.json()
-        const { rewardId, rewardName, pointsCost, expiryDays } = body
+        const { rewardId } = body
 
-        if (!rewardId || !rewardName || pointsCost === undefined) {
-            return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
+        if (!rewardId || typeof rewardId !== 'string') {
+            return NextResponse.json({ error: 'Missing required rewardId' }, { status: 400 })
+        }
+
+        const catalogReward = REWARDS.find((r) => r.id === rewardId)
+        if (!catalogReward) {
+            return NextResponse.json({ error: 'Invalid reward' }, { status: 404 })
         }
 
         const user = await prisma.user.findUnique({
@@ -32,21 +41,21 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'User loyalty data not found' }, { status: 404 })
         }
 
-        if (user.loyalty.availablePoints < pointsCost) {
+        if (user.loyalty.availablePoints < catalogReward.pointsCost) {
             return NextResponse.json({ error: 'Insufficient points' }, { status: 400 })
         }
 
-        const expiresAt = expiryDays
-            ? new Date(Date.now() + expiryDays * 24 * 60 * 60 * 1000)
+        const expiresAt = catalogReward.expiryDays
+            ? new Date(Date.now() + catalogReward.expiryDays * 24 * 60 * 60 * 1000)
             : null
 
         const [redeemedReward, updatedLoyalty] = await prisma.$transaction([
             prisma.redeemedReward.create({
                 data: {
                     userId: user.id,
-                    rewardId,
-                    rewardName,
-                    pointsCost,
+                    rewardId: catalogReward.id,
+                    rewardName: catalogReward.name,
+                    pointsCost: catalogReward.pointsCost,
                     expiresAt,
                     isUsed: false
                 }
@@ -54,7 +63,7 @@ export async function POST(request: NextRequest) {
             prisma.loyalty.update({
                 where: { userId: user.id },
                 data: {
-                    availablePoints: user.loyalty.availablePoints - pointsCost
+                    availablePoints: { decrement: catalogReward.pointsCost }
                 }
             })
         ])

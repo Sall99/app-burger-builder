@@ -6,7 +6,7 @@ import { getUserAndSession } from '../../../../../libs/session'
 
 const HASH_SALT_ROUNDS = 10
 
-const passwordsProvided = (currentPassword: string, newPassword: string) =>
+const passwordsProvided = (currentPassword?: string, newPassword?: string) =>
     Boolean(currentPassword && newPassword)
 
 const isCorrectPassword = async (inputPassword: string, storedPassword: string) =>
@@ -25,20 +25,24 @@ export async function POST(req: Request) {
         if (!user || !user.email) return errorResponse('User email is required', 400)
 
         const { email, hashedPassword } = user
-
-        if (!hashedPassword) return errorResponse('No password found for user', 400)
-
         const updatedData: { name?: string; hashedPassword?: string } = {}
 
-        if (name) updatedData.name = name
+        if (typeof name === 'string' && name.trim()) {
+            updatedData.name = name.trim()
+        }
 
         if (passwordsProvided(currentPassword, newPassword)) {
+            if (!hashedPassword) {
+                return errorResponse('Password update is not available for OAuth accounts', 400)
+            }
+
             const isCurrentPasswordValid = await isCorrectPassword(currentPassword, hashedPassword)
             if (!isCurrentPasswordValid) return errorResponse('Incorrect current password')
 
             const isNewPasswordSame = await isCorrectPassword(newPassword, hashedPassword)
-            if (isNewPasswordSame)
+            if (isNewPasswordSame) {
                 return errorResponse('New password must be different from current password')
+            }
 
             updatedData.hashedPassword = await hashPassword(newPassword)
         }
@@ -55,6 +59,9 @@ export async function POST(req: Request) {
         const passwordUpdated = Boolean(updatedData.hashedPassword)
         return NextResponse.json({ message: 'User data updated successfully', passwordUpdated })
     } catch (error) {
+        if (error instanceof Error && error.message === 'Unauthorized') {
+            return errorResponse('Unauthorized', 401)
+        }
         return errorResponse('Internal server error', 500)
     }
 }

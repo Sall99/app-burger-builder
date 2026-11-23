@@ -1,20 +1,18 @@
 'use client'
 
 import { useState } from 'react'
-import { BiDollar, BiReceipt } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
-import { ShoppingCart } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { useSession } from 'next-auth/react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import { selectIngredients } from '@/redux/selectors/ingredients'
 import { selectSubstitutions } from '@/redux/selectors/substitutions'
 import { RootState } from '@/redux/store'
 import { totalFormatter } from '@/utils/utils'
 
-import { CouponInput } from '../coupon'
 import { Modal } from '../modal/modal'
 import { ShippingAddress } from '../shipping-address'
 import { PaymentForm } from '..'
@@ -24,28 +22,26 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 export const TotalMobile = () => {
     const session = useSession()
     const t = useTranslations('Total')
+    const locale = useLocale()
+    const isFr = locale === 'fr'
 
     const { ingredients, totalPrice } = useSelector(selectIngredients)
     const coupon = useSelector((state: RootState) => state.rootReducer.coupon)
     const { totalAdjustment: substitutionAdjustment } = useSelector(selectSubstitutions)
     const [isPaymentOpen, setIsPaymeOpen] = useState(false)
-    const { meat, salad, bacon, cheese } = ingredients
     const [isOpen, setIsOpen] = useState(false)
+    const { meat, salad, bacon, cheese } = ingredients
 
     const priceAfterSubstitutions = totalPrice + substitutionAdjustment
-    const finalPrice = priceAfterSubstitutions - (coupon.appliedDiscount || 0)
+    const finalPrice = Math.max(0, priceAfterSubstitutions - (coupon.appliedDiscount || 0))
+    const totalCount = meat + salad + bacon + cheese
+    const canOrder = finalPrice > 4
 
     const handleOrder = () => {
         if (typeof window !== 'undefined' && window.dataLayer) {
             window.dataLayer.push({
                 event: 'orderInitiated',
-                orderDetails: {
-                    meat,
-                    salad,
-                    bacon,
-                    cheese,
-                    totalPrice
-                }
+                orderDetails: { meat, salad, bacon, cheese, totalPrice }
             })
         }
         setIsOpen(true)
@@ -57,84 +53,34 @@ export const TotalMobile = () => {
     }
 
     return (
-        <div className="total-card-mobile">
-            <div className="total-card-mobile-header">
-                <BiReceipt className="total-card-mobile-icon" />
-                <h3 className="total-card-mobile-title">{t('OrderSummary') || 'Order Summary'}</h3>
-            </div>
-
-            <div className="total-mobile-grid">
-                <div className="total-mobile-grid-item">
-                    <span className="total-mobile-label">{t('Meat')}</span>
-                    <span className="total-mobile-value">{meat}</span>
-                </div>
-                <div className="total-mobile-grid-item">
-                    <span className="total-mobile-label">{t('Salad')}</span>
-                    <span className="total-mobile-value">{salad}</span>
-                </div>
-                <div className="total-mobile-grid-item">
-                    <span className="total-mobile-label">{t('Bacon')}</span>
-                    <span className="total-mobile-value">{bacon}</span>
-                </div>
-                <div className="total-mobile-grid-item">
-                    <span className="total-mobile-label">{t('Cheese')}</span>
-                    <span className="total-mobile-value">{cheese}</span>
-                </div>
-            </div>
-
-            <div className="total-mobile-summary">
-                <div className="total-mobile-row">
-                    <span className="total-mobile-summary-label">{t('Subtotal')}</span>
-                    <div className="total-mobile-summary-value">
-                        <span>{totalFormatter.format(totalPrice)}</span>
-                        <BiDollar />
+        <>
+            <div className="fixed inset-x-0 bottom-0 z-30 border-t border-surface-border bg-white/95 px-4 py-3 shadow-elevated backdrop-blur-xl lg:hidden">
+                <div className="mx-auto flex max-w-xl items-center justify-between gap-4">
+                    <div>
+                        <p className="tabular-nums text-[11px] font-semibold text-ink-muted">
+                            {totalCount}{' '}
+                            {isFr
+                                ? totalCount > 1
+                                    ? 'couches'
+                                    : 'couche'
+                                : totalCount === 1
+                                  ? 'layer'
+                                  : 'layers'}
+                        </p>
+                        <p className="tabular-nums text-xl font-bold tracking-tight tabular-nums text-ink">
+                            {totalFormatter.format(finalPrice)}
+                        </p>
                     </div>
-                </div>
-
-                {substitutionAdjustment !== 0 && (
-                    <div
-                        className={`total-mobile-row ${substitutionAdjustment > 0 ? 'total-mobile-adjustment-positive' : 'total-mobile-adjustment-negative'}`}>
-                        <span>{t('Substitutions') || 'Substitutions'}</span>
-                        <div className="total-mobile-summary-value">
-                            <span>
-                                {substitutionAdjustment > 0 && '+'}
-                                {totalFormatter.format(substitutionAdjustment)}
-                            </span>
-                            <BiDollar />
-                        </div>
-                    </div>
-                )}
-
-                {coupon.isValid && coupon.appliedDiscount > 0 && (
-                    <div className="total-mobile-row total-mobile-discount">
-                        <span>{t('Discount') || 'Discount'}</span>
-                        <div className="total-mobile-summary-value">
-                            <span>-{totalFormatter.format(coupon.appliedDiscount)}</span>
-                            <BiDollar />
-                        </div>
-                    </div>
-                )}
-
-                <div className="total-mobile-coupon">
-                    <CouponInput orderTotal={totalPrice} />
-                </div>
-
-                <div className="total-mobile-row total-mobile-final">
-                    <span className="total-mobile-final-label">{t('Total')}</span>
-                    <div className="total-mobile-final-value">
-                        <span>{totalFormatter.format(finalPrice)}</span>
-                        <BiDollar />
-                    </div>
+                    <button
+                        type="button"
+                        onClick={handleOrder}
+                        disabled={!canOrder}
+                        className="inline-flex items-center gap-2 rounded-full bg-brand-500 px-6 py-3 font-display text-sm font-bold text-white hover:bg-brand-600 active:scale-[0.98] disabled:bg-surface-muted disabled:text-ink-subtle disabled:shadow-none">
+                        <span>{t('Order')}</span>
+                        <ArrowRight size={15} strokeWidth={2.5} />
+                    </button>
                 </div>
             </div>
-
-            <button
-                onClick={handleOrder}
-                disabled={finalPrice <= 4}
-                className="total-mobile-button">
-                <ShoppingCart size={20} />
-                <span>{t('Order')}</span>
-            </button>
 
             <Modal
                 isOpen={isOpen}
@@ -152,6 +98,6 @@ export const TotalMobile = () => {
                     </Elements>
                 }
             />
-        </div>
+        </>
     )
 }

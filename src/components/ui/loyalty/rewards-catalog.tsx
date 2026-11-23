@@ -1,9 +1,8 @@
 'use client'
 
 import React, { useState } from 'react'
-import { BiDollar, BiStar } from 'react-icons/bi'
-import { MdCardGiftcard } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
+import { Lock } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { selectLoyalty } from '@/redux/selectors/loyalty'
@@ -18,22 +17,16 @@ export const RewardsCatalog: React.FC = () => {
     const [redeeming, setRedeeming] = useState<string | null>(null)
 
     const { availablePoints, currentTier } = loyalty
-
     const availableRewards = getAvailableRewards(availablePoints, currentTier)
 
     let displayedRewards = REWARDS
-    if (filter === 'available') {
-        displayedRewards = availableRewards
-    } else if (filter === 'popular') {
-        displayedRewards = REWARDS.filter((r) => r.isPopular)
-    }
+    if (filter === 'available') displayedRewards = availableRewards
+    else if (filter === 'popular') displayedRewards = REWARDS.filter((r) => r.isPopular)
 
     const handleRedeem = async (reward: Reward) => {
         setRedeeming(reward.id)
-
         try {
             const { redeemLoyaltyReward } = await import('@/actions/loyalty')
-
             const result = await redeemLoyaltyReward({
                 rewardId: reward.id,
                 rewardName: reward.name,
@@ -49,25 +42,11 @@ export const RewardsCatalog: React.FC = () => {
                         expiryDays: reward.expiryDays
                     })
                 )
-
-                if (typeof window !== 'undefined') {
-                    const announcement = `Successfully redeemed ${reward.name}!`
-                    const ariaLive = document.createElement('div')
-                    ariaLive.setAttribute('role', 'status')
-                    ariaLive.setAttribute('aria-live', 'polite')
-                    ariaLive.className = 'sr-only'
-                    ariaLive.textContent = announcement
-                    document.body.appendChild(ariaLive)
-                    setTimeout(() => document.body.removeChild(ariaLive), 1000)
-                }
-            } else {
-                if (typeof window !== 'undefined') {
-                    const { default: toast } = await import('react-hot-toast')
-                    toast.error(result.error || 'Failed to redeem reward')
-                }
+            } else if (typeof window !== 'undefined') {
+                const { default: toast } = await import('react-hot-toast')
+                toast.error(result.error || 'Failed to redeem reward')
             }
-        } catch (error) {
-            console.error('Error redeeming reward:', error)
+        } catch {
             if (typeof window !== 'undefined') {
                 const { default: toast } = await import('react-hot-toast')
                 toast.error('An error occurred while redeeming the reward')
@@ -77,130 +56,82 @@ export const RewardsCatalog: React.FC = () => {
         }
     }
 
-    const canRedeem = (reward: Reward): boolean => {
-        return availableRewards.some((r) => r.id === reward.id)
-    }
+    const canRedeem = (reward: Reward) => availableRewards.some((r) => r.id === reward.id)
 
     return (
-        <div className="rewards-catalog">
-            <div className="rewards-header">
-                <MdCardGiftcard className="rewards-icon" aria-hidden="true" />
-                <div>
-                    <h3 className="rewards-title">{t('title')}</h3>
-                    <p className="rewards-subtitle">
-                        {t('availablePoints')}:{' '}
-                        <strong>
-                            {availablePoints} {t('pts')}
-                        </strong>
-                    </p>
+        <div className="space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+                <h2 className="text-base font-semibold text-zinc-950">{t('title')}</h2>
+                <div className="inline-flex rounded-xl bg-zinc-100 p-1">
+                    {(
+                        [
+                            { id: 'all', label: t('allRewards') },
+                            { id: 'available', label: `${t('availableNow')} (${availableRewards.length})` },
+                            { id: 'popular', label: t('popular') }
+                        ] as const
+                    ).map((item) => (
+                        <button
+                            key={item.id}
+                            type="button"
+                            onClick={() => setFilter(item.id)}
+                            className={`rounded-lg px-3 py-1 text-xs font-medium transition-all ${
+                                filter === item.id
+                                    ? 'bg-white text-zinc-950 font-semibold shadow-soft'
+                                    : 'text-zinc-500 hover:text-zinc-900'
+                            }`}>
+                            {item.label}
+                        </button>
+                    ))}
                 </div>
             </div>
 
-            <div className="rewards-filters">
-                <button
-                    onClick={() => setFilter('all')}
-                    className={`rewards-filter-button ${filter === 'all' ? 'rewards-filter-active' : ''}`}>
-                    {t('allRewards')}
-                </button>
-                <button
-                    onClick={() => setFilter('available')}
-                    className={`rewards-filter-button ${filter === 'available' ? 'rewards-filter-active' : ''}`}>
-                    {t('availableNow')} ({availableRewards.length})
-                </button>
-                <button
-                    onClick={() => setFilter('popular')}
-                    className={`rewards-filter-button ${filter === 'popular' ? 'rewards-filter-active' : ''}`}>
-                    {t('popular')}
-                </button>
-            </div>
-
-            <div className="rewards-grid">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {displayedRewards.map((reward) => {
-                    const canRedeemReward = canRedeem(reward)
+                    const redeemable = canRedeem(reward)
                     const isRedeeming = redeeming === reward.id
-
                     return (
                         <div
                             key={reward.id}
-                            className={`reward-card ${canRedeemReward ? '' : 'reward-card-locked'}`}>
-                            {reward.isPopular && (
-                                <div className="reward-badge reward-badge-popular">
-                                    <BiStar /> {t('popular')}
+                            className="flex flex-col justify-between rounded-2xl border border-zinc-200/80 bg-white p-5">
+                            <div>
+                                <div className="flex items-center justify-between mb-3">
+                                    <span className="text-2xl">{reward.icon}</span>
+                                    <span className="text-xs font-semibold text-orange-600 tabular-nums">
+                                        {reward.pointsCost} {t('pts')}
+                                    </span>
                                 </div>
-                            )}
-
-                            {reward.minTier && (
-                                <div className="reward-badge reward-badge-tier">
-                                    {t('tierRequired', { tier: reward.minTier })}
-                                </div>
-                            )}
-
-                            <div className="reward-icon-large">{reward.icon}</div>
-
-                            <h4 className="reward-name">{reward.name}</h4>
-
-                            <p className="reward-description">{reward.description}</p>
-
-                            <div className="reward-type-badge">{t(`type.${reward.type}`)}</div>
-
-                            {reward.value > 0 && (
-                                <div className="reward-value">
-                                    {reward.type === 'discount' && (
-                                        <>
-                                            <BiDollar className="reward-value-icon" />
-                                            <span>
-                                                {reward.value} {t('value')}
-                                            </span>
-                                        </>
-                                    )}
-                                    {reward.type !== 'discount' && (
-                                        <span>
-                                            {t('worth')} ${reward.value}
-                                        </span>
-                                    )}
-                                </div>
-                            )}
-
-                            {reward.expiryDays && (
-                                <p className="reward-expiry">
-                                    {t('expires', { days: reward.expiryDays })}
-                                </p>
-                            )}
-
-                            <div className="reward-cost">
-                                <span className="reward-cost-icon">⭐</span>
-                                <span className="reward-cost-value">
-                                    {reward.pointsCost} {t('pts')}
-                                </span>
+                                <h3 className="text-sm font-semibold text-zinc-950">
+                                    {reward.name}
+                                </h3>
+                                <p className="mt-1 text-xs text-zinc-500">{reward.description}</p>
                             </div>
 
                             <button
+                                type="button"
                                 onClick={() => handleRedeem(reward)}
-                                disabled={!canRedeemReward || isRedeeming}
-                                className={`reward-redeem-button ${
-                                    canRedeemReward ? '' : 'reward-redeem-button-locked'
+                                disabled={!redeemable || isRedeeming}
+                                className={`mt-5 flex w-full items-center justify-center gap-1.5 rounded-xl py-2 text-xs font-semibold transition-all ${
+                                    redeemable
+                                        ? 'bg-zinc-950 text-white hover:bg-zinc-800'
+                                        : 'bg-zinc-100 text-zinc-400 cursor-not-allowed'
                                 }`}>
-                                {isRedeeming
-                                    ? t('redeeming')
-                                    : canRedeemReward
-                                      ? t('redeem')
-                                      : !canRedeemReward && availablePoints < reward.pointsCost
-                                        ? t('needPoints', {
-                                              points: reward.pointsCost - availablePoints
-                                          })
-                                        : t('locked')}
+                                {!redeemable && <Lock size={12} />}
+                                <span>
+                                    {isRedeeming
+                                        ? t('redeeming')
+                                        : redeemable
+                                          ? t('redeem')
+                                          : availablePoints < reward.pointsCost
+                                            ? t('needPoints', {
+                                                  points: reward.pointsCost - availablePoints
+                                              })
+                                            : t('locked')}
+                                </span>
                             </button>
                         </div>
                     )
                 })}
             </div>
-
-            {displayedRewards.length === 0 && (
-                <div className="rewards-empty">
-                    <p>{t('noRewardsAvailable')}</p>
-                    <p className="rewards-empty-hint">{t('earnMorePoints')}</p>
-                </div>
-            )}
         </div>
     )
 }

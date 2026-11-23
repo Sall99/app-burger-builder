@@ -123,7 +123,9 @@
         "Meat": "Meat",
         "Cheese": "Cheese",
         "Salad": "Salad",
-        "Bacon": "Bacon"
+        "Bacon": "Bacon",
+        "ChooseIngredients": "Choose Your Ingredients",
+        "BaseBun": "Brioche bun $4.00"
     },
     "Help": {
         "HelpTitle": "Help",

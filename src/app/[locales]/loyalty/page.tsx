@@ -1,18 +1,23 @@
 'use client'
 
 import React from 'react'
+import { useTranslations } from 'next-intl'
 
+import { AccountShell } from '@/components/account'
 import { LoyaltyDashboard, RewardsCatalog } from '@/components/ui/loyalty'
 import { LoyaltyInitializer } from '@/components/ui/loyalty/loyalty-initializer'
 
 export default function LoyaltyPage() {
+    const t = useTranslations('Loyalty')
+
     return (
         <LoyaltyInitializer>
-            <section className="min-h-screen py-8">
-                <LoyaltyDashboard />
-
-                <RewardsCatalog />
-            </section>
+            <AccountShell title={t('title')} subtitle={t('subtitle')}>
+                <div className="space-y-6">
+                    <LoyaltyDashboard />
+                    <RewardsCatalog />
+                </div>
+            </AccountShell>
         </LoyaltyInitializer>
     )
 }

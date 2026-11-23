@@ -4,6 +4,8 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '../../../../libs/authOptions'
 import prisma from '../../../../libs/prisma.db'
 
+export const dynamic = 'force-dynamic'
+
 /**
  * GET /api/loyalty
  * Get user's loyalty data

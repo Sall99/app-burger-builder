@@ -4,9 +4,10 @@ import React, { useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { FlaskConical } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import { AuthContainer, Button, Input } from '@/components/ui'
 import { SignInFormValues } from '@/types'
@@ -50,6 +51,8 @@ const useSignin = () => {
 
 export default function SignInForm() {
     const t = useTranslations('Auth')
+    const locale = useLocale()
+    const isFr = locale === 'fr'
     const {
         handleSubmit,
         register,
@@ -75,28 +78,7 @@ export default function SignInForm() {
 
     return (
         <AuthContainer title={t('signIn')}>
-            {/* Test Credentials Card */}
-            <div className="mt-6 mb-6 p-3 bg-primary-300 border border-primary-100 rounded-lg">
-                <h3 className="text-sm font-semibold text-primary-600 mb-2">
-                    🧪 {t('testCredentials')}
-                </h3>
-                <div className="text-xs text-gray-100 space-y-1 mb-3">
-                    <p>
-                        <span className="font-medium">Email:</span> test@test.com
-                    </p>
-                    <p>
-                        <span className="font-medium">Password:</span> testtest
-                    </p>
-                </div>
-                <button
-                    type="button"
-                    onClick={fillTestData}
-                    className="w-full py-2 px-4 bg-primary-100 hover:bg-primary-200 text-white text-sm rounded-md transition-colors focus:outline-none focus:ring-1 focus:ring-primary-200">
-                    {t('fillTestData')}
-                </button>
-            </div>
-
-            <form onSubmit={handleSubmit(onSubmit)} className="mt-6">
+            <form onSubmit={handleSubmit(onSubmit)}>
                 {inputFields.map(({ name, type, placeholder }) => (
                     <Input
                         key={name}
@@ -111,10 +93,24 @@ export default function SignInForm() {
                 <Button
                     type="submit"
                     label={t('signInButton')}
-                    className="w-full h-10"
+                    className="mt-2 w-full py-2.5 text-sm font-semibold"
                     loading={loading}
                 />
             </form>
+
+            <div className="mt-3 text-center">
+                <button
+                    type="button"
+                    onClick={fillTestData}
+                    className="inline-flex items-center gap-1.5 text-xs text-ink-muted hover:text-ink transition-colors">
+                    <FlaskConical size={12} />
+                    <span>
+                        {isFr
+                            ? 'Remplir avec le compte de démonstration'
+                            : 'Fill with demo account'}
+                    </span>
+                </button>
+            </div>
         </AuthContainer>
     )
 }

@@ -2,207 +2,121 @@
 
 import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { LogOut, Shield } from 'lucide-react'
+import {
+    Award,
+    Bell,
+    ChevronDown,
+    HelpCircle,
+    LogOut,
+    Receipt,
+    Shield,
+    Truck,
+    User
+} from 'lucide-react'
 import Link from 'next/link'
 import { signOut, useSession } from 'next-auth/react'
-import { useTranslations } from 'next-intl'
-
-const solutions = (t: any) => [
-    {
-        name: t('profile'),
-        description: t('profileDescription'),
-        href: '/profile',
-        icon: IconOne
-    },
-    {
-        name: t('history'),
-        description: t('historyDescription'),
-        href: '/history',
-        icon: IconTwo
-    },
-    {
-        name: t('trackOrder'),
-        description: t('trackOrderDescription'),
-        href: '/track-order',
-        icon: IconThree
-    }
-]
+import { useLocale, useTranslations } from 'next-intl'
 
 export default function PopoverProfil() {
     const t = useTranslations('Popover')
+    const locale = useLocale()
+    const isFr = locale === 'fr'
     const { data: session } = useSession()
     const userRole = (session?.user as any)?.role
     const isAdmin = userRole === 'ADMIN' || userRole === 'SUPER_ADMIN'
+    const userName = session?.user?.name || t('profile')
+    const userInitial = (session?.user?.name?.[0] || session?.user?.email?.[0] || 'U').toUpperCase()
+
+    const menuItems = [
+        { name: t('profile'), href: `/${locale}/profile`, icon: User },
+        { name: t('history'), href: `/${locale}/history`, icon: Receipt },
+        { name: t('trackOrder'), href: `/${locale}/track-order`, icon: Truck },
+        { name: isFr ? 'Fidélité' : 'Loyalty', href: `/${locale}/loyalty`, icon: Award },
+        { name: 'Notifications', href: `/${locale}/notifications`, icon: Bell }
+    ]
 
     return (
-        <div className="w-full max-w-sm px-4">
-            <Popover className="relative">
-                {({ open, close }) => (
-                    <>
-                        <Popover.Button className="profile-button">
-                            <span className="profile-button-text">{t('profile')}</span>
-                            <ChevronDownIcon
-                                className={`profile-button-icon ${open ? 'profile-button-icon-open' : ''}`}
-                                aria-hidden="true"
-                            />
-                        </Popover.Button>
-                        <Transition
-                            as={Fragment}
-                            enter="transition ease-out duration-200"
-                            enterFrom="opacity-0 translate-y-1"
-                            enterTo="opacity-100 translate-y-0"
-                            leave="transition ease-in duration-150"
-                            leaveFrom="opacity-100 translate-y-0"
-                            leaveTo="opacity-0 translate-y-1">
-                            <Popover.Panel className="profile-dropdown-panel">
-                                <div className="profile-dropdown-container">
-                                    <div className="profile-dropdown-content">
-                                        {solutions(t).map((item) => (
-                                            <Link
-                                                key={item.name}
-                                                href={item.href}
-                                                className="profile-dropdown-item"
-                                                onClick={() => close()}>
-                                                <div className="profile-dropdown-icon">
-                                                    <item.icon aria-hidden="true" />
-                                                </div>
-                                                <div className="profile-dropdown-text">
-                                                    <p className="profile-dropdown-item-title">
-                                                        {item.name}
-                                                    </p>
-                                                    <p className="profile-dropdown-item-desc">
-                                                        {item.description}
-                                                    </p>
-                                                </div>
-                                            </Link>
-                                        ))}
-                                        {isAdmin && (
-                                            <Link
-                                                href="/admin"
-                                                className="profile-dropdown-item"
-                                                onClick={() => close()}>
-                                                <div className="profile-dropdown-icon">
-                                                    <Shield />
-                                                </div>
-                                                <div className="profile-dropdown-text">
-                                                    <p className="profile-dropdown-item-title">
-                                                        {t('adminPanel') || 'Admin Panel'}
-                                                    </p>
-                                                    <p className="profile-dropdown-item-desc">
-                                                        {t('adminPanelDescription') || 'Manage your application'}
-                                                    </p>
-                                                </div>
-                                            </Link>
-                                        )}
-                                        <button
-                                            className="profile-dropdown-item profile-dropdown-logout"
-                                            onClick={() => signOut()}>
-                                            <div className="profile-dropdown-icon">
-                                                <LogOut />
-                                            </div>
-                                            <div className="profile-dropdown-text">
-                                                <p className="profile-dropdown-item-title">
-                                                    {t('logout')}
-                                                </p>
-                                            </div>
-                                        </button>
-                                    </div>
-                                    <div className="profile-dropdown-footer">
-                                        <Link
-                                            href="/help"
-                                            className="profile-dropdown-help"
-                                            onClick={() => close()}>
-                                            <span className="profile-dropdown-help-title">
-                                                {t('help')}
-                                            </span>
-                                            <span className="profile-dropdown-help-desc">
-                                                {t('helpDescription')}
-                                            </span>
-                                        </Link>
-                                    </div>
+        <Popover className="relative">
+            {({ open, close }) => (
+                <>
+                    <Popover.Button className="inline-flex items-center gap-2 rounded-full border border-surface-border bg-white py-1 pl-1 pr-3 font-display text-[13px] font-bold text-ink transition-all hover:border-brand-300 hover:bg-brand-50/40 focus:outline-none">
+                        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-500 text-xs font-bold text-white shadow-sm">
+                            {userInitial}
+                        </span>
+                        <span className="max-w-[100px] truncate">{userName}</span>
+                        <ChevronDown
+                            size={13}
+                            className={`text-ink-subtle transition-transform duration-150 ${open ? 'rotate-180' : ''}`}
+                            aria-hidden="true"
+                        />
+                    </Popover.Button>
+
+                    <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-150"
+                        enterFrom="opacity-0 translate-y-1 scale-95"
+                        enterTo="opacity-100 translate-y-0 scale-100"
+                        leave="transition ease-in duration-100"
+                        leaveFrom="opacity-100 translate-y-0 scale-100"
+                        leaveTo="opacity-0 translate-y-1 scale-95">
+                        <Popover.Panel className="absolute right-0 z-50 mt-2 w-60 origin-top-right overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-elevated">
+                            {session?.user?.email && (
+                                <div className="border-b border-zinc-100 px-3.5 py-3">
+                                    <p className="truncate text-xs font-semibold text-zinc-950">
+                                        {session.user.name || 'Member'}
+                                    </p>
+                                    <p className="truncate text-[11px] text-zinc-500">
+                                        {session.user.email}
+                                    </p>
                                 </div>
-                            </Popover.Panel>
-                        </Transition>
-                    </>
-                )}
-            </Popover>
-        </div>
-    )
-}
+                            )}
 
-function IconOne() {
-    return (
-        <svg
-            width="48"
-            height="48"
-            viewBox="0 0 48 48"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <rect width="48" height="48" rx="8" fill="#FFEDD5" />
-            <path
-                d="M24 11L35.2583 17.5V30.5L24 37L12.7417 30.5V17.5L24 11Z"
-                stroke="#FB923C"
-                strokeWidth="2"
-            />
-            <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M16.7417 19.8094V28.1906L24 32.3812L31.2584 28.1906V19.8094L24 15.6188L16.7417 19.8094Z"
-                stroke="#FDBA74"
-                strokeWidth="2"
-            />
-            <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M20.7417 22.1196V25.882L24 27.7632L27.2584 25.882V22.1196L24 20.2384L20.7417 22.1196Z"
-                stroke="#FDBA74"
-                strokeWidth="2"
-            />
-        </svg>
-    )
-}
+                            <div className="p-1.5">
+                                {menuItems.map((item) => {
+                                    const Icon = item.icon
+                                    return (
+                                        <Link
+                                            key={item.href}
+                                            href={item.href}
+                                            onClick={() => close()}
+                                            className="flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-[13px] font-medium text-zinc-700 hover:bg-zinc-100 hover:text-zinc-950 transition-colors">
+                                            <Icon size={15} className="text-zinc-400" />
+                                            <span>{item.name}</span>
+                                        </Link>
+                                    )
+                                })}
 
-function IconTwo() {
-    return (
-        <svg
-            width="48"
-            height="48"
-            viewBox="0 0 48 48"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <rect width="48" height="48" rx="8" fill="#FFEDD5" />
-            <path
-                d="M28.0413 20L23.9998 13L19.9585 20M32.0828 27.0001L36.1242 34H28.0415M19.9585 34H11.8755L15.9171 27"
-                stroke="#FB923C"
-                strokeWidth="2"
-            />
-            <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M18.804 30H29.1963L24.0001 21L18.804 30Z"
-                stroke="#FDBA74"
-                strokeWidth="2"
-            />
-        </svg>
-    )
-}
+                                {isAdmin && (
+                                    <Link
+                                        href={`/${locale}/admin`}
+                                        onClick={() => close()}
+                                        className="flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-[13px] font-medium text-orange-600 hover:bg-orange-50 transition-colors">
+                                        <Shield size={15} />
+                                        <span>{t('adminPanel') || 'Admin'}</span>
+                                    </Link>
+                                )}
+                            </div>
 
-function IconThree() {
-    return (
-        <svg
-            width="48"
-            height="48"
-            viewBox="0 0 48 48"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <rect width="48" height="48" rx="8" fill="#FFEDD5" />
-            <rect x="13" y="32" width="2" height="4" fill="#FDBA74" />
-            <rect x="17" y="28" width="2" height="8" fill="#FDBA74" />
-            <rect x="21" y="24" width="2" height="12" fill="#FDBA74" />
-            <rect x="25" y="20" width="2" height="16" fill="#FDBA74" />
-            <rect x="29" y="16" width="2" height="20" fill="#FB923C" />
-            <rect x="33" y="12" width="2" height="24" fill="#FB923C" />
-        </svg>
+                            <div className="border-t border-zinc-100 p-1.5 space-y-0.5">
+                                <Link
+                                    href={`/${locale}/help`}
+                                    onClick={() => close()}
+                                    className="flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-xs font-medium text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 transition-colors">
+                                    <HelpCircle size={14} />
+                                    <span>{t('help')}</span>
+                                </Link>
+                                <button
+                                    type="button"
+                                    onClick={() => signOut({ callbackUrl: `/${locale}` })}
+                                    className="flex w-full items-center gap-2.5 rounded-xl px-2.5 py-2 text-xs font-medium text-red-600 hover:bg-red-50 transition-colors">
+                                    <LogOut size={14} />
+                                    <span>{t('logout')}</span>
+                                </button>
+                            </div>
+                        </Popover.Panel>
+                    </Transition>
+                </>
+            )}
+        </Popover>
     )
 }

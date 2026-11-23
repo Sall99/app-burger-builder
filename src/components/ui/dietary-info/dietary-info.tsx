@@ -1,11 +1,8 @@
 'use client'
 
-import React, { useState } from 'react'
-import { AiFillInfoCircle } from 'react-icons/ai'
-import { BiLeaf } from 'react-icons/bi'
-import { MdWarning } from 'react-icons/md'
+import React from 'react'
 import { useSelector } from 'react-redux'
-import clsx from 'clsx'
+import { AlertTriangle, Leaf } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { selectIngredients } from '@/redux/selectors/ingredients'
@@ -18,151 +15,75 @@ import {
 export const DietaryInfo: React.FC = () => {
     const t = useTranslations('Dietary')
     const { ingredients } = useSelector(selectIngredients)
-    const [isExpanded, setIsExpanded] = useState(false)
 
     const dietaryInfo = calculateBurgerDietaryInfo(ingredients)
     const allergenList = getAllergenList(dietaryInfo.allergens)
     const dietaryTags = getDietaryTags(dietaryInfo)
 
+    const metrics = [
+        { label: t('calories'), value: dietaryInfo.totalNutrition.calories, unit: 'kcal' },
+        { label: t('protein'), value: dietaryInfo.totalNutrition.protein, unit: 'g' },
+        { label: t('carbs'), value: dietaryInfo.totalNutrition.carbs, unit: 'g' },
+        { label: t('fat'), value: dietaryInfo.totalNutrition.fat, unit: 'g' },
+        { label: t('fiber'), value: dietaryInfo.totalNutrition.fiber, unit: 'g' },
+        { label: t('sodium'), value: dietaryInfo.totalNutrition.sodium, unit: 'mg' }
+    ]
+
     return (
-        <div className="dietary-info-container">
-            <button
-                onClick={() => setIsExpanded(!isExpanded)}
-                className="dietary-header"
-                aria-expanded={isExpanded}
-                aria-controls="dietary-details">
-                <div className="dietary-header-content">
-                    <AiFillInfoCircle className="dietary-icon" aria-hidden="true" />
-                    <div className="dietary-header-text">
-                        <h3 className="dietary-title">{t('title')}</h3>
-                        <p className="dietary-summary">
-                            {dietaryInfo.totalNutrition.calories} {t('calories')}
-                            {allergenList.length > 0 && (
-                                <span className="dietary-allergen-count">
-                                    • {allergenList.length} {t('allergens')}
-                                </span>
-                            )}
+        <div className="rounded-2xl border border-zinc-200/80 bg-white p-5 space-y-4">
+            <div className="flex items-center justify-between">
+                <h3 className="text-sm font-semibold text-zinc-950">{t('nutritionalInfo')}</h3>
+                <span className="text-xs font-semibold text-orange-600 tabular-nums">
+                    {dietaryInfo.totalNutrition.calories} kcal
+                </span>
+            </div>
+
+            <div className="grid grid-cols-3 gap-2">
+                {metrics.map((m) => (
+                    <div
+                        key={m.label}
+                        className="rounded-xl border border-zinc-100 bg-zinc-50/80 px-3 py-2.5 text-center">
+                        <p className="text-sm font-bold text-zinc-950 tabular-nums">
+                            {m.value}
+                            <span className="ml-0.5 text-[10px] font-medium text-zinc-400">
+                                {m.unit}
+                            </span>
                         </p>
+                        <p className="text-[11px] text-zinc-500 truncate">{m.label}</p>
                     </div>
+                ))}
+            </div>
+
+            {dietaryTags.length > 0 && (
+                <div className="flex flex-wrap gap-1.5">
+                    {dietaryTags.map((tag) => (
+                        <span
+                            key={tag}
+                            className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold text-emerald-700">
+                            <Leaf size={11} />
+                            {t(`tags.${tag}`)}
+                        </span>
+                    ))}
                 </div>
-                <div className="dietary-header-right">
-                    {dietaryTags.length > 0 && (
-                        <div className="dietary-tags-desktop">
-                            {dietaryTags.map((tag) => (
-                                <span key={tag} className="dietary-tag">
-                                    <BiLeaf aria-hidden="true" />
-                                    {t(`tags.${tag}`)}
+            )}
+
+            {allergenList.length > 0 && (
+                <div className="flex items-start gap-2.5 rounded-xl bg-amber-50/70 border border-amber-200/70 p-3 text-xs">
+                    <AlertTriangle size={14} className="mt-0.5 shrink-0 text-amber-600" />
+                    <div className="space-y-1.5">
+                        <p className="font-semibold text-amber-950">{t('allergenWarning')}</p>
+                        <div className="flex flex-wrap gap-1">
+                            {allergenList.map((allergen) => (
+                                <span
+                                    key={allergen}
+                                    className="rounded-md bg-white px-2 py-0.5 text-[11px] font-medium text-amber-900 border border-amber-200">
+                                    {t(`allergenList.${allergen}`)}
                                 </span>
                             ))}
                         </div>
-                    )}
-                    <svg
-                        className={clsx('dietary-chevron', isExpanded && 'dietary-chevron-open')}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        aria-hidden="true">
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 9l-7 7-7-7"
-                        />
-                    </svg>
-                </div>
-            </button>
-
-            {isExpanded && (
-                <div id="dietary-details" className="dietary-content">
-                    <div className="dietary-section">
-                        <h4 className="dietary-section-title">{t('nutritionalInfo')}</h4>
-                        <div className="dietary-nutrition-grid">
-                            <NutritionItem
-                                label={t('calories')}
-                                value={dietaryInfo.totalNutrition.calories}
-                                unit="kcal"
-                            />
-                            <NutritionItem
-                                label={t('protein')}
-                                value={dietaryInfo.totalNutrition.protein}
-                                unit="g"
-                            />
-                            <NutritionItem
-                                label={t('carbs')}
-                                value={dietaryInfo.totalNutrition.carbs}
-                                unit="g"
-                            />
-                            <NutritionItem
-                                label={t('fat')}
-                                value={dietaryInfo.totalNutrition.fat}
-                                unit="g"
-                            />
-                            <NutritionItem
-                                label={t('fiber')}
-                                value={dietaryInfo.totalNutrition.fiber}
-                                unit="g"
-                            />
-                            <NutritionItem
-                                label={t('sodium')}
-                                value={dietaryInfo.totalNutrition.sodium}
-                                unit="mg"
-                            />
-                        </div>
                     </div>
-
-                    {allergenList.length > 0 && (
-                        <div className="dietary-allergen-section">
-                            <div className="dietary-allergen-content">
-                                <MdWarning className="dietary-warning-icon" aria-hidden="true" />
-                                <div>
-                                    <h4 className="dietary-allergen-title">
-                                        {t('allergenWarning')}
-                                    </h4>
-                                    <div className="dietary-allergen-list">
-                                        {allergenList.map((allergen) => (
-                                            <span key={allergen} className="dietary-allergen-badge">
-                                                {t(`allergenList.${allergen}`)}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
-                    {dietaryTags.length > 0 && (
-                        <div className="dietary-tags-mobile">
-                            <h4 className="dietary-section-title">{t('dietaryTags')}</h4>
-                            <div className="dietary-tags-list">
-                                {dietaryTags.map((tag) => (
-                                    <span key={tag} className="dietary-tag">
-                                        <BiLeaf aria-hidden="true" />
-                                        {t(`tags.${tag}`)}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
-                    <div className="dietary-disclaimer">{t('disclaimer')}</div>
                 </div>
             )}
         </div>
     )
 }
-
-interface NutritionItemProps {
-    label: string
-    value: number
-    unit: string
-}
-
-const NutritionItem: React.FC<NutritionItemProps> = ({ label, value, unit }) => (
-    <div className="nutrition-item">
-        <div className="nutrition-value">
-            {value}
-            <span className="nutrition-unit">{unit}</span>
-        </div>
-        <div className="nutrition-label">{label}</div>
-    </div>
-)
